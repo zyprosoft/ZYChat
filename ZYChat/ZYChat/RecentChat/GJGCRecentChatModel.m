@@ -14,7 +14,7 @@
 {
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
     stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
-    stringStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    stringStyle.font = [UIFont boldSystemFontOfSize:16];
     
     return [[NSAttributedString alloc]initWithString:name attributes:[stringStyle attributedDictionary]];
 }
