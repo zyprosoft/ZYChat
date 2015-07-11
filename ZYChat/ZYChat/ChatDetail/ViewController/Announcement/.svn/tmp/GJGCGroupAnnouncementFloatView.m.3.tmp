@@ -1,0 +1,417 @@
+//
+//  GJGCGroupAnnouncementFloatView.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupAnnouncementFloatView.h"
+#import "GJCURoundCornerButton.h"
+
+@interface GJGCGroupAnnouncementFloatView ()
+
+@property (nonatomic,strong)GJCFCoreTextContentView *titleLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *contentLabel;
+
+@property (nonatomic,strong)GJCURoundCornerButton *checkAllAnouncementButton;
+
+@property (nonatomic,strong)UIImageView *tipImageView;
+
+@property (nonatomic,strong)UILabel *tipLabel;
+
+@property (nonatomic,strong)UIButton *tipButton;
+
+@property (nonatomic,strong)UIImageView *backImgView;
+
+@property (nonatomic,strong)UIImageView *accessoryIndicatorView;
+
+@property (nonatomic,strong)UIButton *announceBackBtn;
+
+@property (nonatomic,strong)GJGCGroupAnnouncementModel *theAnnouncement;
+
+@property (nonatomic,strong)UITapGestureRecognizer *tapRetryGesture;
+
+@end
+
+@implementation GJGCGroupAnnouncementFloatView
+
+- (instancetype)initWithDelegate:(id<GJGCGroupAnnouncementFloatViewDelegate>)aDelegate
+{
+    if (self = [super init]) {
+        
+        self.delegate = aDelegate;
+        
+        self.gjcf_size = CGSizeMake(GJCFSystemScreenWidth-20, 150);
+        
+        [self setupSubViews];
+        
+        
+    }
+    return self;
+}
+
+- (void)setupSubViews
+{
+    self.backImgView = [[UIImageView alloc]init];
+    self.backImgView.gjcf_size = self.gjcf_size;
+    self.backImgView.image = GJCFImageResize([UIImage imageNamed:@"公告-bg-card"], 5, 7, 10, 7);
+    [self addSubview:self.backImgView];
+    
+}
+
+- (void)hasAnnouncementState
+{
+    CGFloat contentLabelMaxWidth = self.gjcf_width - 24;
+    
+    if (!self.announceBackBtn) {
+        self.announceBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.announceBackBtn.gjcf_size = CGSizeMake(self.gjcf_width-2, 100);
+        [self.announceBackBtn setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle tapHighlightColor], self.announceBackBtn.gjcf_size) forState:UIControlStateHighlighted];
+        [self.announceBackBtn addTarget:self action:@selector(tapOnAnnouncement) forControlEvents:UIControlEventTouchUpInside];
+        self.announceBackBtn.gjcf_left = 1.f;
+        [self addSubview:self.announceBackBtn];
+    }
+    
+    if (!self.titleLabel) {
+        self.titleLabel = [[GJCFCoreTextContentView alloc]init];
+        self.titleLabel.gjcf_size = CGSizeMake(contentLabelMaxWidth, 30);
+        self.titleLabel.contentBaseSize = self.titleLabel.gjcf_size;
+        [self addSubview:self.titleLabel];
+        
+    }
+    
+    if (!self.contentLabel) {
+        
+        self.contentLabel = [[GJCFCoreTextContentView alloc]init];
+        self.contentLabel.gjcf_size = CGSizeMake(contentLabelMaxWidth, 30);
+        self.contentLabel.contentBaseSize = self.titleLabel.gjcf_size;
+        [self addSubview:self.contentLabel];
+    }
+    
+    if (!self.checkAllAnouncementButton) {
+       
+        self.checkAllAnouncementButton = [[GJCURoundCornerButton alloc]init];
+        self.checkAllAnouncementButton.highlightBackColor = [GJGCCommonFontColorStyle tapHighlightColor];
+        self.checkAllAnouncementButton.cornerBackView.cornerRadius = 8.f;
+        self.checkAllAnouncementButton.cornerBackView.roundedCorners = GJCURoundedCornerBottomLeft|GJCURoundedCornerBottomRight;
+        self.checkAllAnouncementButton.cornerBackView.borderColor = [GJGCCommonFontColorStyle tapHighlightColor];
+        self.checkAllAnouncementButton.cornerBackView.borderWidth = 0.5f;
+        self.checkAllAnouncementButton.cornerBackView.drawnBordersSides = GJCUDrawnBorderSidesTop;
+        self.checkAllAnouncementButton.gjcf_size = CGSizeMake(self.gjcf_width, 44);
+        self.checkAllAnouncementButton.gjcf_bottom = self.gjcf_height;
+        GJCFCoreTextAttributedStringStyle *titleStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        titleStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        titleStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+        NSAttributedString *titleString = [[NSAttributedString alloc]initWithString:@"查看所有公告" attributes:[titleStyle attributedDictionary]];
+        self.checkAllAnouncementButton.titleView.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:titleString forBaseContentSize:CGSizeMake(GJCFSystemScreenWidth-20, 44)];
+        self.checkAllAnouncementButton.titleView.contentAttributedString = titleString;
+        self.checkAllAnouncementButton.titleView.gjcf_centerX = self.checkAllAnouncementButton.gjcf_width/2;
+        
+        GJCFWeakSelf weakSelf = self;
+        [self.checkAllAnouncementButton configureButtonDidTapAction:^(GJCURoundCornerButton *button) {
+            [weakSelf tapOnCheckAllAnouncementButton];
+        }];
+        [self addSubview:self.checkAllAnouncementButton];
+        
+    }
+    
+    [self hasAnnouncementShowViews];
+    
+}
+
+- (void)tapOnCheckAllAnouncementButton
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(announcementFloatViewDidTappedToShowAllAnnouncement:)]) {
+        [self.delegate announcementFloatViewDidTappedToShowAllAnnouncement:self];
+    }
+}
+
+- (void)noAnnoucementShowViews
+{
+    if (self.tapRetryGesture) {
+        self.tapRetryGesture.enabled = NO;
+    }
+    self.announceId = nil;
+
+    self.titleLabel.hidden = YES;
+    self.contentLabel.hidden = YES;
+    self.announceBackBtn.hidden = YES;
+    self.checkAllAnouncementButton.hidden = YES;
+    
+    self.tipImageView.hidden = NO;
+    
+    if (self.isGroupManager) {
+        self.tipLabel.hidden = YES;
+        self.tipButton.hidden = NO;
+        self.accessoryIndicatorView.hidden = NO;
+    }else{
+        self.tipLabel.hidden = NO;
+    }
+}
+
+- (void)hasAnnouncementShowViews
+{
+    if (self.tapRetryGesture) {
+        self.tapRetryGesture.enabled = NO;
+    }
+    
+    self.titleLabel.hidden = NO;
+    self.contentLabel.hidden = NO;
+    self.announceBackBtn.hidden = NO;
+    self.checkAllAnouncementButton.hidden = NO;
+    
+    self.tipImageView.hidden = YES;
+    self.tipLabel.hidden = YES;
+    self.tipButton.hidden = YES;
+    self.accessoryIndicatorView.hidden = YES;
+}
+
+- (void)loadingAnnouncementShowViews
+{
+    if (self.tapRetryGesture) {
+        self.tapRetryGesture.enabled = NO;
+    }
+    
+    self.titleLabel.hidden = YES;
+    self.contentLabel.hidden = YES;
+    self.announceBackBtn.hidden = YES;
+    self.checkAllAnouncementButton.hidden = YES;
+    
+    self.tipImageView.hidden = NO;
+    self.tipLabel.text = @"加载中...";
+    self.tipLabel.hidden = NO;
+}
+
+- (void)loadingFaildAnnouncementShowViews
+{
+    self.titleLabel.hidden = YES;
+    self.contentLabel.hidden = YES;
+    self.announceBackBtn.hidden = YES;
+    self.checkAllAnouncementButton.hidden = YES;
+    
+    self.tipImageView.hidden = NO;
+    self.tipLabel.text = @"加载失败，点击重试";
+    self.tipLabel.hidden = NO;
+    
+    if (!self.tapRetryGesture) {
+        self.tapRetryGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(retryGetLatestAnnouncement:)];
+        [self addGestureRecognizer:self.tapRetryGesture];
+    }
+    self.tapRetryGesture.enabled = YES;
+}
+
+- (void)retryGetLatestAnnouncement:(UITapGestureRecognizer *)tapR
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(announcementFloatViewDidTappedToRetryGetLatestAnnouncement:)]) {
+        
+        [self.delegate announcementFloatViewDidTappedToRetryGetLatestAnnouncement:self];
+    }
+}
+
+- (void)noAnnouncementTip
+{
+    if (!self.tipImageView) {
+        
+        self.tipImageView = [[UIImageView alloc]init];
+        self.tipImageView.gjcf_size = CGSizeMake(33.5, 34.5);
+        self.tipImageView.gjcf_centerX = self.gjcf_width/2;
+        self.tipImageView.gjcf_top = 16;
+        self.tipImageView.image = [UIImage imageNamed:@"占位图-没有公告"];
+        [self addSubview:self.tipImageView];
+    }
+
+}
+
+- (void)groupMemeberHasNoAnnouncementState
+{
+    [self noAnnouncementTip];
+    
+    if (!self.tipLabel) {
+        
+        self.tipLabel = [[UILabel alloc]init];
+        self.tipLabel.gjcf_size = CGSizeMake(150, 18);
+        self.tipLabel.gjcf_centerX = self.gjcf_width/2;
+        self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8;
+        self.tipLabel.backgroundColor = [UIColor clearColor];
+        self.tipLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        self.tipLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.tipLabel.textAlignment = NSTextAlignmentCenter;
+        self.tipLabel.text = @"暂时没有公告";
+        
+        [self addSubview:self.tipLabel];
+    }
+    self.tipLabel.text = @"暂时没有公告";
+    
+    self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8.f;
+    self.gjcf_height = 91.5;
+    self.backImgView.gjcf_height = self.gjcf_height;
+    
+    [self noAnnoucementShowViews];
+}
+
+- (void)groupManagerHasNoAnnouncementState
+{
+    [self noAnnouncementTip];
+    
+    if (!self.accessoryIndicatorView) {
+        self.accessoryIndicatorView = [[UIImageView alloc]init];
+        self.accessoryIndicatorView.gjcf_width = 7;
+        self.accessoryIndicatorView.gjcf_height = 12;
+        self.accessoryIndicatorView.image = GJCFQuickImage(@"按钮箭头.png");
+        self.accessoryIndicatorView.gjcf_top = 25.f;
+        self.accessoryIndicatorView.gjcf_right = GJCFSystemScreenWidth - 13;
+        [self addSubview:self.accessoryIndicatorView];
+    }
+    
+    if (!self.tipButton) {
+        
+        self.tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.tipButton.gjcf_size = CGSizeMake(150, 30);
+        self.tipButton.gjcf_centerX = self.gjcf_width/2;
+        self.tipButton.gjcf_top = self.tipImageView.gjcf_bottom + 8;
+        self.tipButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        [self.tipButton setTitleColor:GJCFQuickHexColor(@"404040") forState:UIControlStateNormal];
+        [self.tipButton addTarget:self action:@selector(createAnnouncementAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.tipButton setTitle:@"暂时没有公告，去发布" forState:UIControlStateNormal];
+        
+        [self addSubview:self.tipButton];
+    }
+    self.accessoryIndicatorView.gjcf_left = self.tipButton.gjcf_right + 8;
+    self.gjcf_height = 91.5;
+    self.accessoryIndicatorView.gjcf_centerY = self.tipButton.gjcf_centerY;
+    self.backImgView.gjcf_height = self.gjcf_height;
+
+    [self noAnnoucementShowViews];
+}
+
+- (void)loadingAnnouncementState
+{
+    [self noAnnouncementTip];
+    
+    if (!self.tipLabel) {
+        
+        self.tipLabel = [[UILabel alloc]init];
+        self.tipLabel.gjcf_size = CGSizeMake(150, 18);
+        self.tipLabel.gjcf_centerX = self.gjcf_width/2;
+        self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8;
+        self.tipLabel.backgroundColor = [UIColor clearColor];
+        self.tipLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        self.tipLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.tipLabel.textAlignment = NSTextAlignmentCenter;
+        self.tipLabel.text = @"加载中...";
+        
+        [self addSubview:self.tipLabel];
+    }
+    
+    self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8.f;
+    self.gjcf_height = 91.5;
+    self.backImgView.gjcf_height = self.gjcf_height;
+    
+    [self loadingAnnouncementShowViews];
+}
+
+- (void)faildLoadingAnnouncementState
+{
+    [self noAnnouncementTip];
+    
+    if (!self.tipLabel) {
+        
+        self.tipLabel = [[UILabel alloc]init];
+        self.tipLabel.gjcf_size = CGSizeMake(150, 18);
+        self.tipLabel.gjcf_centerX = self.gjcf_width/2;
+        self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8;
+        self.tipLabel.backgroundColor = [UIColor clearColor];
+        self.tipLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        self.tipLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.tipLabel.textAlignment = NSTextAlignmentCenter;
+        self.tipLabel.text = @"加载失败，点击重试";
+        
+        [self addSubview:self.tipLabel];
+    }
+    
+    self.tipLabel.gjcf_top = self.tipImageView.gjcf_bottom + 8.f;
+    self.gjcf_height = 91.5;
+    self.backImgView.gjcf_height = self.gjcf_height;
+    
+    [self loadingFaildAnnouncementShowViews];
+}
+
+- (void)createAnnouncementAction
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(announcementFloatViewDidTappedToCreateNewAnnouncement:)]) {
+        
+        [self.delegate announcementFloatViewDidTappedToCreateNewAnnouncement:self];
+    }
+}
+
+- (void)setAnnouncement:(GJGCGroupAnnouncementModel *)announcement
+{
+    self.theAnnouncement = announcement;
+    self.announceId = announcement.announceId;
+    
+    [self hasAnnouncementState];
+    
+    if (!GJCFStringIsNull(announcement.title)) {
+        
+        GJCFCoreTextAttributedStringStyle *titleStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        titleStyle.font = [GJGCCommonFontColorStyle detailBigTitleFont];
+        titleStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.lineBreakMode = kCTLineBreakByTruncatingTail;
+        
+        NSString *formateTitle = [NSString stringWithFormat:@"[公告]%@",announcement.title];
+        NSMutableAttributedString *titleAttributed = [[NSMutableAttributedString alloc]initWithString:formateTitle attributes:[titleStyle attributedDictionary]];
+        [titleAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(formateTitle)];
+        
+        self.titleLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:titleAttributed forBaseContentSize:self.titleLabel.contentBaseSize];
+        [self.titleLabel setContentAttributedString:titleAttributed];
+        self.titleLabel.gjcf_top = 12.f;
+        self.titleLabel.gjcf_left = 12.f;
+    }
+    
+    if (!GJCFStringIsNull(announcement.content)) {
+        
+        GJCFCoreTextAttributedStringStyle *contentStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        contentStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        contentStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.maxLineSpace = 3.f;
+        paragraphStyle.minLineSpace = 3.f;
+        
+        NSMutableAttributedString *contentAttributed = [[NSMutableAttributedString alloc]initWithString:announcement.content attributes:[contentStyle attributedDictionary]];
+        [contentAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(announcement.content)];
+        
+        
+        self.contentLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentAttributed forBaseContentSize:self.contentLabel.contentBaseSize];
+        self.contentLabel.gjcf_left = 12.f;
+        
+        if (self.contentLabel.gjcf_size.height > 16) {
+            
+            self.contentLabel.gjcf_size = CGSizeMake(self.contentLabel.gjcf_size.width, 16*2+3);
+            
+        }
+        
+        [self.contentLabel setContentAttributedString:contentAttributed];
+        self.contentLabel.gjcf_top = self.titleLabel.gjcf_bottom + 12.f;
+    }
+    
+    self.announceBackBtn.gjcf_bottom = self.contentLabel.gjcf_bottom + 12.f;
+    self.checkAllAnouncementButton.gjcf_top = self.contentLabel.gjcf_bottom + 12.f;
+    
+    self.gjcf_height = self.checkAllAnouncementButton.gjcf_bottom;
+    self.backImgView.gjcf_height = self.gjcf_height;
+
+}
+
+- (void)tapOnAnnouncement
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(announcementFloatViewDidTappedToShowAnnouncementDetail:theAnnouncement:)]) {
+        [self.delegate announcementFloatViewDidTappedToShowAnnouncementDetail:self theAnnouncement:self.theAnnouncement];
+    }
+}
+
+@end

@@ -1,0 +1,202 @@
+//
+//  GJGCGroupCallAddViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/4/16.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupCallAddViewController.h"
+#import "GJGCUtilHelper.h"
+
+@interface GJGCGroupCallAddViewController ()<UITextViewDelegate>
+
+@property (nonatomic,strong)GJGCPGGroupModel *groupModel;
+
+@property (nonatomic,strong)UITextView *contentTextView;
+
+@property (nonatomic,strong)UIButton *sendButton;
+
+@end
+
+@implementation GJGCGroupCallAddViewController
+
+- (instancetype)initWithGroup:(GJGCPGGroupModel *)aGroup
+{
+    if (self = [super init]) {
+        
+        self.groupModel = aGroup;
+        
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setStrNavTitle:@"群主召唤"];
+    
+    [self setupSubViews];
+}
+
+- (void)setupSubViews
+{
+    [self checkCanSendGroupCall];
+
+    UIImageView *backgroundImageView = [[UIImageView alloc]init];
+    backgroundImageView.gjcf_size = CGSizeMake(GJCFSystemScreenWidth,80);
+    backgroundImageView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:backgroundImageView];
+    
+    UIImageView *seprateLine = [[UIImageView alloc]init];
+    seprateLine.gjcf_size = CGSizeMake(GJCFSystemScreenWidth, 0.5);
+    seprateLine.backgroundColor = [UIColor lightGrayColor];
+    seprateLine.gjcf_bottom = backgroundImageView.gjcf_bottom;
+    [self.view addSubview:seprateLine];
+    
+    self.contentTextView = [[UITextView alloc]init];
+    self.contentTextView.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 30, backgroundImageView.gjcf_height - 40);
+    self.contentTextView.gjcf_top = 24;
+    self.contentTextView.gjcf_left = 15;
+    self.contentTextView.delegate = self;
+    self.contentTextView.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    self.contentTextView.textColor = GJCFQuickHexColor(@"404040");
+    self.contentTextView.text = @"大家出来冒个泡吧~";
+    [self.view addSubview:self.contentTextView];
+    
+    self.sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.sendButton.frame = CGRectMake(20,0, GJCFSystemScreenWidth - 40, 40);
+    self.sendButton.gjcf_top = seprateLine.gjcf_bottom + 24;
+    self.sendButton.layer.cornerRadius = 3.f;
+    self.sendButton.layer.masksToBounds = YES;
+    self.sendButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.sendButton setTitle:@"立刻召唤" forState:UIControlStateNormal];
+    [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.sendButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.sendButton.gjcf_size) forState:UIControlStateNormal];
+    [self.sendButton addTarget:self action:@selector(sendGroupCallAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.sendButton];
+    self.sendButton.enabled = NO;
+    
+    GJCFCoreTextContentView *descriptionLabel = [[GJCFCoreTextContentView alloc]init];
+    descriptionLabel.gjcf_size = CGSizeMake(self.sendButton.gjcf_width, 40);
+    descriptionLabel.gjcf_left = self.sendButton.gjcf_left;
+    descriptionLabel.gjcf_top = self.sendButton.gjcf_bottom + 16;
+    descriptionLabel.contentAttributedString = [self descriptionString];
+    [descriptionLabel sizeToFit];
+    [self.view addSubview:descriptionLabel];
+    
+}
+
+- (NSAttributedString *)descriptionString
+{
+    GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+    stringStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    
+    GJCFCoreTextParagraphStyle *paragrahStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+    paragrahStyle.maxLineSpace = 12.f;
+    paragrahStyle.minLineSpace = 12.f;
+    
+    NSString *text = @"此功能为群主特权，点击召唤可以呼唤群成员。群主每个群每天可以发起一次召唤。";
+    
+    NSMutableAttributedString *resultString = [[NSMutableAttributedString alloc]initWithString:text attributes:[stringStyle attributedDictionary]];
+    
+    [resultString addAttributes:[paragrahStyle paragraphAttributedDictionary] range:GJCFStringRange(text)];
+    
+    return resultString;
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@""]) {
+        return YES;
+    }else{
+        
+        if (self.contentTextView.text.length >= 20) {
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+}
+
+- (void)sendGroupCallAction
+{
+    if (self.groupModel.groupId == 0) {
+        return;
+    }
+    
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12100" params:@[[NSString stringWithFormat:@"%lld",self.groupModel.groupId],self.contentTextView.text,[NSString stringWithFormat:@"%ld",(unsigned long)self.groupModel.currentCount]]];
+    
+    if (GJCFStringIsNull(self.contentTextView.text) || GJCFStringIsAllWhiteSpace(self.contentTextView.text)) {
+        
+        [self.contentTextView resignFirstResponder];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"召唤理由不可以为空或纯空格"}];
+
+        [self.contentTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:1.5f];
+        
+        return;
+    }
+    
+    if (self.contentTextView.text.length > 20) {
+        
+        [self.contentTextView resignFirstResponder];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"召唤理由不可以超过20字"}];
+        
+        [self.contentTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:1.5f];
+        
+        return;
+    }
+    
+    [self.contentTextView resignFirstResponder];
+    
+    GJCFWeakSelf weakSelf = self;
+    
+    [self.statusHUD showWithStatusText:@"正在发送..."];
+    
+    self.sendButton.enabled = NO;
+
+    [[GJGCGroupCallManager shareManager] sendGroupCallWithGroupId:[NSString stringWithFormat:@"%lld",self.groupModel.groupId] withContent:self.contentTextView.text withResultBlock:^(BOOL state, NSString *errMsg) {
+        
+        [weakSelf.statusHUD dismiss];
+        
+        if (state) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"发送成功"}];
+
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(groupCallAddViewControllerDidSuccessSendGroupCall:)]) {
+                [self.delegate groupCallAddViewControllerDidSuccessSendGroupCall:weakSelf];
+            }
+            
+        }else{
+            
+            weakSelf.sendButton.enabled = YES;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+
+        }
+        
+    }];
+}
+
+- (void)checkCanSendGroupCall
+{
+    GJCFWeakSelf weakSelf = self;
+    [[GJGCGroupCallManager shareManager] checkCanSendGroupCallWithGroupId:[NSString stringWithFormat:@"%lld",self.groupModel.groupId] withResult:^(BOOL state, NSString *errMsg) {
+        
+        if (state) {
+            
+            weakSelf.sendButton.enabled = YES;
+            
+        }else{
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+        }
+        
+    }];
+}
+
+@end

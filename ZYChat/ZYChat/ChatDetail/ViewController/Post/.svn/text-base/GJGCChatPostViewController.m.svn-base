@@ -1,0 +1,313 @@
+//
+//  GJGCChatPostViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatPostViewController.h"
+#import "GJGCChatPostTalkModel.h"
+#import "GJGCIMSendMsgManager.h"
+#import "GJGCPostMsgDBAPI.h"
+#import "GJGCChatPostDataSourceManager.h"
+#import "GJGCHostReferProtocolsNew.h"
+#import "Objection.h"
+#import "GJGCChatPostContentModel.h"
+#import "GJGCChatMessageSendManager.h"
+#import "GJGCUtilHelper.h"
+
+@interface GJGCChatPostViewController ()<UIActionSheetDelegate>
+
+@property (nonatomic,strong) NSObject<GJGCPostViewControllerManagerProtocol> *postHostManager;
+
+@end
+
+@implementation GJGCChatPostViewController
+@synthesize postHostManager;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self setStrNavTitle:self.dataSourceManager.title];
+    
+    /* 是否有联系电话 */
+    [self setupUserPhone];
+    
+    /* 读草稿 */
+    NSString *messageDraft = [GJGCChatListInterfaseHandle getDrafMsg:self.taklInfo.toId msgType:@"post_private"];
+    
+    [self.inputPanel setLastMessageDraft:messageDraft];
+    
+}
+
+#pragma mark - 初始化数据源
+
+- (void)initDataManager
+{
+    /* 更新电话列表 */
+    [self saveUserPhones];
+    
+    self.postHostManager = [[JSObjection defaultInjector] getObject:@protocol(GJGCPostViewControllerManagerProtocol)];
+
+    self.dataSourceManager = [[GJGCChatPostDataSourceManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    
+    /* 更新帖子图片 */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recievePostMessageImage:) name:GJGC_NOTIFICATION_SEND_MESSAGE_POSTIMAGE object:nil];
+
+}
+
+#pragma mark - 保存联系人电话号码
+
+- (NSString *)cacheFilePath
+{
+    NSString *cachePath = [[GJCFCachePathManager shareManager] createOrGetSubCacheDirectoryWithName:@"ChatPostUserPhone"];
+    
+    return [cachePath stringByAppendingPathComponent:@"phone.plist"];
+}
+
+- (void)saveUserPhones
+{
+    NSString *cachePath = [self cacheFilePath];
+    
+    NSMutableDictionary *cacheDict = nil;
+    
+    if (!GJCFFileIsExist(cachePath)) {
+        cacheDict = [NSMutableDictionary dictionary];
+    }else{
+        NSData *cacheData = [NSData dataWithContentsOfFile:cachePath];
+        cacheDict = [NSKeyedUnarchiver unarchiveObjectWithData:cacheData];
+    }
+    
+    GJGCChatPostTalkModel *postTalk = (GJGCChatPostTalkModel *)self.taklInfo;
+    
+    if (postTalk.iphoneArray && postTalk.iphoneArray.count > 0) {
+        
+        [cacheDict setObject:postTalk.iphoneArray forKey:postTalk.toId];
+        
+        NSData *phoneData = [NSKeyedArchiver archivedDataWithRootObject:cacheDict];
+        
+        GJCFFileWrite(phoneData, cachePath);
+    }
+}
+
+- (void)setupUserPhone
+{
+    self.navigationItem.rightBarButtonItem = nil;
+
+    GJGCChatPostTalkModel *postTalk = (GJGCChatPostTalkModel *)self.taklInfo;
+
+    if (postTalk.iphoneArray && postTalk.iphoneArray.count > 0) {
+        
+        [self saveUserPhones];
+        
+        [self setRightButtonWithStateImage:@"GJIM_CHAT_CALL" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
+
+        return;
+
+    }
+    
+    /* 读取是否有文件存储 */
+    NSString *cachePath = [self cacheFilePath];
+
+    if (!GJCFFileIsExist(cachePath)) {
+        return;
+    }
+    
+    NSData *cacheData = [NSData dataWithContentsOfFile:cachePath];
+    NSMutableDictionary *cacheDict = [NSKeyedUnarchiver unarchiveObjectWithData:cacheData];
+    
+    NSArray *cachePhoneArray = [cacheDict objectForKey:self.taklInfo.toId];
+    
+    if (!cachePhoneArray || cachePhoneArray.count == 0) {
+        return;
+    }
+    
+    //过滤空字符串
+    NSMutableArray *filterArray = [NSMutableArray array];
+    
+    for (NSString *item in cachePhoneArray) {
+     
+        if (!GJCFStringIsNull(item)) {
+            [filterArray addObject:item];
+        }
+    }
+    
+    if (filterArray.count == 0) {
+        return;
+    }
+    postTalk.iphoneArray = filterArray;
+    
+    [self setRightButtonWithStateImage:@"GJIM_CHAT_CALL" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
+
+}
+
+#pragma mark - 电话按钮点击
+
+- (void)rightButtonPressed:(id)sender
+{
+    GJGCChatPostTalkModel *postTalk = (GJGCChatPostTalkModel *)self.taklInfo;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"联系电话" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    if (postTalk.iphoneArray && [postTalk.iphoneArray count] > 0) {
+        
+        for (id obj in postTalk.iphoneArray) {
+            [actionSheet addButtonWithTitle:obj];
+        }
+    }
+    
+    [actionSheet addButtonWithTitle:@"取消"];
+    actionSheet.cancelButtonIndex = actionSheet.numberOfButtons-1;
+    [actionSheet showInView:self.view];
+    
+    /* 行为埋点 */
+    [GJGCUtilHelper addGanjiLog:@"12034" params:nil];
+}
+
+#pragma  mark - 发送消息内容绑定帖子信息
+
+- (void)setSendChatContentModelWithTalkInfo:(GJGCChatFriendContentModel *)contentModel
+{
+    GJGCChatPostTalkModel *postTalkModel = (GJGCChatPostTalkModel *)self.taklInfo;
+    
+    contentModel.basePostId = postTalkModel.postId;
+    contentModel.basePostImg = postTalkModel.postImage;
+    contentModel.basePostTitle = postTalkModel.postTitle;
+    
+}
+
+#pragma mark - 扩展面板代理
+
+- (GJGCChatInputExpandMenuPanelConfigModel *)chatInputPanelRequiredCurrentConfigData:(GJGCChatInputPanel *)panel
+{
+    GJGCChatInputExpandMenuPanelConfigModel *configModel = [[GJGCChatInputExpandMenuPanelConfigModel alloc]init];
+    configModel.talkType = self.taklInfo.talkType;
+    
+    return configModel;
+}
+
+- (void)chatInputPanel:(GJGCChatInputPanel *)panel didChooseMenuAction:(GJGCChatInputMenuPanelActionType)actionType
+{
+    
+    [GJGCChatMessageSendManager shareManager];
+    
+    [super chatInputPanel:panel didChooseMenuAction:actionType];
+    if (actionType == GJGCChatInputMenuPanelActionTypeMyFavoritePost) {
+        
+        
+        if (postHostManager) {
+             GJGCChatPostTalkModel *postTalkModel = (GJGCChatPostTalkModel *)self.taklInfo;
+            
+            GJGCChatPostContentModel *contentModel = [[GJGCChatPostContentModel alloc] init];
+            contentModel.basePostId = postTalkModel.postId;
+            contentModel.basePostImg = postTalkModel.postImage;
+            contentModel.basePostTitle = postTalkModel.postTitle;
+            contentModel.toId = postTalkModel.toId;
+            contentModel.toUserName = postTalkModel.toUserName;
+            
+            [postHostManager showPostVC:contentModel];
+        }
+    }
+    
+}
+
+#pragma mark - 调用收藏帖子
+
+- (void)chatCellDidChooseFavoritePost:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatPostContentModel *chatContentModel = (GJGCChatPostContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    [postHostManager saveFavPostByMsg:chatContentModel];
+    
+    /* 行为埋点 */
+    NSArray *basePostIdArray = [chatContentModel.basePostId componentsSeparatedByString:@"_"];
+    if (basePostIdArray && basePostIdArray.count > 2) {
+        
+        NSString *subCategoryIndex = [basePostIdArray objectAtIndex:1];
+        NSString *mainCategoryIndex = [basePostIdArray objectAtIndex:2];
+        
+        [GJGCUtilHelper addGanjiLog:@"12025" params:@[mainCategoryIndex,subCategoryIndex]];
+    }
+}
+
+#pragma mark - 点击了帖子，要进入详情
+
+- (void)chatCellDidTapOnPost:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatPostContentModel *chatContentModel = (GJGCChatPostContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    [postHostManager clickEventByMsg:chatContentModel];
+    
+    [self setLeftButtonEnabled:NO];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf setLeftButtonEnabled:YES];
+    });
+    
+    /* 行为埋点 */
+    NSString *type = @"2";
+    [GJGCUtilHelper addGanjiLog:@"12018" params:@[type]];
+    
+    NSArray *basePostIdArray = [chatContentModel.basePostId componentsSeparatedByString:@"_"];
+    if (basePostIdArray && basePostIdArray.count > 2) {
+        
+        NSString *subCategoryIndex = [basePostIdArray objectAtIndex:1];
+        NSString *mainCategoryIndex = [basePostIdArray objectAtIndex:2];
+        
+        [GJGCUtilHelper addGanjiLog:@"12024" params:@[mainCategoryIndex,subCategoryIndex]];
+    }
+    
+}
+
+#pragma mark - UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+    
+    NSString *buttonTile = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if ([buttonTile isEqualToString:@"取消"]) {
+        
+        return;
+    }
+    
+    /* 行为埋点 */
+    [GJGCUtilHelper addGanjiLog:@"12035" params:nil];
+    
+    [self makePhoneCall:buttonTile];
+}
+
+#pragma mark - 收到帖子图片地址更新
+
+- (void)recievePostMessageImage:(NSNotification *)noti
+{
+    NSDictionary *dict = noti.userInfo;
+    NSString *picIdentifier = [dict objectForKey:@"mId"];
+    
+    NSString *dataSourceIdentifier = [[picIdentifier  componentsSeparatedByString:@"_"] firstObject];
+    if (![dataSourceIdentifier isEqualToString:self.taklInfo.toId]) {
+        return;
+    }
+    NSString *localMsgId = [[picIdentifier componentsSeparatedByString:@"_"] lastObject];
+    
+    NSString *imageUrl = [dict objectForKey:@"imageUrl"];
+    if (!GJCFStringIsNull(imageUrl)) {
+
+        [(GJGCChatPostDataSourceManager *)self.dataSourceManager updatePostImageUrl:imageUrl withLocalMsgId:[localMsgId longLongValue] toId:self.taklInfo.toId];
+        
+    }
+}
+
+#pragma mark - 点击头像什么都不做
+
+- (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell
+{
+    
+}
+
+@end

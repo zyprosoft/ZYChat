@@ -1,0 +1,141 @@
+//
+//  GJGCDriftBottleImageScrollView.m
+//  ZYChat
+//
+//  Created by ZYVincent on 15/7/1.
+//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//
+
+#import "GJGCDriftBottleImageScrollView.h"
+
+@interface GJGCDriftBottleImageScrollView ()<UIScrollViewDelegate>
+
+@property (nonatomic,assign)CGSize imageSize;
+
+@property (nonatomic,strong)UIImageView *contentImageView;
+
+@end
+
+@implementation GJGCDriftBottleImageScrollView
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        self.showsVerticalScrollIndicator   = NO;
+        self.showsHorizontalScrollIndicator = NO;
+        self.bouncesZoom                    = YES;
+        self.decelerationRate               = UIScrollViewDecelerationRateFast;
+        self.delegate = self;
+
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (void)setupSubViews
+{
+    self.contentImageView = [[UIImageView alloc]init];
+    [self addSubview:self.contentImageView];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // 当图片缩小的时候，让图片在中间
+    CGSize boundsSize       = self.bounds.size;
+    CGRect frameToCenter    = self.contentImageView.frame;
+    
+    // 水平设置中间
+    if (frameToCenter.size.width < boundsSize.width)
+        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2;
+    else
+        frameToCenter.origin.x = 0;
+    
+    // 垂直设置中间
+    if (frameToCenter.size.height < boundsSize.height)
+        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
+    else
+        frameToCenter.origin.y = 0;
+    
+    self.contentImageView.frame    = frameToCenter;
+}
+
+- (void)setNeedShowImage:(UIImage *)aImage
+{
+    // 恢复默认的缩放
+    self.zoomScale = 1.0;
+
+    self.contentImageView.gjcf_width = GJCFSystemScreenWidth;
+    self.contentImageView.gjcf_height = self.contentImageView.gjcf_width;
+    self.contentImageView.image = aImage;
+    
+    [self autoAdjustContentImageView];
+}
+
+- (UIImage *)contentImage
+{
+    return self.contentImageView.image;
+}
+
+- (void)autoAdjustContentImageView
+{
+    if (self.contentImageView.image) {
+        
+        CGFloat widthScale = 1.0;
+        CGFloat heightScale = 1.0;
+        
+        CGSize contentImageSize = self.contentImageView.image.size;
+        NSLog(@"contentImageSize:%@",NSStringFromCGSize(contentImageSize));
+        
+        if (contentImageSize.width > GJCFSystemScreenWidth) {
+            widthScale = GJCFSystemScreenWidth/self.contentImageView.image.size.width;
+        }
+        
+        if (contentImageSize.height > GJCFSystemScreenHeight) {
+            heightScale = GJCFSystemScreenHeight/self.contentImageView.image.size.height;
+        }
+        
+        CGFloat scaleSize = MIN(widthScale, heightScale);
+        CGFloat contentImgViewWidth = contentImageSize.width * scaleSize;
+        CGFloat contentImgViewHeight = contentImageSize.height * scaleSize;
+        
+        NSLog(@"contentImagWidth:%f contentImageHeight:%f",contentImgViewWidth,contentImgViewHeight);
+        
+        self.contentImageView.gjcf_width = contentImgViewWidth;
+        self.contentImageView.gjcf_height = contentImgViewHeight;
+        
+        [self setNeedsLayout];
+        
+        NSLog(@"cotnenImgView frame:%@",NSStringFromCGRect(self.contentImageView.frame));
+    }
+}
+
+- (void)fitZoomScaleSize
+{
+    CGSize boundsSize = self.bounds.size;
+    if (self.contentImageView.image) {
+        boundsSize = self.contentImageView.image.size;
+    }
+    
+    CGFloat xScale = boundsSize.width  / self.imageSize.width;    // 最佳缩放宽的倍数
+    CGFloat yScale = boundsSize.height / self.imageSize.height;   // 最佳缩放高的倍数
+    
+    CGFloat minScale = MIN(xScale, yScale);
+    CGFloat maxScale = 2.0 * minScale;
+    
+    self.minimumZoomScale = minScale;
+    self.maximumZoomScale = maxScale;
+    
+    self.zoomScale      = self.minimumZoomScale;
+}
+
+#pragma mark - 需要放大的视图
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.contentImageView;
+}
+
+
+@end

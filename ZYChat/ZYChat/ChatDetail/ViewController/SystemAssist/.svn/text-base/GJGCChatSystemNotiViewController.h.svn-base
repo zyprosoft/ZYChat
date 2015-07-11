@@ -1,0 +1,14 @@
+//
+//  GJGCSystemNotiViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-11.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatDetailViewController.h"
+#import "GJGCChatSystemNotiDataManager.h"
+
+@interface GJGCChatSystemNotiViewController : GJGCChatDetailViewController
+
+@end

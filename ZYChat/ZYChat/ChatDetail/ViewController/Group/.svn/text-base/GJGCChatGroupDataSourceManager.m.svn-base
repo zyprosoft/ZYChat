@@ -1,0 +1,448 @@
+//
+//  GJGCChatGroupDataSourceManager.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-29.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatGroupDataSourceManager.h"
+#import "GJGCIMFriendSystemModel.h"
+#import "NSString+GJGCJSONString.h"
+#import "GJGCUserModel.h"
+#import "GJGCUserDBAPI.h"
+#import "GJGCChatFriendDataSourceManager.h"
+#import "GJGCIMGroupMsgDBAPI.h"
+#import "GJGCIMGroupMsgModel.h"
+#import "GJGCBusinessErrorLog.h"
+
+@implementation GJGCChatGroupDataSourceManager
+
+- (instancetype)initWithTalk:(GJGCChatFriendTalkModel *)talk withDelegate:(id<GJGCChatDetailDataSourceManagerDelegate>)aDelegate
+{
+    if (self = [super initWithTalk:talk withDelegate:aDelegate]) {
+
+        self.title = talk.toUserName;
+        
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeRecievedGroupMessage:) name:GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE object:nil];
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeLocalMessageUpdate:) name:GJGCChatMessageSendManagerUpdateLocalSuccessNoti object:nil];
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeHistoryMessage:) name:GJGC_NOTIFICATION_RECEIVE_HISTORYMSG object:nil];
+        [self observeMediaUploadSuccessNoti];
+        
+        [self readLastMessagesFromDB];
+        
+    }
+    return self;
+}
+
+#pragma mark - 观察到UI更新了附件地址消息
+
+- (void)observeMediaUploadSuccessNoti
+{
+    [GJCFNotificationCenter addObserver:self selector:@selector(recieveMediaUploadSuccessNoti:) name:GJGCChatMessageSendManagerDidUploadMediaMessageSuccessNoti object:nil];
+}
+
+- (void)recieveMediaUploadSuccessNoti:(NSNotification *)noti
+{
+    NSDictionary *notiInfo = noti.object;
+    
+    NSString *type = notiInfo[@"type"];
+    NSString *url = notiInfo[@"data"];
+    NSString *msgId = notiInfo[@"msgId"];
+    NSString *toId = notiInfo[@"toId"];
+    
+    if (![toId isEqualToString:self.taklInfo.toId]) {
+        return;
+    }
+    
+    if ([type isEqualToString:@"audio"]) {
+        
+        [self updateAudioUrl:url withLocalMsg:msgId toId:toId];
+    }
+    
+    if ([type isEqualToString:@"image"]) {
+        
+        [self updateImageUrl:url withLocalMsg:msgId toId:toId];
+    }
+}
+
+#pragma mark - 观察本地发送消息创建成功和消息状态更新通知
+
+- (void)observeLocalMessageUpdate:(NSNotification *)noti
+{
+    NSDictionary *passResult = (NSDictionary *)noti.object;
+    GJGCChatMessageSendMessageType type = [[passResult objectForKey:@"type"]intValue];
+    GJGCIMMsgBaseModel *msgModel = [passResult objectForKey:@"data"];
+    
+    GJGCLogVincent(@"群聊对话更新一条消息:%@ status:%@",msgModel.localMsgId,msgModel.state);
+    
+    if ( type == GJGCChatMessageSendMessageTypeGroup ) {
+        
+        [self updateContentModelStateWithMsgModel:msgModel];
+    }
+}
+
+#pragma mark - 观察收到的消息，自己发送的消息也会当成一条收到的消息来处理插入
+
+- (void)observeRecievedGroupMessage:(NSNotification *)noti
+{
+    GJGCChatFriendTalkModel *talkModel = (GJGCChatFriendTalkModel *)noti.userInfo[@"data"];
+    
+    if (talkModel.talkType != GJGCChatFriendTalkTypeGroup) {
+        return;
+    }
+    
+    /*是否当前对话的信息 */
+    if ([talkModel.toId intValue] != [self.taklInfo.toId intValue]) {
+        
+        GJGCLogVincent(@"not this talk msg:%@",talkModel.toId);
+        
+        return;
+        
+    }
+    
+    GJGCLogVincent(@"群聊对话收到一组消息:%@",talkModel.msgArray);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self receievedGroupMessage:talkModel];
+        
+    });
+}
+
+- (void)receievedGroupMessage:(GJGCChatFriendTalkModel *)talkModel
+{
+    for (GJGCIMGroupMsgModel *msgModel in talkModel.msgArray) {
+        
+        GJGCChatFriendContentModel *contentModel = [self addGroupMsg:msgModel];
+        
+        if (talkModel.msgArray.count < 4) {
+            
+            [self updateTheNewMsgTimeString:contentModel];
+
+        }
+    }
+    
+    /* 重新排序 */
+    if (talkModel.msgArray.count >= 4) {
+        
+        [self resortAllChatContentBySendTime];
+                
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+        GJGCLogVincent(@"chatVC reload data:%@",self.delegate);
+        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+    }
+}
+
+- (void)observeHistoryMessage:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self recievedHistoryMessage:noti];
+        
+    });
+}
+
+- (void)recievedHistoryMessage:(NSNotification *)noti
+{
+    /* 是否当前会话的历史消息 */
+    GJGCIMHistoryMsgResultModel *resultModel = noti.userInfo[@"data"];
+    
+    if (![resultModel isEqualTalk:self.taklInfo] || ![resultModel.observerIdentifier isEqualToString:self.uniqueIdentifier]) {
+        return;
+    }
+    
+    NSArray *msgArray = resultModel.msgArray;
+    
+    BOOL isFirstPull = resultModel.isFirstPull;
+    
+    NSInteger errorCode = resultModel.errorCode;
+    
+    NSInteger requestMsgCount = resultModel.requestMsgCount;
+
+    /* 所有历史消息都加载完了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && msgArray.count == 0) {
+        
+        /**
+         *  当历史数据和本地区间有交集的时候，重新尝试获取一次本地历史消息
+         */
+        NSArray *reTryLocalMsgArray = [self reTryGetLocalMessageWhileHistoryMessageIsSubMessagesOfLocalMessages];
+        
+        if (reTryLocalMsgArray.count > 0) {
+            
+            msgArray = reTryLocalMsgArray;
+            
+        }
+    
+    }
+    
+    if (msgArray && msgArray.count > 0 && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode]) {
+                
+        /* 分发到UI层 */
+        for (GJGCIMGroupMsgModel *msgModel in msgArray) {
+            [self addGroupMsg:msgModel];
+        }
+        
+        /* 重排时间顺序 */
+        [self resortAllChatContentBySendTime];
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成群聊第一次拉取历史消息");
+            self.isFinishFirstHistoryLoad = YES;
+
+            /* 悬停在第一次加载历史消息的最后一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+            }
+            
+        }else{
+            
+            /* 悬停在第一次加载后的第一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishRefresh:self];
+            }
+        }
+        
+    }else{
+        
+        if (errorCode == kCFURLErrorNotConnectedToInternet) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"似乎已断开与互联网链接"}];
+            
+        }else{
+            
+            /* 被踢出群了 */
+            if (errorCode == 43008) {
+                
+               [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"您已不在该群内"}];
+
+            }
+
+        }
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成群聊第一次拉取历史消息");
+            
+            self.isFinishFirstHistoryLoad = YES;
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+                
+            }
+            
+            return;
+        }
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+            [self.delegate dataSourceManagerRequireFinishRefresh:self];
+        }
+    }
+
+    /* 如果没有历史消息了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && requestMsgCount == 0) {
+        
+        self.isFinishLoadAllHistoryMsg = YES;
+    }
+}
+
+- (GJGCChatFriendContentModel *)addGroupMsg:(GJGCIMGroupMsgModel *)msgModel
+{
+    /* 格式化消息 */
+    GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
+    chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
+    chatContentModel.toId = GJCFStringFromInt([msgModel.toId intValue]);
+    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.isFromSelf = [msgModel.isMySendMsg boolValue];
+    chatContentModel.sendStatus = [msgModel.state intValue];
+    chatContentModel.sendTime = [msgModel.sendTime longLongValue];
+    chatContentModel.localMsgId = GJCFStringFromInt([msgModel.localMsgId intValue]);
+    chatContentModel.senderId = msgModel.senderId;
+    chatContentModel.isGroupChat = YES;
+    chatContentModel.senderName = [GJGCChatFriendCellStyle formateGroupChatSenderName:msgModel.senderName];
+    chatContentModel.faildReason = msgModel.faildReason;
+    chatContentModel.faildType = [msgModel.faildType intValue];
+    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.contentHeight = [msgModel.height floatValue];
+    if (GJCFStringIsNull(msgModel.contentSize)) {
+        chatContentModel.contentSize = CGSizeZero;
+    }else{
+        chatContentModel.contentSize = CGSizeFromString(msgModel.contentSize);
+    }
+    chatContentModel.sessionId = msgModel.toId;
+
+    /* 解析内容 */
+    GJGCChatFriendContentType resultType = [self formateChatFriendContent:chatContentModel withMsgModel:msgModel];
+    
+    if (resultType != GJGCChatFriendContentTypeNotFound) {
+        
+        [self addChatContentModel:chatContentModel];
+        
+    }
+
+    return chatContentModel;
+}
+
+#pragma mark - 读取最近历史消息
+
+- (void)readLastMessagesFromDB
+{
+   NSArray *msgArray = [[GJGCIMGroupMsgDBAPI share] getLastMsgWithCount:20 withToId:self.taklInfo.toId msgType:@"group"];
+    
+    for (NSInteger i = msgArray.count - 1; i >= 0; i--) {
+        
+        GJGCIMGroupMsgModel *msgModel = [msgArray objectAtIndex:i];
+        
+        GJGCLogVincent(@"readLastMessageArray :%@",msgModel);
+        
+        [self addGroupMsg:msgModel];
+    }
+    
+    /* 更新时间 */
+    [self updateAllMsgTimeShowString];
+    
+    /* 设置加载完后第一条消息和最后一条消息 */
+    [self resetFirstAndLastMsgId];
+
+}
+
+- (void)pushAddMoreMsg:(NSArray *)array
+{
+    for (GJGCIMGroupMsgModel * model in array) {
+        [self addGroupMsg:model];
+    }
+    
+    /* 重排时间顺序 */
+    [self resortAllChatContentBySendTime];
+    
+    /* 上一次悬停的第一个cell的索引 */    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.delegate dataSourceManagerRequireFinishRefresh:weakSelf];
+        });
+    }
+}
+
+#pragma mark - 删除消息
+
+- (NSArray *)deleteMessageAtIndex:(NSInteger)index
+{
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index];
+    
+    BOOL isDelete = [[GJGCIMGroupMsgDBAPI share]updateIsDelete:1 localMsgId:@([contentModel.localMsgId intValue]) msgType:@"group" toId:self.taklInfo.toId];
+    
+    NSMutableArray *willDeletePaths = [NSMutableArray array];
+
+    if (isDelete) {
+        
+        /* 更新最近联系人列表得最后一条消息 */
+        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
+            
+            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
+            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
+            if (lastContentAfterDelete.isTimeSubModel) {
+                
+                if (self.chatContentTotalCount - 1 >= 1) {
+                    
+                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
+                    
+                }
+                
+            }
+            
+            if (lastContentAfterDelete) {
+                
+                /* 更新最近会话信息 */
+                [self updateLastMsg:lastContentAfterDelete];
+                
+            }else{
+                
+                [[GJGCMsgBoxInterfaseHandle getChatListInterfase]clearContentWithToId:self.taklInfo.toId msgType:GJGCTalkTypeString(self.taklInfo.talkType)];
+                
+            }
+        }
+        
+        NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
+        
+        [self removeChatContentModelAtIndex:index];
+        
+        [willDeletePaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+        
+        if (willDeleteTimeSubIdentifier) {
+            
+            [willDeletePaths addObject:[NSIndexPath indexPathForRow:index - 1 inSection:0]];
+            
+            [self removeTimeSubByIdentifier:willDeleteTimeSubIdentifier];
+        }
+    }
+    
+    return willDeletePaths;
+} 
+
+
+#pragma mark - 更新附件地址
+
+- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
+        
+        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
+            
+            GJGCLogVincent(@"更新内存中语音的地址为:%@",audioUrl);
+            contentModel.audioModel.localStorePath = [[GJCFCachePathManager shareManager]mainAudioCacheFilePathForUrl:audioUrl];
+            
+            break;
+        }
+        
+    }
+}
+
+- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
+        
+        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
+            
+            contentModel.imageMessageUrl = imageUrl;
+            GJGCLogVincent(@"更新内存中图片的地址为:%@",imageUrl);
+            
+            break;
+        }
+        
+    }
+}
+
+- (void)updateAudioFinishRead:(NSString *)localMsgId
+{
+    [[GJGCIMGroupMsgDBAPI share] updateAudioMsgFinishRead:[localMsgId longLongValue] toId:self.taklInfo.toId];
+}
+
+#pragma mark - 更新数据库中消息得高度
+
+- (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    [[GJGCIMGroupMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) contentSize:contentModel.contentSize withToId:self.taklInfo.toId withLocalMsgId:contentModel.localMsgId];
+}
+
+#pragma mark - 重试发送状态消息
+
+- (void)reTryAllSendingStateMsgDetailAction
+{
+    NSArray *sendingStateMsgs = [[GJGCIMGroupMsgDBAPI share]getAllSendingStateMsgWithToId:self.taklInfo.toId];
+    
+    if (sendingStateMsgs && sendingStateMsgs.count > 0) {
+        
+        for (GJGCIMMsgBaseModel *msgModel in sendingStateMsgs) {
+            
+            [[GJGCChatMessageSendManager shareManager] reSendMessageWithLocalMsgId:GJCFStringFromInt([msgModel.localMsgId longLongValue]) talkType:self.taklInfo.talkType toId:self.taklInfo.toId];
+        }
+    }
+}
+
+@end

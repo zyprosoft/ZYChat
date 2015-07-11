@@ -1,0 +1,190 @@
+//
+//  GJGCGroupAnnouncementViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupAnnouncementViewController.h"
+#import "GJGCGroupAnnouncenmentCell.h"
+#import "GJGCGroupAnnouncementAddViewController.h"
+#import "GJGCGroupAnnouncementDetailViewController.h"
+#import "GJGCGroupAnnouncementManager.h"
+#import "GJGCPGGroupManagerHeader.h"
+#import "GJGCRefreshHeaderView.h"
+#import "GJGCUtilHelper.h"
+#import "GJGCDefaultBlankView.h"
+
+@interface GJGCGroupAnnouncementViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong)UITableView *announcementTable;
+
+@property (nonatomic,strong)NSMutableArray *announcementSourceArray;
+
+@property (nonatomic,strong)GJGCDefaultBlankView *blankView;
+
+@end
+
+@implementation GJGCGroupAnnouncementViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12082" params:nil];
+    
+    [self setStrNavTitle:@"群公告"];
+    
+    GJGCPGGroupModel *groupModel =  [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:[self.groupId longLongValue]];
+    if (groupModel.authority == GJGCPGGroupAuthorityPGGroupManager || groupModel.authority == GJGCPGGroupAuthorityPGGroupOwner){
+        
+        [self setRightButtonWithTitle:@"发布公告"];
+
+    }
+    
+    self.announcementSourceArray = [[NSMutableArray alloc]init];
+    
+    [self readLocalSaveAnnoucement];
+    
+    [self setupSubViews];
+    
+    /**
+     请求全量公告
+     */
+    GJGCGroupAnnouncementManager *manager = [[GJGCGroupAnnouncementManager alloc]init];
+    [manager requestAnnouncementWithGroupId:self.groupId withSucces:^(NSArray *resultArray) {
+        
+        [self.announcementSourceArray removeAllObjects];
+        [self.announcementSourceArray addObjectsFromArray:resultArray];
+        [self.announcementTable reloadData];
+        
+        if (self.announcementSourceArray.count == 0) {
+            
+            self.blankView.hidden = NO;
+            [self.blankView setShowType:GJGCDefaultBlankPicTypeNR title:@"暂无公告"];
+
+        }else{
+            
+            if (self.blankView && self.blankView.hidden == NO) {
+                
+                self.blankView.hidden = YES;
+            }
+        }
+        
+    } withFaild:^(NSString *errorMsg) {
+        
+        if (self.announcementSourceArray.count == 0) {
+            
+            self.blankView.hidden = NO;
+            [self.blankView setShowType:GJGCDefaultBlankPicTypeNN title:@"加载失败"];
+            
+        }
+        
+    }];
+}
+
+- (void)readLocalSaveAnnoucement
+{
+    GJGCGroupAnnouncementManager *manager = [[GJGCGroupAnnouncementManager alloc]init];
+    NSArray *localSaveAnnouncements = [manager getAllLocalAnnouncementWithGroupId:self.groupId];
+    
+    [self.announcementSourceArray addObjectsFromArray:localSaveAnnouncements];
+}
+
+- (void)setupSubViews
+{
+    //loading
+    self.blankView = [[GJGCDefaultBlankView alloc]initWithType:GJGCDefaultBlankPicTypeLoading title:@"加载中..."];
+    self.blankView.hidden = YES;
+    self.blankView.gjcf_centerX = self.view.gjcf_width/2;
+    self.blankView.gjcf_centerY = self.view.gjcf_height/2;
+    [self.view addSubview:self.blankView];
+    
+    self.announcementTable = [[UITableView alloc]init];
+    self.announcementTable.gjcf_size = CGSizeMake(GJCFSystemScreenWidth, GJCFSystemScreenHeight - 44 - 20);
+    self.announcementTable.backgroundColor = [UIColor clearColor];
+    self.announcementTable.delegate = self;
+    self.announcementTable.dataSource = self;
+    self.announcementTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.view addSubview:self.announcementTable];
+}
+
+- (void)rightButtonPressed:(id)sender
+{
+    GJGCGroupAnnouncementAddViewController *addVC = [[GJGCGroupAnnouncementAddViewController alloc]init];
+    addVC.groupId = self.groupId;
+    GJCFWeakSelf weakSelf = self;
+    [addVC setSuccessBlock:^(GJGCGroupAnnouncementAddViewController *announceVC){
+        [weakSelf successAddAnnouncementAction];
+    }];
+    [[GJGCUIStackManager share]pushViewController:addVC animated:YES];
+}
+
+- (void)successAddAnnouncementAction
+{
+    [[GJGCUIStackManager share]popViewControllerAnimated:YES];
+    [self.announcementSourceArray removeAllObjects];
+    [self readLocalSaveAnnoucement];
+    [self.announcementTable reloadData];
+}
+
+#pragma mark - UITableViewDelegate And UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.announcementSourceArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCGroupAnnouncementModel *announcement = [self.announcementSourceArray objectAtIndex:indexPath.row];
+    
+    return [GJGCGroupAnnouncenmentCell heightForAnnouncement:announcement];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *announcementCellIdentifier = @"announcementCellIdentifier";
+    
+    GJGCGroupAnnouncenmentCell *cell = (GJGCGroupAnnouncenmentCell *)[tableView dequeueReusableCellWithIdentifier:announcementCellIdentifier];
+    
+    if (!cell) {
+        
+        cell = [[GJGCGroupAnnouncenmentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:announcementCellIdentifier];
+    }
+    
+    [cell setAnnouncementModel:[self.announcementSourceArray objectAtIndex:indexPath.row]];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCGroupAnnouncementDetailViewController *detailVC = [[GJGCGroupAnnouncementDetailViewController alloc]initWithAnnouncement:[self.announcementSourceArray objectAtIndex:indexPath.row]];
+    GJCFWeakSelf weakSelf = self;
+    detailVC.successBlock = ^(GJGCGroupAnnouncementModel *announcement){
+        [weakSelf successDeleteAnnouncement:announcement];
+    };
+    [[GJGCUIStackManager share]pushViewController:detailVC animated:YES];
+
+}
+
+- (void)successDeleteAnnouncement:(GJGCGroupAnnouncementModel *)announcemnt
+{
+    [self.announcementSourceArray removeObject:announcemnt];
+    
+    [self.announcementTable reloadData];
+    
+    [[GJGCUIStackManager share]popViewControllerAnimated:YES];
+}
+
+
+
+@end

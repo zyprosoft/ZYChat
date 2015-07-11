@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/Mobile/!svn/ver/91821/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base
+END
+GJGCChatDetailViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatDetailViewController.h
+END
+GJGCChatFriendTalkModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatFriendTalkModel.h
+END
+GJGCChatDetailViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatDetailViewController.m
+END
+GJGCChatDetailDataSourceManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatDetailDataSourceManager.h
+END
+GJGCChatFriendTalkModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatFriendTalkModel.m
+END
+GJGCChatDetailDataSourceManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svn/Mobile/!svn/ver/91821/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/Base/GJGCChatDetailDataSourceManager.m
+END

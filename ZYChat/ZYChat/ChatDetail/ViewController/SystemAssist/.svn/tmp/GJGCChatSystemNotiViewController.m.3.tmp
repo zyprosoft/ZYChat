@@ -1,0 +1,600 @@
+//
+//  GJGCSystemNotiViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-11.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatSystemNotiViewController.h"
+#import "GJGCPersonInformationViewController.h"
+#import "GJGCGroupInformationViewController.h"
+#import "GJGCUser.h"
+#import "GJGCChatFriendViewController.h"
+#import "GJGCContactAPI.h"
+#import "GJGCContactManager.h"
+#import "GJGCPGGroupNetWorkApi.h"
+#import "GJGCContactManager.h"
+#import "GJGCCallbackManagerHeader.h"
+#import "GJGCFriendUser.h"
+#import "GJGCInvitFriendViewController.h"
+#import "GJGCGroupRecommendViewController.h"
+#import "GJGCHostReferProtocolsNew.h"
+#import "Objection.h"
+#import "GJGCIMServiceRelationChangeManager.h"
+#import "GJGCUtilHelper.h"
+#import "GJCFRouter.h"
+
+@interface GJGCChatSystemNotiViewController ()<GJGCChatBaseCellDelegate>
+
+@property (nonatomic,strong) NSObject<GJGCPostSystemViewControllerProtocol> *postHostManager;
+
+@end
+
+@implementation GJGCChatSystemNotiViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.inputPanel.hidden = YES;
+
+    [self setStrNavTitle:self.dataSourceManager.title];
+    
+    self.chatListTable.gjcf_height = GJCFSystemScreenHeight - GJCFSystemOriginYDelta - 44;
+    
+    
+    /* 滚动到最底部 */
+    if (self.dataSourceManager.totalCount > 0) {
+        [self.chatListTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSourceManager.totalCount-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
+
+#pragma mark - 内部初始化
+
+- (void)initDataManager
+{
+    self.dataSourceManager = [[GJGCChatSystemNotiDataManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    
+    self.postHostManager = [[JSObjection defaultInjector] getObject:@protocol(GJGCPostSystemViewControllerProtocol)];
+}
+
+#pragma mark - chatInputPanel Delegte
+
+- (BOOL)chatInputPanelShouldShowMyFavoriteItem:(GJGCChatInputPanel *)panel
+{
+    return NO;
+}
+
+#pragma mark - TableView  Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:indexPath.row];
+    
+    /* 帖子系统消息 */
+    if (notiModel.notiType == GJGCChatSystemNotiTypePostSystemNoti && notiModel.postSystemJumpType > 0) {
+        
+        [self.postHostManager clickEventBySystemMsg:notiModel];
+    }
+    
+    /* 如果是引导card */
+    if (notiModel.assistType == GJGCChatSystemNotiAssistTypeTemplate) {
+        
+        if (notiModel.systemJumpType == 1) {
+            
+            [GJGCUtilHelper addGanjiLog:@"12036" params:nil];
+            GJGCGroupRecommendViewController *recVC = [[GJGCGroupRecommendViewController alloc] init];
+            [recVC setServerParam:notiModel.systemJumpUrl];
+            
+            [[GJGCUIStackManager share] pushViewController:recVC animated:YES];
+            
+        }
+        else if(notiModel.systemJumpType == 2)
+        {
+            //推荐消息点击统计
+            [GJGCUtilHelper addGanjiLog:@"12093" params:@[notiModel.systemNotiTitle.string]];
+
+            UIViewController<GJGCH5PageViewControllerProtocol> *h5VC = [[JSObjection defaultInjector] getObject:@protocol(GJGCH5PageViewControllerProtocol)];
+            if (h5VC) {
+                [h5VC setTitle:notiModel.systemNotiTitle.string];
+                NSString *url  = notiModel.systemJumpUrl;
+                if(![url hasPrefix:@"http"])
+                {
+                    url = [NSString stringWithFormat:@"http://%@",url];
+                }
+                
+                [h5VC setLoadUrl:url];
+                h5VC.hidesBottomBarWhenPushed = YES;
+                [[GJGCUIStackManager share] pushViewController:h5VC animated:YES];
+                
+            }
+        }
+        else if (notiModel.systemJumpType == 4)
+        {
+            [[GJCFRouter shareInstance] open:notiModel.systemJumpUrl withCurrentNavigationcontroller:[GJGCUIStackManager share].stackRootNav animated:YES];
+        }
+    }
+}
+
+#pragma mark - 系统通知Cell 代理方法
+
+- (void)systemNotiBaseCellDidTapOnAcceptApplyButton:(GJGCChatBaseCell *)tapedCell
+{
+    /* 添加加载特效 */
+    [self.statusHUD showWithStatusText:@"正在执行..."];
+    
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+
+    /* 好友助手消息 */
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeFriend) {
+        __weak typeof(self) weakSelf = self;
+        [[GJGCContactAPI share]confirmFriend:contentModel.userId isConfirm:YES successBlock:^(id responseObj, NSDictionary *userInfo) {
+            
+            
+            NSDictionary *resultDict = (NSDictionary *)responseObj;
+            
+            NSInteger errCode = [[resultDict objectForKey:@"errorCode"]intValue];
+            
+            if(errCode == 0){
+                
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                
+                [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+                contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+                [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+
+                [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+                [((GJGCChatSystemNotiDataManager *)strongSelf.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateFinish localMsgId:[contentModel.localMsgId integerValue]];
+
+                /* 添加用户到联系人 */
+                [[GJGCIMServiceRelationChangeManager shareManager]addNewContact:contentModel.contactModel];
+                
+                GJGCLogVincent(@"接受请求成功 responseObj:%@",responseObj);
+
+            }else{
+                
+                [self acceptOrRejectOtherUserApplyWithFaildErrorCode:errCode forContentAtIndex:tapIndexPath errMsg:resultDict[@"errorMsg"]];
+                
+                GJGCLogVincent(@"接受请求失败 msg:%@",resultDict[@"errorMsg"]);
+            }
+            
+            /* 隐藏特效加载 */
+            [self.statusHUD dismiss];
+            
+        } failBlock:^(NSError *error, NSDictionary *userInfo) {
+            
+            GJGCLogVincent(@"接受请求失败 responseObj:%@",error);
+
+            
+            [self acceptOrRejectOtherUserApplyWithFaildErrorCode:error.code forContentAtIndex:tapIndexPath errMsg:error.userInfo[@"message"]];
+
+            /* 隐藏特效加载 */
+            [self.statusHUD dismiss];
+            
+        }];
+        
+        return;
+    }
+    
+    /* 群助手消息 */
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeGroup) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        NSString *acceptUserId = nil;
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup) {
+            acceptUserId = [NSString stringWithFormat:@"%lld",[GJGCUser share].userId];
+        }else{
+            acceptUserId = [NSString stringWithFormat:@"%lld",contentModel.userId];
+        }
+        
+        [[GJGCPGGroupNetWorkApi  share] acceptJoinPGGroup:contentModel.groupId applyUserId:acceptUserId successBlock:^(id responseObj, NSDictionary *userInfo)
+         {
+             NSDictionary *resultDict = (NSDictionary *)responseObj;
+             
+             NSInteger errCode = [[resultDict objectForKey:@"errorCode"]intValue];
+             
+             NSString  *statusText = [[resultDict objectForKey:@"data"] objectForKey:@"statusText"];
+             
+             
+             if(errCode == 0){
+                 
+                 __strong typeof(weakSelf) strongSelf = weakSelf;
+                 [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+                 
+                 /* 如果是别人邀请我 */
+                 if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup) {
+                     
+                    GJGCChatSystemNotiGroupRoleType roleType = [[[resultDict objectForKey:@"data"] objectForKey:@"inviteUserAuthority"] intValue];
+                     NSInteger authType = [[[resultDict objectForKey:@"data"] objectForKey:@"authType"]intValue];
+                     
+                     /* 非成员邀请我的时候，可以直接就添加这个群进联系人列表了 */
+                     if (roleType != GJGCChatSystemNotiGroupRoleTypeMember) {
+                         
+                         [[GJGCIMServiceRelationChangeManager shareManager]addNewGroup:GJCFStringFromInt(contentModel.groupId)];
+                         
+                     }else{
+                         
+                         /* 系统自建群,可以直接添加进群 */
+                         if (authType == 1) {
+                             
+                             [[GJGCIMServiceRelationChangeManager shareManager]addNewGroup:GJCFStringFromInt(contentModel.groupId)];
+
+                         }
+                     }
+
+                     contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已同意"];
+                     [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+
+                     [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+                      [((GJGCChatSystemNotiDataManager *)strongSelf.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateFinish localMsgId:[contentModel.localMsgId integerValue]];
+                     
+                     
+                 }
+                 
+                 /* 如果是别人申请加入我管理的群 */
+                 if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup) {
+                     
+                     contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:statusText];
+                     [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+
+                     [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+                     [((GJGCChatSystemNotiDataManager *)strongSelf.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateFinish localMsgId:[contentModel.localMsgId integerValue]];
+
+                     [[GJGCIMServiceRelationChangeManager shareManager]addNewMember:contentModel.contactModel toGroupId:GJCFStringFromInt(contentModel.groupId)];
+                     
+                 }
+                 
+                 GJGCLogVincent(@"接受请求成功 responseObj:%@",responseObj);
+                 
+                 
+             }else{
+                 
+                 [self acceptOrRejectGroupApplyWithFaildErrorCode:errCode forContentAtIndex:tapIndexPath errMsg:resultDict[@"errorMsg"]];
+                 
+                 GJGCLogVincent(@"接受请求失败 msg:%@",resultDict[@"errorMsg"]);
+                 
+             }
+             
+             /* 隐藏特效加载 */
+             [self.statusHUD dismiss];
+             
+         } failBlock:^(NSError *error, NSDictionary *userInfo) {
+             
+             [self acceptOrRejectGroupApplyWithFaildErrorCode:error.code forContentAtIndex:tapIndexPath errMsg:error.userInfo[@"message"]];
+
+             /* 隐藏特效加载 */
+             [self.statusHUD dismiss];
+             
+         }];
+
+    }
+
+    
+}
+
+- (void)acceptOrRejectOtherUserApplyWithFaildErrorCode:(NSInteger)errorCode forContentAtIndex:(NSIndexPath *)index errMsg:(NSString *)errMsg
+{
+    
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:index.row];
+    
+    if (errorCode == 41201) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+        contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        /* 添加用户到联系人 */
+        [[GJGCIMServiceRelationChangeManager shareManager]addNewContact:contentModel.contactModel];
+        
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateFinish localMsgId:[contentModel.localMsgId integerValue]];
+        
+        return;
+    }
+    
+    if (errorCode == 41202) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+        contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已被您拉黑"];
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateHaveBePullBlackByYourself localMsgId:[contentModel.localMsgId integerValue]];
+        
+        return;
+    }
+    
+    if (errorCode == 41203) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+        contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已被对方拉黑"];
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateYouHaveBePullBlack localMsgId:[contentModel.localMsgId integerValue]];
+
+        return;
+    }
+    
+    if (errMsg) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+
+    }
+}
+
+- (void)acceptOrRejectGroupApplyWithFaildErrorCode:(NSInteger)errorCode forContentAtIndex:(NSIndexPath *)index errMsg:(NSString *)errMsg
+{
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:index.row];
+
+    /* 其他管理员已同意 */
+    if (errorCode == 42308) {
+
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup) {
+            
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已同意"];
+        }
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup) {
+            
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已通过"];
+        }
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [[GJGCIMServiceRelationChangeManager shareManager]addNewGroup:GJCFStringFromInt(contentModel.groupId)];
+
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateFinish localMsgId:[contentModel.localMsgId integerValue]];
+
+        return;
+    }
+    
+    /* 该群已解散  */
+    if (errorCode == 42302) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+
+        contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"该群已解散"];
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [[GJGCIMServiceRelationChangeManager shareManager]deleteGroup:GJCFStringFromInt(contentModel.groupId)];
+
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateGroupHasBeenDelete localMsgId:[contentModel.localMsgId integerValue]];
+
+        return;
+    }
+    
+    /* 其他管理员已拒绝 */
+    if (errorCode == 42309) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup) {
+            
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+
+        }
+        
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup) {
+            
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已拒绝"];
+
+        }
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+        
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+         [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateReject localMsgId:[contentModel.localMsgId integerValue]];
+        
+        return;
+    }
+    
+    /* 申请已过期 */
+    if (errorCode == 42310) {
+        
+        [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+
+        contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已过期"];
+        [self.dataSourceManager updateContentModel:contentModel atIndex:index.row];
+        
+        [self.chatListTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [((GJGCChatSystemNotiDataManager *)self.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateTimeOut localMsgId:[contentModel.localMsgId integerValue]];
+        
+        return;
+    }
+    
+    if (errMsg) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+
+    }
+}
+
+- (void)systemNotiBaseCellDidTapOnJoinGroupChatButton:(GJGCChatBaseCell *)tapedCell
+{
+}
+
+- (void)systemNotiBaseCellDidTapOnRejectApplyButton:(GJGCChatBaseCell *)tapedCell
+{
+    /* 添加加载特效 */
+    [self.statusHUD showWithStatusText:@"正在执行..."];
+    
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    /* 好友助手消息 */
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeFriend) {
+        
+        __weak typeof(self) weakSelf = self;
+        [[GJGCContactAPI share]confirmFriend:contentModel.userId isConfirm:NO successBlock:^(id responseObj, NSDictionary *userInfo) {
+            
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            NSDictionary *resultDict = (NSDictionary *)responseObj;
+            
+            NSInteger errCode = [[resultDict objectForKey:@"errorCode"]intValue];
+            
+            if(errCode == 0){
+                
+                [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+                [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+                contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+                
+                [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+                
+                [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                [((GJGCChatSystemNotiDataManager *)strongSelf.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateReject localMsgId:[contentModel.localMsgId integerValue]];
+
+                GJGCLogVincent(@"拒绝请求成功 responseObj:%@",responseObj);
+                
+            }else{
+                
+                [self acceptOrRejectOtherUserApplyWithFaildErrorCode:errCode forContentAtIndex:tapIndexPath errMsg:resultDict[@"errorMsg"]];
+
+                GJGCLogVincent(@"拒绝请求成功 msg:%@",resultDict[@"errorMsg"]);
+            }
+            
+            /* 隐藏特效加载 */
+            [self.statusHUD dismiss];
+            
+        } failBlock:^(NSError *error, NSDictionary *userInfo) {
+            
+            GJGCLogVincent(@"拒绝请求失败 responseObj:%@",error);
+            [self acceptOrRejectOtherUserApplyWithFaildErrorCode:error.code forContentAtIndex:tapIndexPath errMsg:error.userInfo[@"message"]];
+
+            /* 隐藏特效加载 */
+            [self.statusHUD dismiss];
+            
+        }];
+    
+        return;
+    }
+    
+    /* 群助手消息 */
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeGroup) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        NSString *rejectUserId = nil;
+        if (contentModel.groupAssistNotiType == GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup) {
+            rejectUserId = [NSString stringWithFormat:@"%lld",[GJGCUser share].userId];
+        }else{
+            rejectUserId = [NSString stringWithFormat:@"%lld",contentModel.userId];
+        }
+        
+        [[GJGCPGGroupNetWorkApi  share] refuseJoinPGGroup:contentModel.groupId applyUserId:rejectUserId successBlock:^(id responseObj, NSDictionary *userInfo)
+         {
+             NSDictionary *resultDict = (NSDictionary *)responseObj;
+             
+             NSInteger errCode = [[resultDict objectForKey:@"errorCode"]intValue];
+             
+             if(errCode == 0){
+                 
+                 __strong typeof(weakSelf) strongSelf = weakSelf;
+                 
+                 [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+                 contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+                 
+                 [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+                 
+                 [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                 
+                 [((GJGCChatSystemNotiDataManager *)strongSelf.dataSourceManager) updateAcceptState:GJGCChatSystemNotiAcceptStateReject localMsgId:[contentModel.localMsgId integerValue]];
+
+             }else{
+                 
+                 [self acceptOrRejectGroupApplyWithFaildErrorCode:errCode forContentAtIndex:tapIndexPath errMsg:resultDict[@"errorMsg"]];
+                 
+             }
+             
+             GJGCLogVincent(@"接受请求成功 responseObj:%@",responseObj);
+             /* 隐藏特效加载 */
+             [self.statusHUD dismiss];
+             
+         } failBlock:^(NSError *error, NSDictionary *userInfo) {
+             
+             [self acceptOrRejectGroupApplyWithFaildErrorCode:error.code forContentAtIndex:tapIndexPath errMsg:error.userInfo[@"message"]];
+
+             /* 隐藏特效加载 */
+             [self.statusHUD dismiss];
+             
+         }];
+
+    }
+}
+
+- (void)systemNotiBaseCellDidTapOnRoleView:(GJGCChatBaseCell *)tapedCell
+{    
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    if (contentModel.isUserContent) {
+        
+        GJGCPersonInformationViewController *personInformationVC = [[GJGCPersonInformationViewController alloc]initWithUserId:contentModel.userId reportType:GJGCReportTypePerson];
+        [[GJGCUIStackManager share]pushViewController:personInformationVC animated:YES];
+        
+    }
+    
+    if (contentModel.isGroupContent) {
+        
+        GJGCGroupInformationViewController *groupInformationVC = [[GJGCGroupInformationViewController alloc]initWithGroupId:contentModel.groupId];
+        [[GJGCUIStackManager share]pushViewController:groupInformationVC animated:YES];
+    }
+
+}
+
+- (void)systemNotiBaseCellDidTapOnInviteFriendJoinGroup:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    GJGCInvitFriendViewController *invitGroup = [[GJGCInvitFriendViewController alloc] initWithGroupID:contentModel.groupId];
+    [[GJGCUIStackManager share] pushViewController:invitGroup animated:YES];
+    
+}
+
+- (void)systemNotiBaseCellDidTapOnSystemActiveGuideButton:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    if (contentModel.systemJumpType == 1) {
+        [GJGCUtilHelper addGanjiLog:@"12036" params:nil];
+        GJGCGroupRecommendViewController *recVC = [[GJGCGroupRecommendViewController alloc] init];
+        [recVC setServerParam:contentModel.systemJumpUrl];
+        
+        [[GJGCUIStackManager share] pushViewController:recVC animated:YES];
+        
+    }
+    else
+    {
+        UIViewController<GJGCH5PageViewControllerProtocol> *h5VC = [[JSObjection defaultInjector] getObject:@protocol(GJGCH5PageViewControllerProtocol)];
+        if (h5VC) {
+            NSString *url  = contentModel.systemJumpUrl;
+            if(![url hasPrefix:@"http"])
+            {
+                url = [NSString stringWithFormat:@"http://%@",url];
+            }
+            
+            [h5VC setLoadUrl:url];
+            h5VC.hidesBottomBarWhenPushed = YES;
+            [[GJGCUIStackManager share] pushViewController:h5VC animated:YES];
+            
+        }
+    }
+}
+
+@end

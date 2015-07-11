@@ -1,0 +1,13 @@
+//
+//  GJGCChatPostViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatFriendViewController.h"
+
+@interface GJGCChatPostViewController : GJGCChatFriendViewController
+
+@end

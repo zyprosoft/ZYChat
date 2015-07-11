@@ -1,0 +1,38 @@
+//
+//  GJGCChatGroupOperationNotiCell.m
+//  ZYChat
+//
+//  Created by ZYVincent on 14-11-5.
+//  Copyright (c) 2014年 ZYProSoft. All rights reserved.
+//
+
+#import "GJGCChatGroupOperationNotiCell.h"
+
+@implementation GJGCChatGroupOperationNotiCell
+
+- (void)setContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    if (!contentModel) {
+        return;
+    }
+    
+    [super setContentModel:contentModel];
+    
+    GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)contentModel;
+    
+    /* 隐藏同意，拒绝，附加信息按钮 */
+    self.applyButton.hidden = YES;
+    self.rejectButton.hidden = YES;
+    self.applyAuthorizReasonLabel.hidden = YES;
+    self.sepreteLine.hidden = YES;
+
+    /* 用附加信息标签显示群组操作通知内容 */
+    self.applyAuthorizLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:notiModel.groupOperationTip forBaseContentSize:self.applyAuthorizLabel.contentBaseSize];
+    self.applyAuthorizLabel.contentAttributedString = notiModel.groupOperationTip;
+    
+    /* 重新计算大小 */
+    self.stateContentView.gjcf_height = self.applyAuthorizLabel.gjcf_bottom + self.contentBordMargin;
+    
+}
+
+@end

@@ -1,0 +1,256 @@
+//
+//  UIView+GJCFViewAdaptor.m
+//  GJCommonFoundation
+//
+//  Created by ZYVincent on 14-10-24.
+//  Copyright (c) 2014年 ganji.com. All rights reserved.
+//
+
+#import "UIView+GJCFViewFrameUitil.h"
+
+@implementation UIView (GJCFViewFrameUitil)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_left {
+    return self.frame.origin.x;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_left:(CGFloat)gjcf_left {
+    CGRect frame = self.frame;
+    frame.origin.x = gjcf_left;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_top {
+    return self.frame.origin.y;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_top:(CGFloat)y {
+    CGRect frame = self.frame;
+    frame.origin.y = y;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_right {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_right:(CGFloat)right {
+    CGRect frame = self.frame;
+    frame.origin.x = right - frame.size.width;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_bottom {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_bottom:(CGFloat)bottom {
+    CGRect frame = self.frame;
+    frame.origin.y = bottom - frame.size.height;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)centerX {
+    return self.center.x;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setCenterX:(CGFloat)centerX {
+    self.center = CGPointMake(centerX, self.center.y);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)centerY {
+    return self.center.y;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setCenterY:(CGFloat)centerY {
+    self.center = CGPointMake(self.center.x, centerY);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_width {
+    return self.frame.size.width;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_width:(CGFloat)width {
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_height {
+    return self.frame.size.height;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_height:(CGFloat)height {
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGPoint)gjcf_origin {
+    return self.frame.origin;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_origin:(CGPoint)origin {
+    CGRect frame = self.frame;
+    frame.origin = origin;
+    self.frame = frame;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGSize)gjcf_size {
+    return self.frame.size;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_centerX {
+    return self.center.x;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_centerX:(CGFloat)centerX {
+    self.center = CGPointMake(centerX, self.center.y);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)gjcf_centerY {
+    return self.center.y;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_centerY:(CGFloat)centerY {
+    self.center = CGPointMake(self.center.x, centerY);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_size:(CGSize)size {
+    CGRect frame = self.frame;
+    frame.size = size;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGPoint)gjcf_topRight
+{
+    return CGPointMake(self.frame.origin.x+self.frame.size.width,self.frame.origin.y);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_topRight:(CGPoint)gjcf_topRight
+{
+    CGRect frame = self.frame;
+    
+    CGFloat xdetal = gjcf_topRight.x - frame.origin.x - frame.size.width;
+    frame.origin.x = frame.origin.x + xdetal;
+    
+    frame.origin.y = gjcf_topRight.y;
+    
+    self.frame = frame;
+    
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGPoint)gjcf_bottomLeft
+{
+    return CGPointMake(self.frame.origin.x,self.frame.origin.y+self.frame.size.height);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_bottomLeft:(CGPoint)gjcf_bottomLeft
+{
+    CGRect frame = self.frame;
+    
+    CGFloat ydetal = gjcf_bottomLeft.y - frame.origin.y - frame.size.height;
+    frame.origin.y = frame.origin.y + ydetal;
+    
+    frame.origin.x = gjcf_bottomLeft.x;
+    
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGPoint)gjcf_bottomRight
+{
+    return CGPointMake(self.frame.origin.x+self.frame.size.width,self.frame.origin.y+self.frame.size.height);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setGjcf_bottomRight:(CGPoint)gjcf_bottomRight
+{
+    CGRect frame = self.frame;
+    
+    CGFloat xdetal = gjcf_bottomRight.x - frame.origin.x - frame.size.width;
+    frame.origin.x = frame.origin.x + xdetal;
+    
+    CGFloat ydetal = gjcf_bottomRight.y - frame.origin.y - frame.size.height;
+    frame.origin.y = frame.origin.y + ydetal;
+    
+    self.frame = frame;
+}
+
+- (CGFloat)gjcf_rightToSuper
+{
+    return self.superview.bounds.size.width - self.frame.size.width - self.frame.origin.x;
+}
+
+- (void)setGjcf_rightToSuper:(CGFloat)rightToSuper
+{
+    CGRect frame = self.frame;
+    
+    frame.origin.x =  self.superview.bounds.size.width - self.frame.size.width  - rightToSuper,
+    self.frame = frame;
+}
+
+- (CGFloat)gjcf_bottomToSuper
+{
+    return self.superview.bounds.size.height - self.frame.size.height - self.frame.origin.y;
+}
+
+- (void)setGjcf_bottomToSuper:(CGFloat)bottomToSuper
+{
+    CGRect frame = self.frame;
+    
+    frame.origin.y =  self.superview.bounds.size.height - self.frame.size.height  - bottomToSuper,
+    self.frame = frame;
+}
+
+
+@end

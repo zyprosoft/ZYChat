@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder
+END
+dec_if.h
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/dec_if.h
+END
+if_rom.h
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/if_rom.h
+END
+interf_enc.h
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/interf_enc.h
+END
+VoiceConverter.h
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/VoiceConverter.h
+END
+amrFileCodec.h
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/amrFileCodec.h
+END
+wav.h
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/wav.h
+END
+VoiceConverter.mm
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/VoiceConverter.mm
+END
+amrFileCodec.mm
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/amrFileCodec.mm
+END
+wav.mm
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/wav.mm
+END
+libopencore-amrwb.a
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/libopencore-amrwb.a
+END
+interf_dec.h
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/interf_dec.h
+END
+libopencore-amrnb.a
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/GJThirdParty/src/GJAudioVideoCoder/GJAudioVideoCoder/GJAudioVideoCoder/AudioCoder/libopencore-amrnb.a
+END

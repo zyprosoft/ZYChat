@@ -1,0 +1,36 @@
+//
+//  GJCUBarScannerConstans.h
+//  GJCoreUserInterface
+//
+//  Created by ZYVincent on 14-11-1.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GJCFUitils.h"
+#import "UIView+GJCFViewFrameUitil.h"
+
+/**
+ *  完成扫描通知
+ */
+extern NSString *const GJCUBarScannerDetailViewControllerDidFinishScannerNoti;
+
+/**
+ *  无权访问相机失败通知
+ */
+extern NSString *const GJCUBarScannerDetailViewControllerDidFaildByNotAuthorizeCameraNoit;
+
+/**
+ *  长时间等待扫描失败通知
+ */
+extern NSString *const GJCUBarScannerDetailViewControllerDidFaildByTooLongTimeNoResultNoti;
+
+
+/**
+ *  长时间等待扫描失败选择退出
+ */
+extern NSString *const GJCUBarScannerDetailViewControllerDidFaildChooseCancelNoti;
+
+@interface GJCUBarScannerConstans : NSObject
+
+@end

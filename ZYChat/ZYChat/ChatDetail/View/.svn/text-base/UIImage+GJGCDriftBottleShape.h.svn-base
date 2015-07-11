@@ -1,0 +1,15 @@
+//
+//  UIImage+GJGCDriftBottleShape.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/6/30.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIImage (GJGCDriftBottleShape)
+
+- (UIImage *)driftBottleShapeForBubbleBigSize:(CGSize)bubbleSize;
+
+@end

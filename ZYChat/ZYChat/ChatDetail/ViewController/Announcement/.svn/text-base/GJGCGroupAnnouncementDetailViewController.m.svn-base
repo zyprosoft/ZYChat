@@ -1,0 +1,237 @@
+//
+//  GJGCGroupAnnouncementDetailViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupAnnouncementDetailViewController.h"
+#import "GJGCChatSystemNotiCellStyle.h"
+#import "GJGCPGGroupManagerHeader.h"
+#import "GJGCGroupAnnouncementManager.h"
+
+@interface GJGCGroupAnnouncementDetailViewController ()<UIAlertViewDelegate>
+
+@property (nonatomic,strong)GJCFCoreTextContentView *titleLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *nameLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *timeLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *contentLabel;
+
+@property (nonatomic,strong)GJGCGroupAnnouncementModel *announcement;
+
+@property (nonatomic,strong)UIScrollView *contentScrollView;
+
+@end
+
+@implementation GJGCGroupAnnouncementDetailViewController
+
+- (instancetype)initWithAnnouncement:(GJGCGroupAnnouncementModel *)theAnnouncement
+{
+    if (self = [super init]) {
+        
+        self.announcement = theAnnouncement;
+    }
+    return self;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setStrNavTitle:@"公告详情"];
+    
+    [self setupSubViews];
+}
+
+- (void)setupSubViews
+{
+    CGFloat leftMargin = 20.f;
+    
+    self.contentScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    self.contentScrollView.gjcf_width = GJCFSystemScreenWidth;
+    self.contentScrollView.gjcf_height = GJCFSystemScreenHeight;
+    self.contentScrollView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.contentScrollView];
+    
+    self.titleLabel = [[GJCFCoreTextContentView alloc]init];
+    self.titleLabel.gjcf_top = 18.f;
+    self.titleLabel.gjcf_left = leftMargin;
+    self.titleLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    self.titleLabel.contentBaseSize = self.titleLabel.gjcf_size;
+    [self.contentScrollView addSubview:self.titleLabel];
+
+    self.nameLabel = [[GJCFCoreTextContentView alloc]init];
+    self.nameLabel.gjcf_top = self.timeLabel.gjcf_bottom + 8;
+    self.nameLabel.gjcf_left = self.titleLabel.gjcf_left;
+    self.nameLabel.contentBaseSize = CGSizeMake(260, 20);
+    self.nameLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    [self.contentScrollView addSubview:self.nameLabel];
+    
+    self.timeLabel = [[GJCFCoreTextContentView alloc]init];
+    self.timeLabel.gjcf_top = self.nameLabel.gjcf_top;
+    self.timeLabel.gjcf_left = self.nameLabel.gjcf_right + 20;
+    self.timeLabel.contentBaseSize = self.nameLabel.contentBaseSize;
+    self.timeLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    [self.contentScrollView addSubview:self.timeLabel];
+    
+    self.contentLabel = [[GJCFCoreTextContentView alloc]init];
+    self.contentLabel.gjcf_top = self.nameLabel.gjcf_bottom + 18;
+    self.contentLabel.gjcf_left = self.nameLabel.gjcf_left;
+    self.contentLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    self.contentLabel.contentBaseSize = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    [self.contentScrollView addSubview:self.contentLabel];
+    
+    GJGCPGGroupModel *groupModel =  [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:[self.announcement.groupId longLongValue]];
+    if (groupModel.authority == GJGCPGGroupAuthorityPGGroupManager || groupModel.authority == GJGCPGGroupAuthorityPGGroupOwner){
+        
+        UIImageView *bottomBarBack = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, 44)];
+        bottomBarBack.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+        bottomBarBack.userInteractionEnabled = YES;
+        [self.view addSubview:bottomBarBack];
+        bottomBarBack.gjcf_top = self.view.gjcf_height - 44 - 20 - bottomBarBack.gjcf_height;
+        
+        UIImageView *seprateLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, 0.5)];
+        seprateLine.backgroundColor = GJCFQuickHexColor(@"0xacacac");
+        [bottomBarBack addSubview:seprateLine];
+        
+        UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        sendButton.frame = CGRectMake(0,0, GJCFSystemScreenWidth*1/3, 33);
+        sendButton.layer.cornerRadius = 3.f;
+        [sendButton setTitle:@"删除" forState:UIControlStateNormal];
+        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [sendButton setBackgroundColor:[GJGCCommonFontColorStyle mainThemeColor]];
+        [bottomBarBack addSubview:sendButton];
+        
+        [sendButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        sendButton.gjcf_centerY = bottomBarBack.gjcf_height/2;
+        sendButton.gjcf_centerX = bottomBarBack.gjcf_width/2;
+        
+        [self.view bringSubviewToFront:bottomBarBack];
+        
+        self.contentScrollView.gjcf_height = bottomBarBack.gjcf_top;
+        self.contentScrollView.gjcf_bottom = bottomBarBack.gjcf_top;
+    }
+    
+    [self setupContent];
+}
+
+- (void)deleteAction
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确认删除这条公告" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if ([title isEqualToString:@"确定"]) {
+        
+        GJGCGroupAnnouncementManager *announceManager = [[GJGCGroupAnnouncementManager alloc]init];
+        
+        [self.statusHUD showWithStatusText:@"正在执行..."];
+        
+        GJCFWeakSelf weakSelf = self;
+        [announceManager deleteAnnouncement:self.announcement withResultBlock:^(BOOL isSuccess, NSString *errMsg) {
+            
+            [weakSelf.statusHUD dismiss];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+            
+            if (isSuccess) {
+                
+                if (weakSelf.successBlock) {
+                    
+                    weakSelf.successBlock(weakSelf.announcement);
+                    
+                }
+                
+            }else{
+                
+                
+            }
+            
+        }];
+    }
+}
+
+- (void)setupContent
+{
+    
+    if (!GJCFStringIsNull(self.announcement.title)) {
+        
+        GJCFCoreTextAttributedStringStyle *titleStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        titleStyle.font = [GJGCCommonFontColorStyle detailBigTitleFont];
+        titleStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+        
+        NSAttributedString *titleAttributed = [[NSAttributedString alloc]initWithString:self.announcement.title attributes:[titleStyle attributedDictionary]];
+        
+        self.titleLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:titleAttributed forBaseContentSize:self.titleLabel.contentBaseSize];
+        [self.titleLabel setContentAttributedString:titleAttributed];
+    }
+    
+    if (!GJCFStringIsNull(self.announcement.nickName)) {
+        
+        GJCFCoreTextAttributedStringStyle *nameStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        nameStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
+        nameStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        
+        NSAttributedString *nameAttributed = [[NSAttributedString alloc]initWithString:self.announcement.nickName attributes:[nameStyle attributedDictionary]];
+        
+        self.nameLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:nameAttributed forBaseContentSize:self.nameLabel.contentBaseSize];
+        [self.nameLabel setContentAttributedString:nameAttributed];
+        self.nameLabel.gjcf_top = self.titleLabel.gjcf_bottom + 8.f;
+    }
+    
+    
+    if (self.announcement.announceTime) {
+        
+        NSAttributedString *timeAttributed = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:[self.announcement.announceTime longLongValue]];
+        
+        self.timeLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:timeAttributed forBaseContentSize:self.timeLabel.contentBaseSize];
+        [self.timeLabel setContentAttributedString:timeAttributed];
+        self.timeLabel.gjcf_top = self.nameLabel.gjcf_top;
+        self.timeLabel.gjcf_left = self.nameLabel.gjcf_right + 20.f;
+        
+        //如果不够，整体折行
+        if (self.timeLabel.gjcf_right >= GJCFSystemScreenWidth - 20.f) {
+            
+            self.timeLabel.gjcf_left = 20.f;
+            self.timeLabel.gjcf_top = self.nameLabel.gjcf_bottom + 8.f;
+        }
+    }
+    
+    if (!GJCFStringIsNull(self.announcement.content)) {
+        
+        GJCFCoreTextAttributedStringStyle *contentStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        contentStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        contentStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.maxLineSpace = 5.f;
+        paragraphStyle.minLineSpace = 5.f;
+        
+        NSMutableAttributedString *contentAttributed = [[NSMutableAttributedString alloc]initWithString:self.announcement.content attributes:[contentStyle attributedDictionary]];
+        [contentAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(self.announcement.content)];
+        
+        self.contentLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentAttributed forBaseContentSize:self.contentLabel.contentBaseSize];
+        [self.contentLabel setContentAttributedString:contentAttributed];
+        self.contentLabel.gjcf_top = self.timeLabel.gjcf_bottom + 18.f;
+        
+        //内容整体滚动
+        if (self.contentLabel.gjcf_bottom > self.contentScrollView.gjcf_bottom) {
+            
+            self.contentScrollView.contentSize = CGSizeMake(self.contentScrollView.gjcf_width, self.contentLabel.gjcf_bottom + 10.f);
+            
+        }
+    }
+    
+}
+
+@end

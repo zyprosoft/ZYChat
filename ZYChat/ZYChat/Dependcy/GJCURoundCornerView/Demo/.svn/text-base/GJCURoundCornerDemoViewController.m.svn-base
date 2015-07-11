@@ -1,0 +1,55 @@
+//
+//  GJCURoundCornerDemoViewController.m
+//  GJCoreUserInterface
+//
+//  Created by ZYVincent on 14-11-4.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJCURoundCornerDemoViewController.h"
+#import "GJCURoundCornerButton.h"
+
+@interface GJCURoundCornerDemoViewController ()
+
+@end
+
+@implementation GJCURoundCornerDemoViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    GJCURoundCornerButton *button = [[GJCURoundCornerButton alloc]init];
+    button.gjcf_top = 100;
+    button.gjcf_left = 20;
+    button.gjcf_width = 100;
+    button.gjcf_height = 40;
+    button.cornerBackView.cornerRadius = 8.f;
+    button.cornerBackView.roundedCorners = GJCURoundedCornerBottomLeft;
+    button.highlightBackColor = [UIColor lightGrayColor];
+    button.titleView.font = [UIFont systemFontOfSize:16];
+    button.titleView.textColor = [UIColor greenColor];
+    button.titleView.text = @"同意";
+    button.cornerBackView.borderWidth = 1.0;
+    
+    [self.view addSubview:button];
+    
+    
+    GJCURoundCornerButton *button1 = [[GJCURoundCornerButton alloc]init];
+    button1.gjcf_top = button.gjcf_top;
+    button1.gjcf_left = button.gjcf_right;
+    button1.gjcf_width = 100;
+    button1.gjcf_height = 40;
+    button1.highlightBackColor = [UIColor lightGrayColor];
+    button1.titleView.font = [UIFont systemFontOfSize:16];
+    button1.titleView.textColor = [UIColor greenColor];
+    button1.titleView.text = @"拒绝";
+    button1.cornerBackView.cornerRadius = 8.f;
+    button1.cornerBackView.roundedCorners = GJCURoundedCornerBottomRight;
+    
+    [self.view addSubview:button1];
+
+}
+
+
+
+@end

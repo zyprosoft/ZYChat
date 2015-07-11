@@ -1,0 +1,42 @@
+//
+//  GJGCChatPostTalkModel.h
+//  GJGroupChat
+//
+//  Created by Li Yi on 14/12/6.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatFriendTalkModel.h"
+
+@interface GJGCChatPostTalkModel : GJGCChatFriendTalkModel
+
+/**
+ *  基于帖子id
+ */
+@property (nonatomic ,copy) NSString *postId;
+
+/**
+ *  基于帖子题目
+ */
+@property (nonatomic,copy) NSString *postTitle;
+
+/**
+ *  电话
+ */
+@property (nonatomic,strong) NSArray *iphoneArray;
+
+/**
+ *  公司列表
+ */
+@property (nonatomic,copy) NSString *company;
+
+/**
+ *  基于帖子图片
+ */
+@property (nonatomic,copy) NSString *postImage;
+
+/**
+ *  puid
+ */
+@property (nonatomic,copy) NSString *puid;
+@end

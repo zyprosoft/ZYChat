@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/Mobile/!svn/ver/92084/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle
+END
+GJCFCoreTextImageAttributedStringStyle.h
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextImageAttributedStringStyle.h
+END
+GJCFCoreTextCommonDefine.h
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextCommonDefine.h
+END
+GJCFCoreTextAttributedStringStyle.m
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/92084/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextAttributedStringStyle.m
+END
+GJCFCoreTextImageScriptParser.h
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextImageScriptParser.h
+END
+GJCFCoreTextKeywordAttributedStringStyle.h
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextKeywordAttributedStringStyle.h
+END
+NSMutableAttributedString+GJCFCoreText.h
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/NSMutableAttributedString+GJCFCoreText.h
+END
+GJCFCoreTextImageAttributedStringStyle.m
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextImageAttributedStringStyle.m
+END
+GJCFCoreTextCommonDefine.m
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextCommonDefine.m
+END
+GJCFCoreTextImageScriptParser.m
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextImageScriptParser.m
+END
+GJCFCoreTextKeywordAttributedStringStyle.m
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextKeywordAttributedStringStyle.m
+END
+NSMutableAttributedString+GJCFCoreText.m
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/NSMutableAttributedString+GJCFCoreText.m
+END
+GJCFCoreTextAttributedStringStyle.h
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/92084/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/StringStyle/GJCFCoreTextAttributedStringStyle.h
+END

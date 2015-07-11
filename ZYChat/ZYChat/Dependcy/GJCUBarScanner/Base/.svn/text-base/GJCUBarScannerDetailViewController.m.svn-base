@@ -1,0 +1,305 @@
+//
+//  GJCUBarScannerDetailViewController.m
+//  GJCoreUserInterface
+//
+//  Created by ZYVincent on 14-10-31.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJCUBarScannerDetailViewController.h"
+#import "ZXingObjC/ZXingObjC.h"
+#import "GJCUBarScannerLayer.h"
+
+@interface GJCUBarScannerDetailViewController ()<ZXCaptureDelegate,UIAlertViewDelegate>
+
+@property (nonatomic,strong)UIView *scannerView;
+
+@property (nonatomic,strong)ZXCapture *scannerCapture;
+
+@property (nonatomic,strong)GJCUBarScannerLayer *scanAnimationLayer;
+
+@property (nonatomic,strong)NSTimer *scanWaitTimer;
+
+@property (nonatomic,assign)CGFloat scanRectLeftMargin;
+
+@property (nonatomic,strong)CALayer *faildLayer;
+
+
+@end
+
+@implementation GJCUBarScannerDetailViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setupNavigationBar];
+    
+    if (!GJCFAppCanAccessCamera) {
+        return;
+    }
+    
+    [self setupSubViews];
+    
+    [self setupZxingCapture];
+}
+
+- (void)dealloc
+{
+    [self stopCapture];
+    if (self.scanWaitTimer) {
+        [self.scanWaitTimer invalidate];
+        self.scanWaitTimer = nil;
+    }
+}
+
+#pragma mark - 初始化状态
+
+- (void)setupNavigationBar
+{
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.frame = CGRectMake(0, 0, 80, 20);
+    titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    titleLabel.text = @"二维码扫描";
+    titleLabel.textColor = [UIColor whiteColor];
+    self.navigationItem.titleView = titleLabel;
+    titleLabel = nil;
+    
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame = CGRectMake(0, 0, 40, 20);
+    cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelButton setTitle:@"返回" forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(dismissAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithCustomView:cancelButton];
+    
+    self.navigationItem.leftBarButtonItem = rightBarItem;
+}
+
+- (void)dismissAction
+{
+    [self stopCapture];
+    GJCFNotificationPost(GJCUBarScannerDetailViewControllerDidFaildChooseCancelNoti);
+}
+
+- (void)setupSubViews
+{
+    self.scanRectLeftMargin = 40;
+    CGFloat scannerRectWidth = GJCFSystemScreenWidth - 2*self.scanRectLeftMargin;
+
+    CGFloat scanRectTopMargin = (GJCFSystemScreenHeight - scannerRectWidth - GJCFSystemNavigationBarHeight)/2 ;
+    
+    self.scannerView = [[UIView alloc]init];
+    self.scannerView.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.3];
+    self.scannerView.gjcf_top = GJCFSystemNavigationBarHeight + scanRectTopMargin;
+    self.scannerView.gjcf_height = scannerRectWidth;
+    self.scannerView.gjcf_width = scannerRectWidth;
+    self.scannerView.center = self.view.center;
+    [self.view addSubview:self.scannerView];
+    
+}
+
+- (void)setupZxingCapture
+{
+    self.scannerCapture = [[ZXCapture alloc] init];
+    self.scannerCapture.camera = self.scannerCapture.back;
+    self.scannerCapture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+    self.scannerCapture.rotation = 90.0f;
+    
+    self.scannerCapture.layer.frame = self.view.bounds;
+    [self.view.layer addSublayer:self.scannerCapture.layer];
+    
+    [self.view bringSubviewToFront:self.scannerView];
+    
+    self.scannerCapture.delegate = self;
+    self.scannerCapture.layer.frame = self.view.bounds;
+    
+    CGAffineTransform captureSizeTransform = CGAffineTransformMakeScale(GJCFSystemScreenWidth / self.view.frame.size.width, GJCFSystemScreenHeight / self.view.frame.size.height);
+    self.scannerCapture.scanRect = CGRectApplyAffineTransform(self.scannerView.frame, captureSizeTransform);
+    
+    [self startCapture];
+    
+}
+
+- (void)startCapture
+{
+    if (self.faildLayer) {
+        [self.faildLayer removeFromSuperlayer];
+    }
+    
+    if (!self.scanAnimationLayer) {
+        self.scanAnimationLayer = [GJCUBarScannerLayer layerWithSize:CGSizeMake(self.scannerView.gjcf_width,self.scannerView.gjcf_height*0.1)];
+        [self.scannerView.layer addSublayer:self.scanAnimationLayer];
+    }
+    
+    if (![self.scannerCapture running]) {
+        [self.view.layer addSublayer:self.scannerCapture.layer];
+        [self.scannerCapture start];
+    }
+    [self.view bringSubviewToFront:self.scannerView];
+    
+    NSValue *startPoint = [NSValue valueWithCGPoint:(CGPoint){self.scannerView.gjcf_width/2,0}];
+    NSValue *endPoint = [NSValue valueWithCGPoint:(CGPoint){self.scannerView.gjcf_width/2,self.scannerView.gjcf_height}];
+    GJCFCAAnimationPosition(self.scanAnimationLayer,startPoint,endPoint,NSIntegerMax,0.5);
+    
+    [self startObserveTooLongTimeWait];
+}
+
+- (void)stopCapture
+{
+    if (self.scanWaitTimer) {
+        [self.scanWaitTimer invalidate];
+        self.scanWaitTimer = nil;
+    }
+    if ([self.scannerCapture running]) {
+        [self.scannerCapture stop];
+    }
+    if (self.scanAnimationLayer) {
+        [self.scanAnimationLayer removeFromSuperlayer];
+        self.scanAnimationLayer = nil;
+    }
+}
+
+- (void)startObserveTooLongTimeWait
+{
+    if (self.waitSeconds > 0) {
+        
+        /* 最小10秒等待 */
+        if (self.waitSeconds < 10) {
+            
+            self.waitSeconds = 10;
+        }
+        
+        if (self.scanWaitTimer) {
+            [self.scanWaitTimer invalidate];
+            self.scanWaitTimer = nil;
+        }
+        
+        self.scanWaitTimer = [NSTimer scheduledTimerWithTimeInterval:self.waitSeconds target:self selector:@selector(scannTimeObserve:) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)scannTimeObserve:(NSTimer *)timer
+{
+    [self.scanWaitTimer invalidate];
+    [self faildScannerByWaitTooLongTime];
+}
+
+- (void)faildScannerByWaitTooLongTime
+{
+    if (!self.faildLayer) {
+        self.faildLayer = [CALayer layer];
+        self.faildLayer.frame = self.scannerCapture.layer.bounds;
+        self.faildLayer.contents = (__bridge id)GJCFScreenShotFromLayer(self.scannerCapture.layer).CGImage;
+        [self.view.layer insertSublayer:self.faildLayer below:self.scannerView.layer];
+    }
+    
+    [self stopCapture];
+
+    UIAlertView *retryAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"没有扫描到任何二维码,是否重试?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"重试", nil];
+    [retryAlert show];
+    
+    GJCFNotificationPost(GJCUBarScannerDetailViewControllerDidFaildByTooLongTimeNoResultNoti);
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        [self startCapture];
+        
+    }else{
+        
+        GJCFNotificationPost(GJCUBarScannerDetailViewControllerDidFaildChooseCancelNoti);
+    }
+}
+
+#pragma mark - ZXingCapture Delegate
+
+- (NSString *)barcodeFormatToString:(ZXBarcodeFormat)format {
+    switch (format) {
+        case kBarcodeFormatAztec:
+            return @"Aztec";
+            
+        case kBarcodeFormatCodabar:
+            return @"CODABAR";
+            
+        case kBarcodeFormatCode39:
+            return @"Code 39";
+            
+        case kBarcodeFormatCode93:
+            return @"Code 93";
+            
+        case kBarcodeFormatCode128:
+            return @"Code 128";
+            
+        case kBarcodeFormatDataMatrix:
+            return @"Data Matrix";
+            
+        case kBarcodeFormatEan8:
+            return @"EAN-8";
+            
+        case kBarcodeFormatEan13:
+            return @"EAN-13";
+            
+        case kBarcodeFormatITF:
+            return @"ITF";
+            
+        case kBarcodeFormatPDF417:
+            return @"PDF417";
+            
+        case kBarcodeFormatQRCode:
+            return @"QR Code";
+            
+        case kBarcodeFormatRSS14:
+            return @"RSS 14";
+            
+        case kBarcodeFormatRSSExpanded:
+            return @"RSS Expanded";
+            
+        case kBarcodeFormatUPCA:
+            return @"UPCA";
+            
+        case kBarcodeFormatUPCE:
+            return @"UPCE";
+            
+        case kBarcodeFormatUPCEANExtension:
+            return @"UPC/EAN extension";
+            
+        default:
+            return @"Unknown";
+    }
+}
+
+- (void)captureResult:(ZXCapture *)capture result:(ZXResult *)result {
+    if (!result) return;
+    
+    GJCFAsyncMainQueue(^{
+        
+        [self stopCapture];
+        
+        // Vibrate
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        
+    });
+    
+    NSString *formatString = [self barcodeFormatToString:result.barcodeFormat];
+    
+    NSDictionary *resultDict = @{@"format":formatString,@"content":result.text};
+    
+    NSError *jsonError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:resultDict
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&jsonError];
+    NSString *resultJsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    
+    GJCFNotificationPostObj(GJCUBarScannerDetailViewControllerDidFinishScannerNoti,resultJsonString);
+    
+}
+
+
+@end

@@ -1,0 +1,160 @@
+//
+//  GJCFKeychanUitil.m
+//  GJCommonFoundation
+//
+//  Created by wanglantao on 15/1/22.
+//  Copyright (c) 2015年 ganji.com. All rights reserved.
+//
+
+#import "GJCFKeychanUitil.h"
+#import <AdSupport/ASIdentifierManager.h>
+#import "GJCFError.h"
+
+@implementation GJCFKeychanUitil
+
++ (NSMutableDictionary *)getBaseKeychainQueryWithAccount:(NSString *)account service:(NSString *)service accessGroup:(NSString *)accessGroup {
+    NSMutableDictionary *dictForQuery = [NSMutableDictionary dictionary];
+    
+    [dictForQuery setValue:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+    [dictForQuery setObject:account forKey:(__bridge id)kSecAttrAccount];
+    [dictForQuery setObject:service forKey:(__bridge id)kSecAttrService];
+    
+    // accessGroup决定谁可以共享此item的信息
+    // 其中包括多个应用程序的代码签名权利包含相同的钥匙链访问组
+    
+    if (accessGroup != nil)
+    {
+#if TARGET_IPHONE_SIMULATOR
+        // 如果在模拟器上运行，则忽略accessGroup
+        //
+        // 模拟器运行app没有签名, 所以这里没有accessGroup
+        // 在模拟器上运行时，所有的应用程序可以看到所有钥匙串项目
+        //
+        // 如果SecItem包含accessGroup,当SecItemAdd and SecItemUpdate时，将返回-25243 (errSecNoAccessForItem)
+#else
+        [dictForQuery setObject:accessGroup forKey:(__bridge id)kSecAttrAccessGroup];
+#endif
+    }
+    
+    return dictForQuery;
+}
+
++(NSData *)getDataWithAccount:(NSString *)account service:(NSString *)service accessGroup:(NSString *)accessGroup error:(__autoreleasing NSError **)error
+{
+
+    NSMutableDictionary *dictForQuery = [GJCFKeychanUitil getBaseKeychainQueryWithAccount:account service:service accessGroup:accessGroup];
+    
+    [dictForQuery setValue:(id)kCFBooleanTrue forKey:(__bridge id)kSecMatchCaseInsensitive];
+    [dictForQuery setValue:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+    [dictForQuery setValue:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+    
+    OSStatus queryErr   = noErr;
+    NSData *udidValue = nil;
+    CFTypeRef inTypeRef = nil;
+    
+    queryErr = SecItemCopyMatching((__bridge CFDictionaryRef)dictForQuery, (CFTypeRef*)&inTypeRef);
+    
+    udidValue = (__bridge NSData*)inTypeRef;
+    
+   if (queryErr != errSecSuccess) {
+        GJCFLog(@"KeyChain Item query Error!!! Error code:%ld", (long)queryErr);
+        
+        *error = [NSError errorWithDomain:GJCFKeychainErrorDomain code:queryErr userInfo:nil];
+    
+   }
+
+    return udidValue;
+
+}
+
++(void)saveData:(NSData *)data account:(NSString *)account service:(NSString *)service accessGroup:(NSString *)accessGroup error:(__autoreleasing NSError **)error;
+{
+
+    NSMutableDictionary *dictForAdd = [GJCFKeychanUitil getBaseKeychainQueryWithAccount:account service:service accessGroup:accessGroup];
+    
+    
+    [dictForAdd setObject:@"" forKey:(__bridge id)kSecAttrLabel];
+    
+    [dictForAdd setValue:data forKey:(__bridge id)kSecValueData];
+    
+    OSStatus writeErr = noErr;
+    
+    // 向keychain中添加数据
+    writeErr = SecItemAdd((__bridge CFDictionaryRef)dictForAdd, NULL);
+    
+    if (writeErr != errSecSuccess) {
+        GJCFLog(@"Add KeyChain Item Error!!! Error Code:%ld", (long)writeErr);
+        
+        *error = [NSError errorWithDomain:GJCFKeychainErrorDomain code:writeErr userInfo:nil];
+        
+    }
+    
+
+}
+
++(void)deleteDataWithAccount:(NSString *)account service:(NSString *)service accessGroup:(NSString *)accessGroup error:(__autoreleasing NSError **)error
+{
+    
+    NSMutableDictionary *dictForDelete = [GJCFKeychanUitil getBaseKeychainQueryWithAccount:account service:service accessGroup:accessGroup];
+    
+    OSStatus deleteErr = noErr;
+    
+    deleteErr = SecItemDelete((__bridge CFDictionaryRef)dictForDelete);
+    
+    if(deleteErr != errSecSuccess){
+    
+        *error = [NSError errorWithDomain:GJCFKeychainErrorDomain code:deleteErr userInfo:nil];
+        
+    }
+    
+    
+}
+
++(void)updateData:(NSData *)data account:(NSString *)account service:(NSString *)service accessGroup:(NSString *)accessGroup error:(__autoreleasing NSError **)error
+{
+    
+//    NSMutableDictionary *dictForQuery = [GJCFKeychanUitil getBaseKeychainQueryWithAccount:account service:service accessGroup:accessGroup];
+//    
+//
+//    [dictForQuery setValue:(id)kCFBooleanTrue forKey:(__bridge id)kSecMatchCaseInsensitive];
+//    [dictForQuery setValue:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+//    [dictForQuery setValue:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+//    [dictForQuery setValue:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnAttributes];
+//    
+//    NSDictionary *queryResult = nil;
+//    OSStatus queryErr = noErr;
+//    
+//    CFDictionaryRef queryResultRef = nil;
+//    
+//     queryErr = SecItemCopyMatching((__bridge CFDictionaryRef)dictForQuery,  (CFTypeRef*)&queryResultRef);
+//    
+//    
+//
+//    if (queryResultRef) {
+//        
+//        NSMutableDictionary *dictForUpdate = [GJCFKeychanUitil getBaseKeychainQueryWithAccount:account service:service accessGroup:accessGroup];
+//
+//        
+//        [dictForUpdate setValue:data forKey:(__bridge id)kSecValueData];
+//        
+//        OSStatus updateErr = noErr;
+//        
+//        // First we need the attributes from the Keychain.
+//        NSMutableDictionary *updateItem = [NSMutableDictionary dictionaryWithDictionary:queryResult];
+//        
+//        
+//        updateErr = SecItemUpdate((__bridge CFDictionaryRef)updateItem, (__bridge CFDictionaryRef)dictForUpdate);
+//        if (updateErr != errSecSuccess) {
+//            NSLog(@"Update KeyChain Item Error!!! Error Code:%ld", updateErr);
+//            
+//            *error = [NSError errorWithDomain:GJCFKeychainErrorDomain code:updateErr userInfo:nil];
+// 
+//        }
+//       
+//    }
+ 
+
+}
+
+
+@end

@@ -1,0 +1,57 @@
+//
+//  GJGCChatMessageSendManager.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-24.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GJGCChatFriendContentModel.h"
+#import "GJGCIMSendMsgManager.h"
+#import "NSArray+GJGCHelper.h"
+#import "NSDictionary+GJGCHelper.h"
+#import "GJGCUser.h"
+
+#define GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode 44556677
+
+@interface GJGCChatMessageSendManager : NSObject
+
++ (GJGCChatMessageSendManager *)shareManager;
+
+/**
+ *  发送内容模型
+ *
+ *  @param contentModel 
+ */
+- (void)sendMessageContent:(GJGCChatFriendContentModel *)contentModel;
+
+/**
+ *  重发消息
+ *
+ *  @param contentModel
+ */
+- (void)reSendMessageWithLocalMsgId:(NSString *)localMsgId talkType:(GJGCChatFriendTalkType)talkType toId:(NSString *)toId;
+
+
+/**
+ *  退出发送所有正在发送的消息
+ */
+- (void)cancelAllSendingStateMsg;
+
+/**
+ *  开启了重试所有发送中消息的会话
+ */
+- (void)addRetrySendingMsgToId:(NSString *)toId msgType:(NSString *)msgType;
+
+/**
+ *  是否已经尝试了所有发送中的消息
+ *
+ *  @param toId
+ *  @param msgType
+ *
+ *  @return
+ */
+- (BOOL)isRetryedSengdingStateMsg:(NSString *)toId msgType:(NSString *)msgType;
+
+@end

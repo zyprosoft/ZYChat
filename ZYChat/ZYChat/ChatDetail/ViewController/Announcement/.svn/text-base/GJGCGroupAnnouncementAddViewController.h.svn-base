@@ -1,0 +1,21 @@
+//
+//  GJGCGroupAnnouncementAddViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCBaseViewController.h"
+
+@class GJGCGroupAnnouncementAddViewController;
+typedef void (^GJGCGroupAnnouncementAddViewControllerSuccessCreateBlock) (GJGCGroupAnnouncementAddViewController *announceVC);
+
+@interface GJGCGroupAnnouncementAddViewController : GJGCBaseViewController
+
+@property (nonatomic,strong)NSString *groupId;
+
+@property (nonatomic,copy)GJGCGroupAnnouncementAddViewControllerSuccessCreateBlock successBlock;
+
+
+@end

@@ -1,0 +1,21 @@
+//
+//  GJGCChatTextMessageCell.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-10-17.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatTextMessageCell.h"
+
+@implementation GJGCChatTextMessageCell
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+@end

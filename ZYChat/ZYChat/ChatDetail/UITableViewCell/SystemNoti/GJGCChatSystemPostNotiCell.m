@@ -1,0 +1,62 @@
+//
+//  GJGCChatPostSystemNotiCell.m
+//  ZYChat
+//
+//  Created by ZYVincent on 14-12-14.
+//  Copyright (c) 2014年 ZYProSoft. All rights reserved.
+//
+
+#import "GJGCChatSystemPostNotiCell.h"
+#import "GJGCChatSystemNotiModel.h"
+
+@implementation GJGCChatSystemPostNotiCell
+
+#pragma mark - 初始化子视图
+
+- (void)setContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    if (!contentModel) {
+        return;
+    }
+    
+    [super setContentModel:contentModel];
+    
+    GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)contentModel;
+    
+    self.timeLabel.contentAttributedString = notiModel.timeString;
+    self.timeLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:notiModel.timeString forBaseContentSize:self.timeLabel.contentBaseSize];
+    self.timeLabel.gjcf_centerX = GJCFSystemScreenWidth/2;
+    
+    /* 是否显示详情箭头 */
+    if (notiModel.postSystemJumpType > 0) {
+        
+        self.contentLabel.contentBaseWidth = self.stateContentView.gjcf_width - 2*self.contentInnerMargin - self.accessoryIndicator.gjcf_width;
+        self.accessoryIndicator.hidden = NO;
+        
+    }else{
+        
+        self.contentLabel.contentBaseWidth = self.stateContentView.gjcf_width - 2*self.contentInnerMargin;
+        self.accessoryIndicator.hidden = YES;
+    }
+    self.contentLabel.contentBaseHeight = 15;
+
+    self.contentLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:notiModel.postSystemContent forBaseContentSize:self.contentLabel.contentBaseSize];
+    self.contentLabel.contentAttributedString = notiModel.postSystemContent;
+    self.contentLabel.gjcf_left = self.contentInnerMargin;
+    
+    self.stateContentView.gjcf_height = self.contentLabel.gjcf_bottom + self.contentInnerMargin;
+    
+    self.accessoryIndicator.gjcf_centerY = self.stateContentView.gjcf_height/2;
+}
+
+- (CGFloat)cellHeight
+{
+    return self.stateContentView.gjcf_bottom + 13;
+}
+
+- (CGFloat)heightForContentModel:(GJGCChatContentBaseModel *)contentModel
+{    
+    return [self cellHeight];
+}
+
+@end

@@ -1,0 +1,13 @@
+//
+//  GJGCChatTextMessageCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-10-17.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatSystemNotiBaseCell.h"
+
+@interface GJGCChatTextMessageCell : GJGCChatSystemNotiBaseCell
+
+@end

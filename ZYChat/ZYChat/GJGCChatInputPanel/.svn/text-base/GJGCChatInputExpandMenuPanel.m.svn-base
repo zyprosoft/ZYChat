@@ -1,0 +1,181 @@
+//
+//  GJGCChatInputExpandMenuPanel.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-10-28.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatInputExpandMenuPanel.h"
+
+@interface GJGCChatInputExpandMenuPanel ()
+
+@property (nonatomic,strong)UIScrollView *contentScrollView;
+
+@property (nonatomic,assign)NSInteger totalItemCount;
+
+/**
+ *  每一项与面板之间的间隙
+ */
+@property (nonatomic,assign)CGFloat itemToPanelMargin;
+
+/**
+ *  每两项之间的间隙
+ */
+@property (nonatomic,assign)CGFloat itemMargin;
+
+/**
+ *  单项宽度
+ */
+@property (nonatomic,assign)CGFloat itemWidth;
+
+@end
+
+@implementation GJGCChatInputExpandMenuPanel
+
+#pragma mark - 生命周期
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        [self initSubViews];
+    }
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.contentScrollView.frame = self.bounds;
+    
+    [self.contentScrollView.subviews enumerateObjectsUsingBlock:^(UIView *subView, NSUInteger idx, BOOL *stop) {
+        
+        if ([subView.class isSubclassOfClass:[GJGCChatInputExpandMenuPanelItem class]]) {
+            
+            GJGCChatInputExpandMenuPanelItem *item = (GJGCChatInputExpandMenuPanelItem *)subView;
+            
+            NSInteger rowIndex = idx / self.columnCount;
+            NSInteger cloumnIndex = idx % self.columnCount;
+            CGFloat itemHeight = self.itemWidth + 15;
+            
+            item.gjcf_left = (cloumnIndex + 1) * self.itemMargin + cloumnIndex * self.itemWidth;
+            item.gjcf_top = (rowIndex + 1) * self.itemToPanelMargin + rowIndex * itemHeight;
+            item.gjcf_width = self.itemWidth;
+            item.gjcf_height = itemHeight;
+            
+        }
+        
+    }];
+
+}
+
+#pragma mark - 内部接口
+
+- (void)initSubViews
+{    
+    self.contentScrollView = [[UIScrollView alloc]initWithFrame:self.bounds];
+    self.contentScrollView.pagingEnabled = YES;
+    [self addSubview:self.contentScrollView];
+    
+    self.totalItemCount = 0;
+    self.rowCount = 2;
+    self.columnCount = 3;
+//    self.itemMargin = 40;
+    self.itemToPanelMargin = 22;
+    self.itemWidth = 50 + 5*2;
+    self.itemMargin = (GJCFSystemScreenWidth - (self.itemWidth * self.columnCount))/(self.columnCount - 1 + 2);
+    /* 初始化菜单 */
+    [self initMenuItems];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame  withDelegate:(id<GJGCChatInputExpandMenuPanelDelegate>)aDelegate;
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        self.delegate = aDelegate;
+        
+        [self initSubViews];
+    }
+    
+    return self;
+}
+
+- (void)initMenuItems
+{
+    if ([self.delegate respondsToSelector:@selector(menuPanelRequireCurrentConfigData:)] && self.delegate) {
+        
+        GJGCChatInputExpandMenuPanelConfigModel *configModel = [self.delegate menuPanelRequireCurrentConfigData:self];
+        
+        if (configModel) {
+            
+            NSArray *dataSourceItems  = [GJGCChatInputExpandMenuPanelDataSource menuItemDataSourceWithConfigModel:configModel];
+            
+            [dataSourceItems enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL *stop) {
+                
+                NSString *itemTitle = item[GJGCChatInputExpandMenuPanelDataSourceTitleKey];
+                UIImage  *iconImage = GJCFQuickImage(item[GJGCChatInputExpandMenuPanelDataSourceIconNormalKey]);
+                UIImage  *iconHighlightImage = GJCFQuickImage(item[GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey]);
+                GJGCChatInputMenuPanelActionType actionType = [item[GJGCChatInputExpandMenuPanelDataSourceActionTypeKey]intValue];
+                
+                GJCFWeakSelf weakSelf = self;
+                GJGCChatInputExpandMenuPanelItem *panelItem = [GJGCChatInputExpandMenuPanelItem itemWithTitle:itemTitle withIconImageNormal:iconImage withIconImageHighlight:iconHighlightImage withActionType:actionType withTapBlock:^(GJGCChatInputExpandMenuPanelItem *item) {
+                    [weakSelf tapOnMenuPanelItem:item];
+                }];
+                [self appendMenuItem:panelItem];
+                
+            }];
+            
+            [self setNeedsLayout];
+            
+        }
+    }
+    
+}
+
+- (void)tapOnMenuPanelItem:(GJGCChatInputExpandMenuPanelItem *)senderItem
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(menuPanel:didChooseAction:)]) {
+        [self.delegate menuPanel:self didChooseAction:senderItem.actionType];
+    }
+}
+
+- (BOOL)isLeftItem:(GJGCChatInputExpandMenuPanelItem *)item
+{
+    return item.index % self.columnCount == 1;
+}
+- (BOOL)isTopItem:(GJGCChatInputExpandMenuPanelItem *)item
+{
+    if (item.index > self.columnCount) {
+        return item.index % self.columnCount == 1;
+    }
+    return YES;
+}
+- (BOOL)isBottomItem:(GJGCChatInputExpandMenuPanelItem *)item
+{
+    return item.index % self.columnCount == self.rowCount - 1;
+}
+- (BOOL)isRightItem:(GJGCChatInputExpandMenuPanelItem *)item
+{
+    return NO;
+}
+
+#pragma mark - 公开接口
+
+- (void)appendMenuItem:(GJGCChatInputExpandMenuPanelItem *)aItem
+{
+    if (GJCFCheckObjectNull(aItem)) {
+        return;
+    }
+    
+    aItem.index = self.totalItemCount;
+    self.totalItemCount++;
+    
+    [self.contentScrollView addSubview:aItem];
+}
+
+
+
+
+@end

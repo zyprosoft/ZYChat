@@ -1,0 +1,43 @@
+//
+//  GJGCChatContentBaseModel.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatContentBaseModel.h"
+
+NSString * GJGCTalkTypePrivate = @"private";
+NSString * GJGCTalkTypePGGroup = @"group";
+NSString * GJGCTalkTypeSystem = @"system";
+NSString * GJGCTalkTypePostSystem = @"post_system";
+NSString * GJGCTalkTypePostPrivate = @"post_private";
+
+@implementation GJGCChatContentBaseModel
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        _uniqueIdentifier = GJCFStringCurrentTimeStamp;
+
+    }
+    return self;
+}
+
+- (NSComparisonResult)compareContent:(GJGCChatContentBaseModel *)contentModel
+{
+    NSComparisonResult result = [@(self.sendTime) compare:@(contentModel.sendTime)];
+    
+    if (result == NSOrderedSame) {
+        
+        return [@([self.localMsgId longLongValue]) compare:@([contentModel.localMsgId longLongValue])];
+        
+    }else{
+        
+        return result;
+    }
+}
+
+@end

@@ -1,0 +1,13 @@
+//
+//  GJGCChatOtherApplyMyAuthorizWithStateCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-5.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatAuthorizAskCell.h"
+
+@interface GJGCChatOtherApplyMyAuthorizWithStateCell : GJGCChatAuthorizAskCell
+
+@end
