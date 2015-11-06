@@ -1,0 +1,1091 @@
+//
+//  GJGCChatMessageSendManager.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-24.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatMessageSendManager.h"
+#import "GJNWFileUploadManager+GJConfigServer.h"
+#import "GJGCHostAttrsManager.h"
+#import "GJGCIMMsgSubManager.h"
+#import "GJGCFriendUser.h"
+#import "NSDictionary+GJGCHelper.h"
+#import "NSString+GJGCJSONString.h"
+#import "GJGCChatPostContentModel.h"
+#import "GJGCPostMsgDBAPI.h"
+#import "GJGCFriendMsgDBAPI.h"
+#import "GJGCIMGroupMsgDBAPI.h"
+#import "GJGCUtilHelper.h"
+#import "NSString+GJGCIMTool.h"
+#import "GJNWConstantManager.h"
+
+@interface GJGCChatMessageSendManager ()
+
+@property (nonatomic,strong)GJNWFileUploadManager *fileUploadManager;
+
+@property (nonatomic,strong)NSMutableDictionary *currentUploadTaskDict;
+
+@property (nonatomic,strong)NSMutableArray *allSendingTryTalkSessions;
+
+@end
+
+@implementation GJGCChatMessageSendManager
+
++ (GJGCChatMessageSendManager *)shareManager
+{
+    static GJGCChatMessageSendManager *_sendManager = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        
+        if (!_sendManager) {
+            _sendManager = [[self alloc]init];
+        }
+        
+    });
+
+    return _sendManager;
+}
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        self.allSendingTryTalkSessions = [[NSMutableArray alloc]init];
+        
+        self.currentUploadTaskDict = [[NSMutableDictionary alloc]init];
+        
+        [self setupSubManagers];
+        
+        /* 观察程序进入后台的状态 */
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeAppNotInForeground:) name:UIApplicationWillResignActiveNotification object:nil];
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeAppNotInForeground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+    }
+    return self;
+}
+
+#pragma mark - 内部方法
+
+- (void)setupSubManagers
+{
+    /*将GJCommonFoundation得配置管理和IM配置进行绑定*/
+    [GJNWConstantManager share].gjnwserverDomain = [GJGCHostAttrsManager share].uploadServer;
+    [GJNWConstantManager share].gjnwclientAgent = [GJGCHostAttrsManager share].gjgc_clientAgent;
+    [GJNWConstantManager share].gjnwcustomId = [GJGCHostAttrsManager share].customId;
+    [GJNWConstantManager share].gjnwagency = [GJGCHostAttrsManager share].gjgc_agency;
+    [GJNWConstantManager share].gjnwversionId = [GJGCHostAttrsManager share].versionId;
+    [GJNWConstantManager share].gjnwdataVersion = [GJGCHostAttrsManager share].dataVersion;
+    
+    self.fileUploadManager = [GJNWFileUploadManager uploadManagerForGanJiServer];
+    [self.fileUploadManager setDefaultUploadPath:@"UploadImages"];
+    
+    GJCFWeakSelf weakSelf = self;
+    [self.fileUploadManager setProgressBlock:^(GJNWFileUploadTask *updateTask, CGFloat progressValue) {
+        
+        [weakSelf progressWithTask:updateTask progress:progressValue];
+    }];
+    
+    [self.fileUploadManager setCompletionBlock:^(GJNWFileUploadTask *task, NSDictionary *resultDict) {
+        
+        [weakSelf completionWithTask:task result:resultDict];
+    }];
+    
+    [self.fileUploadManager setFaildBlock:^(GJNWFileUploadTask *task, NSError *error) {
+        
+        [weakSelf faildWithTask:task error:error];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendPost:) name:GJGC_NOTIFICATION_SEND_POSTMSG object:nil];
+}
+
+#pragma mark - 上传任务完成观察
+
+- (void)progressWithTask:(GJNWFileUploadTask *)task progress:(CGFloat)progress
+{
+    GJGCLogVincent(@"upload progress:%f",progress);
+}
+
+- (void)completionWithTask:(GJNWFileUploadTask *)task result:(NSDictionary *)resultDict
+{
+    /* 服务器认为上传失败了 */
+    NSInteger status = [[[resultDict objectForKey:@"result"]objectForKey:@"status"]intValue];
+    if (status != 0) {
+        
+        /* 处理失败 */
+        NSError *error = [NSError errorWithDomain:@"gjgc.chatMessageSendManager.com" code:600 userInfo:resultDict];
+        [self faildWithTask:task error:error];
+        
+        /* GJCFFileUploadManager到这里已经认为任务完成了，是把任务移除了的，所以我们把我们的消息相关的任务也设置完成 */
+        GJGCIMMsgBaseModel *msgModel = task.userInfo[@"msg"];
+        [self.currentUploadTaskDict removeObjectForKey:msgModel.localMsgId];
+        
+        /* 行为埋点 */
+        if ([msgModel.contentType isEqualToString:@"sound"]) {
+            [GJGCUtilHelper addGanjiLog:@"12030" params:@[@"2"]];
+        }
+        if ([msgModel.contentType isEqualToString:@"pic"]) {
+            [GJGCUtilHelper addGanjiLog:@"12030" params:@[@"3"]];
+        }
+        
+        return;
+    }
+
+    GJGCLogVincent(@"上传成功:%@",resultDict);
+    
+    /* 处理上传成功结果 */
+    GJGCIMMsgBaseModel *msgModel = task.userInfo[@"msg"];
+    
+    NSString *resultUrl = resultDict[@"result"][@"data"];
+    
+    GJGCChatFriendContentType contentType = [task.userInfo[@"contentType"]intValue];
+    
+    NSMutableArray *contentArray = [NSMutableArray array];
+
+    /* 更新消息的内容 */
+    switch (contentType) {
+        case GJGCChatFriendContentTypeAudio:
+        {
+            NSNumber *duration = [task.userInfo objectForKey:@"duration"];
+            NSString *wavFile = [task.userInfo objectForKey:@"wav"];
+            
+            NSArray *soundArray = @[
+                                    @"sound",
+                                    @{
+                                        @"src":resultUrl,
+                                        @"duration":duration,
+                                        },
+                                    ];
+            [contentArray addObject:soundArray];
+            
+            /* 将语音复制到对应地址下面 */
+            GJCFFileCopyFileIsRemove(wavFile, [[GJCFCachePathManager shareManager]mainAudioCacheFilePathForUrl:resultUrl],YES);
+            
+            /* 更新UI层链接 */
+            NSDictionary *notiInfo = @{@"msgId":msgModel.localMsgId,@"data":resultUrl,@"toId":msgModel.toId,@"type":@"audio"};
+            GJCFNotificationPostObj(GJGCChatMessageSendManagerDidUploadMediaMessageSuccessNoti, notiInfo);
+
+        }
+            break;
+        case GJGCChatFriendContentTypeImage:
+        {
+            NSArray *picArray = @[
+                                  @"pic",
+                                  @{
+                                      @"success":@"1",
+                                      @"pic_url":resultUrl,
+                                      @"local_id":@""
+                                   },
+                                  ];
+            [contentArray addObject:picArray];
+            
+            /* 将本地的缩略图移动到路径对应的缓存地址下面 */
+            NSString *thumb = task.userInfo[@"thumb"];
+            NSString *thumbPath = [[GJCFCachePathManager shareManager]mainImageCacheFilePathForUrl:thumb];
+            NSString *combineUrl = [NSString stringWithFormat:@"%@/%@",[GJGCHostAttrsManager share].imgServerDomain,resultUrl];
+            
+            /* 将大图 和 缩略图 复制到对应的位置 */
+            NSString *localBig = task.userInfo[@"localBig"];
+            NSString *bigImageLocalPath = [[GJCFCachePathManager shareManager]mainImageCacheFilePathForUrl:localBig];
+            NSString *remoteUrlLocalDetailCachePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePathForUrl:combineUrl];
+            
+            /* 真正的缩略图链接 */
+            CGSize imageSize = [combineUrl gjim_getimageUrlSize];
+            CGSize thumbSize = [GJGCUtilHelper getCutImageSizeWithScreenScale:imageSize maxSize:CGSizeMake(160, 160)];
+            NSString *thumbUrl = [combineUrl gjim_restructImageUrlWithSize:thumbSize];
+            NSString *thumbUrlCachePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePathForUrl:thumbUrl];
+    
+            GJCFFileCopyFileIsRemove(thumbPath, thumbUrlCachePath, YES);
+            GJCFFileCopyFileIsRemove(bigImageLocalPath,remoteUrlLocalDetailCachePath,YES);
+            
+            /* 更新UI层链接 */
+            NSDictionary *notiInfo = @{@"msgId":msgModel.localMsgId,@"data":combineUrl,@"toId":msgModel.toId,@"type":@"image"};
+            GJCFNotificationPostObj(GJGCChatMessageSendManagerDidUploadMediaMessageSuccessNoti, notiInfo);
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if ([msgModel.msgType isEqualToString:@"post_private"]) {
+        
+        GJGCIMPostMsgModel *postMsgModel = (GJGCIMPostMsgModel *)msgModel;
+        
+        NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
+        
+        if (postMsgModel.postId) {
+            [postDict setObject:postMsgModel.postId forKey:@"id"];
+        }
+        if (postMsgModel.postTitle) {
+            [postDict setObject:postMsgModel.postTitle forKey:@"title"];
+        }
+        if (postMsgModel.postPicUrl) {
+            [postDict setObject:postMsgModel.postPicUrl forKey:@"pic"];
+        }
+        
+        
+        NSArray *postArray = @[
+                               @"post",
+                               postDict
+                               ];
+        
+        [contentArray addObject:postArray];
+        
+    }
+    
+    msgModel.contents = [contentArray gjgc_toJSONString];
+    
+    /* 如果是重发失败的消息，需要更新一下状态 */
+    if ([msgModel.state intValue] == 0) {
+        
+        msgModel.state = @(2);
+        
+        /* 发一条状态更新通知 */
+        [self sendUpdateStateNotiForMessage:msgModel];
+    }
+    
+    /* 真实发送 */
+    [[GJGCIMSendMsgManager shareManager] sendMsg:msgModel];
+    
+    /* 模拟解析的内容 */
+    GJGCIMMsgBaseModel *msgLikeRecv = [[GJGCIMMsgBaseModel alloc]init];
+    
+     /* 图片需要拼接主机地址保存 */
+    NSMutableDictionary *contentDict = [[[contentArray objectAtIndex:0]objectAtIndex:1] mutableCopy];
+    if (contentType == GJGCChatFriendContentTypeImage) {
+        NSString *combineUrl = [NSString stringWithFormat:@"%@/%@",[GJGCHostAttrsManager share].imgServerDomain,resultUrl];
+        [contentDict setObject:combineUrl forKey:@"pic_url"];
+    }
+    msgLikeRecv.contents = [contentDict gjgc_ToString];
+    
+    msgLikeRecv.localMsgId = msgModel.localMsgId;
+    msgLikeRecv.msgType = msgModel.msgType;
+    msgLikeRecv.senderId = msgModel.senderId;
+    msgLikeRecv.senderName = msgModel.senderName;
+    msgLikeRecv.toId = msgModel.toId;
+    msgLikeRecv.toName = msgModel.toName;
+    msgLikeRecv.sendTime = msgModel.sendTime;
+    msgLikeRecv.state = msgModel.state;
+    msgLikeRecv.contentType = [[contentArray objectAtIndex:0]objectAtIndex:0];
+    msgLikeRecv.isRead = YES;
+    
+    /* 更新对应的本地的消息 */
+    if ([msgModel.msgType isEqualToString:@"private"]) {
+        [[GJGCFriendMsgDBAPI share]updateModelByLocalMsgId:(GJGCIMFriendMsgModel*)msgLikeRecv];
+    }
+    if ([msgModel.msgType isEqualToString:@"post_private"]) {
+        [[GJGCPostMsgDBAPI share]updateModelByLocalMsgId:(GJGCIMPostMsgModel*)msgLikeRecv];
+    }
+    if ([msgModel.msgType isEqualToString:@"group"]) {
+        [[GJGCIMGroupMsgDBAPI share]updateModelByLocalMsgId:(GJGCIMGroupMsgModel*)msgLikeRecv];
+    }
+    
+}
+
+- (void)faildWithTask:(GJNWFileUploadTask *)task error:(NSError *)error
+{
+    GJGCLogVincent(@"upload faild:%@ taskId:%@",error.userInfo,task.uniqueIdentifier);
+    GJGCLogVincent(@"upload faild errorMessage:%@",error.userInfo[@"result"][@"errMessage"]);
+
+    GJGCIMMsgBaseModel *msgModel = task.userInfo[@"msg"];
+    msgModel.state = @(0);
+    
+    /* 不要更新本地信息内容 */
+    msgModel.contents = nil;
+    
+    if ([msgModel.msgType isEqualToString:@"group"]) {
+        
+        /* 创建失败原因 */
+        GJGCIMGroupMsgModel *groupMsg = (GJGCIMGroupMsgModel *)msgModel;
+        groupMsg.faildType = @(GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode);
+        groupMsg.faildReason = @"上传附件失败";
+        
+        [[GJGCIMGroupMsgDBAPI share]updateModelByLocalMsgId:groupMsg];
+        
+        NSDictionary *passResult = @{@"type":@(GJGCChatMessageSendMessageTypeGroup),@"data":groupMsg};
+        GJCFNotificationPostObj(GJGCChatMessageSendManagerUpdateLocalSuccessNoti, passResult);
+    }
+    
+    if ([msgModel.msgType isEqualToString:@"private"]) {
+        
+        /* 创建失败原因 */
+        GJGCIMFriendMsgModel *friendMsg = (GJGCIMFriendMsgModel *)msgModel;
+        friendMsg.faildType = @(GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode);
+        friendMsg.faildReason = @"上传附件失败";
+        
+        [[GJGCFriendMsgDBAPI share]updateModelByLocalMsgId:friendMsg];
+        
+        NSDictionary *passResult = @{@"type":@(GJGCChatMessageSendMessageTypeFriendPrivate),@"data":friendMsg};
+        GJCFNotificationPostObj(GJGCChatMessageSendManagerUpdateLocalSuccessNoti, passResult);
+    }
+    
+    if ([msgModel.msgType isEqualToString:@"post_private"]) {
+        
+        /* 创建失败原因 */
+        GJGCIMPostMsgModel *postMsg = (GJGCIMPostMsgModel *)msgModel;
+        postMsg.faildType = @(GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode);
+        postMsg.faildReason = @"上传附件失败";
+        
+        [[GJGCPostMsgDBAPI share]updateModelByLocalMsgId:postMsg];
+        
+        NSDictionary *passResult = @{@"type":@(GJGCChatMessageSendMessageTypePostPrivate),@"data":postMsg};
+        GJCFNotificationPostObj(GJGCChatMessageSendManagerUpdateLocalSuccessNoti, passResult);
+    }
+}
+
+#pragma mark - 发送需要上传附件的消息
+
+- (void)sendMediaMessageWithContent:(GJGCChatFriendContentModel *)contentModel withLocalMsgModel:(GJGCIMMsgBaseModel *)msgModel
+{
+    /* 创建上传文件 */
+    switch (contentModel.contentType) {
+        case GJGCChatFriendContentTypeAudio:
+        {
+            /* 创建新的语音文件待上传 */
+            GJNWUploadFileModel *audioFile = [GJNWUploadFileModel fileModelWithFileName:@"image.amr" withFileData:nil withFormName:@"image" withMimeType:@"audio/amr"];
+            audioFile.audioDuration = contentModel.audioModel.duration;
+            audioFile.isUploadAudio = YES;
+            audioFile.localStorePath = contentModel.audioModel.tempEncodeFilePath;
+            audioFile.userInfo = @{@"msg":msgModel,@"wav":contentModel.audioModel.localStorePath,@"contentType":@(contentModel.contentType),@"duration":@(contentModel.audioModel.duration)};
+            
+            [self uploadMediaFileForSendMessage:audioFile];
+
+        }
+            break;
+        case GJGCChatFriendContentTypeImage:
+        {
+            // image 表单名字是现在需要模拟的表单提交的名字
+            GJNWUploadFileModel *aImageFile = [GJNWUploadFileModel fileModelWithFileName:@"image.jpeg" withFileData:nil withFormName:@"image"];
+            aImageFile.imageWidth = contentModel.originImageWidth;
+            aImageFile.imageHeight = contentModel.originImageHeight;
+            aImageFile.localStorePath = [[GJCFCachePathManager shareManager] mainImageCacheFilePath:contentModel.imageLocalCachePath];
+            aImageFile.isUploadImage = YES;
+            aImageFile.isUploadImageHasBeenArchieved = NO;
+            aImageFile.userInfo = @{@"msg":msgModel,@"contentType":@(contentModel.contentType),@"thumb":contentModel.thumbImageCachePath,@"localBig":contentModel.imageLocalCachePath};
+            
+            [self uploadMediaFileForSendMessage:aImageFile];
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+
+/**
+ *  上传附件
+ *
+ *  @param uploadFile
+ */
+- (void)uploadMediaFileForSendMessage:(GJNWUploadFileModel *)uploadFile
+{
+    if (!uploadFile) {
+        return;
+    }
+    
+    /* 创建上传任务 */
+    NSString *taskId = nil;
+    GJNWFileUploadTask *singleTask = [GJNWFileUploadTask taskForFile:uploadFile getTaskUniqueIdentifier:&taskId];
+    if (!singleTask) {
+        return;
+    }
+    singleTask.userInfo = uploadFile.userInfo;
+    
+    /* 建立消息和任务的关系 */
+    GJGCIMMsgBaseModel *msgModel = uploadFile.userInfo[@"msg"];
+    [self.currentUploadTaskDict setObject:taskId forKey:msgModel.localMsgId];
+    
+    //自定义请求的Header
+    NSString* timeStamp = [NSString stringWithFormat:@"%lld", (long long)[[NSDate date] timeIntervalSinceReferenceDate]];
+    NSDictionary *customRequestHeader =  @{@"userId":@"0AFDFDC1A9040ABB87D6B65608283677",@"ClientTimeStamp":timeStamp,@"interface":@"UploadImages"};
+    singleTask.customRequestHeader = customRequestHeader;
+    
+    //自定义请求参数
+    if (uploadFile.isUploadAudio) {
+        NSString* jsonArgs = [NSString stringWithFormat:@"{\"imageCount\":\"1\",\"nowatermark\":\"1\"}"];
+        singleTask.customRequestParams = @{@"jsonArgs": jsonArgs};
+    }else{
+        NSString* jsonArgs = [NSString stringWithFormat:@"{\"imageCount\":\"1\",\"nowatermark\":\"1\",\"width\":\"%d\",\"height\":\"%d\"}",(int)uploadFile.imageWidth,(int)uploadFile.imageHeight];
+        singleTask.customRequestParams = @{@"jsonArgs": jsonArgs};
+    }
+    
+    /* 开始上传任务 */
+    [self.fileUploadManager addTask:singleTask];
+}
+
+/**
+ *  发送帖子消息
+ *
+ *  @param notification <#notification description#>
+ */
+- (void)sendPost:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.userInfo;
+    
+    if (dict && [dict count] > 0) {
+        GJGCChatPostContentModel *postModel = [dict objectForKey:@"data"];
+        postModel.contentType = GJGCChatFriendContentTypePost;
+        [self sendMessageContent:(GJGCChatFriendContentModel *)postModel];
+        
+        /* 行为埋点 */
+        [GJGCUtilHelper addGanjiLog:@"12029" params:@[@"4"]];
+    }
+}
+
+/**
+ *  发送实际的消息内容
+ *
+ *  @param contentModel
+ */
+- (void)sendMessageContent:(GJGCChatFriendContentModel *)contentModel
+{
+    /* 内容转化 */
+    NSMutableArray *contentArray = [NSMutableArray array];
+    NSString *contentType = nil;
+    
+    switch (contentModel.contentType) {
+        case GJGCChatFriendContentTypeAudio:
+        {
+            NSArray *soundArray = @[
+                                    @"sound",
+                                    @{
+                                        @"src":[contentModel.audioModel.localStorePath lastPathComponent],
+                                        @"duration":@(contentModel.audioModel.duration),
+                                        @"local_amr":[contentModel.audioModel.tempEncodeFilePath lastPathComponent],
+                                        },
+                                    ];
+            [contentArray addObject:soundArray];
+            contentType = @"sound";
+        }
+            break;
+            
+        case GJGCChatFriendContentTypeGif:
+        {
+            NSArray *soundArray = @[
+                                    @"gif",
+                                    @{
+                                        @"local_id":contentModel.gifLocalId
+                                     },
+                                    ];
+            [contentArray addObject:soundArray];
+            contentType = @"gif";
+        }
+            break;
+            
+        case GJGCChatFriendContentTypeImage:
+        {
+            NSArray *picArray = @[
+                                  @"pic",
+                                  @{
+                                      @"success":@"1",
+                                      @"pic_url":contentModel.imageLocalCachePath,
+                                      @"imageWidth":@(contentModel.originImageWidth),
+                                      @"imageHeight":@(contentModel.originImageHeight),
+                                      },
+                                  ];
+            [contentArray addObject:picArray];
+            contentType = @"pic";
+        }
+            break;
+        case GJGCChatFriendContentTypePost:
+        {
+           
+            NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
+            
+            if (contentModel.postSrc) {
+                [postDict setObject:contentModel.postSrc forKey:@"src"];
+            }
+            if (contentModel.postTitle) {
+                [postDict setObject:contentModel.postTitle forKey:@"title"];
+            }
+            if (contentModel.postImg) {
+                [postDict setObject:contentModel.postImg forKey:@"img"];
+            }
+            if (contentModel.postPrice) {
+                [postDict setObject:contentModel.postPrice forKey:@"price"];
+            }
+            if (contentModel.postPuid) {
+                [postDict setObject:contentModel.postPuid forKey:@"puid"];
+            }
+            if (contentModel.postId) {
+                [postDict setObject:contentModel.postId forKey:@"id"];
+            }
+            
+            
+            NSMutableArray *postArray = [NSMutableArray array];
+            [postArray addObject:@"url"];
+            [postArray addObject:postDict];
+            
+            if (contentModel.postSrc) {
+                [postArray addObject:contentModel.postSrc];
+            }
+
+            [contentArray addObject:postArray];
+            contentType = @"url";
+
+            
+        }
+            break;
+        case GJGCChatFriendContentTypeText:
+        {
+            [contentArray addObject:contentModel.originTextMessage];
+            contentType = @"text";
+        }
+            break;
+        default:
+            break;
+    }
+    
+    /* 基于帖子的消息都需要这个postId 和标题 */
+    if (contentModel.talkType == GJGCChatFriendTalkTypePost) {
+        
+        if(!contentModel.basePostId)
+        {
+            GJGCLOG_SYNC_LOG(@"发帖子消息，没有帖子id");
+            return;
+        }
+        
+        
+        NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
+        
+        if (contentModel.basePostId) {
+            [postDict setObject:contentModel.basePostId forKey:@"id"];
+        }
+        if (contentModel.basePostTitle) {
+            [postDict setObject:contentModel.basePostTitle forKey:@"title"];
+        }
+        
+        NSArray *postArray = @[
+                               @"post",
+                               postDict
+                               ];
+        
+        [contentArray addObject:postArray];
+        
+    }
+    
+    NSString *currentUserId = [NSString stringWithFormat:@"%lld",[GJGCUser share].userId];
+    NSString *currentUserName = [GJGCFriendUser share].myUserModel.nickName;
+    
+    /* 创建一条消息 */
+    BOOL createLocalMsgResult = NO;
+    switch (contentModel.talkType) {
+        case GJGCChatFriendTalkTypeGroup:
+        {
+            GJGCIMGroupMsgModel *groupMsg = [[GJGCIMGroupMsgModel alloc]init];
+            groupMsg.contents = [contentArray gjgc_toJSONString];
+            groupMsg.msgType = @"group";
+            groupMsg.senderId = [NSString stringWithFormat:@"%lld",[GJGCUser share].userId];
+            groupMsg.toId = contentModel.toId;
+            groupMsg.senderId = currentUserId;
+            groupMsg.senderName = currentUserName;
+            groupMsg.toName = contentModel.toUserName;
+            groupMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            groupMsg.state = @(2);
+            groupMsg.contentType = contentType;
+            groupMsg.isRead = YES;
+
+            /* 创建一条当作收到的一条消息来处理 */
+            GJGCIMGroupMsgModel *groupLikeRecvMsg = [[GJGCIMGroupMsgModel alloc]init];
+            if (contentModel.contentType != GJGCChatFriendContentTypeText) {
+                groupLikeRecvMsg.contents = [[[contentArray objectAtIndex:0] objectAtIndex:1] gjgc_ToString];
+            }else{
+                groupLikeRecvMsg.contents = [contentArray objectAtIndex:0];
+            }
+            groupLikeRecvMsg.localMsgId = groupMsg.localMsgId;
+            groupLikeRecvMsg.msgType = @"group";
+            groupLikeRecvMsg.senderId = currentUserId;
+            groupLikeRecvMsg.senderName = currentUserName;
+            groupLikeRecvMsg.toId = contentModel.toId;
+            groupLikeRecvMsg.toName = contentModel.toUserName;
+            groupLikeRecvMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            groupLikeRecvMsg.state = @(2);
+            groupLikeRecvMsg.contentType = contentType;
+            groupLikeRecvMsg.isRead = YES;
+            
+            /* 插入到本地消息表 */
+            [[GJGCIMGroupMsgDBAPI share]createDB:groupLikeRecvMsg.msgType toId:groupLikeRecvMsg.toId];
+            
+            NSInteger lastRowId;
+            createLocalMsgResult = [[GJGCIMGroupMsgDBAPI share]insertOrUpdateModel:groupLikeRecvMsg lastRowId:&lastRowId];
+            
+            /* 创建完成响应 */
+            if (createLocalMsgResult) {
+                
+                /* 发送消息绑定本地消息localMsgId */
+                groupMsg.localMsgId = groupLikeRecvMsg.localMsgId;
+                
+                /* 会话更新 */
+                GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+                talk.talkType = GJGCChatFriendTalkTypeGroup;
+                talk.toUserName = groupLikeRecvMsg.toName;
+                talk.toId = groupLikeRecvMsg.toId;
+                talk.msgArray = @[groupLikeRecvMsg];
+                talk.msgCount = 0;
+                talk.lastMsg = groupLikeRecvMsg;
+
+                NSDictionary *passResult = @{@"data":talk};
+                
+                GJCFNotificationPostObjUserInfo(GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE, nil, passResult);
+                
+                /* 发送消息 */
+                if (contentModel.contentType == GJGCChatFriendContentTypeImage || contentModel.contentType == GJGCChatFriendContentTypeAudio) {
+                    
+                    [self sendMediaMessageWithContent:contentModel withLocalMsgModel:groupLikeRecvMsg];
+                    
+                }else{
+                    
+                    [[GJGCIMSendMsgManager shareManager]sendMsg:groupMsg];
+                }
+                
+            }
+        }
+            break;
+        case GJGCChatFriendTalkTypePrivate:
+        {
+            GJGCIMFriendMsgModel *friendMsg = [[GJGCIMFriendMsgModel alloc]init];
+            friendMsg.contents = [contentArray gjgc_toJSONString];
+            friendMsg.msgType = @"private";
+            friendMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            friendMsg.state = @(2);
+            friendMsg.toId = contentModel.toId;
+            friendMsg.toName = contentModel.toUserName;
+            friendMsg.contentType = contentType;
+            friendMsg.isRead = YES;
+            
+            /* 帖子名字不一样 */
+            friendMsg.senderId = currentUserId;
+            friendMsg.senderName = currentUserName;
+            
+            /* 当作收到一条消息来处理 */
+            GJGCIMFriendMsgModel *friendLikeRecvMsg = [[GJGCIMFriendMsgModel alloc]init];
+            if (contentModel.contentType != GJGCChatFriendContentTypeText) {
+                friendLikeRecvMsg.contents = [[[contentArray objectAtIndex:0] objectAtIndex:1] gjgc_ToString];
+            }else{
+                friendLikeRecvMsg.contents = [contentArray objectAtIndex:0];
+            }
+            friendLikeRecvMsg.localMsgId = friendMsg.localMsgId;
+            GJGCLogVincent(@"friendLikeRecvMsg.localMsgId :%@",friendLikeRecvMsg.contents);
+            friendLikeRecvMsg.msgType = @"private";
+            friendLikeRecvMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            friendLikeRecvMsg.state = @(2);
+            friendLikeRecvMsg.toId = contentModel.toId;
+            friendLikeRecvMsg.toName = contentModel.toUserName;
+            friendLikeRecvMsg.contentType = contentType;
+            friendLikeRecvMsg.isRead = YES;
+            
+            friendLikeRecvMsg.senderId = currentUserId;
+            friendLikeRecvMsg.senderName = currentUserName;
+            
+            /* 插入到本地消息表 */
+            [[GJGCFriendMsgDBAPI share]createDB:friendMsg.msgType toId:friendMsg.sessionId];
+
+            
+            NSInteger lastRowId;
+            createLocalMsgResult =  [[GJGCFriendMsgDBAPI share]insertOrUpdateModel:friendLikeRecvMsg lastRowId:&lastRowId];
+            
+            /* 创建完成响应 */
+            if (createLocalMsgResult) {
+                
+                /* 发送消息绑定本地消息localMsgId */
+                friendMsg.localMsgId = friendLikeRecvMsg.localMsgId;
+                
+                
+                /* 会话更新通知 */
+                GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+                talk.talkType = GJGCChatFriendTalkTypePrivate;
+                talk.toUserName = friendLikeRecvMsg.toName;
+                talk.toId = friendLikeRecvMsg.toId;
+                talk.msgArray = @[friendLikeRecvMsg];
+                talk.msgCount = 0;
+                talk.lastMsg = friendLikeRecvMsg;
+
+                NSDictionary *passResult = @{@"data":talk};
+                GJCFNotificationPostObjUserInfo(GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE, nil, passResult);
+                
+                /* 发送消息 */
+                if (contentModel.contentType == GJGCChatFriendContentTypeImage || contentModel.contentType == GJGCChatFriendContentTypeAudio) {
+                    
+                    [self sendMediaMessageWithContent:contentModel withLocalMsgModel:friendLikeRecvMsg];
+                    
+                }else{
+                    
+                    [[GJGCIMSendMsgManager shareManager]sendMsg:friendMsg];
+                }
+                
+            }else{
+                
+                GJGCLogVincent(@"插入好友对话失败!!!!");
+            }
+        
+        }
+            break;
+        case GJGCChatFriendTalkTypePost:
+        {
+            GJGCIMPostMsgModel *postMsg = [[GJGCIMPostMsgModel alloc]init];
+            postMsg.contents = [contentArray gjgc_toJSONString];
+            postMsg.msgType = @"post_private";
+            postMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            postMsg.state = @(2);
+            postMsg.toId = contentModel.toId;
+            postMsg.toName = contentModel.toUserName;
+            postMsg.contentType = contentType;
+            postMsg.senderId = currentUserId;
+            postMsg.senderName = [GJGCUser share].postNickName;
+            postMsg.postId = contentModel.basePostId;
+            postMsg.postPicUrl = contentModel.basePostImg;
+            postMsg.postTitle = contentModel.basePostTitle;
+            postMsg.isRead = YES;
+            
+            /* 创建一条当作收的消息 */
+            GJGCIMPostMsgModel *postLikeRecvMsg = [[GJGCIMPostMsgModel alloc]init];
+            if (contentModel.contentType != GJGCChatFriendContentTypeText) {
+                postLikeRecvMsg.contents = [[[contentArray objectAtIndex:0] objectAtIndex:1] gjgc_ToString];
+            }else{
+                postLikeRecvMsg.contents = [contentArray objectAtIndex:0];
+            }
+            postLikeRecvMsg.localMsgId = postMsg.localMsgId;
+            postLikeRecvMsg.msgType = @"post_private";
+            postLikeRecvMsg.sendTime = @([[NSDate date]timeIntervalSince1970]);
+            postLikeRecvMsg.state = @(2);
+            postLikeRecvMsg.toId = contentModel.toId;
+            postLikeRecvMsg.toName = contentModel.toUserName;
+            postLikeRecvMsg.contentType = contentType;
+            postLikeRecvMsg.senderId = currentUserId;
+            postLikeRecvMsg.senderName = [GJGCUser share].postNickName;
+            postLikeRecvMsg.postId = contentModel.basePostId;
+            postLikeRecvMsg.postPicUrl = contentModel.basePostImg;
+            postLikeRecvMsg.postTitle = contentModel.basePostTitle;
+            postLikeRecvMsg.isRead = YES;
+            
+            /* 插入到本地消息表 */
+            [[GJGCPostMsgDBAPI share]createDB:postMsg.msgType toId:postMsg.sessionId];
+
+            
+            NSInteger lastRowId;
+           createLocalMsgResult = [[GJGCPostMsgDBAPI share]insertOrUpdateModel:postLikeRecvMsg lastRowId:&lastRowId];
+            postLikeRecvMsg.localMsgId = @(lastRowId);
+            /* 创建完成响应 */
+            if (createLocalMsgResult) {
+                
+                /* 发送消息绑定本地消息localMsgId */
+                postMsg.localMsgId = postLikeRecvMsg.localMsgId;
+                
+                /* 会话更新 */
+                GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+                talk.talkType = GJGCChatFriendTalkTypePost;
+                talk.toId = postLikeRecvMsg.sessionId;
+                talk.toUserName = postLikeRecvMsg.toName;
+                talk.lastMsg = postLikeRecvMsg;
+                talk.msgArray = @[postLikeRecvMsg];
+                talk.msgCount = 0;
+                
+                NSDictionary *passResult = @{@"data":talk};
+                GJCFNotificationPostObjUserInfo(GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE, nil, passResult);
+                
+                /* 发送消息 */
+                if (contentModel.contentType == GJGCChatFriendContentTypeImage || contentModel.contentType == GJGCChatFriendContentTypeAudio) {
+                    
+                    [self sendMediaMessageWithContent:contentModel withLocalMsgModel:postLikeRecvMsg];
+                    
+                }else{
+                    
+                    [[GJGCIMSendMsgManager shareManager]sendMsg:postMsg];
+                }
+            }
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+
+- (void)reSendMessageWithLocalMsgId:(NSString *)localMsgId talkType:(GJGCChatFriendTalkType)talkType toId:(NSString *)toId;
+{
+    switch (talkType) {
+        case GJGCChatFriendTalkTypePrivate:
+        {
+            GJGCIMFriendMsgModel *msgModel = [[GJGCFriendMsgDBAPI share]getFriendMsgModelWithLocalMsgId:[localMsgId longLongValue] toId:toId];
+        
+            /* 是否发送状态 */
+            if ([msgModel.state intValue] == 2 && [msgModel.faildType intValue] == 0) {
+                
+                [self retrySendingStateMsg:msgModel];
+                
+                break;
+            }
+            
+            if ([GJGCUtilHelper isNetworkOrServerInternalError:[msgModel.faildType intValue]] && [msgModel.faildType intValue] != GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode) {
+                
+                [self reSendMessageJustSend:msgModel];
+            }
+            
+            if ([msgModel.faildType intValue] == GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode) {
+                
+                [self reSendMessageWithUploadMedia:msgModel];
+            }
+            
+        }
+            break;
+        case GJGCChatFriendTalkTypeGroup:
+        {
+            GJGCIMGroupMsgModel *msgModel = [[GJGCIMGroupMsgDBAPI share]getGroupMsgModelWithLocalMsgId:[localMsgId longLongValue] toId:toId];
+         
+            /* 是否发送状态 */
+            if ([msgModel.state intValue] == 2 && [msgModel.faildType intValue] == 0) {
+                
+                [self retrySendingStateMsg:msgModel];
+                
+                break;
+            }
+            
+            if ([GJGCUtilHelper isNetworkOrServerInternalError:[msgModel.faildType intValue]] && [msgModel.faildType intValue] != GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode) {
+                
+                [self reSendMessageJustSend:msgModel];
+            }
+            
+            if ([msgModel.faildType intValue] == GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode) {
+                
+                [self reSendMessageWithUploadMedia:msgModel];
+            }
+        }
+            break;
+        case GJGCChatFriendTalkTypePost:
+        {
+            GJGCIMPostMsgModel *msgModel = [[GJGCPostMsgDBAPI share]getPostMsgModelWithLocalMsgId:[localMsgId longLongValue] toId:toId];
+            
+            /* 是否发送状态 */
+            if ([msgModel.state intValue] == 2 && [msgModel.faildType intValue] == 0) {
+                
+                [self retrySendingStateMsg:msgModel];
+                
+                break;
+            }
+            
+            if ([GJGCUtilHelper isNetworkOrServerInternalError:[msgModel.faildType intValue]] && [msgModel.faildType intValue] != GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode ) {
+                
+                [self reSendMessageJustSend:msgModel];
+            }
+            
+            if ([msgModel.faildType intValue] == GJGCIMSendMsgManagerSendFaildByUploadMediaErrorCode) {
+                
+                [self reSendMessageWithUploadMedia:msgModel];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - 重试发送状态中的消息
+
+- (void)retrySendingStateMsg:(GJGCIMMsgBaseModel *)msgModel
+{
+    if ([msgModel.contentType isEqualToString:@"text"] || [msgModel.contentType isEqualToString:@"gif"]) {
+        
+        [self reSendMessageJustSend:msgModel];
+        
+    }
+    
+    if ([msgModel.contentType isEqualToString:@"sound"] || [msgModel.contentType isEqualToString:@"pic"]) {
+        
+        [self reSendMessageWithUploadMedia:msgModel];
+        
+    }
+}
+
+#pragma mark - 重组重发消息的contents
+
+- (void)reSendMessageWithUploadMedia:(GJGCIMMsgBaseModel *)msgModel
+{
+    /* 重传附件 */
+    NSDictionary *localInfo = [msgModel.contents gjgc_toDictionary];
+    
+    if ([msgModel.contentType isEqualToString:@"sound"]) {
+        
+        NSString *localAmr = [localInfo objectForKey:@"local_amr"];
+        
+        NSString *localWav = [localInfo objectForKey:@"src"];
+        localWav = [[GJCFCachePathManager shareManager]mainAudioCacheFilePath:localWav];
+        
+        NSInteger duration = [[localInfo objectForKey:@"duration"] intValue];
+        
+        NSString *localAmrPath = [[GJCFCachePathManager shareManager] mainAudioTempEncodeFile:localAmr];
+        
+        /* 创建新的语音文件待上传 */
+        GJNWUploadFileModel *audioFile = [GJNWUploadFileModel fileModelWithFileName:@"image.amr" withFileData:nil withFormName:@"image" withMimeType:@"audio/amr"];
+        audioFile.audioDuration = duration;
+        audioFile.isUploadAudio = YES;
+        audioFile.localStorePath = localAmrPath;
+        audioFile.userInfo = @{@"msg":msgModel,@"wav":localWav,@"contentType":@(GJGCChatFriendContentTypeAudio),@"duration":@(duration)};
+        
+        [self uploadMediaFileForSendMessage:audioFile];
+        
+    }
+    
+    if ([msgModel.contentType isEqualToString:@"pic"]) {
+        
+        NSInteger imageWidth = [[localInfo objectForKey:@"imageWidth"] intValue];
+        NSInteger imageHeight = [[localInfo objectForKey:@"imageHeight"] intValue];
+        NSString *localImage = [localInfo objectForKey:@"pic_url"];
+        NSString *thumbPath = [NSString stringWithFormat:@"%@-thumb",localImage];
+        
+        // image 表单名字是现在需要模拟的表单提交的名字
+        GJNWUploadFileModel *aImageFile = [GJNWUploadFileModel fileModelWithFileName:@"image.jpeg" withFileData:nil withFormName:@"image"];
+        aImageFile.imageWidth = imageWidth;
+        aImageFile.imageHeight = imageHeight;
+        aImageFile.localStorePath = [[GJCFCachePathManager shareManager] mainImageCacheFilePath:localImage];
+        aImageFile.isUploadImage = YES;
+        aImageFile.isUploadImageHasBeenArchieved = NO;
+        aImageFile.userInfo = @{@"msg":msgModel,@"contentType":@(GJGCChatFriendContentTypeImage),@"thumb":thumbPath,@"localBig":localImage};
+        
+        [self uploadMediaFileForSendMessage:aImageFile];
+        
+    }
+    
+}
+
+#pragma mark - 消息文本发送失败，重发
+
+- (void)reSendMessageJustSend:(GJGCIMMsgBaseModel *)msgModel
+{
+    /* 重组内容 */
+    NSMutableArray *contentsArray = [NSMutableArray array];
+    
+    if ([msgModel.contentType isEqualToString:@"text"]) {
+        
+        [contentsArray addObject:msgModel.contents];
+        
+    }
+    
+    if ([msgModel.contentType isEqualToString:@"sound"]) {
+        
+        NSArray *soundArray = @[
+                                @"sound",
+                                [msgModel.contents gjgc_toDictionary],
+                                ];
+        [contentsArray addObject:soundArray];
+    }
+    
+    if ([msgModel.contentType isEqualToString:@"gif"]) {
+        
+        NSArray *gifArray = @[
+                                @"gif",
+                                [msgModel.contents gjgc_toDictionary],
+                                ];
+        [contentsArray addObject:gifArray];
+    }
+    
+    if ([msgModel.contentType isEqualToString:@"pic"]) {
+        
+        NSArray *picArray = @[
+                              @"pic",
+                              [msgModel.contents gjgc_toDictionary],
+                              ];
+        [contentsArray addObject:picArray];
+    }
+    
+    msgModel.contents = [contentsArray gjgc_toJSONString];
+    
+    msgModel.state = @(2);
+
+    /* 发一条状态更新通知 */
+    [self sendUpdateStateNotiForMessage:msgModel];
+    
+    [[GJGCIMSendMsgManager shareManager]sendMsg:msgModel];
+}
+
+#pragma mark - 发送一条状态更新的通知
+
+- (void)sendUpdateStateNotiForMessage:(GJGCIMMsgBaseModel *)msgModel
+{
+    /* 发一条状态更新通知 */
+    GJGCChatMessageSendMessageType sendMsgType = GJGCChatMessageSendMessageTypeFriendPrivate;
+    
+    if ([msgModel.msgType isEqualToString:@"private"]) {
+        
+        sendMsgType = GJGCChatMessageSendMessageTypeFriendPrivate;
+    }
+    
+    if ([msgModel.msgType isEqualToString:@"group"]) {
+        
+        sendMsgType = GJGCChatMessageSendMessageTypeGroup;
+    }
+    
+    if ([msgModel.msgType isEqualToString:@"post_private"]) {
+        
+        sendMsgType = GJGCChatMessageSendMessageTypePostPrivate;
+    }
+    
+    NSDictionary *passResult = @{@"type":@(sendMsgType),@"data":msgModel};
+    GJCFNotificationPostObj(GJGCChatMessageSendManagerUpdateLocalSuccessNoti, passResult);
+
+}
+
+#pragma mark - 退出所有正在发送的消息
+
+- (void)cancelAllSendingStateMsg
+{
+    [self.fileUploadManager cancelAllExcutingTask];
+    
+    [[GJGCIMSendMsgManager shareManager]cancelAllSendingStateMsg];
+    
+}
+
+#pragma mark - 消息被重新发送的会话
+
+/**
+ *  开启了重试所有发送中消息的会话
+ */
+- (void)addRetrySendingMsgToId:(NSString *)toId msgType:(NSString *)msgType
+{
+    if (GJCFStringIsNull(toId) || GJCFStringIsNull(msgType)) {
+        return;
+    }
+    
+    NSString *session = [NSString stringWithFormat:@"%@_%@",msgType,toId];
+    
+    if ([self.allSendingTryTalkSessions containsObject:session]) {
+        return;
+    }
+    [self.allSendingTryTalkSessions addObject:session];
+}
+
+/**
+ *  是否已经尝试了所有发送中的消息
+ *
+ *  @param toId
+ *  @param msgType
+ *
+ *  @return
+ */
+- (BOOL)isRetryedSengdingStateMsg:(NSString *)toId msgType:(NSString *)msgType
+{
+    if (GJCFStringIsNull(toId) || GJCFStringIsNull(msgType)) {
+        return NO;
+    }
+    
+    NSString *session = [NSString stringWithFormat:@"%@_%@",msgType,toId];
+    
+    return [self.allSendingTryTalkSessions containsObject:session];
+}
+
+#pragma mark - 观察应用程序的前后台状态
+
+- (void)observeAppNotInForeground:(NSNotification *)noti
+{
+    [self performSelector:@selector(resetAllSendingStateChatSession) withObject:nil afterDelay:15];
+}
+
+- (void)resetAllSendingStateChatSession
+{
+    [self.allSendingTryTalkSessions removeAllObjects];
+}
+
+@end

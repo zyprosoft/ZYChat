@@ -1,0 +1,19 @@
+//
+//  GJGCChatFriendGifCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/6/3.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCChatFriendBaseCell.h"
+
+@interface GJGCChatFriendGifCell : GJGCChatFriendBaseCell
+
+@property (nonatomic,assign)CGFloat downloadProgress;
+
+- (void)successDownloadGifFile:(NSData *)fileData;
+
+- (void)faildDownloadGifFile;
+
+@end

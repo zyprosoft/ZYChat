@@ -1,0 +1,49 @@
+//
+//  GJCFDeviceInfoUitilMacrocDefine.h
+//  GJCommonFoundation
+//
+//  Created by wanglantao on 15/1/20.
+//  Copyright (c) 2015年 ganji.com. All rights reserved.
+//
+
+
+/**
+ *  日期相关工具宏
+ */
+#import"GJCFDeviceInfoUitil.h"
+
+/**
+ *  获取当前冒充UDID
+ */
+
+#define GJCFDeviceInfoGetUDID(error,accessGroup) [GJCFDeviceInfoUitil getUDIDWithKeyChainUDIDAccessGroup:accessGroup failedError:error];
+
+/**
+ *  获取当前MacAddress
+ */
+
+#define GJCFDeviceInfoGetMacAddress(error) [GJCFDeviceInfoUitil getMacAddressFailedError:error];
+
+/**
+ *  获取当前CFUUID
+ */
+
+#define GJCFDeviceInfoCFUUID [GJCFDeviceInfoUitil CFUUID];
+
+/**
+ *  获取当前NSUUID
+ */
+
+#define GJCFDeviceInfoNSUUID [GJCFDeviceInfoUitil NSUUID];
+
+/**
+ *  获取当前IDFA
+ */
+
+#define GJCFDeviceInfoIDFA [GJCFDeviceInfoUitil IDFA];
+
+/**
+ *  获取当前IDFV
+ */
+
+#define GJCFDeviceInfoIDFV [GJCFDeviceInfoUitil IDFV];

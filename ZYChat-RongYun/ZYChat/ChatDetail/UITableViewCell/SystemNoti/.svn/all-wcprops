@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti
+END
+GJGCChatSystemActiveGuideCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemActiveGuideCell.h
+END
+GJGCChatSystemNotiCellStyle.h
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiCellStyle.h
+END
+GJGCChatSystemNotiModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiModel.h
+END
+GJGCChatSystemActiveGuideCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemActiveGuideCell.m
+END
+GJGCChatSystemNotiCellStyle.m
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiCellStyle.m
+END
+GJGCChatAuthorizAskCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatAuthorizAskCell.h
+END
+GJGCChatSystemNotiModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiModel.m
+END
+GJGCChatGroupOperationNotiCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatGroupOperationNotiCell.h
+END
+GJGCChatSystemNotiRoleGroupView.h
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiRoleGroupView.h
+END
+GJGCChatSystemNotiBaseCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiBaseCell.h
+END
+GJGCChatAuthorizAskCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatAuthorizAskCell.m
+END
+GJGCChatGroupOperationNotiCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatGroupOperationNotiCell.m
+END
+GJGCChatSystemNotiRoleGroupView.m
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiRoleGroupView.m
+END
+GJGCChatSystemNotiBaseCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiBaseCell.m
+END
+GJGCChatOtherApplyMyAuthorizWithStateCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatOtherApplyMyAuthorizWithStateCell.h
+END
+GJGCChatSystemNotiRolePersonView.h
+K 25
+svn:wc:ra_dav:version-url
+V 192
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiRolePersonView.h
+END
+GJGCChatSystemPostNotiCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemPostNotiCell.h
+END
+GJGCChatOtherApplyMyAuthorizWithStateCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatOtherApplyMyAuthorizWithStateCell.m
+END
+GJGCChatSystemNotiConstans.h
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiConstans.h
+END
+GJGCChatSystemNotiRolePersonView.m
+K 25
+svn:wc:ra_dav:version-url
+V 192
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiRolePersonView.m
+END
+GJGCChatSystemInviteFriendJoinGroupCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemInviteFriendJoinGroupCell.h
+END
+GJGCChatSystemPostNotiCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemPostNotiCell.m
+END
+GJGCChatSystemNotiConstans.m
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemNotiConstans.m
+END
+GJGCChatSystemInviteFriendJoinGroupCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/SystemNoti/GJGCChatSystemInviteFriendJoinGroupCell.m
+END

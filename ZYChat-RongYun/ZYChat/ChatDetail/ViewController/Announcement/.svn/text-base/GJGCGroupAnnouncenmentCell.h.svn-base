@@ -1,0 +1,20 @@
+//
+//  GJGCGroupAnnouncenmentCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "GJGCGroupAnnouncementModel.h"
+
+@interface GJGCGroupAnnouncenmentCell : UITableViewCell
+
+- (void)setAnnouncementModel:(GJGCGroupAnnouncementModel *)announcement;
+
+- (CGFloat)contentHeight;
+
++ (CGFloat)heightForAnnouncement:(GJGCGroupAnnouncementModel *)announcement;
+
+@end

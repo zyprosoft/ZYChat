@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/Mobile/!svn/ver/92019/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View
+END
+GJGCLevelView.h
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCLevelView.h
+END
+GJGCRefreshHeaderView.h
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCRefreshHeaderView.h
+END
+UIImage+GJFixOrientation.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/UIImage+GJFixOrientation.h
+END
+GJGCLevelView.m
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCLevelView.m
+END
+GJGCRefreshHeaderView.m
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCRefreshHeaderView.m
+END
+GJGCRefreshFooterView.h
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCRefreshFooterView.h
+END
+UIImage+GJFixOrientation.m
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/UIImage+GJFixOrientation.m
+END
+GJGCChatContentEmojiParser.h
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/Mobile/!svn/ver/91958/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCChatContentEmojiParser.h
+END
+GJGCParticleEffectLayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCParticleEffectLayer.h
+END
+GJGCRefreshFooterView.m
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCRefreshFooterView.m
+END
+UIImage+GJGCDriftBottleShape.h
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/UIImage+GJGCDriftBottleShape.h
+END
+GJGCPlaceHolderImageView.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/92019/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCPlaceHolderImageView.h
+END
+GJGCAnimatedImageView.h
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCAnimatedImageView.h
+END
+GJGCChatContentEmojiParser.m
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCChatContentEmojiParser.m
+END
+GJGCParticleEffectLayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCParticleEffectLayer.m
+END
+GJGCLoadingStatusHUD.h
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCLoadingStatusHUD.h
+END
+UIImage+GJGCDriftBottleShape.m
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/UIImage+GJGCDriftBottleShape.m
+END
+GJGCAnimatedImage.h
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCAnimatedImage.h
+END
+GJGCAnimatedImageView.m
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCAnimatedImageView.m
+END
+GJGCPlaceHolderImageView.m
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/92019/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCPlaceHolderImageView.m
+END
+GJGCLoadingStatusHUD.m
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCLoadingStatusHUD.m
+END
+GJGCAnimatedImage.m
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/View/GJGCAnimatedImage.m
+END

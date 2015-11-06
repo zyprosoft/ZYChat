@@ -1,0 +1,523 @@
+//
+//  ZYNetWorkManager.m
+//  ZYNetwork
+//
+//  Created by ZYVincent on 15/7/18.
+//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//
+
+#import "ZYNetWorkManager.h"
+#import "AFNetworking.h"
+#import "GJCFUitils.h"
+
+static dispatch_queue_t ZYNetworkManagerOperationQueue = nil;
+
+@interface ZYNetWorkManager ()
+
+@property (nonatomic,strong)NSMutableArray *waitJsonTasks;
+
+@property (nonatomic,strong)NSMutableArray *waitDownloadTasks;
+
+@property (nonatomic,strong)NSMutableArray *excutingTasks;
+
+@property (nonatomic,assign)NSInteger maxExcutingTaskCount;
+
+@property (nonatomic,strong)AFHTTPRequestOperationManager *requestManager;
+
+@property (nonatomic,assign)NSInteger currenPiroriy;
+
+
+@end
+
+@implementation ZYNetWorkManager
+
++ (ZYNetWorkManager *)shareManager
+{
+    static ZYNetWorkManager *_networkInstance = nil;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        
+        if (!_networkInstance) {
+            
+            _networkInstance = [[self alloc]init];
+            
+        }
+        
+    });
+    
+    return _networkInstance;
+}
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        self.waitJsonTasks = [[NSMutableArray alloc]init];
+        
+        self.waitDownloadTasks = [[NSMutableArray alloc]init];
+        
+        self.excutingTasks = [[NSMutableArray alloc]init];
+        
+        self.maxExcutingTaskCount = 5.f;
+        
+        self.currenPiroriy = 0;
+        
+        ZYNetworkManagerOperationQueue = dispatch_queue_create("ZYNetworkManagerOperationQueue", DISPATCH_QUEUE_SERIAL);
+
+        self.requestManager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:@""]];
+        self.requestManager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        self.requestManager.responseSerializer.stringEncoding = NSUTF8StringEncoding;
+        self.requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/json",@"text/javascript",@"application/json",@"text/html",@"application/xhtml+xml",@"*/*",@"application/xhtml+xml",@"image/webp", nil];
+        
+    }
+    return self;
+}
+
+#pragma mark - 内部调度
+
+//获取任务的更高优先级
+- (NSInteger)getCurrentNewHighPirority
+{
+    self.currenPiroriy = self.currenPiroriy -1;
+    
+    return self.currenPiroriy;
+}
+
+//获取当前等待任务的最低优先级
+- (NSInteger)getCurrentNewLowPirority
+{
+    self.currenPiroriy = self.currenPiroriy +1;
+
+    return self.currenPiroriy;
+}
+
+- (NSArray *)sortedExcutingDownloadTasks
+{
+    NSMutableArray *downloadTasks = [NSMutableArray array];
+    for (ZYNetWorkTask *task in self.excutingTasks) {
+        
+        if (task.taskType == ZYNetworkTaskTypeDownloadFile) {
+            
+            [downloadTasks addObject:task];
+        }
+    }
+    
+    return [downloadTasks sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (ZYNetWorkTask *)nextDownloadTask
+{
+    NSArray *sortArray = [self.waitDownloadTasks sortedArrayUsingSelector:@selector(compare:)];
+    
+    return [sortArray firstObject];
+}
+
+- (void)cancelDownloadImageTaskForNewJoinedTask
+{
+    [self cancelTaskThenWaitNextTime:[self.waitDownloadTasks firstObject]];
+}
+
+- (void)cancelTaskThenWaitNextTime:(ZYNetWorkTask *)task
+{
+    dispatch_async(ZYNetworkManagerOperationQueue, ^{
+        
+        for (AFHTTPRequestOperation *operation in self.requestManager.operationQueue.operations ) {
+            
+            NSString *operationTaskIdentifier = [operation.userInfo objectForKey:@"taskIdentifier"];
+            
+            if ([operationTaskIdentifier isEqualToString:task.taskIdentifier]) {
+                
+                [operation cancel];
+            }
+        }
+        
+        for (ZYNetWorkTask *excutingTask in self.excutingTasks) {
+            
+            if ([excutingTask.taskIdentifier isEqual:task.taskIdentifier]) {
+                
+                //重新等待下一次请求
+                excutingTask.taskState = ZYNetworkTaskStateWait;
+                
+                //从执行队列移除
+                [self.excutingTasks removeObject:excutingTask];
+                
+                //加入等待队列
+                if (excutingTask.taskType == ZYNetworkTaskTypeDownloadFile) {
+                    [self.waitDownloadTasks addObject:excutingTask];
+                }
+                if (excutingTask.taskType == ZYNetworkTaskTypeJsonRequest) {
+                    [self.waitJsonTasks addObject:excutingTask];
+                }
+                
+            }
+        }
+        
+    });
+}
+
+- (void)startNextTaskIfNeccessary
+{
+    ZYNetWorkTask *nextTask = [self.waitJsonTasks lastObject];
+    
+    if (nextTask) {
+        
+        //如果json接口被正在执行的任务挡住了
+        if (self.excutingTasks.count == self.maxExcutingTaskCount) {
+            
+            [self cancelDownloadImageTaskForNewJoinedTask];
+            
+        }
+        
+        //添加一个json请求
+        [self.waitJsonTasks removeObject:nextTask];
+        
+        [self addTask:nextTask];
+        
+        return;
+    }
+    
+    //执行一个下载图片的
+    ZYNetWorkTask *downloadTask = [self nextDownloadTask];
+    
+    if (downloadTask) {
+        
+        [self.waitDownloadTasks removeObject:downloadTask];
+        
+        [self addTask:downloadTask];
+    }
+}
+
+
+#pragma mark - 公开接口
+
+- (void)addTask:(ZYNetWorkTask *)task{
+    
+    //任务串行
+    dispatch_async(ZYNetworkManagerOperationQueue, ^{
+        
+        //如果是一个相同的下载任务
+        if (task.taskType == ZYNetworkTaskTypeDownloadFile) {
+            
+            for (ZYNetWorkTask *waitTask in self.waitDownloadTasks) {
+                
+                if ( [waitTask isEqualRequest:task]) {
+                    
+                    //提高下载优先级
+                    waitTask.priority = [self getCurrentNewLowPirority];
+                    
+                    if (self.excutingTasks.count == self.maxExcutingTaskCount) {
+                        
+                        return ;
+
+                    }
+                }
+            }
+        }
+       
+        
+        //如果是json接口请求，直接干掉一个下载请求来支持json请求开始
+        if (task.taskType == ZYNetworkTaskTypeJsonRequest) {
+            
+            [self cancelDownloadImageTaskForNewJoinedTask];
+            
+        }
+        
+        //添加优先级索引
+        if (task.priority == -999) {
+            task.priority = [self getCurrentNewLowPirority];
+        }
+                
+        //判定是否已经到了最大任务执行数
+        if (self.excutingTasks.count > self.maxExcutingTaskCount) {
+            
+            if (task.taskType == ZYNetworkTaskTypeJsonRequest) {
+                [self.waitJsonTasks addObject:task];
+            }
+            
+            if (task.taskType == ZYNetworkTaskTypeDownloadFile) {
+                [self.waitDownloadTasks addObject:task];
+            }
+            
+            return;
+        }
+        
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:task.requestUrl]];
+        
+        if (task.requestMethod == ZYNetworkRequestMethodGET) {
+            urlRequest.HTTPMethod = @"GET";
+        }else{
+            urlRequest.HTTPMethod = @"POST";
+            urlRequest = [self.requestManager.requestSerializer requestWithMethod:urlRequest.HTTPMethod URLString:task.requestUrl parameters:task.postParams error:nil];
+            NSLog(@"url request :%@ postParams:%@",urlRequest.description,task.postParams);
+        }
+        
+        AFHTTPRequestOperation *request = [[AFHTTPRequestOperation alloc]initWithRequest:urlRequest];
+        
+        [request setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+            if (task.taskType == ZYNetworkTaskTypeJsonRequest) {
+                
+                NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+                
+                NSLog(@"url :%@ request json:%@",urlRequest.URL.absoluteString,jsonObject);
+                
+                BOOL status = [[jsonObject objectForKey:@"status"]boolValue];
+                
+                if (status) {
+                    
+                    [self successWithTask:task response:[jsonObject objectForKey:@"data"]];
+                    
+                }else{
+                    
+                    NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.BabyTrip" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":[jsonObject objectForKey:@"message"]}];
+                    
+                    [self faildWithTask:task error:commError];
+                }
+                
+            }
+  
+            if (task.taskType == ZYNetworkTaskTypeDownloadFile) {
+                
+                [self successWithTask:task response:responseObject];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.BabyTrip" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":@"网络不给力~"}];
+
+            [self faildWithTask:task error:commError];
+            
+        }];
+        
+        [request setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            
+            CGFloat uploadKbSize = totalBytesRead/1024.0f;
+            CGFloat totoalSize = totalBytesExpectedToRead/1024.0f;
+            CGFloat downloadProgreessValue = (uploadKbSize/1024.f)/(totoalSize/1024.f);
+            
+            [self progressTask:task progress:downloadProgreessValue];
+            
+        }];
+        
+        NSString *groupTaskIdentifier = task.groupTaskIdentifier;
+        if (!groupTaskIdentifier) {
+            groupTaskIdentifier = @"NotGroupTask";
+        }
+        request.userInfo = @{@"taskIdentifier":task.taskIdentifier,@"taskType":@(task.taskType),@"groupTask":groupTaskIdentifier};
+        task.taskState = ZYNetworkTaskStateLoading;
+        
+        [self.requestManager.operationQueue addOperation:request];
+        
+        [self.excutingTasks addObject:task];
+        
+    });
+}
+
+#pragma mark - 任务取消
+
+- (void)cancelTask:(ZYNetWorkTask *)task
+{
+    [self cancelTaskByIdentifier:task.taskIdentifier];
+}
+
+- (void)cancelTaskByUserInfoValues:(NSDictionary *)userInfo
+{
+    dispatch_async(ZYNetworkManagerOperationQueue, ^{
+       
+        NSString *firstKey = [userInfo.allKeys firstObject];
+        NSString *firstValue = [userInfo objectForKey:firstKey];
+        
+        //是否正在执行的任务
+        for (ZYNetWorkTask *excutingTask in self.excutingTasks) {
+            
+            for (AFHTTPRequestOperation *operation in self.requestManager.operationQueue.operations ) {
+                
+                if ([operation.userInfo.allKeys containsObject: firstKey]) {
+                    
+                    if ([[operation.userInfo objectForKey:firstKey] isEqualToString:firstValue]) {
+                        
+                        [operation cancel];
+                        
+                    }
+                }
+            }
+            
+            if ([excutingTask.userInfo.allKeys containsObject: firstKey]) {
+                
+                if ([[excutingTask.userInfo objectForKey:firstKey] isEqualToString:firstValue]) {
+                    
+                    [self.excutingTasks removeObject:excutingTask];
+                    
+                }
+                
+            }
+        }
+        
+        //等待中的下载任务任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitDownloadTasks) {
+            
+            if ([waitTask.userInfo.allKeys containsObject: firstKey]) {
+                
+                if ([[waitTask.userInfo objectForKey:firstKey] isEqualToString:firstValue]) {
+                    
+                    [self.waitDownloadTasks removeObject:waitTask];
+
+                }
+                
+            }
+        }
+        
+        //等待中的json任务任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitDownloadTasks) {
+            
+            if ([waitTask.userInfo.allKeys containsObject: firstKey]) {
+                
+                if ([[waitTask.userInfo objectForKey:firstKey] isEqualToString:firstValue]) {
+                    
+                    [self.waitDownloadTasks removeObject:waitTask];
+                    
+                }
+                
+            }
+        }
+        
+    });
+}
+
+- (void)cancelTaskByIdentifier:(NSString *)taskIdentifier
+{
+    dispatch_async(ZYNetworkManagerOperationQueue, ^{
+        
+        //是否正在执行的任务
+        for (ZYNetWorkTask *excutingTask in self.excutingTasks) {
+            
+            for (AFHTTPRequestOperation *operation in self.requestManager.operationQueue.operations ) {
+                
+                NSString *operationTaskIdentifier = [operation.userInfo objectForKey:@"taskIdentifier"];
+                
+                if ([operationTaskIdentifier isEqualToString:taskIdentifier]) {
+                    
+                    [operation cancel];
+                }
+            }
+            
+            if ([excutingTask.taskIdentifier isEqual:taskIdentifier]) {
+                
+                [self.excutingTasks removeObject:excutingTask];
+                
+            }
+        }
+        
+        //等待中的下载任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitDownloadTasks) {
+            
+            if ([waitTask.taskIdentifier isEqual:taskIdentifier]) {
+                
+                [self.waitDownloadTasks removeObject:waitTask];
+                
+            }
+        }
+        
+        //等待中的json任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitJsonTasks) {
+            
+            if ([waitTask.taskIdentifier isEqual:taskIdentifier]) {
+                
+                [self.waitJsonTasks removeObject:waitTask];
+                
+            }
+        }
+        
+    });
+}
+
+- (void)cancelGroupTask:(NSString *)groupTaskIdentifier
+{
+    dispatch_async(ZYNetworkManagerOperationQueue, ^{
+        
+        //是否正在执行的任务
+        for (ZYNetWorkTask *excutingTask in self.excutingTasks) {
+            
+            for (AFHTTPRequestOperation *operation in self.requestManager.operationQueue.operations ) {
+                
+                NSString *operationTaskIdentifier = [operation.userInfo objectForKey:@"groupTask"];
+                
+                if ([operationTaskIdentifier isEqualToString:groupTaskIdentifier]) {
+                    
+                    [operation cancel];
+                }
+            }
+            
+            if ([excutingTask.groupTaskIdentifier isEqual:groupTaskIdentifier]) {
+                
+                [self.excutingTasks removeObject:excutingTask];
+                
+            }
+        }
+        
+        //等待中的下载任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitDownloadTasks) {
+            
+            if ([waitTask.groupTaskIdentifier isEqual:groupTaskIdentifier]) {
+                
+                [self.waitDownloadTasks removeObject:waitTask];
+                
+            }
+        }
+        
+        //等待中的json任务直接移除
+        for (ZYNetWorkTask *waitTask in self.waitJsonTasks) {
+            
+            if ([waitTask.groupTaskIdentifier isEqual:groupTaskIdentifier]) {
+                
+                [self.waitJsonTasks removeObject:waitTask];
+                
+            }
+        }
+        
+    });
+
+}
+
+#pragma mark - 内部请求结果处理
+
+- (void)successWithTask:(ZYNetWorkTask *)task response:(id)responseObject
+{
+    //执行完成任务的回调
+    if (task.successBlock) {
+        task.successBlock(task,responseObject);
+    }
+    
+    //移除任务
+    [self.excutingTasks removeObject:task];
+    
+    //执行下一个任务，如果有的话
+    [self startNextTaskIfNeccessary];
+}
+
+- (void)faildWithTask:(ZYNetWorkTask *)task error:(NSError *)error
+{
+    //执行任务失败回调
+    if (task.faildBlock) {
+        
+        task.faildBlock(task,error);
+        
+    }
+    
+    //移除任务
+    [self.excutingTasks removeObject:task];
+    
+    //执行下一个等待的任务
+    [self startNextTaskIfNeccessary];
+}
+
+- (void)progressTask:(ZYNetWorkTask *)task progress:(CGFloat)progress
+{
+    if (task.progressBlock) {
+        task.progressBlock(task,progress);
+    }
+}
+
+@end

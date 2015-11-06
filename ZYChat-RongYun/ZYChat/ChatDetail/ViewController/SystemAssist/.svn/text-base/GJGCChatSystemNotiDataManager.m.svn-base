@@ -1,0 +1,876 @@
+//
+//  GJGCSystemNotiDataManager.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-11.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatSystemNotiDataManager.h"
+#import "GJGCFriendSystemMsgDBAPI.h"
+#import "GJGCIMFriendSystemModel.h"
+#import "NSString+GJGCJSONString.h"
+#import "GJGCContactManager.h"
+#import "GJGCCallbackManagerHeader.h"
+#import "GJGCFriendUser.h"
+
+@interface GJGCChatSystemNotiDataManager ()
+
+@property (nonatomic,assign)NSInteger pageIndex;
+
+@property (nonatomic,assign)BOOL isFinishLoadDataBaseMsg;
+
+@end
+
+@implementation GJGCChatSystemNotiDataManager
+
+- (instancetype)initWithTalk:(GJGCChatFriendTalkModel *)talk withDelegate:(id<GJGCChatDetailDataSourceManagerDelegate>)aDelegate
+{
+    if (self = [super initWithTalk:talk withDelegate:aDelegate]) {
+        
+        self.title = @"赶集助手";
+        
+        self.pageIndex = 0;
+        
+        [self readLastMessagesFromDB];
+        
+        /* 观察好友助手通知 */
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeSystemNotiMessage:) name:GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE object:nil];
+        
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeHistoryMessage:) name:GJGC_NOTIFICATION_RECEIVE_HISTORYMSG object:nil];
+    }
+    return self;
+}
+
+#pragma mark - 读取所有好友助手消息
+
+- (void)readLastMessagesFromDB
+{
+    NSArray *allFriendModels = [[GJGCFriendSystemMsgDBAPI share]getLastMsgWithPageCount:20 pageIndex:0];
+    
+    for (NSInteger i = allFriendModels.count -1 ; i >= 0; i--) {
+        
+        GJGCIMFriendSystemModel *friendModel = [allFriendModels objectAtIndex:i];
+        
+        if ([friendModel.sysType intValue] == 1) {
+            [self addFriendModel:friendModel];
+        }
+        
+        if ([friendModel.sysType intValue] == 2) {
+            [self addGroupNotiModel:friendModel];
+        }
+        
+        if ([friendModel.sysType intValue] == 3) {
+            [self addTemplateModel:friendModel];
+        }
+        
+        if ([friendModel.sysType intValue] == 4) {
+            [self addNormalSystemModel:friendModel];
+        }
+        
+        if ([friendModel.sysType intValue] == 5) {
+            [self addPostSystemModel:friendModel];
+        }
+        
+    }
+    
+    /* 设置加载完后第一条消息和最后一条消息 */
+    [self resetFirstAndLastMsgId];
+}
+
+#pragma mark - 观察好友助手消息
+- (void)observeSystemNotiMessage:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        GJGCChatFriendTalkModel *talkModel = (GJGCChatFriendTalkModel *)noti.userInfo[@"data"];
+        
+        if (talkModel.talkType != GJGCChatFriendTalkSystemAssist) {
+            return;
+        }
+        
+        for (GJGCIMFriendSystemModel *friendModel in talkModel.msgArray) {
+            
+            [self dispatchSystemMsg:friendModel];
+            
+        }
+        
+        [self requireListUpdate];
+
+    });
+}
+
+- (void)dispatchSystemMsg:(GJGCIMFriendSystemModel *)systemModel
+{
+    /* 好友助手 */
+    if ([systemModel.sysType intValue] == 1) {
+        [self addFriendModel:systemModel];
+    }
+    
+    /* 群助手 */
+    if ([systemModel.sysType intValue] == 2) {
+        [self addGroupNotiModel:systemModel];
+    }
+    
+    /**
+     *  模板助手消息
+     */
+    if ([systemModel.sysType intValue] == 3) {
+        [self addTemplateModel:systemModel];
+    }
+    
+    /* 普通系统消息 */
+    if ([systemModel.sysType intValue] == 4) {
+        [self addNormalSystemModel:systemModel];
+    }
+    
+    /* 帖子系统消息 */
+    if ([systemModel.sysType intValue] == 5) {
+        [self addPostSystemModel:systemModel];
+    }
+
+}
+
+- (void)observeHistoryMessage:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self recieveHistoryMessage:noti];
+        
+    });
+}
+
+- (void)recieveHistoryMessage:(NSNotification *)noti
+{
+    /* 是否当前会话的历史消息 */
+    GJGCIMHistoryMsgResultModel *resultModel = noti.userInfo[@"data"];
+
+    if (![resultModel isEqualTalk:self.taklInfo] || ![resultModel.observerIdentifier isEqualToString:self.uniqueIdentifier]) {
+        return;
+    }
+    
+    NSArray *msgArray = resultModel.msgArray;
+    
+    BOOL isFirstPull = resultModel.isFirstPull;
+    
+    NSInteger errorCode = resultModel.errorCode;
+    
+    NSInteger requestMsgCount = resultModel.requestMsgCount;
+
+    /* 所有历史消息都加载完了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && msgArray.count == 0) {
+        
+        /**
+         *  当历史数据和本地区间有交集的时候，重新尝试获取一次本地历史消息
+         */
+        NSArray *reTryLocalMsgArray = [self reTryGetLocalMessageWhileHistoryMessageIsSubMessagesOfLocalMessages];
+        
+        if (reTryLocalMsgArray.count > 0) {
+            
+            msgArray = reTryLocalMsgArray;
+            
+        }
+        
+    }
+    
+    if (msgArray && msgArray.count > 0 && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode]) {
+        
+        /* 分发到UI层 */
+        for (GJGCIMFriendSystemModel *msgModel in msgArray) {
+            [self dispatchSystemMsg:msgModel];
+        }
+        
+        /* 重排时间顺序 */
+        [self resortAllSystemNotiContentBySendTime];
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成赶集助手第一次拉取历史消息");
+            self.isFinishFirstHistoryLoad = YES;
+
+            /* 悬停在第一次加载历史消息的最后一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+            }
+            
+        }else{
+            
+            /* 悬停在第一次加载后的第一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishRefresh:self];
+            }
+            
+        }
+        
+    }else{
+        
+        if (errorCode == kCFURLErrorNotConnectedToInternet) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"似乎已断开与互联网链接"}];
+            
+        }
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成赶集助手第一次拉取历史消息");
+            
+            self.isFinishFirstHistoryLoad = YES;
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+            }
+            
+            return;
+        }
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+            [self.delegate dataSourceManagerRequireFinishRefresh:self];
+        }
+    }
+    
+    /* 如果没有历史消息了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && requestMsgCount == 0) {
+        
+        self.isFinishLoadAllHistoryMsg = YES;
+    }
+}
+
+- (void)pushAddMoreMsg:(NSArray *)array
+{
+    for (GJGCIMFriendSystemModel *systemModel in array) {
+        [self dispatchSystemMsg:systemModel];
+    }
+    
+    /* 重排时间顺序 */
+    [self resortAllSystemNotiContentBySendTime];
+    
+    /* 上一次悬停的第一个cell的索引 */
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.delegate dataSourceManagerRequireFinishRefresh:weakSelf];
+        });
+    }
+}
+
+#pragma mark - 添加普通系统消息
+
+- (void)addNormalSystemModel:(GJGCIMFriendSystemModel *)systemModel
+{
+    GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
+    notiModel.assistType = GJGCChatSystemNotiAssistTypeNormal;
+    notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
+    notiModel.talkType = GJGCChatFriendTalkSystemAssist;
+    notiModel.toId = systemModel.toId;
+    notiModel.contentHeight = [systemModel.height floatValue];
+    notiModel.sessionId = systemModel.senderId;
+
+    [notiModel setLocalMsgId:[NSString stringWithFormat:@"%@",systemModel.localMsgId]];
+    
+    notiModel.sendTime = [systemModel.sendTime longLongValue];
+    notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
+    
+    notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+    
+    NSDictionary *userInfo = [systemModel.contents gjgc_toDictionary];
+    
+    notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:userInfo[@"content"]];
+    
+    [self addChatContentModel:notiModel];
+}
+
+#pragma mark - 添加好友助手消息
+
+- (void)addFriendModel:(GJGCIMFriendSystemModel *)friendModel
+{
+    GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
+    notiModel.assistType = GJGCChatSystemNotiAssistTypeFriend;
+    notiModel.isUserContent = YES;
+    notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
+    notiModel.talkType = GJGCChatFriendTalkSystemAssist;
+    notiModel.toId = friendModel.toId;
+    notiModel.contentHeight = [friendModel.height floatValue];
+    notiModel.sessionId = friendModel.senderId;
+
+    [notiModel setLocalMsgId:[NSString stringWithFormat:@"%@",friendModel.localMsgId]];
+    NSDictionary *userInfo = [friendModel.contents gjgc_toDictionary];
+    NSString *applyTip = [NSString stringWithFormat:@"%@申请添加您为好友",[userInfo objectForKey:@"nickName"]];
+    GJGCChatSystemNotiAcceptState acceptState = [friendModel.acceptState intValue];
+    
+    
+    /* 创建联系人 */
+    GJGCContactModel *contactModel = [[GJGCContactModel alloc]init];
+    contactModel.friendId =  [userInfo objectForKey:@"userId"];
+    contactModel.birthday = [userInfo objectForKey:@"birthday"];
+    contactModel.gender = [userInfo objectForKey:@"gender"];
+    contactModel.avatar = [userInfo objectForKey:@"avatar"];
+    contactModel.nickName = [userInfo objectForKey:@"nickName"];
+    notiModel.contactModel = contactModel;
+    
+    GJGCLogVincent(@"user Notis:%@",friendModel.contents);
+    
+    GJGCChatSystemFriendAssistNotiType notiType = [friendModel.sysTypeResult intValue];
+    /* 格式成数据源 */
+    switch (notiType) {
+        case GJGCChatSystemFriendAssistNotiTypeApply:
+        {
+            if (acceptState == GJGCChatSystemNotiAcceptStatePrepare) {
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeOtherPersonApplyMyAuthoriz;
+                notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:applyTip];
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:userInfo[@"reason"]];
+                
+                break;
+            }
+            
+            notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+            notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:applyTip];
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateFinish) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateReject) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateYouHaveBePullBlack) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已被对方拉黑"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateHaveBePullBlackByYourself) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已被您拉黑"];
+                
+            }
+            
+        }
+            break;
+        case GJGCChatSystemFriendAssistNotiTypeAccept:
+        {
+            
+            
+        }
+            break;
+        case GJGCChatSystemFriendAssistNotiTypeReject:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            NSString *tip = [NSString stringWithFormat:@"用户%@拒绝了您的好友申请！",contactModel.nickName];
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:tip];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    notiModel.sendTime = [friendModel.sendTime longLongValue];
+    notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
+    
+    if (userInfo) {
+        
+        notiModel.userSex = [[userInfo objectForKey:@"gender"] isEqualToString:@"男"]? @"1":@"0";
+        notiModel.userId = [[userInfo objectForKey:@"userId"] longLongValue];
+        
+        NSDate *birthDate = GJCFDateFromString([userInfo objectForKey:@"birthday"]);
+        
+        NSString *ageString = GJCFDateBirthDayToAge(birthDate);
+        NSString *age = nil;
+        if (![ageString hasSuffix:@"岁"]) {
+            age = @"0";
+        }else{
+            age = [ageString stringByReplacingOccurrencesOfString:@"岁" withString:@""];
+        }
+        
+        if ([notiModel.userSex intValue]) {
+            
+            notiModel.userAge = [GJGCChatSystemNotiCellStyle formateManAge:age];
+        }else{
+            
+            notiModel.userAge = [GJGCChatSystemNotiCellStyle formateWomenAge:age];
+        }
+        
+        notiModel.userStarName = [GJGCChatSystemNotiCellStyle formateStarName:GJCFDateToConstellation(birthDate)];
+        
+        notiModel.headUrl = [userInfo objectForKey:@"avatar"];
+        
+        notiModel.name = [GJGCChatSystemNotiCellStyle formateNameString:[userInfo objectForKey:@"nickName"]];
+        
+    }
+    
+    [self addChatContentModel:notiModel];
+}
+
+#pragma mark - 添加template推荐的消息
+
+- (void)addTemplateModel:(GJGCIMFriendSystemModel *)friendModel
+{
+    NSDictionary *dictContent = [friendModel.contents gjgc_toDictionary];
+    /**
+     *  请求参数，需要传入下一个界面
+     */
+    NSString *url = dictContent[@"url"];
+    
+    // card题目
+    NSString *title = dictContent[@"title"];
+    
+    // 简介
+    NSString *desc = dictContent[@"desc"];
+    // 图片
+    NSString *pic = dictContent[@"pic"];
+    
+    // 1 是推荐消息   2是H5页面消息 也许未来还会有更多，需要看wiki
+    NSInteger type = [dictContent[@"type"] integerValue];
+    
+    NSString *buttonTitle = [dictContent objectForKey:@"buttonText"];
+    
+    GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc] init];
+    
+    /* 如果没有按钮，那么就不显示按钮，并且可以卡片高亮 */
+    if (![[dictContent allKeys] containsObject:@"buttonText"] || GJCFStringIsNull(buttonTitle)) {
+        notiModel.canShowHighlightState = YES;
+    }
+    
+    notiModel.assistType = GJGCChatSystemNotiAssistTypeTemplate;
+    notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
+    notiModel.notiType = GJGCChatSystemNotiTypeSystemActiveGuide;
+    notiModel.contentHeight = [friendModel.height floatValue];
+    notiModel.sessionId = friendModel.senderId;
+
+    notiModel.systemActiveImageUrl = pic;
+    notiModel.systemNotiTitle = [GJGCChatSystemNotiCellStyle formateNameString:title];
+    notiModel.systemJumpUrl = url;
+    notiModel.systemJumpType = type;
+    notiModel.systemGuideButtonTitle = [GJGCChatSystemNotiCellStyle formateButtonTitle:buttonTitle];
+    notiModel.talkType = GJGCChatFriendTalkSystemAssist;
+    notiModel.toId = friendModel.toId;
+    notiModel.sendTime = [friendModel.sendTime longLongValue];
+    notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
+    
+    notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateActiveDescription:desc];
+    
+    [notiModel setLocalMsgId:[NSString stringWithFormat:@"%@",friendModel.localMsgId]];
+    
+    [self addChatContentModel:notiModel];
+}
+
+- (void)addGroupNotiModel:(GJGCIMFriendSystemModel *)friendModel
+{
+    GJGCLogVincent(@"group Notis:%@",friendModel.contents);
+
+    GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
+    notiModel.assistType = GJGCChatSystemNotiAssistTypeGroup;
+    notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
+    notiModel.talkType = GJGCChatFriendTalkSystemAssist;
+    notiModel.toId = friendModel.toId;
+    notiModel.contentHeight = [friendModel.height floatValue];
+    notiModel.sessionId = friendModel.senderId;
+
+    [notiModel setLocalMsgId:[NSString stringWithFormat:@"%@",friendModel.localMsgId]];
+    NSDictionary *userInfo = [friendModel.contents gjgc_toDictionary];
+    
+    if (!userInfo) {
+        return;
+    }
+    
+    notiModel.sendTime = [friendModel.sendTime longLongValue];
+    notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
+    
+    /* 群组基础信息 */
+    notiModel.groupId = [[userInfo objectForKey:@"groupId"]longLongValue];
+    
+    /* 用户基础信息 */
+    notiModel.userId = [[userInfo objectForKey:@"userId"] longLongValue];
+    
+    BOOL isMyNoti = notiModel.userId == [GJGCUser share].userId;
+    
+    NSString *formateTip = [GJGCChatSystemNotiConstans formateChatSystemGroupNotiMsgWithModel:friendModel];
+    
+    GJGCChatSystemNotiAcceptState acceptState = [friendModel.acceptState intValue];
+
+    GJGCChatSystemGroupAssistNotiType notiType = [friendModel.sysTypeResult intValue];
+    notiModel.groupAssistNotiType = notiType;
+    
+    /* 格式成数据源 */
+    switch (notiType) {
+        case GJGCChatSystemGroupAssistNotiTypeCreateGroupAccept:
+        {
+            [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+            
+            notiModel.notiType = GJGCChatSystemNotiTypeInviteFriendJoinGroup;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeCreateGroupReject:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeUpdateGroupInfoAccept:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeUpdateGroupInfoReject:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup:
+        {
+            [self setNotiModelUserContent:notiModel withUserInfo:userInfo];
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStatePrepare) {
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeOtherGroupApply;
+                notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:[userInfo objectForKey:@"reason"]];
+                
+                break;
+            }
+
+            notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+            notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateFinish) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateReject) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateOtherAdminAccept) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已通过"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateOtherAdminRject) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已拒绝"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateTimeOut) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已过期"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateGroupHasBeenDelete) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"该群已解散"];
+                
+            }
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup:
+        {
+            [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStatePrepare) {
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeOtherGroupApply;
+                notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+                
+                break;
+            }
+            
+            notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+            notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateFinish) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已同意"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateApplying) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"申请中"];
+
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateReject) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateOtherAdminAccept) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已通过"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateOtherAdminRject) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"其他管理员已拒绝"];
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateTimeOut) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已过期"];
+                
+            }
+            
+            if (acceptState == GJGCChatSystemNotiAcceptStateGroupHasBeenDelete) {
+                
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"该群已解散"];
+                
+            }
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeRejectJoinGroup:
+        {
+            if (isMyNoti) {
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+                notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+                
+                [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+                
+            }else{
+                
+                [self setNotiModelUserContent:notiModel withUserInfo:userInfo];
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+                notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyTip:@"已拒绝"];
+            }
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAcceptJoinGroup:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+            notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+            notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+            
+            if (isMyNoti) {
+                
+                [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+                
+            }else{
+                
+                [self setNotiModelUserContent:notiModel withUserInfo:userInfo];
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAcceptInviteJoinGroup:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAddGroupAdmin:
+        {
+            if (isMyNoti) {
+                
+                [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+                
+                notiModel.notiType = GJGCChatSystemNotiTypeGroupOperationState;
+                notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+                
+            }
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteGroupAdmin:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeGroupOperationState;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+            
+            if (isMyNoti) {
+                
+                [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteGroup:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteMemeberByGroupAdmin:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeMemeberExitGroup:
+        {
+            notiModel.notiType = GJGCChatSystemNotiTypeGroupOperationState;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+        }
+            break;
+            
+        case GJGCChatSystemGroupAssistNotiTypeRequestBeGroupOwner:
+        {
+            /**
+             *  请求参数，需要传入下一个界面
+             */
+            NSString *url = userInfo[@"url"];
+            
+            // card题目
+            NSString *title = userInfo[@"title"];
+            
+            // 简介
+            NSString *desc = userInfo[@"desc"];
+            
+            // 图片
+            NSString *pic = userInfo[@"pic"];
+            
+            // 1 是推荐消息   2是H5页面消息 也许未来还会有更多，需要看wiki
+            NSInteger type = [userInfo[@"type"] integerValue];
+            
+            notiModel.assistType = GJGCChatSystemNotiAssistTypeTemplate;
+            notiModel.notiType = GJGCChatSystemNotiTypeSystemActiveGuide;
+            notiModel.systemActiveImageUrl = pic;
+            notiModel.systemNotiTitle = [GJGCChatSystemNotiCellStyle formateNameString:title];
+            notiModel.systemJumpUrl = url;
+            notiModel.systemJumpType = type;
+            notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:desc];
+
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeRequestBeGroupOwnerSuccess:
+        {
+            [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+            notiModel.notiType = GJGCChatSystemNotiTypeGroupOperationState;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateApplyTip:formateTip];
+            
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeBeCancelGroupOwner:
+        {
+            [self setNotiModelGroupContent:notiModel withUserInfo:userInfo];
+            notiModel.notiType = GJGCChatSystemNotiTypeGroupOperationState;
+            notiModel.groupOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:formateTip];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self addChatContentModel:notiModel];
+}
+
+#pragma mark - 收帖子系统消息
+
+- (void)addPostSystemModel:(GJGCIMFriendSystemModel *)systeModel
+{
+    GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
+    notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
+    notiModel.notiType = GJGCChatSystemNotiTypePostSystemNoti;
+    notiModel.talkType = GJGCChatFriendTalkTypePostSystem;
+    notiModel.toId = systeModel.toId;
+    notiModel.contentHeight = [systeModel.height floatValue];
+    
+    NSDictionary *userInfo = [systeModel.contents gjgc_toDictionary];
+    NSString *content = [userInfo objectForKey:@"content"];
+    
+    [notiModel setLocalMsgId:[NSString stringWithFormat:@"%@",systeModel.localMsgId]];
+
+    notiModel.sendTime = [systeModel.sendTime longLongValue];
+    notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
+    
+    /* 内容 */
+    NSInteger jumpType = [[systeModel.appendType objectForKey:@"redirectPageType"]intValue];
+    notiModel.postSystemJumpType = jumpType;
+    if (jumpType > 0) {
+        notiModel.canShowHighlightState = YES;
+    }
+    
+    notiModel.postSystemContent = [GJGCChatSystemNotiCellStyle formateBaseContent:content];
+    
+    notiModel.postSystemAppendType = systeModel.appendType;
+    
+    [self addChatContentModel:notiModel];
+    
+}
+
+- (void)setNotiModelUserContent:(GJGCChatSystemNotiModel *)notiModel withUserInfo:(NSDictionary *)userInfo
+{
+    /* 个人信息 */
+    NSString *toUserName = [userInfo objectForKey:@"nickName"];
+    NSString *birthday = [userInfo objectForKey:@"birthday"];
+    NSString *gender = [userInfo objectForKey:@"gender"];
+    NSString *toUserAvatar = [userInfo objectForKey:@"avatar"];
+    
+    notiModel.isUserContent = YES;
+    notiModel.userSex = [gender isEqualToString:@"男"]? @"1":@"0";
+    
+    NSDate *birthDate = GJCFDateFromString(birthday);
+    NSString *ageString = GJCFDateBirthDayToAge(birthDate);
+    NSString *age = nil;
+    if (![ageString hasSuffix:@"岁"]) {
+        age = @"0";
+    }else{
+        age = [ageString stringByReplacingOccurrencesOfString:@"岁" withString:@""];
+    }
+    
+    if ([notiModel.userSex intValue]) {
+        
+        notiModel.userAge = [GJGCChatSystemNotiCellStyle formateManAge:age];
+    }else{
+        
+        notiModel.userAge = [GJGCChatSystemNotiCellStyle formateWomenAge:age];
+    }
+    
+    notiModel.userStarName = [GJGCChatSystemNotiCellStyle formateStarName:GJCFDateToConstellation(birthDate)];
+    notiModel.headUrl = toUserAvatar;
+    notiModel.name = [GJGCChatSystemNotiCellStyle formateNameString:toUserName];
+}
+
+- (void)setNotiModelGroupContent:(GJGCChatSystemNotiModel *)notiModel withUserInfo:(NSDictionary *)userInfo
+{
+    /* 群信息 */
+    NSString *groupAvatar = [userInfo objectForKey:@"groupAvatar"];
+    NSString *groupName = [userInfo objectForKey:@"name"];
+    NSString *groupLevel = [userInfo objectForKey:@"level"];
+    NSString *maxMemberCount = [userInfo objectForKey:@"maxCount"];
+    NSString *currentCount = [userInfo objectForKey:@"currentCount"];
+    
+    notiModel.isGroupContent = YES;
+    notiModel.name = [GJGCChatSystemNotiCellStyle formateNameString:groupName];
+    notiModel.groupLevel = [GJGCChatSystemNotiCellStyle formateGroupLevel:[NSString stringWithFormat:@"Lv.%@",groupLevel]];
+    notiModel.groupMemberCount = [GJGCChatSystemNotiCellStyle formateGroupMember:[NSString stringWithFormat:@"%@/%@",currentCount,maxMemberCount]];
+    notiModel.headUrl = groupAvatar;
+}
+
+- (void)requireListUpdate
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+    }
+}
+
+- (BOOL)updateAcceptState:(GJGCChatSystemNotiAcceptState)state localMsgId:(NSInteger)localMsgId
+{
+   return [[GJGCFriendSystemMsgDBAPI share] updateAcceptState:state localMsgId:localMsgId];
+}
+
+#pragma mark - 更新数据库中消息得高度
+
+- (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    [[GJGCFriendSystemMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) withLocalMsgId:contentModel.localMsgId];
+}
+
+
+@end

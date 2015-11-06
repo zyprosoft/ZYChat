@@ -1,0 +1,212 @@
+//
+//  GJGCReplyGroupCallViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/4/16.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCReplyGroupCallViewController.h"
+#import "GJGCGroupCallManager.h"
+#import "GJGCUtilHelper.h"
+
+@interface GJGCReplyGroupCallViewController ()
+
+@property (nonatomic,strong)NSString *callTitle;
+
+@property (nonatomic,strong)NSString *callContent;
+
+@property (nonatomic,strong)NSString *groupId;
+
+@property (nonatomic,strong)UIButton *acceptButton;
+
+@end
+
+@implementation GJGCReplyGroupCallViewController
+
+- (instancetype)initWithGroupId:(NSString *)theGroupId
+{
+    if (self = [super init]) {
+        
+        NSDictionary *groupCallMsg =  [[GJGCGroupCallManager shareManager] getGroupCallMsg:theGroupId];
+        
+        self.callTitle = groupCallMsg[@"title"];
+        self.callContent = groupCallMsg[@"desc"];
+        self.groupId = theGroupId;
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor clearColor];
+    
+    [self setupSubViews];
+}
+
+- (void)setupSubViews
+{
+    UIImageView *blackBoardView = [[UIImageView alloc]init];
+    blackBoardView.gjcf_size = CGSizeMake(GJCFSystemScreenWidth, GJCFSystemScreenHeight);
+    blackBoardView.backgroundColor = [UIColor blackColor];
+    blackBoardView.alpha = 0.6;
+    [self.view addSubview:blackBoardView];
+    
+    UIImageView *alertBackImgView = [[UIImageView alloc]init];
+    alertBackImgView.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 16*2, GJCFSystemScreenHeight - 180);
+    alertBackImgView.gjcf_left = 16;
+    alertBackImgView.gjcf_top = 90;
+    alertBackImgView.userInteractionEnabled = YES;
+    UIImage *originImage = [UIImage imageNamed:@"群主召唤-弹层card"];
+    CGFloat centerX = originImage.size.width/2;
+    CGFloat centerY = originImage.size.height/2;
+    UIImage *backStrecthImage = GJCFImageResize(originImage, centerY-1 , centerY+1, centerX-1, centerX+1);
+    alertBackImgView.image = backStrecthImage;
+    [self.view addSubview:alertBackImgView];
+    
+    UIImageView *effectImgView = [[UIImageView alloc]init];
+    effectImgView.gjcf_size = CGSizeMake(160, 108);
+    effectImgView.gjcf_top = 20;
+    effectImgView.image = [UIImage imageNamed:@"群主召-弹层-小人"];
+    effectImgView.gjcf_centerX = alertBackImgView.gjcf_width/2;
+    [alertBackImgView addSubview:effectImgView];
+    
+    GJCFCoreTextContentView *effectTitleLabel = [[GJCFCoreTextContentView alloc]init];
+    effectTitleLabel.gjcf_size = CGSizeMake(alertBackImgView.gjcf_width, 20);
+    effectTitleLabel.contentAttributedString = [self effectTitle:self.callTitle];
+    [effectTitleLabel sizeToFit];
+    effectTitleLabel.gjcf_top = effectImgView.gjcf_bottom + 16;
+    effectTitleLabel.gjcf_centerX = alertBackImgView.gjcf_width/2;
+    [alertBackImgView addSubview:effectTitleLabel];
+    
+    GJCFCoreTextContentView *contentLabel = [[GJCFCoreTextContentView alloc]init];
+    contentLabel.gjcf_size = CGSizeMake(alertBackImgView.gjcf_width - 16*2, 30);
+    contentLabel.contentAttributedString = [self effectContent:self.callContent];
+    [contentLabel sizeToFit];
+    contentLabel.gjcf_centerX = alertBackImgView.gjcf_width/2;
+    contentLabel.gjcf_top = effectTitleLabel.gjcf_bottom + 35;
+    [alertBackImgView addSubview:contentLabel];
+    
+    self.acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.acceptButton.gjcf_size = CGSizeMake(alertBackImgView.gjcf_width - 16*2, 40);
+    self.acceptButton.gjcf_left = contentLabel.gjcf_left;
+    self.acceptButton.gjcf_top = contentLabel.gjcf_bottom + 30;
+    self.acceptButton.gjcf_centerX = alertBackImgView.gjcf_width/2;
+    self.acceptButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.acceptButton setTitle:@"闪亮登场" forState:UIControlStateNormal];
+    [self.acceptButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    CGSize imageSize = [UIImage imageNamed:@"button-白-群主召唤弹层"].size;
+    UIImage *acceptButtonNormal = GJCFImageResize([UIImage imageNamed:@"button-黄-群主召唤弹层"], 0, 0,imageSize.width/2,imageSize.width/2);
+    UIImage *acceptButtonHighlight = GJCFImageResize([UIImage imageNamed:@"button-黄-群主召唤弹层-点击"], 0, 0,imageSize.width/2,imageSize.width/2);
+    [self.acceptButton setBackgroundImage:acceptButtonNormal forState:UIControlStateNormal];
+    [self.acceptButton setBackgroundImage:acceptButtonHighlight forState:UIControlStateHighlighted];
+    [self.acceptButton addTarget:self action:@selector(acceptGroupCallAction) forControlEvents:UIControlEventTouchUpInside];
+    [alertBackImgView addSubview:self.acceptButton];
+    
+    UIButton *rejectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rejectButton.gjcf_size = CGSizeMake(alertBackImgView.gjcf_width - 16*2, 40);
+    rejectButton.gjcf_left = self.acceptButton.gjcf_left;
+    rejectButton.gjcf_top = self.acceptButton.gjcf_bottom + 12;
+    rejectButton.gjcf_centerX = alertBackImgView.gjcf_width/2;
+    rejectButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [rejectButton setTitle:@"继续潜水" forState:UIControlStateNormal];
+    [rejectButton setTitleColor:GJCFQuickHexColor(@"808080") forState:UIControlStateNormal];
+    [rejectButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    UIImage *rejectButtonNormal = GJCFImageResize([UIImage imageNamed:@"button-白-群主召唤弹层"], 0, 0,imageSize.width/2,imageSize.width/2);
+    UIImage *rejectButtonHighlight = GJCFImageResize([UIImage imageNamed:@"button-白-群主召唤弹层-点击@"], 0, 0,imageSize.width/2,imageSize.width/2);
+    [rejectButton setBackgroundImage:rejectButtonNormal forState:UIControlStateNormal];
+    [rejectButton setBackgroundImage:rejectButtonHighlight forState:UIControlStateHighlighted];
+    [rejectButton addTarget:self action:@selector(rejectGroupCallAction) forControlEvents:UIControlEventTouchUpInside];
+    [alertBackImgView addSubview:rejectButton];
+    
+    alertBackImgView.gjcf_height = rejectButton.gjcf_bottom + 16;
+    alertBackImgView.gjcf_centerY = GJCFSystemScreenHeight/2;
+    alertBackImgView.gjcf_centerX = GJCFSystemScreenWidth/2;
+}
+
+- (NSAttributedString *)effectTitle:(NSString *)title
+{
+    if (GJCFStringIsNull(title)) {
+        return nil;
+    }
+    
+    GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+    stringStyle.font = [UIFont systemFontOfSize:14];
+    stringStyle.foregroundColor = GJCFQuickHexColor(@"ffa200");
+    
+    return [[NSAttributedString alloc]initWithString:title attributes:[stringStyle attributedDictionary]];
+}
+
+- (NSAttributedString *)effectContent:(NSString *)content
+{
+    if (GJCFStringIsNull(content)) {
+        return nil;
+    }
+    
+    GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+    stringStyle.font = [UIFont systemFontOfSize:16];
+    stringStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+    
+    NSMutableAttributedString *contentAttri = [[NSMutableAttributedString alloc]initWithString:content attributes:[stringStyle attributedDictionary]];
+    
+    GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+    paragraphStyle.maxLineSpace = 8.f;
+    paragraphStyle.minLineSpace = 8.f;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    [contentAttri addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(content)];
+    
+    return contentAttri;
+}
+
+- (void)acceptGroupCallAction
+{
+    GJCFWeakSelf weakSelf = self;
+    
+    if (GJCFStringIsNull(self.groupId)) {
+        return;
+    }
+    
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12103" params:@[[NSString stringWithFormat:@"%@",self.groupId],@"1"]];
+    
+    [self.statusHUD showWithStatusText:@"正在响应..."];
+    
+    self.acceptButton.enabled = NO;
+    
+    [[GJGCGroupCallManager shareManager] acceptGroupCallWithGroupId:self.groupId withResultBlock:^(BOOL state, NSString *errMsg) {
+        
+        [weakSelf.statusHUD dismiss];
+        weakSelf.acceptButton.enabled = YES;
+        
+        if (state) {
+            
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(replyGroupCallViewController:didFinishChooseAction:)]) {
+                
+                [weakSelf.delegate replyGroupCallViewController:self didFinishChooseAction:YES];
+            }
+            
+        }else{
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+        }
+        
+    }];
+    
+}
+
+- (void)rejectGroupCallAction
+{
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12103" params:@[[NSString stringWithFormat:@"%@",self.groupId],@"2"]];
+    
+    [[GJGCGroupCallManager shareManager]removeGroupCallWithGroupId:self.groupId];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(replyGroupCallViewController:didFinishChooseAction:)]) {
+        
+        [self.delegate replyGroupCallViewController:self didFinishChooseAction:NO];
+    }
+}
+
+@end

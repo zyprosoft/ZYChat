@@ -1,0 +1,15 @@
+//
+//  GJGCGroupAnnouncementViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCBaseViewController.h"
+
+@interface GJGCGroupAnnouncementViewController : GJGCBaseViewController
+
+@property (nonatomic,copy)NSString *groupId;
+
+@end

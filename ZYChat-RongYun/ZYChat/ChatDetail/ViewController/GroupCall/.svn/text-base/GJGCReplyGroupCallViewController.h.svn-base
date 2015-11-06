@@ -1,0 +1,25 @@
+//
+//  GJGCReplyGroupCallViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/4/16.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCBaseViewController.h"
+
+@class GJGCReplyGroupCallViewController;
+
+@protocol GJGCReplyGroupCallViewControllerDelegate <NSObject>
+
+- (void)replyGroupCallViewController:(GJGCReplyGroupCallViewController *)replyViewController didFinishChooseAction:(BOOL)isAccept;
+
+@end
+
+@interface GJGCReplyGroupCallViewController : GJGCBaseViewController
+
+@property (nonatomic,weak)id<GJGCReplyGroupCallViewControllerDelegate> delegate;
+
+- (instancetype)initWithGroupId:(NSString *)theGroupId;
+
+@end

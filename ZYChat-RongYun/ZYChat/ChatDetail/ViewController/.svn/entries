@@ -1,0 +1,87 @@
+10
+
+dir
+92307
+http://hutao1@192.168.64.5:8888/svn/Mobile/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController
+http://hutao1@192.168.64.5:8888/svn/Mobile
+
+
+
+2015-07-08T06:51:43.674561Z
+92101
+hutao1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c1b34985-89f7-4ad2-b6ed-32456ccb691a
+
+
+
+
+
+
+
+
+()
+
+GifLoadManager
+dir
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://hutao1@192.168.64.5:8888/svn/Mobile/iOS/branches/GJLifeApp/gjlifeApp_branch_6.5/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/ViewController/GifLoadManager
+91590
+
+DriftBottle
+dir
+
+MessageSender
+dir
+
+Post
+dir
+
+Friend
+dir
+
+GroupCall
+dir
+
+Announcement
+dir
+
+Base
+dir
+
+SystemAssist
+dir
+
+Group
+dir
+

@@ -1,0 +1,20 @@
+//
+//  GJGCChatSystemNotiRoleGroupView.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "GJGCLevelView.h"
+#import "GJGCBaseView.h"
+@interface GJGCChatSystemNotiRoleGroupView : GJGCBaseView
+
+@property (nonatomic,strong)NSAttributedString *level;
+
+@property (nonatomic,strong)NSAttributedString *memberCount;
+
+
+
+@end

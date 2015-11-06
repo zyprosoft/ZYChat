@@ -1,0 +1,30 @@
+//
+//  GJGCChatFriendTalkModel.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-24.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GJGCChatFriendContentModel.h"
+#import "GJGCIMMsgBaseModel.h"
+#define GJGCTalkTypeString(talkType) [GJGCChatFriendTalkModel talkTypeString:talkType]
+
+@interface GJGCChatFriendTalkModel : NSObject
+
+@property (nonatomic,copy)NSString *toId;
+
+@property (nonatomic,copy)NSString *toUserName;
+
+@property (nonatomic,assign)GJGCChatFriendTalkType talkType;
+
+@property (nonatomic,strong)NSArray *msgArray;
+
+@property (nonatomic,strong)GJGCIMMsgBaseModel *lastMsg;
+
+@property (nonatomic,assign)NSInteger msgCount;
+
++ (NSString *)talkTypeString:(GJGCChatFriendTalkType)talkType;
+
+@end

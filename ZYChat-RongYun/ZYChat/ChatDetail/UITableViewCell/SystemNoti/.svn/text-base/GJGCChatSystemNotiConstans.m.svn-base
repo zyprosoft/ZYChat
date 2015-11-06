@@ -1,0 +1,283 @@
+//
+//  GJGCChatSystemNotiConstans.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-5.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatSystemNotiConstans.h"
+#import "NSString+GJGCJSONString.h"
+#import "GJGCUser.h"
+
+@implementation GJGCChatSystemNotiConstans
+
++ (NSDictionary *)chatCellIdentifierDict
+{
+    return @{
+             
+             @"GJGCChatAuthorizAskCell" : @"GJGCChatAuthorizAskCellIdentifier",
+             
+             @"GJGCChatGroupOperationNotiCell" : @"GJGCChatGroupOperationNotiCellIdentifier",
+
+             @"GJGCChatOtherApplyMyAuthorizWithStateCell" : @"GJGCChatOtherApplyMyAuthorizWithStateCellIdentifier",
+
+             @"GJGCChatSystemNotiBaseCell" : @"GJGCChatSystemNotiBaseCellIdentifier",
+
+             @"GJGCChatSystemActiveGuideCell" : @"GJGCChatSystemActiveGuideCellIdentifier",
+
+             @"GJGCChatSystemInviteFriendJoinGroupCell" : @"GJGCChatSystemInviteFriendJoinGroupCellIdentifier",
+
+             @"GJGCChatSystemPostNotiCell" : @"GJGCChatSystemPostNotiCellIdentifier",
+
+             };
+    
+}
+
++ (NSDictionary *)chatCellNotiTypeDict
+{
+    return @{
+             
+             @(GJGCChatSystemNotiTypeGroupOperationState) : @"GJGCChatGroupOperationNotiCell",
+
+             @(GJGCChatSystemNotiTypeOtherPersonApplyMyAuthoriz) : @"GJGCChatAuthorizAskCell",
+
+             @(GJGCChatSystemNotiTypeOhtherGroupApplyMyAuthoriz) : @"GJGCChatAuthorizAskCell",
+             
+             @(GJGCChatSystemNotiTypeOtherGroupApply) : @"GJGCChatAuthorizAskCell",
+
+             @(GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState) : @"GJGCChatOtherApplyMyAuthorizWithStateCell",
+
+             @(GJGCChatSystemNotiTypeSystemOperationState) : @"GJGCChatSystemNotiBaseCell",
+             
+             @(GJGCChatSystemNotiTypeSystemActiveGuide) : @"GJGCChatSystemActiveGuideCell",
+             
+             @(GJGCChatSystemNotiTypeInviteFriendJoinGroup) : @"GJGCChatSystemInviteFriendJoinGroupCell",
+
+             @(GJGCChatSystemNotiTypePostSystemNoti) : @"GJGCChatSystemPostNotiCell",
+
+             };
+}
+
++ (NSString *)identifierForCellClass:(NSString *)className
+{
+    return  [[GJGCChatSystemNotiConstans chatCellIdentifierDict]objectForKey:className];
+}
+
++ (Class)classForNotiType:(GJGCChatSystemNotiType)notiType
+{
+    NSDictionary *notiNotiTypeDict = [GJGCChatSystemNotiConstans chatCellNotiTypeDict];
+    NSString *className = [notiNotiTypeDict objectForKey:@(notiType)];
+    
+    return NSClassFromString(className);
+}
+
++ (NSString *)identifierForNotiType:(GJGCChatSystemNotiType)notiType
+{
+    NSDictionary *notiNotiTypeDict = [GJGCChatSystemNotiConstans chatCellNotiTypeDict];
+    NSString *className = [notiNotiTypeDict objectForKey:@(notiType)];
+
+    return [GJGCChatSystemNotiConstans identifierForCellClass:className];
+}
+
+#pragma mark - 消息文案转化
+
++ (NSDictionary *)formateChatSystemMsgWithModel:(GJGCIMFriendSystemModel *)friemdSystemModel;
+{
+    NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
+    
+    return resultDict;
+}
+
+/* 群助手消息文案类型转化 */
++ (NSString *)formateChatSystemGroupNotiMsgWithModel:(GJGCIMFriendSystemModel *)friemdSystemModel
+{
+    /* 好友助手 */
+    if ([friemdSystemModel.sysType intValue] == 1) {
+        
+        NSDictionary *userInfo = [friemdSystemModel.contents gjgc_toDictionary];
+
+        GJGCChatSystemFriendAssistNotiType notiType = [friemdSystemModel.sysTypeResult intValue];
+
+        NSString *notiTip = nil;
+
+        switch (notiType) {
+            case GJGCChatSystemFriendAssistNotiTypeApply:
+            {
+                notiTip = [NSString stringWithFormat:@"%@申请添加您为好友",[userInfo objectForKey:@"nickName"]];
+            }
+                break;
+            case GJGCChatSystemFriendAssistNotiTypeReject:
+            {
+                notiTip = [NSString stringWithFormat:@"用户%@拒绝了您的好友申请！",[userInfo objectForKey:@"nickName"]];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        return notiTip;
+    }
+    
+    /* 模板 */
+    if ([friemdSystemModel.sysType intValue] == 3) {
+        
+        NSDictionary *userInfo = [friemdSystemModel.contents gjgc_toDictionary];
+
+        return [userInfo objectForKey:@"title"];
+        
+    }
+    
+    /* 普通系统 */
+    if ([friemdSystemModel.sysType intValue] == 4) {
+        
+        NSDictionary *userInfo = [friemdSystemModel.contents gjgc_toDictionary];
+
+        return [userInfo objectForKey:@"content"];
+    }
+    
+    /* 帖子系统消息 */
+    if ([friemdSystemModel.sysType intValue] == 5) {
+        
+        NSDictionary *userInfo = [friemdSystemModel.contents gjgc_toDictionary];
+        
+        return [userInfo objectForKey:@"content"];
+        
+    }
+    
+    /* 群助手相关 */
+        
+    NSDictionary *userInfo = [friemdSystemModel.contents gjgc_toDictionary];
+    
+    GJGCLogVincent(@"userInfo :%@",userInfo);
+    
+    NSString *toUserId = [userInfo objectForKey:@"userId"];
+    
+    BOOL isMyNoti = [toUserId longLongValue] == [GJGCUser share].userId;
+    
+    NSString *toUserName = [userInfo objectForKey:@"nickName"];
+    
+    NSString *groupName = [userInfo objectForKey:@"name"];
+    
+    NSString *notiTip = nil;
+    
+    GJGCChatSystemNotiGroupRoleType roleType = [[userInfo objectForKey:@"authority"] intValue];
+    
+    /* 格式成数据源 */
+    switch ([friemdSystemModel.sysTypeResult intValue]) {
+        case GJGCChatSystemGroupAssistNotiTypeCreateGroupAccept:
+        {
+            notiTip = @"您成功创建了群组，邀请好友加入聊天吧！";
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeCreateGroupReject:
+        {
+            NSString *reason = [userInfo objectForKey:@"reason"];
+            notiTip = [NSString stringWithFormat:@"您申请创建的群%@未通过审核！原因:%@",groupName,reason];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeUpdateGroupInfoAccept:
+        {
+            if (roleType == GJGCChatSystemNotiGroupRoleTypeOwner) {
+                
+                notiTip = [NSString stringWithFormat:@"您的群%@资料修改通过审核！",groupName];
+
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeUpdateGroupInfoReject:
+        {
+            NSString *reason = [userInfo objectForKey:@"reason"];
+            notiTip = [NSString stringWithFormat:@"您的群%@资料修改未通过审核！原因:%@",groupName,reason];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"%@申请加入您管理的群%@",[userInfo objectForKey:@"nickName"],groupName];
+
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"%@邀请您加入该群",toUserName];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeRejectJoinGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"%@拒绝了您的加群申请",groupName];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAcceptJoinGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"管理员已同意你加入群%@",[userInfo objectForKey:@"name"]];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAcceptInviteJoinGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"%@已加入群",[userInfo objectForKey:@"nickName"]];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeAddGroupAdmin:
+        {
+            if (isMyNoti) {
+                
+                notiTip = @"您已被群主设为管理员";
+                
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteGroupAdmin:
+        {
+            if (isMyNoti) {
+                
+                notiTip = [NSString stringWithFormat:@"您已不再是群%@管理员",groupName];
+                
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteGroup:
+        {
+            if (roleType == GJGCChatSystemNotiGroupRoleTypeOwner) {
+                
+                notiTip = [NSString stringWithFormat:@"您已将群%@解散!",groupName];
+                
+            }else{
+                
+                notiTip = [NSString stringWithFormat:@"群主已将群%@解散!",groupName];
+                
+            }
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeDeleteMemeberByGroupAdmin:
+        {
+            notiTip = [NSString stringWithFormat:@"您被管理员踢出了群%@！",groupName];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeMemeberExitGroup:
+        {
+            notiTip = [NSString stringWithFormat:@"%@退出了群组%@",toUserName,groupName];
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeRequestBeGroupOwner:
+        {
+            notiTip = @"快来竞选群主";
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeRequestBeGroupOwnerSuccess:
+        {
+            notiTip = @"您已成为群主，快来管理你的群吧！";
+        }
+            break;
+        case GJGCChatSystemGroupAssistNotiTypeBeCancelGroupOwner :
+        {
+            notiTip = @"您已不再担任群主";
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return notiTip;
+}
+
+@end

@@ -1,0 +1,15 @@
+//
+//  GJGCChatPostDataSourceManager.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-29.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatDetailDataSourceManager.h"
+
+@interface GJGCChatPostDataSourceManager : GJGCChatDetailDataSourceManager
+
+- (void)updatePostImageUrl:(NSString *)imageUrl withLocalMsgId:(long long)localMsgId toId:(NSString *)toId;
+
+@end

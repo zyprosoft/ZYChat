@@ -1,0 +1,26 @@
+//
+//  GJGCGroupCallAddViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15/4/16.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCBaseViewController.h"
+#import "GJGCGroupCallManager.h"
+#import "GJGCPGGroupManagerHeader.h"
+
+@class GJGCGroupCallAddViewController;
+@protocol GJGCGroupCallAddViewControllerDelegate <NSObject>
+
+- (void)groupCallAddViewControllerDidSuccessSendGroupCall:(GJGCGroupCallAddViewController *)addCallViewController;
+
+@end
+
+@interface GJGCGroupCallAddViewController : GJGCBaseViewController
+
+@property (nonatomic,weak)id<GJGCGroupCallAddViewControllerDelegate> delegate;
+
+- (instancetype)initWithGroup:(GJGCPGGroupModel *)aGroup;
+
+@end

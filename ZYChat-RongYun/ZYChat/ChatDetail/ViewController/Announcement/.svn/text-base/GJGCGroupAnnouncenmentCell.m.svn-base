@@ -1,0 +1,186 @@
+//
+//  GJGCGroupAnnouncenmentCell.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupAnnouncenmentCell.h"
+#import "GJGCChatSystemNotiCellStyle.h"
+
+@interface GJGCGroupAnnouncenmentCell ()
+
+@property (nonatomic,strong)UIImageView *stateContentView;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *titleLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *contentLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *nameLabel;
+
+@property (nonatomic,strong)GJCFCoreTextContentView *timeLabel;
+
+@end
+
+@implementation GJGCGroupAnnouncenmentCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.backgroundColor = [UIColor clearColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    [self.stateContentView setHighlighted:highlighted];
+}
+
+- (void)setupSubViews
+{
+    CGFloat leftMargin = 13.f;
+    CGFloat contentInnerMargin = 12.f;
+    
+    self.stateContentView = [[UIImageView alloc]init];
+    self.stateContentView.gjcf_top = 13.f;
+    self.stateContentView.gjcf_left = 13.f;
+    self.stateContentView.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*leftMargin, 30);
+    UIImage *normal = [UIImage imageNamed:@"IM-赶集推荐列表BG"];
+    UIImage *highlight = [UIImage imageNamed:@"IM-赶集推荐列表BG-点击"];
+    self.stateContentView.image = GJCFImageResize(normal, 12, 12, 12, 12);
+    self.stateContentView.highlightedImage = GJCFImageResize(highlight, 12, 12, 12, 12);
+    [self.contentView addSubview:self.stateContentView];
+    
+    self.titleLabel = [[GJCFCoreTextContentView alloc]init];
+    self.titleLabel.gjcf_size = CGSizeMake(self.stateContentView.gjcf_width - 2*contentInnerMargin, 30);
+    self.titleLabel.gjcf_top = contentInnerMargin;
+    self.titleLabel.contentBaseSize = self.titleLabel.gjcf_size;
+    self.titleLabel.gjcf_left = contentInnerMargin;
+    [self.stateContentView addSubview:self.titleLabel];
+    
+    self.contentLabel = [[GJCFCoreTextContentView alloc]init];
+    self.contentLabel.gjcf_size = CGSizeMake(self.stateContentView.gjcf_width - 2*contentInnerMargin, 20);
+    self.contentLabel.gjcf_top = self.titleLabel.gjcf_bottom + 20.f;
+    self.contentLabel.contentBaseSize = self.contentLabel.gjcf_size;
+    self.contentLabel.gjcf_left = self.titleLabel.gjcf_left;
+    [self.stateContentView addSubview:self.contentLabel];
+    
+    self.timeLabel = [[GJCFCoreTextContentView alloc]init];
+    self.timeLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 2*12 - 2*13 - 8, 20);
+    self.timeLabel.gjcf_top = self.contentLabel.gjcf_bottom + 13.f;
+    self.timeLabel.gjcf_right = self.stateContentView.gjcf_width - contentInnerMargin;
+    self.timeLabel.contentBaseSize = self.timeLabel.gjcf_size;
+    [self.stateContentView addSubview:self.timeLabel];
+    
+    self.nameLabel = [[GJCFCoreTextContentView alloc]init];
+    self.nameLabel.gjcf_size = CGSizeMake(GJCFSystemScreenWidth - 80 - 2*contentInnerMargin - 2*leftMargin - contentInnerMargin, 20);
+    self.nameLabel.gjcf_right = self.timeLabel.gjcf_left - 13;
+    self.nameLabel.contentBaseSize = self.nameLabel.gjcf_size;
+    [self.stateContentView addSubview:self.nameLabel];
+}
+
+- (CGFloat)contentHeight
+{
+    return self.stateContentView.gjcf_bottom + 12.f;
+}
+
+- (void)setAnnouncementModel:(GJGCGroupAnnouncementModel *)announcement
+{
+    if (!GJCFStringIsNull(announcement.title)) {
+        
+        GJCFCoreTextAttributedStringStyle *titleStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        titleStyle.font = [GJGCCommonFontColorStyle detailBigTitleFont];
+        titleStyle.foregroundColor = GJCFQuickHexColor(@"404040");
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.lineBreakMode = kCTLineBreakByTruncatingTail;
+
+        NSString *formateTitle = [NSString stringWithFormat:@"[公告]%@",announcement.title];
+        NSMutableAttributedString *titleAttributed = [[NSMutableAttributedString alloc]initWithString:formateTitle attributes:[titleStyle attributedDictionary]];
+        [titleAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(formateTitle)];
+
+        self.titleLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:titleAttributed forBaseContentSize:self.titleLabel.contentBaseSize];
+        [self.titleLabel setContentAttributedString:titleAttributed];
+        self.titleLabel.gjcf_left = 12.f;
+    }
+    
+    if (!GJCFStringIsNull(announcement.content)) {
+        
+        GJCFCoreTextAttributedStringStyle *contentStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        contentStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        contentStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.maxLineSpace = 3.f;
+        paragraphStyle.minLineSpace = 3.f;
+        
+        NSMutableAttributedString *contentAttributed = [[NSMutableAttributedString alloc]initWithString:announcement.content attributes:[contentStyle attributedDictionary]];
+        [contentAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(announcement.content)];
+
+        
+        self.contentLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentAttributed forBaseContentSize:self.contentLabel.contentBaseSize];
+        
+        if (self.contentLabel.gjcf_size.height > 16) {
+            
+            self.contentLabel.gjcf_size = CGSizeMake(self.contentLabel.gjcf_size.width, 16*2+3);
+
+        }
+
+        
+        [self.contentLabel setContentAttributedString:contentAttributed];
+        self.contentLabel.gjcf_top = self.titleLabel.gjcf_bottom + 12.f;
+    }
+    
+    if (announcement.announceTime) {
+        
+        NSAttributedString *timeAttributed = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:[announcement.announceTime longLongValue]];
+        
+        self.timeLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:timeAttributed forBaseContentSize:self.timeLabel.contentBaseSize];
+        [self.timeLabel setContentAttributedString:timeAttributed];
+        self.timeLabel.gjcf_top = self.contentLabel.gjcf_bottom + 10.f;
+        self.timeLabel.gjcf_right = self.stateContentView.gjcf_width - 12.f;
+
+    }
+    
+    if (!GJCFStringIsNull(announcement.nickName)) {
+        
+        GJCFCoreTextAttributedStringStyle *nameStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
+        nameStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
+        nameStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        
+        GJCFCoreTextParagraphStyle *paragraphStyle = [[GJCFCoreTextParagraphStyle alloc]init];
+        paragraphStyle.lineBreakMode = kCTLineBreakByTruncatingTail;
+        
+        NSMutableAttributedString *nameAttributed = [[NSMutableAttributedString alloc]initWithString:announcement.nickName attributes:[nameStyle attributedDictionary]];
+        [nameAttributed addAttributes:[paragraphStyle paragraphAttributedDictionary] range:GJCFStringRange(announcement.nickName)];
+
+        self.nameLabel.contentBaseWidth = GJCFSystemScreenWidth - self.timeLabel.gjcf_width - 2*12 - 2*13 - 8;
+        self.nameLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:nameAttributed forBaseContentSize:self.nameLabel.contentBaseSize];
+        [self.nameLabel setContentAttributedString:nameAttributed];
+        self.nameLabel.gjcf_top = self.timeLabel.gjcf_top;
+        self.nameLabel.gjcf_right = self.timeLabel.gjcf_left - 8.f;
+    }
+    
+    self.stateContentView.gjcf_height = self.nameLabel.gjcf_bottom + 12.f;
+}
+
++ (CGFloat)heightForAnnouncement:(GJGCGroupAnnouncementModel *)announcement
+{
+    if (!announcement) {
+        return 0.f;
+    }
+    
+    GJGCGroupAnnouncenmentCell *cell = [[GJGCGroupAnnouncenmentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    [cell setAnnouncementModel:announcement];
+    
+    return [cell contentHeight];
+}
+
+@end

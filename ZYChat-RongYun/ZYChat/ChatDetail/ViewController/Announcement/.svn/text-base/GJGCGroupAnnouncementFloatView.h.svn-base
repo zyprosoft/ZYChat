@@ -1,0 +1,63 @@
+//
+//  GJGCGroupAnnouncementFloatView.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "GJGCGroupAnnouncementModel.h"
+
+@class GJGCGroupAnnouncementFloatView;
+@protocol GJGCGroupAnnouncementFloatViewDelegate <NSObject>
+
+- (void)announcementFloatViewDidTappedToShowAllAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView;
+
+- (void)announcementFloatViewDidTappedToRetryGetLatestAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView;
+
+- (void)announcementFloatViewDidTappedToCreateNewAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView;
+
+- (void)announcementFloatViewDidTappedToShowAnnouncementDetail:(GJGCGroupAnnouncementFloatView *)floatView theAnnouncement:(GJGCGroupAnnouncementModel *)anouncement;
+
+@end
+
+@interface GJGCGroupAnnouncementFloatView : UIView
+
+@property (nonatomic,weak)id<GJGCGroupAnnouncementFloatViewDelegate> delegate;
+
+@property (nonatomic,assign)BOOL isGroupManager;
+
+@property (nonatomic,strong)NSString *announceId;
+
+- (instancetype)initWithDelegate:(id<GJGCGroupAnnouncementFloatViewDelegate>)aDelegate;
+
+
+- (void)setAnnouncement:(GJGCGroupAnnouncementModel *)announcement;
+
+/**
+ *  有群公告
+ */
+- (void)hasAnnouncementState;
+
+/**
+ *  群成员无公告
+ */
+- (void)groupMemeberHasNoAnnouncementState;
+
+/**
+ *  群管理无公告
+ */
+- (void)groupManagerHasNoAnnouncementState;
+
+/**
+ *  加载群公告中
+ */
+- (void)loadingAnnouncementState;
+
+/**
+ *  群公告加载失败
+ */
+- (void)faildLoadingAnnouncementState;
+
+@end

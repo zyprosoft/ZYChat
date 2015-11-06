@@ -1,0 +1,20 @@
+//
+//  GJGCGroupAnnouncementDetailViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 15-3-11.
+//  Copyright (c) 2015年 ganji. All rights reserved.
+//
+
+#import "GJGCBaseViewController.h"
+#import "GJGCGroupAnnouncementModel.h"
+
+typedef void (^GJGCGroupAnnouncementDetailViewControllerSuccessDeleteAnnounceBlock) (GJGCGroupAnnouncementModel *announce);
+
+@interface GJGCGroupAnnouncementDetailViewController : GJGCBaseViewController
+
+@property (nonatomic,copy)GJGCGroupAnnouncementDetailViewControllerSuccessDeleteAnnounceBlock successBlock;
+
+- (instancetype)initWithAnnouncement:(GJGCGroupAnnouncementModel *)theAnnouncement;
+
+@end

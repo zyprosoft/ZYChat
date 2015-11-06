@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/91926/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel
+END
+GJGCChatInputPanel.h
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/Mobile/!svn/ver/91926/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputPanel.h
+END
+GJGCChatInputTextView.h
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/Mobile/!svn/ver/91683/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputTextView.h
+END
+GJGCChatInputExpandEmojiPanelMenuBar.m
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanelMenuBar.m
+END
+GJGCChatInputExpandEmojiPanel.h
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanel.h
+END
+GJGCChatInputBar.h
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/91926/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputBar.h
+END
+GJGCChatInputPanel.m
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/Mobile/!svn/ver/91926/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputPanel.m
+END
+GJGCChatInputTextView.m
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/Mobile/!svn/ver/91683/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputTextView.m
+END
+GJGCChatInputExpandEmojiPanel.m
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanel.m
+END
+GJGCChatInputExpandEmojiPanelMenuBarDataSource.h
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanelMenuBarDataSource.h
+END
+GJGCChatInputBar.m
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/91926/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputBar.m
+END
+GJGCChatInputExpandEmojiPanelMenuBar.h
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanelMenuBar.h
+END
+GJGCChatInputExpandEmojiPanelMenuBarDataSource.m
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/Mobile/!svn/ver/91699/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/CommonChatInputPanel/GJGCChatInputExpandEmojiPanelMenuBarDataSource.m
+END

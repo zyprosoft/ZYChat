@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/91793/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base
+END
+GJGCChatBaseCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatBaseCell.m
+END
+GJGCChatBaseConstans.h
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatBaseConstans.h
+END
+GJGCChatBaseCellDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/Mobile/!svn/ver/91793/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatBaseCellDelegate.h
+END
+GJGCChatContentBaseModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatContentBaseModel.h
+END
+GJGCChatBaseConstans.m
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatBaseConstans.m
+END
+GJGCChatBaseCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/91593/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatBaseCell.h
+END
+GJGCChatContentBaseModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainChat/ChatDetail/UITableViewCell/Base/GJGCChatContentBaseModel.m
+END

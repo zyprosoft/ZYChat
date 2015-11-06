@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/Mobile/!svn/ver/92091/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base
+END
+UIView+GJCFViewFrameUitil.h
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/UIView+GJCFViewFrameUitil.h
+END
+GJCFCoreTextRun.h
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextRun.h
+END
+GJCFCoreTextContentView.h
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/92085/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextContentView.h
+END
+GJCFCoreTextLine.h
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextLine.h
+END
+UIView+GJCFViewFrameUitil.m
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/UIView+GJCFViewFrameUitil.m
+END
+GJCFCoreTextRun.m
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextRun.m
+END
+GJCFCoreTextContentView.m
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/92091/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextContentView.m
+END
+GJCFCoreTextFrame.h
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/Mobile/!svn/ver/92077/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextFrame.h
+END
+GJCFCoreTextLine.m
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextLine.m
+END
+GJCFCoreTextFrame.m
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/Mobile/!svn/ver/92077/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCoreTextFrameworks/GJCFCoreText/Base/GJCFCoreTextFrame.m
+END

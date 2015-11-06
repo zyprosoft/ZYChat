@@ -1,0 +1,196 @@
+//
+//  GJGCChatFriendAndGroupConstans.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-5.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatFriendConstans.h"
+
+@implementation GJGCChatFriendConstans
+
++ (NSDictionary *)chatCellIdentifierDict
+{
+    return @{
+             
+             @"GJGCChatFriendTextMessageCell" : @"GJGCChatFriendTextMessageCellIdentifier",
+             
+             @"GJGCChatFriendAudioMessageCell" : @"GJGCChatFriendAudioMessageCellIdentifier",
+             
+             @"GJGCChatFriendImageMessageCell" : @"GJGCChatFriendImageMessageCellIdentifier",
+
+             @"GJGCChatFriendMiniMessageCell" : @"GJGCChatFriendMiniMessageCellIdentifier",
+
+             @"GJGCChatFriendPostMessageCell" : @"GJGCChatFriendPostMessageCellIdentifier",
+
+             @"GJGCChatFriendTimeCell" : @"GJGCChatFriendTimeCellIdentifier",
+             
+             @"GJGCChatFriendMemberWelcomeCell": @"GJGCChatFriendMemberWelcomeCellIdentifier",
+             
+             @"GJGCChatFriendGroupCallCell": @"GJGCChatFriendGroupCallCellIdentifier",
+
+             @"GJGCChatFriendAcceptGroupCallCell": @"GJGCChatFriendAcceptGroupCallCellIdentifier",
+
+<<<<<<< .working
+             @"GJGCChatFriendGifCell": @"GJGCChatFriendGifCellIdentifier",
+
+             @"GJGCChatFriendDriftBottleCell": @"GJGCChatFriendDriftBottleCellIdentifier",
+
+=======
+             @"GJGCChatFriendGifCell": @"GJGCChatFriendGifCellIdentifier",
+
+>>>>>>> .merge-right.r91963
+             };
+    
+}
+
++ (NSDictionary *)chatCellContentTypeDict
+{
+    return @{
+             
+             @(GJGCChatFriendContentTypeText) : @"GJGCChatFriendTextMessageCell",
+             
+             @(GJGCChatFriendContentTypeAudio) : @"GJGCChatFriendAudioMessageCell",
+             
+             @(GJGCChatFriendContentTypeImage) : @"GJGCChatFriendImageMessageCell",
+             
+             @(GJGCChatFriendContentTypeMini) : @"GJGCChatFriendMiniMessageCell",
+
+             @(GJGCChatFriendContentTypePost) : @"GJGCChatFriendPostMessageCell",
+
+             @(GJGCChatFriendContentTypeTime) : @"GJGCChatFriendTimeCell",
+             
+             @(GJGCChatFriendContentTypeMemberWelcome) : @"GJGCChatFriendMemberWelcomeCell",
+             
+             @(GJGCChatFriendContentTypeGroupCall) : @"GJGCChatFriendGroupCallCell",
+             
+             @(GJGCChatFriendContentTypeReplyGroupCall) : @"GJGCChatFriendAcceptGroupCallCell",
+             
+<<<<<<< .working
+             @(GJGCChatFriendContentTypeGif) : @"GJGCChatFriendGifCell",
+             
+             @(GJGCChatFriendContentTypeDriftBottle) : @"GJGCChatFriendDriftBottleCell",
+             
+=======
+             @(GJGCChatFriendContentTypeGif) : @"GJGCChatFriendGifCell",
+             
+>>>>>>> .merge-right.r91963
+             };
+}
+
++ (NSString *)identifierForCellClass:(NSString *)className
+{
+    return  [[GJGCChatFriendConstans chatCellIdentifierDict]objectForKey:className];
+}
+
++ (Class)classForContentType:(GJGCChatFriendContentType)contentType
+{
+    NSString *className = [[GJGCChatFriendConstans chatCellContentTypeDict]objectForKey:@(contentType)];
+    
+    return NSClassFromString(className);
+}
+
++ (NSString *)identifierForContentType:(GJGCChatFriendContentType)contentType
+{
+    NSString *className = [[GJGCChatFriendConstans chatCellContentTypeDict]objectForKey:@(contentType)];
+    
+    return [GJGCChatFriendConstans identifierForCellClass:className];
+}
+
++ (NSString *)contentTypeToString:(GJGCChatFriendContentType)contentType
+{
+    NSString *resultString = nil;
+    
+    switch (contentType) {
+        
+        case GJGCChatFriendContentTypeText:
+        {
+            resultString = @"text";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeAudio:
+        {
+            resultString = @"sound";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeImage:
+        {
+            resultString = @"pic";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypePost:
+        {
+            resultString = @"url";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeMemberWelcome:
+        {
+            resultString = @"personalcard";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeMini:
+        {
+            resultString = @"mini";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeGroupCall:
+        {
+            resultString = @"SummonCard";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeReplyGroupCall:
+        {
+            resultString = @"acceptSummonCard";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeTime:
+        {
+            resultString = @"time";
+        }
+        break;
+        
+        case GJGCChatFriendContentTypeNotFound:
+        {
+            resultString = @"notFound";
+        }
+        break;
+<<<<<<< .working
+            
+        case GJGCChatFriendContentTypeGif:
+        {
+            resultString = @"gif";
+        }
+            break;
+            
+        case GJGCChatFriendContentTypeDriftBottle:
+        {
+            resultString = @"driftbottlecard";
+        }
+=======
+            
+        case GJGCChatFriendContentTypeGif:
+        {
+            resultString = @"gif";
+        }
+            break;
+>>>>>>> .merge-right.r91963
+        
+            break;
+        default:
+        
+        break;
+    }
+    
+    return resultString;
+}
+
+@end

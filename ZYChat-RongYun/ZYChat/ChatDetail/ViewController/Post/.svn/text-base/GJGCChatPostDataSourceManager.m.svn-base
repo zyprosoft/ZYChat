@@ -1,0 +1,618 @@
+//
+//  GJGCChatPostDataSourceManager.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-29.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatPostDataSourceManager.h"
+#import "GJGCChatFriendDataSourceManager.h"
+#import "NSString+GJGCJSONString.h"
+#import "GJGCSystemMsgDBAPI.h"
+#import "GJGCIMSystemMsgModel.h"
+#import "GJGCChatPostContentModel.h"
+#import "GJGCChatPostTalkModel.h"
+
+@implementation GJGCChatPostDataSourceManager
+
+- (instancetype)initWithTalk:(GJGCChatFriendTalkModel *)talk withDelegate:(id<GJGCChatDetailDataSourceManagerDelegate>)aDelegate
+{
+    if (self = [super initWithTalk:talk withDelegate:aDelegate]) {
+        
+        self.title = talk.toUserName;
+        
+        GJGCChatPostTalkModel *talkModel = (GJGCChatPostTalkModel *)talk;
+        
+        
+        /* 插帖子 */
+        [self insertLocalPost];
+        
+        if(!talkModel.postId || !talkModel.postImage || !talkModel.postTitle )
+        {
+            NSArray *postArray = [[GJGCPostMsgDBAPI share] getNoBaseLastMsgWithCount:1 withToId:talkModel.toId msgType:@"post_private"];
+            if(postArray && [postArray count] > 0)
+            {
+                talkModel.postId = ((GJGCIMPostMsgModel *)postArray[0]).postId;
+                talkModel.postImage = ((GJGCIMPostMsgModel *)postArray[0]).postPicUrl;
+                talkModel.postTitle = ((GJGCIMPostMsgModel *)postArray[0]).postTitle;
+                
+                
+            }
+        }
+        
+        if ([talkModel.toUserName isEqualToString:@"赶集网友"]) {
+            NSArray *postArray = [[GJGCPostMsgDBAPI share] getNoBaseLastMsgWithCount:1 withToId:talkModel.toId msgType:@"post_private"];
+            if(postArray && [postArray count] > 0)
+            {
+                NSString *toName = ((GJGCIMPostMsgModel *)postArray[0]).senderName;
+                
+                if (![toName isEqualToString:@"赶集网友"] && toName.length>0) {
+                    
+                    talkModel.toUserName = ((GJGCIMPostMsgModel *)postArray[0]).senderName;
+                    self.title = ((GJGCIMPostMsgModel *)postArray[0]).senderName;
+                }
+                
+            }
+        }
+        
+        
+        
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeRecievedPostMessage:) name:GJGC_NOTIFICATION_RECEIVE_TALK_UPDATE object:nil];
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeLocalMessageUpdate:) name:GJGCChatMessageSendManagerUpdateLocalSuccessNoti object:nil];
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeHistoryMessage:) name:GJGC_NOTIFICATION_RECEIVE_HISTORYMSG object:nil];
+        
+        [self observeMediaUploadSuccessNoti];
+        
+        [self readLastMessagesFromDB];
+        
+    }
+    return self;
+}
+
+#pragma mark - 插入本地帖子
+
+- (void)insertLocalPost
+{
+    GJGCChatPostTalkModel *postTalkModel = (GJGCChatPostTalkModel *)self.taklInfo;
+    
+    if (!postTalkModel.postTitle || !postTalkModel.postId) {
+        return;
+    }
+    
+    [[GJGCPostMsgDBAPI share] createDB:GJGCTalkTypeString(postTalkModel.talkType) toId:postTalkModel.toId];
+    
+    //会话是否存在基于的帖子
+    BOOL isExistBasePost = [[GJGCPostMsgDBAPI share] isExistBasePost:self.taklInfo.toId msgType:GJGCTalkTypeString(self.taklInfo.talkType)];
+    
+    if (isExistBasePost) {
+        
+        return;
+    }
+    
+    if (!postTalkModel.postId) {
+        
+        GJGCPostMsgDBAPI *db = [[GJGCPostMsgDBAPI alloc] init];
+        GJGCIMPostMsgModel *postModel = nil;
+        
+        NSArray *postModelArray = [db getLastMsgWithCount:1 withToId:postTalkModel.toId msgType:@"post_private"];
+        
+        if (postModelArray && [postModelArray count] > 0) {
+            postModel = postModelArray[0];
+            postTalkModel.postId = postModel.postId;
+            postTalkModel.postImage = postModel.postPicUrl;
+            postTalkModel.postTitle = postModel.postTitle;
+        }
+        
+        return;
+    }
+    
+    GJGCIMPostMsgModel *msg = [[GJGCIMPostMsgModel alloc] init];
+    msg.msgType = @"post_private";
+    msg.toId = [NSString stringWithFormat:@"%lld",[GJGCUser share].userId];
+    msg.toName = [GJGCUser share].postNickName;
+    msg.senderId = self.taklInfo.toId;
+    msg.senderName = self.taklInfo.toUserName;
+    msg.state = @(1);
+    msg.isAck = YES;
+    msg.isRead = YES;
+    msg.postId = postTalkModel.postId;
+    msg.postPicUrl = postTalkModel.postImage;
+    msg.postTitle = postTalkModel.postTitle;
+    msg.contentType = @"url";
+    msg.sendTime = @([[NSDate date] timeIntervalSince1970]);
+    
+    msg.isBasePost = YES;
+    msg.basePostKey = [NSString stringWithFormat:@"%@",postTalkModel.postId];
+    
+    NSMutableArray *postArray = [NSMutableArray array];
+    [postArray addObject:@"url"];
+    
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
+    
+    [postDict setObject:msg.postTitle forKey:@"title"];
+    if (msg.postPicUrl) {
+        [postDict setObject:msg.postPicUrl forKey:@"img"];
+    }
+    if (postTalkModel.puid) {
+        [postDict setObject:postTalkModel.puid forKey:@"puid"];
+    }
+    if (postTalkModel.postId) {
+        [postDict setObject:postTalkModel.postId forKey:@"id"];
+    }
+    
+    msg.contents = [postDict gjgc_ToString];
+    
+    NSInteger lastRowId;
+    [[GJGCPostMsgDBAPI share] insertOrUpdateBasePostModel:msg lastRowId:&lastRowId];
+    
+}
+
+#pragma mark - 观察到UI更新了附件地址消息
+
+- (void)observeMediaUploadSuccessNoti
+{
+    [GJCFNotificationCenter addObserver:self selector:@selector(recieveMediaUploadSuccessNoti:) name:GJGCChatMessageSendManagerDidUploadMediaMessageSuccessNoti object:nil];
+}
+
+- (void)recieveMediaUploadSuccessNoti:(NSNotification *)noti
+{
+    NSDictionary *notiInfo = noti.object;
+    
+    NSString *type = notiInfo[@"type"];
+    NSString *url = notiInfo[@"data"];
+    NSString *msgId = notiInfo[@"msgId"];
+    NSString *toId = notiInfo[@"toId"];
+    
+    if (![toId isEqualToString:self.taklInfo.toId]) {
+        return;
+    }
+    
+    if ([type isEqualToString:@"audio"]) {
+        
+        [self updateAudioUrl:url withLocalMsg:msgId toId:toId];
+    }
+    
+    if ([type isEqualToString:@"image"]) {
+        
+        [self updateImageUrl:url withLocalMsg:msgId toId:toId];
+    }
+}
+
+- (void)observeRecievedPostMessage:(NSNotification *)noti
+{
+    GJGCChatFriendTalkModel *talkModel = (GJGCChatFriendTalkModel *)noti.userInfo[@"data"];
+    
+    if (talkModel.talkType != GJGCChatFriendTalkTypePost) {
+        return;
+    }
+    
+    /*是否当前对话的信息 */
+    if ([talkModel.toId intValue] != [self.taklInfo.toId intValue]) {
+        
+        GJGCLogVincent(@"not this talk msg:%@",talkModel.toId);
+        
+        return;
+        
+    }
+    
+    GJGCLogVincent(@"帖子对话收到一组消息:%@",talkModel.msgArray);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self recievedPostMessage:talkModel];
+        
+    });
+}
+
+- (void)recievedPostMessage:(GJGCChatFriendTalkModel *)talkModel
+{
+    
+    for (GJGCIMPostMsgModel *msgModel in talkModel.msgArray) {
+        
+        
+        GJGCChatContentBaseModel *contentModel = [self addPostFriendMsg:msgModel];
+
+        if ([msgModel.isMySendMsg integerValue] == 0) {
+            self.title = msgModel.senderName;
+            self.taklInfo.toUserName = msgModel.senderName;
+        }
+        
+        if (talkModel.msgArray.count < 4) {
+            
+            [self updateTheNewMsgTimeString:contentModel];
+
+        }
+        
+    }
+    
+    if (talkModel.msgArray.count >= 4) {
+        
+        [self resortAllChatContentBySendTime];        
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+        GJGCLogVincent(@"chatVC reload data:%@",self.delegate);
+        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+    }
+}
+
+#pragma mark - 观察本地发送消息创建成功和消息状态更新通知
+
+- (void)observeLocalMessageUpdate:(NSNotification *)noti
+{
+    NSDictionary *passResult = (NSDictionary *)noti.object;
+    GJGCChatMessageSendMessageType type = [[passResult objectForKey:@"type"]intValue];
+    GJGCIMMsgBaseModel *msgModel = [passResult objectForKey:@"data"];
+    
+    if (type == GJGCChatMessageSendMessageTypePostPrivate) {
+        
+        GJGCLogVincent(@"帖子对话更新一条消息:%@ status:%@",msgModel.localMsgId,msgModel.state);
+        
+        [self updateContentModelStateWithMsgModel:msgModel];
+        
+    }
+}
+
+- (void)observeHistoryMessage:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self recieveHistoryMessage:noti];
+        
+    });
+}
+
+- (void)recieveHistoryMessage:(NSNotification *)noti
+{
+    
+    /* 是否当前会话的历史消息 */
+    GJGCIMHistoryMsgResultModel *resultModel = noti.userInfo[@"data"];
+    
+    if (![resultModel isEqualTalk:self.taklInfo] || ![resultModel.observerIdentifier isEqualToString:self.uniqueIdentifier]) {
+        return;
+    }
+    
+    NSArray *msgArray = resultModel.msgArray;
+    
+    BOOL isFirstPull = resultModel.isFirstPull;
+    
+    NSInteger errorCode = resultModel.errorCode;
+
+    NSInteger requestMsgCount = resultModel.requestMsgCount;
+
+    /* 所有历史消息都加载完了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && msgArray.count == 0) {
+        
+        /**
+         *  当历史数据和本地区间有交集的时候，重新尝试获取一次本地历史消息
+         */
+        NSArray *reTryLocalMsgArray = [self reTryGetLocalMessageWhileHistoryMessageIsSubMessagesOfLocalMessages];
+        
+        if (reTryLocalMsgArray.count > 0) {
+            
+            msgArray = reTryLocalMsgArray;
+            
+        }
+    
+    }
+    
+    if (msgArray && msgArray.count > 0 && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode]) {
+        
+        /* 分发到UI层 */
+        for (GJGCIMPostMsgModel *msgModel in msgArray) {
+            [self addPostFriendMsg:msgModel];
+        }
+        
+        /* 重排时间顺序 */
+        [self resortAllChatContentBySendTime];
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成帖子聊天第一次拉取历史消息");
+            self.isFinishFirstHistoryLoad = YES;
+
+            /* 悬停在第一次加载历史消息的最后一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+            }
+            
+        }else{
+            
+            /* 悬停在第一次加载后的第一条消息上 */
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishRefresh:self];
+            }
+        
+        }
+        
+    }else{
+        
+        if (errorCode == kCFURLErrorNotConnectedToInternet) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":@"似乎已断开与互联网链接"}];
+            
+        }
+        
+        if (isFirstPull) {
+            
+            GJGCLogVincent(@"加载完成帖子聊天第一次拉取历史消息");
+            
+            self.isFinishFirstHistoryLoad = YES;
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+                
+                [self.delegate dataSourceManagerRequireFinishLoadMore:self];
+                
+            }
+            
+            return;
+        }
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+            [self.delegate dataSourceManagerRequireFinishRefresh:self];
+        }
+    }
+    
+    /* 如果没有历史消息了 */
+    if (!isFirstPull && ![GJGCUtilHelper isNetworkOrServerInternalError:errorCode] && requestMsgCount == 0) {
+        
+        self.isFinishLoadAllHistoryMsg = YES;
+    }
+}
+
+#pragma mark - 添加帖子消息
+
+- (GJGCChatContentBaseModel *)addPostFriendMsg:(GJGCIMPostMsgModel *)msgModel
+{
+    /* 格式化消息 */
+    GJGCChatPostContentModel *chatContentModel = [[GJGCChatPostContentModel alloc]init];
+    chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
+    chatContentModel.toId = GJCFStringFromInt([msgModel.toId intValue]);
+    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.isFromSelf = [msgModel.isMySendMsg boolValue];
+    chatContentModel.sendStatus = [msgModel.state intValue];
+    chatContentModel.sendTime = [msgModel.sendTime longLongValue];
+    chatContentModel.localMsgId = GJCFStringFromInt([msgModel.localMsgId intValue]);
+    chatContentModel.senderId = msgModel.senderId;
+    chatContentModel.faildReason = msgModel.faildReason;
+    chatContentModel.faildType = [msgModel.faildType intValue];
+    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.contentHeight = [msgModel.height floatValue];
+    if (GJCFStringIsNull(msgModel.contentSize)) {
+        chatContentModel.contentSize = CGSizeZero;
+    }else{
+        chatContentModel.contentSize = CGSizeFromString(msgModel.contentSize);
+    }
+    chatContentModel.basePostId = msgModel.postId;
+    chatContentModel.basePostImg = msgModel.postPicUrl;
+    chatContentModel.basePostTitle = msgModel.postTitle;
+    chatContentModel.sessionId = msgModel.sessionId;
+    
+    /* 格式化内容 */
+    GJGCChatFriendContentType contentType = [self formateChatFriendContent:chatContentModel withMsgModel:msgModel];
+    
+    /* 是常规消息 */
+    if (contentType != GJGCChatFriendContentTypeNotFound) {
+        
+        [self addChatContentModel:chatContentModel];
+    }
+    
+    return chatContentModel;
+    
+}
+
+#pragma mark - 读取最近历史消息
+
+- (void)readLastMessagesFromDB
+{
+    NSArray *msgArray = [[GJGCPostMsgDBAPI share] getLastMsgWithCount:20 withToId:self.taklInfo.toId msgType:@"post_private"];
+    
+    for (NSInteger i = msgArray.count - 1; i >= 0; i--) {
+        
+        GJGCIMPostMsgModel *msgModel = [msgArray objectAtIndex:i];
+        
+        GJGCLogVincent(@"readLastMessageArray :%@",msgModel);
+        
+        [self addPostFriendMsg:msgModel];
+        
+    }
+    
+    /* 时间分块顺序重排 */
+    [self updateAllMsgTimeShowString];
+    
+    /* 设置加载完后第一条消息和最后一条消息 */
+    [self resetFirstAndLastMsgId];
+}
+
+#pragma mark - 删除消息
+
+- (NSArray *)deleteMessageAtIndex:(NSInteger)index
+{
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index];
+    
+    BOOL isDelete = [[GJGCPostMsgDBAPI  share]updateIsDelete:1 localMsgId:@([contentModel.localMsgId intValue]) msgType:@"post_private" toId:self.taklInfo.toId];
+    
+    NSMutableArray *willDeletePaths = [NSMutableArray array];
+
+    if (isDelete) {
+        
+        /* 更新最近联系人列表得最后一条消息 */
+        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
+            
+            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
+            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
+            if (lastContentAfterDelete.isTimeSubModel) {
+                
+                if (self.chatContentTotalCount - 1 >= 1) {
+                    
+                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
+                    
+                }
+                
+            }
+            
+            if (lastContentAfterDelete) {
+                
+                /* 更新最近会话信息 */
+                [self updateLastMsg:lastContentAfterDelete];
+                
+            }else{
+                
+                [[GJGCMsgBoxInterfaseHandle getChatListInterfase]clearContentWithToId:self.taklInfo.toId msgType:GJGCTalkTypeString(self.taklInfo.talkType)];
+                
+            }
+        }
+        
+        NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
+        
+        [self removeChatContentModelAtIndex:index];
+        
+        [willDeletePaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+        
+        if (willDeleteTimeSubIdentifier) {
+            
+            [willDeletePaths addObject:[NSIndexPath indexPathForRow:index - 1 inSection:0]];
+            
+            [self removeTimeSubByIdentifier:willDeleteTimeSubIdentifier];
+        }
+        
+    }
+    
+    return willDeletePaths;
+}
+
+#pragma mark - 更新帖子消息的图片url
+
+- (void)updatePostImageUrl:(NSString *)imageUrl withLocalMsgId:(long long)localMsgId toId:(NSString *)toId
+{
+    if (!imageUrl || localMsgId == NSNotFound || !toId) {
+        return;
+    }
+    
+    GJGCIMPostMsgModel *systemModel = [[GJGCPostMsgDBAPI share]getPostMsgModelWithLocalMsgId:localMsgId toId:toId];
+    if (!systemModel) {
+        return;
+    }
+    
+    NSMutableDictionary *urlDict = [[systemModel.contents gjgc_toDictionary] mutableCopy];
+    
+    [urlDict setObject:imageUrl forKey:@"pic_url"];
+    
+    systemModel.contents = [urlDict gjgc_ToString];
+    
+    BOOL isSuccess = [[GJGCPostMsgDBAPI share]updateModelByLocalMsgId:systemModel];
+    
+    GJGCChatFriendContentModel *findResultModel = nil;
+    NSInteger findIndex = NSNotFound;
+    
+    if (isSuccess) {
+        
+        for (int i = 0; i < self.chatListArray.count - 1; i++) {
+            
+            GJGCChatFriendContentModel *contentModel = [self.chatListArray objectAtIndex:i];
+            
+            if ([contentModel.localMsgId longLongValue] == [systemModel.localMsgId longLongValue]) {
+                
+                contentModel.postImg = imageUrl;
+                contentModel.imageMessageUrl = imageUrl;
+                
+                findResultModel = contentModel;
+                findIndex = i;
+                
+                break;
+            }
+        }
+        
+        if (findResultModel) {
+            
+            [self updateContentModelValuesNotEffectRowHeight:findResultModel atIndex:findIndex];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:reloadAtIndex:)]) {
+                [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:findIndex];
+            }
+        }
+    }
+}
+
+- (void)updateAudioFinishRead:(NSString *)localMsgId
+{
+    [[GJGCPostMsgDBAPI share] updateAudioMsgFinishRead:[localMsgId longLongValue] toId:self.taklInfo.toId];
+}
+
+- (void)pushAddMoreMsg:(NSArray *)array
+{
+    for (GJGCIMPostMsgModel * model in array) {
+        [self addPostFriendMsg:model];
+    }
+    
+    /* 重排时间顺序 */
+    [self resortAllChatContentBySendTime];
+    
+    /* 上一次悬停的第一个cell的索引 */    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.delegate dataSourceManagerRequireFinishRefresh:weakSelf];
+        });
+    }
+}
+
+#pragma mark - 更新附件地址
+
+- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
+        
+        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
+            
+            GJGCLogVincent(@"更新内存中语音的地址为:%@",audioUrl);
+            contentModel.audioModel.localStorePath = [[GJCFCachePathManager shareManager]mainAudioCacheFilePathForUrl:audioUrl];
+            
+            break;
+        }
+        
+    }
+}
+
+- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
+        
+        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
+            
+            contentModel.imageMessageUrl = imageUrl;
+            GJGCLogVincent(@"更新内存中图片的地址为:%@",imageUrl);
+            
+            break;
+        }
+        
+    }
+}
+
+#pragma mark - 更新数据库中消息得高度
+
+- (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    [[GJGCPostMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) contentSize:contentModel.contentSize withToId:self.taklInfo.toId withLocalMsgId:contentModel.localMsgId];
+}
+
+
+
+#pragma mark - 重试发送状态消息
+
+- (void)reTryAllSendingStateMsgDetailAction
+{
+    NSArray *sendingStateMsgs = [[GJGCPostMsgDBAPI share]getAllSendingStateMsgWithToId:self.taklInfo.toId];
+    
+    if (sendingStateMsgs && sendingStateMsgs.count > 0) {
+        
+        for (GJGCIMMsgBaseModel *msgModel in sendingStateMsgs) {
+            
+            [[GJGCChatMessageSendManager shareManager] reSendMessageWithLocalMsgId:GJCFStringFromInt([msgModel.localMsgId longLongValue]) talkType:self.taklInfo.talkType toId:self.taklInfo.toId];
+        }
+    }
+}
+
+@end

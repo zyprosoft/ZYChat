@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View
+END
+GJCFAsset.h
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAsset.h
+END
+GJCFAssetsPickerScrollView.m
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerScrollView.m
+END
+GJCFAssetsPickerCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerCell.h
+END
+GJCFAssetsPickerOverlayView.m
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerOverlayView.m
+END
+GJCFAssetsView.m
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsView.m
+END
+GJCFAlbums.h
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAlbums.h
+END
+GJCFAsset.m
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAsset.m
+END
+GJCFAssetsPickerAlbumsCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerAlbumsCell.h
+END
+GJCFAssetsPickerCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerCell.m
+END
+GJCFAlbums.m
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAlbums.m
+END
+GJCFAssetsPickerAlbumsCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerAlbumsCell.m
+END
+GJCFAssetsPickerScrollView.h
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerScrollView.h
+END
+GJCFAssetsPickerOverlayView.h
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsPickerOverlayView.h
+END
+GJCFAssetsView.h
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/Mobile/!svn/ver/90556/iOS/branches/GroupChat/gjgc_branch_6.0/GJFramework/Util/GJCommonFoundation/GJCFAssetsPicker/View/GJCFAssetsView.h
+END

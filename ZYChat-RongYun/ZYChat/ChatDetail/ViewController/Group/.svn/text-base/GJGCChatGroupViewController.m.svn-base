@@ -1,0 +1,652 @@
+//
+//  GJGCChatGroupViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatGroupViewController.h"
+#import "GJGCChatGroupDataSourceManager.h"
+#import "GJGCGroupInformationViewController.h"
+#import "GJCFDiskCache.h"
+#import "GJGCPGGroupNetWorkApi.h"
+#import "GJGCGroupAnnouncementFloatView.h"
+#import "GJGCGroupAnnouncementViewController.h"
+#import "GJGCGroupAnnouncementManager.h"
+#import "GJGCPGGroupManagerHeader.h"
+#import "GJGCGroupAnnouncementAddViewController.h"
+#import "GJGCGroupAnnouncementDetailViewController.h"
+#import "GJGCPersonInformationViewController.h"
+#import "GJGCGroupCallAddViewController.h"
+#import "GJGCReplyGroupCallViewController.h"
+
+@interface GJGCChatGroupViewController ()<GJGCGroupAnnouncementFloatViewDelegate,GJGCReplyGroupCallViewControllerDelegate,GJGCGroupCallAddViewControllerDelegate>
+
+@property (nonatomic,strong)GJGCGroupAnnouncementFloatView *announcementFloatView;
+@property (nonatomic,strong)UIButton *groupAnnouncementButton;
+
+@property (nonatomic,assign)BOOL isAnnouncementFloatViewShowing;
+@property (nonatomic,assign)CGPoint announcementMoveStartPoint;
+@property (nonatomic,assign)CGFloat announcemnetBottom;
+@property (nonatomic,assign)CGFloat announcementCenterY;
+
+@property (nonatomic,strong)GJGCPGGroupModel *currentGroupModel;
+@property (nonatomic,strong)GJGCGroupAnnouncementManager *announcementManager;
+
+@property (nonatomic,strong)GJGCReplyGroupCallViewController *replyVC;
+
+@end
+
+@implementation GJGCChatGroupViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self setRightButtonWithStateImage:@"title-icon-群资料" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
+
+    [self setStrNavTitle:self.dataSourceManager.title];
+    
+    /**
+     *  检测我在群中的身份
+     */
+    self.currentGroupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:[self.taklInfo.toId longLongValue]];
+    
+    /* 群公告 */
+    [self setupGroupAnnouncement];
+    
+    /* 群主召唤 */
+    [self setupGroupCall];
+    
+    /* 读草稿 */
+    NSString *messageDraft = [GJGCChatListInterfaseHandle getDrafMsg:self.taklInfo.toId msgType:@"group"];
+    
+    [self.inputPanel setLastMessageDraft:messageDraft];
+    
+    NSString *groupActive = [NSString stringWithFormat:@"groupActive_%@",self.taklInfo.toId];
+    
+    GJCFWeakSelf weakSelf = self;
+    [[GJCFDiskCache shareCache] getObject:groupActive isCareExpire:NO successBlock:^(GJCFDiskCache *cache, NSString *key, id <NSCoding> object, NSString *filePath){
+        
+        NSNumber *cacheDay = (NSNumber *)object;
+        
+        NSInteger dayNow = GJCFDateGetDay([NSDate date]);
+        
+        if (dayNow != [cacheDay integerValue]) {
+            
+            [weakSelf setMemmberActive];
+        }
+        
+    } failBlock:nil];
+    
+}
+
+#pragma mark 群公告
+
+- (void)setupGroupAnnouncement
+{
+    /**
+     *  添加一个公告浮层
+     */
+    self.announcementFloatView = [[GJGCGroupAnnouncementFloatView alloc]initWithDelegate:self];
+    self.announcementFloatView.gjcf_centerX = GJCFSystemScreenWidth/2;
+    
+    //拖动手势
+    UIPanGestureRecognizer *panR = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+    [self.announcementFloatView addGestureRecognizer:panR];
+    
+    [self.view addSubview:self.announcementFloatView];
+    self.announcementFloatView.gjcf_bottom = 0;
+    
+    /**
+     *  添加一个公告点击icon按钮
+     */
+    self.groupAnnouncementButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.groupAnnouncementButton.gjcf_size = CGSizeMake(20, 20);
+    [self.groupAnnouncementButton setBackgroundImage:[UIImage imageNamed:@"title-icon-公告"] forState:UIControlStateNormal];
+    [self.groupAnnouncementButton setBackgroundImage:[UIImage imageNamed:@"title-icon-公告展开"] forState:UIControlStateSelected];
+    [self.groupAnnouncementButton addTarget:self action:@selector(groupAnnouncementTappedAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self appendRightBarItemWithCustomButton:self.groupAnnouncementButton toOldLeft:YES];
+    
+    /**
+     * 处理群公告浮层具体展示
+     */
+    [self showAnnounceFloatView];
+    self.announcemnetBottom = self.announcementFloatView.gjcf_height;
+    self.announcementCenterY = self.announcementFloatView.gjcf_height*3/4;
+    
+    /* 观察群公告操作变化 */
+    if (self.announcementFloatView.isGroupManager) {
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeLocalAnnounceChange:) name:GJGCGroupAnnouncementManagerDidChangeAnnounceListNoti object:nil];
+    }
+}
+
+#pragma mark - 观察本地群公告变化
+
+- (void)observeLocalAnnounceChange:(NSNotification *)noti
+{
+    NSDictionary *notiObjc = noti.object;
+    
+    GJGCGroupAnnouncementModel *announcement = notiObjc[@"announcement"];
+    NSString *type = notiObjc[@"type"];
+    
+    if ([type isEqualToString:@"add"]) {
+        
+        [self.announcementFloatView setAnnouncement:announcement];
+        
+    }
+    
+    if ([type isEqualToString:@"delete"]) {
+        
+        if ([announcement.announceId isEqualToString:self.announcementFloatView.announceId]) {
+            
+            NSArray *allAnnouncement = [self.announcementManager getAllLocalAnnouncementWithGroupId:self.taklInfo.toId];
+            
+            if (allAnnouncement.count > 0) {
+                
+                [self.announcementFloatView setAnnouncement:[allAnnouncement firstObject]];
+
+            }else{
+                
+                if (self.announcementFloatView.isGroupManager) {
+                    
+                    [self.announcementFloatView groupManagerHasNoAnnouncementState];
+                    
+                }else{
+                    
+                    [self.announcementFloatView groupMemeberHasNoAnnouncementState];
+                }
+            }
+            
+        }
+    }
+    
+    if ([type isEqualToString:@"clear"]) {
+        
+        if (self.announcementFloatView.isGroupManager) {
+            
+            [self.announcementFloatView groupManagerHasNoAnnouncementState];
+            
+        }else{
+            
+            [self.announcementFloatView groupMemeberHasNoAnnouncementState];
+        }
+    }
+    
+    self.announcemnetBottom = self.announcementFloatView.gjcf_height;
+    self.announcementCenterY = self.announcementFloatView.gjcf_height*3/4;
+    
+}
+
+#pragma mark - 群公告
+
+- (void)showAnnounceFloatView
+{
+    if (!self.announcementManager) {
+        self.announcementManager = [[GJGCGroupAnnouncementManager alloc]init];
+    }
+    
+    /**
+     *  选择样式
+     */
+    if (self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupManager || self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupOwner) {
+        
+        self.announcementFloatView.isGroupManager = YES;
+
+    }else{
+        
+        self.announcementFloatView.isGroupManager = NO;
+    }
+    
+    //是否需要请求新的公告
+    BOOL isNeedRequest = [GJGCPGGroupManagerPGGroupListHandle hasUnreadAnnounce:[self.taklInfo.toId longLongValue]];
+    
+    if (isNeedRequest) {
+    
+        [self requestAnnounce];
+        
+    }
+}
+
+- (void)requestAnnounce
+{
+    GJCFWeakSelf weakSelf = self;
+    [self.announcementManager requestLatestUnReadAnnouncementWithGroupId:self.taklInfo.toId withSucces:^(NSArray *resultArray) {
+        
+        if (resultArray.count > 0) {
+            
+            GJGCGroupAnnouncementModel *firstAnnoucement = [resultArray firstObject];
+            
+            [weakSelf.announcementFloatView setAnnouncement:firstAnnoucement];
+            
+            [weakSelf showAnnouncementFloatView:YES animated:YES];
+            
+            weakSelf.announcemnetBottom = weakSelf.announcementFloatView.gjcf_height;
+            weakSelf.announcementCenterY = weakSelf.announcementFloatView.gjcf_height*3/4;
+        }
+        
+    } withFaild:^(NSString *errMsg) {
+        
+        
+    }];
+    
+
+}
+
+- (void)requestLatestAnnouncement
+{
+    NSArray *savedAnnouncementArray = [self.announcementManager getAllLocalAnnouncementWithGroupId:self.taklInfo.toId];
+    
+    if (savedAnnouncementArray.count == 0) {
+        
+        [self.announcementFloatView loadingAnnouncementState];
+        
+        GJCFWeakSelf weakSelf = self;
+        [self.announcementManager requestLatestAnnouncementWithGroupId:self.taklInfo.toId withSucces:^(NSArray *resultArray) {
+            
+            if (resultArray.count > 0) {
+                
+                GJGCGroupAnnouncementModel *firstAnnoucement = [resultArray firstObject];
+                
+                [weakSelf.announcementFloatView setAnnouncement:firstAnnoucement];
+                
+                weakSelf.announcemnetBottom = weakSelf.announcementFloatView.gjcf_height;
+                weakSelf.announcementCenterY = weakSelf.announcementFloatView.gjcf_height*3/4;
+                
+            }else{
+                
+                if (GJCFStringIsNull(weakSelf.announcementFloatView.announceId)) {
+                   
+                    if (weakSelf.announcementFloatView.isGroupManager) {
+                        
+                        [weakSelf.announcementFloatView groupManagerHasNoAnnouncementState];
+                        
+                    }else{
+                        
+                        [weakSelf.announcementFloatView groupMemeberHasNoAnnouncementState];
+                    }
+                    
+                }
+                
+                weakSelf.announcemnetBottom = weakSelf.announcementFloatView.gjcf_height;
+                weakSelf.announcementCenterY = weakSelf.announcementFloatView.gjcf_height*3/4;
+            }
+            
+        } withFaild:^(NSString *errMsg) {
+            
+            if (GJCFStringIsNull(weakSelf.announcementFloatView.announceId)) {
+                
+                [weakSelf.announcementFloatView faildLoadingAnnouncementState];
+                
+                weakSelf.announcemnetBottom = weakSelf.announcementFloatView.gjcf_height;
+                weakSelf.announcementCenterY = weakSelf.announcementFloatView.gjcf_height*3/4;
+            }
+            
+        }];
+        
+    }else{
+        
+        GJGCGroupAnnouncementModel *firstAnnoucement = [savedAnnouncementArray firstObject];
+        
+        [self.announcementFloatView setAnnouncement:firstAnnoucement];
+        
+        self.announcemnetBottom = self.announcementFloatView.gjcf_height;
+        self.announcementCenterY = self.announcementFloatView.gjcf_height*3/4;
+    }
+}
+
+#pragma mark - 观察群主召唤
+
+- (void)setupGroupCall
+{
+    BOOL isGroupHasCall = [[GJGCGroupCallManager shareManager] isGroupHasCall:self.taklInfo.toId];
+    
+    if (isGroupHasCall) {
+        
+        [self performSelector:@selector(showGroupCallAccept) withObject:nil afterDelay:0.5f];
+    }
+        
+    [GJCFNotificationCenter addObserver:self selector:@selector(observeGroupCall:) name:GJGCGroupCallManagerGroupCallDidChangeStateNoti object:nil];
+}
+
+- (void)observeGroupCall:(NSNotification *)noti
+{
+    NSDictionary *userInfo = noti.userInfo;
+    
+    if ([[userInfo objectForKey:@"type"] isEqualToString:@"add"]) {
+        
+        if ([[userInfo objectForKey:@"groupId"] containsObject:self.taklInfo.toId]) {
+            
+            GJGCLOG_SYNC_LOG(@"recieve group call :%@",userInfo);
+            
+            [self showGroupCallAccept];
+            
+        }
+    }
+}
+
+- (void)showGroupCallAccept
+{
+    if (self.currentGroupModel.authority != GJGCPGGroupAuthorityPGGroupOwner) {
+        
+        if (self.replyVC) {
+            [self.replyVC.view removeFromSuperview];
+            self.replyVC.delegate = nil;
+            self.replyVC = nil;
+        }
+        self.replyVC = [[GJGCReplyGroupCallViewController alloc]initWithGroupId:self.taklInfo.toId];
+        self.replyVC.delegate = self;
+        
+        [[UIApplication sharedApplication].keyWindow addSubview:self.replyVC.view];
+    }
+}
+
+#pragma mark - 响应动作完成
+
+- (void)replyGroupCallViewController:(GJGCReplyGroupCallViewController *)replyViewController didFinishChooseAction:(BOOL)isAccept
+{
+    [self.replyVC.view removeFromSuperview];
+    self.replyVC.delegate = nil;
+    self.replyVC = nil;
+    
+    if (isAccept) {
+        [self playParticleEffectWithImageName:@"群成员响应"];
+        //行为统计
+        [GJGCUtilHelper addGanjiLog:@"12104" params:@[[NSString stringWithFormat:@"%lld",self.currentGroupModel.groupId]]];
+    }
+}
+
+#pragma mark - 数据源
+
+- (void)initDataManager
+{
+    self.dataSourceManager = [[GJGCChatGroupDataSourceManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    
+}
+
+- (void)setMemmberActive
+{
+    NSString *groupActive = [NSString stringWithFormat:@"groupActive_%@",self.taklInfo.toId];
+    
+    [[GJGCPGGroupNetWorkApi share] setMemberActiveDegreeInPGGroup:[self.taklInfo.toId longLongValue] successBlock:^(id responseObj, NSDictionary *userInfo) {
+        
+        NSInteger currentDay = GJCFDateGetDay([NSDate date]);
+
+        [[GJCFDiskCache shareCache] setObject:@(currentDay) forKey:groupActive expire:60*60*24*365*100 successBlock:nil failBlock:nil];
+        
+    } failBlock:^(NSError *error, NSDictionary *userInfo) {
+        
+    }];
+}
+
+- (void)rightButtonPressed:(id)sender
+{
+    GJGCGroupInformationViewController *groupInformation = [[GJGCGroupInformationViewController alloc]initWithGroupId:[self.taklInfo.toId longLongValue]];
+    [[GJGCUIStackManager share]pushViewController:groupInformation animated:YES];
+    
+    /* 收起输入键盘 */
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reserveChatInputPanelState];
+    });
+    
+}
+
+/**
+ *  点击公告
+ */
+- (void)groupAnnouncementTappedAction:(UIButton *)sender
+{
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12081" params:nil];
+    
+    self.isAnnouncementFloatViewShowing = !self.isAnnouncementFloatViewShowing;
+    
+    [self showAnnouncementFloatView:self.isAnnouncementFloatViewShowing animated:YES];
+    
+    if (self.isAnnouncementFloatViewShowing) {
+        [self requestLatestAnnouncement];
+    }
+}
+
+/**
+ *  显示或者隐藏公告
+ *
+ *  @param isShow
+ */
+- (void)showAnnouncementFloatView:(BOOL)isShow animated:(BOOL)animated
+{
+    self.groupAnnouncementButton.selected = isShow;
+    
+    if (isShow) {
+        
+        if (animated) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                [self announcementShowState];
+                
+            }];
+            
+            return;
+        }
+        
+        [self announcementShowState];
+        
+        return;
+    }
+    
+    if (animated) {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            [self announcementHiddenState];
+            
+        }];
+        
+        return;
+    }
+    
+    [self announcementHiddenState];
+}
+
+- (void)announcementHiddenState
+{
+    self.announcementFloatView.gjcf_bottom = 0;
+}
+
+- (void)announcementShowState
+{
+    self.announcementFloatView.gjcf_bottom = self.announcementFloatView.gjcf_height;
+}
+
+#pragma mark - scrollView delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [super scrollViewWillBeginDragging:scrollView];
+    
+    self.isAnnouncementFloatViewShowing = NO;
+    [self showAnnouncementFloatView:self.isAnnouncementFloatViewShowing animated:YES];
+}
+
+#pragma mark - 群聊的时候加个@功能
+
+- (void)chatCellDidLongPressOnHeadView:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    [self.inputPanel appendFocusOnOther:[NSString stringWithFormat:@"@%@",contentModel.senderName.string]];
+    
+}
+
+/**
+ *  点击新人欢迎card
+ *
+ *  @param tappedCell
+ */
+- (void)chatCellDidTapOnWelcomeMemberCard:(GJGCChatBaseCell *)tappedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tappedCell];
+    GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    //行为统计
+    NSString *logParam = contentModel.sex == 1? GJCFStringFromInt(1):GJCFStringFromInt(2);
+    [GJGCUtilHelper addGanjiLog:@"12083" params:@[logParam]];
+    
+    GJGCPersonInformationViewController *informationVC = [[GJGCPersonInformationViewController alloc]initWithUserId:[contentModel.userId longLongValue] reportType:GJGCReportTypePerson];
+    [[GJGCUIStackManager share]pushViewController:informationVC animated:YES];
+
+}
+
+#pragma mark - 公告浮层点击了查看所有公告
+
+- (void)announcementFloatViewDidTappedToShowAllAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView
+{
+    GJGCGroupAnnouncementViewController *announcementViewController = [[GJGCGroupAnnouncementViewController alloc]init];
+    announcementViewController.groupId = self.taklInfo.toId;
+    [[GJGCUIStackManager share]pushViewController:announcementViewController animated:YES];
+}
+
+- (void)announcementFloatViewDidTappedToRetryGetLatestAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView
+{
+    [self requestLatestAnnouncement];
+}
+
+- (void)announcementFloatViewDidTappedToCreateNewAnnouncement:(GJGCGroupAnnouncementFloatView *)floatView
+{
+    GJGCGroupAnnouncementAddViewController *addVC = [[GJGCGroupAnnouncementAddViewController alloc]init];
+    addVC.groupId = self.taklInfo.toId;
+    GJCFWeakSelf weakSelf = self;
+    addVC.successBlock = ^(GJGCGroupAnnouncementAddViewController *announcementVC){
+        [weakSelf successCreateAnnouncementAction];
+    };
+    [[GJGCUIStackManager share] pushViewController:addVC animated:YES];
+}
+
+- (void)announcementFloatViewDidTappedToShowAnnouncementDetail:(GJGCGroupAnnouncementFloatView *)floatView theAnnouncement:(GJGCGroupAnnouncementModel *)anouncement
+{
+    GJGCGroupAnnouncementDetailViewController *detailVC = [[GJGCGroupAnnouncementDetailViewController alloc]initWithAnnouncement:anouncement];
+    GJCFWeakSelf weakSelf = self;
+    detailVC.successBlock = ^(GJGCGroupAnnouncementModel *announcement){
+        [weakSelf successDeleteAnnouncement:announcement];
+    };
+    [[GJGCUIStackManager share]pushViewController:detailVC animated:YES];
+}
+
+- (void)successDeleteAnnouncement:(GJGCGroupAnnouncementModel *)announcement
+{
+    [[GJGCUIStackManager share] popViewControllerAnimated:YES];
+}
+
+- (void)successCreateAnnouncementAction
+{
+    [[GJGCUIStackManager share] popViewControllerAnimated:YES];
+}
+
+#pragma mark - 通知拖动交互效果
+
+- (void)pan:(UIPanGestureRecognizer *)panR
+{
+    CGFloat oldBottom = self.announcementFloatView.gjcf_bottom;
+    
+    switch (panR.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            self.announcementMoveStartPoint = [panR locationInView:self.announcementFloatView];
+        }
+            break;
+        case UIGestureRecognizerStateChanged:
+        {
+            CGPoint movePoint = [panR locationInView:self.announcementFloatView];
+            
+            CGFloat yChange = movePoint.y - self.announcementMoveStartPoint.y;
+            
+            if (oldBottom + yChange < self.announcemnetBottom) {
+                
+                self.announcementFloatView.gjcf_bottom = oldBottom + yChange;
+            }
+            
+        }
+            break;
+        case UIGestureRecognizerStateCancelled:
+        {
+            self.isAnnouncementFloatViewShowing = self.announcementFloatView.gjcf_bottom > self.announcementCenterY;
+            
+            [self showAnnouncementFloatView:self.isAnnouncementFloatViewShowing animated:YES];
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        {
+            self.isAnnouncementFloatViewShowing = self.announcementFloatView.gjcf_bottom > self.announcementCenterY;
+            
+            [self showAnnouncementFloatView:self.isAnnouncementFloatViewShowing animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - 扩展面板点击动作代理
+
+- (GJGCChatInputExpandMenuPanelConfigModel *)chatInputPanelRequiredCurrentConfigData:(GJGCChatInputPanel *)panel
+{
+    GJGCChatInputExpandMenuPanelConfigModel *configModel = [[GJGCChatInputExpandMenuPanelConfigModel alloc]init];
+    configModel.talkType = self.taklInfo.talkType;
+    
+    //根据在群内角色决定是否可以群主召唤
+    self.currentGroupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:[self.taklInfo.toId longLongValue]];
+    if (self.currentGroupModel.authority != GJGCPGGroupAuthorityPGGroupOwner){
+        configModel.disableItems = @[@(GJGCChatInputMenuPanelActionTypeGroupCall)];
+    }
+    
+    return configModel;
+}
+
+- (void)chatInputPanel:(GJGCChatInputPanel *)panel didChooseMenuAction:(GJGCChatInputMenuPanelActionType)actionType
+{
+    [super chatInputPanel:panel didChooseMenuAction:actionType];
+    
+    switch (actionType) {
+        case GJGCChatInputMenuPanelActionTypeGroupCall:
+        {
+            GJGCGroupCallAddViewController *addGroupCallVC = [[GJGCGroupCallAddViewController alloc]initWithGroup:self.currentGroupModel];
+            addGroupCallVC.delegate = self;
+            [[GJGCUIStackManager share]pushViewController:addGroupCallVC animated:YES];
+            
+            //行为统计
+            [GJGCUtilHelper addGanjiLog:@"12099" params:@[[NSString stringWithFormat:@"%lld",self.currentGroupModel.groupId]]];
+            
+        }
+        break;
+        
+        default:
+        break;
+    }
+}
+
+- (void)chatInputPanel:(GJGCChatInputPanel *)panel didChangeToInputBarAction:(GJGCChatInputBarActionType)action
+{
+    if (action == GJGCChatInputBarActionTypeExpandPanel) {
+        
+        //行为统计
+        NSString *logParam = [[[GJGCPGGroupManager sharePGGroupManager] getPGGroupListInterface] getPGGroupAuthorityWithGroupId:self.currentGroupModel.groupId] == GJGCPGGroupAuthorityPGGroupOwner? GJCFStringFromInt(1):GJCFStringFromInt(2);
+        
+        [GJGCUtilHelper addGanjiLog:@"12098" params:@[[NSString stringWithFormat:@"%lld",self.currentGroupModel.groupId],logParam]];
+        
+    }
+}
+
+#pragma mark - GroupCall Add delegate
+- (void)groupCallAddViewControllerDidSuccessSendGroupCall:(GJGCGroupCallAddViewController *)addCallViewController
+{
+    [[GJGCUIStackManager share]popViewControllerAnimated:YES];
+    [self performSelector:@selector(playParticleEffectWithImageName:) withObject:@"群主召唤" afterDelay:0.5];
+    
+    //行为统计
+    [GJGCUtilHelper addGanjiLog:@"12101" params:@[[NSString stringWithFormat:@"%lld",self.currentGroupModel.groupId]]];
+}
+
+@end

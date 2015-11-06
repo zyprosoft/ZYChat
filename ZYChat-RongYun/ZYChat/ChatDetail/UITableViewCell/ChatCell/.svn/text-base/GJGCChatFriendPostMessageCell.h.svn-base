@@ -1,0 +1,14 @@
+//
+//  GJGCChatFriendPostMessageCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-12-11.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCChatFriendImageMessageCell.h"
+
+@interface GJGCChatFriendPostMessageCell : GJGCChatFriendImageMessageCell
+
+
+@end
