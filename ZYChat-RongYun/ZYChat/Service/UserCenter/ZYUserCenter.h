@@ -13,6 +13,16 @@
 
 + (ZYUserCenter *)shareCenter;
 
+- (void)registUser:(ZYUserModel *)aUser withResult:(void (^)(BOOL state))resultBlock;
+
+- (void)loginUser:(ZYUserModel *)aUser withResult:(void(^)(BOOL state))resultBlock;
+
+- (void)loginTestUser;
+
 - (ZYUserModel *)currentLoginUser;
+
+- (void)createUserTable;
+
+- (void)createUser;
 
 @end

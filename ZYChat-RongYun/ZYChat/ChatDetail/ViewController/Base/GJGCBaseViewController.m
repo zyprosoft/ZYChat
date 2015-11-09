@@ -48,7 +48,7 @@
 
 - (void)leftButtonPressed:(UIButton *)sender
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)rightButtonPressed:(UIButton *)sender

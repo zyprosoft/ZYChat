@@ -34,5 +34,7 @@
 
 @property (nonatomic,strong)NSString *chatToken;
 
+@property (nonatomic,strong)NSString *password;
+
 
 @end

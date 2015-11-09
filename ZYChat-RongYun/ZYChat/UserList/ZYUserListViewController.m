@@ -8,6 +8,8 @@
 
 #import "ZYUserListViewController.h"
 #import "ZYUserListDataManager.h"
+#import "ZYLoginViewController.h"
+#import "GJGCChatFriendViewController.h"
 
 @interface ZYUserListViewController ()<ZYUserListDataManagerDelegate>
 
@@ -24,6 +26,15 @@
     self.dataManager.delegate = self;
 
     [self.dataManager requestUserList];
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(rightBarItemAction)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)rightBarItemAction
+{
+    ZYLoginViewController *loginVC = [[ZYLoginViewController alloc]init];
+    [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -59,6 +70,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44.f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZYUserListContentModel *contentModel = [self.dataManager contentModelAtIndexPath:indexPath];
+    
+    GJGCChatFriendTalkModel *talkModel = [[GJGCChatFriendTalkModel alloc]init];
+    talkModel.toUserName = contentModel.nickname;
+    talkModel.toId = contentModel.mobile;
+    
+    GJGCChatFriendViewController *chatVC = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talkModel];
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 #pragma mark - DataManager Delegate

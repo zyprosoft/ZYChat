@@ -1,0 +1,6 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/EaseMobSDK"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/EaseMobSDK/EaseMobSDK/lib" $(inherited) "${PODS_ROOT}/EaseMobSDK/EaseMobSDK/lib" $(inherited) "${PODS_ROOT}/EaseMobSDK/EaseMobSDK/lib" $(inherited) "${PODS_ROOT}/EaseMobSDK/EaseMobSDK/lib" $(inherited) "${PODS_ROOT}/EaseMobSDK/EaseMobSDK/lib"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/EaseMobSDK"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"EaseMobClientSDKLite_arm64" -l"EaseMobClientSDKLite_armv7" -l"EaseMobClientSDKLite_armv7s" -l"EaseMobClientSDKLite_i386" -l"EaseMobClientSDKLite_x86_64" -l"iconv" -l"resolv" -l"sqlite3" -l"stdc++" -l"stdc++.6" -l"xml2" -l"z" -framework "AddressBook" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreLocation" -framework "Foundation" -framework "ImageIO" -framework "MapKit" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+PODS_ROOT = ${SRCROOT}/Pods

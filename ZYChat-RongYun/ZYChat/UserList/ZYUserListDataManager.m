@@ -50,6 +50,7 @@
             contentModel.userId = aUser.userId;
             contentModel.nickname = aUser.nickname;
             contentModel.headThumb = aUser.headThumb;
+            contentModel.mobile = aUser.mobile;
             
             [self.sourceArray addObject:contentModel];
         }

@@ -24,7 +24,6 @@
 #import "GJGCWebViewController.h"
 #import "GJCFAssetsPickerViewController.h"
 
-
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
 #define GJGCActionSheetShowMyFavoritePost 132135
@@ -922,7 +921,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                 return;
             }
             if (!GJCFAppCanAccessCamera) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请在“设置-隐私-相机”选项中允许系统生活访问你的相机"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"请在“设置-隐私-相机”选项中允许ZYChat访问你的相机"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
                 [alert show];
                 return;
             }
@@ -1038,8 +1037,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [self.dataSourceManager mockSendAnMesssage:chatContentModel];
-
+    [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendGIFMessage:(NSString *)gifCode
@@ -1066,8 +1064,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [self.dataSourceManager mockSendAnMesssage:chatContentModel];
-    
+    [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
 }
 
 #pragma mark - GJCUCaptureDelegate
@@ -1310,6 +1307,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         /* 从talkInfo中绑定更多信息给待发送内容 */
         [self setSendChatContentModelWithTalkInfo:chatContentModel];
         
+        [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
     }
 }
 

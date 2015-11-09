@@ -17,7 +17,7 @@
     switch (requestType) {
         case ZYDataCenterRequestTypeRegist:
         {
-            interfaceName = @"/user/regist";
+            interfaceName = @"/ChatPrivate/regist";
         }
             break;
         case ZYDataCenterRequestTypeLogin:

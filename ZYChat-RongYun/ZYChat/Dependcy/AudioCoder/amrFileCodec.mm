@@ -7,11 +7,8 @@
 //
 
 #include "amrFileCodec.h"
-
-int zy_amrEncodeMode[] = {4750, 5150, 5900, 6700, 7400, 7950, 10200, 12200}; // amr 编码方式
-
+int amrEncodeMode[] = {4750, 5150, 5900, 6700, 7400, 7950, 10200, 12200}; // amr 编码方式
 BOOL isRecord = NO;
-
 // 从WAVE文件中跳过WAVE文件头，直接到PCM音频数据
 void SkipToPCMAudioData(FILE* fpwave)
 {
@@ -287,7 +284,7 @@ int caclAMRFrameSize(unsigned char frameHeader)
 	temp1 &= 0x78; // 0111-1000
 	temp1 >>= 3;
 	
-	mode = zy_amrEncodeMode[temp1];
+	mode = amrEncodeMode[temp1];
 	
 	// 计算amr音频数据帧大小
 	// 原理: amr 一帧对应20ms，那么一秒有50帧的音频数据

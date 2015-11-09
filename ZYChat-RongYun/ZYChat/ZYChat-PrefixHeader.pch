@@ -14,6 +14,8 @@
 
 #ifdef __OBJC__
 
+#import "EaseMob.h"
+
 #import <UIKit/UIKit.h>
 
 #import <Foundation/Foundation.h>
@@ -53,5 +55,7 @@
 #import "UIImageView+WebCache.h"
 
 #import "ZYUserCenter.h"
+
+#import "GJGCChatMessageSender.h"
 
 #endif

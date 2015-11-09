@@ -1,0 +1,1 @@
+../../../EaseMobSDK/EaseMobSDK/include/ChatService/EMChatManager/types/EMFileMessageBody.h

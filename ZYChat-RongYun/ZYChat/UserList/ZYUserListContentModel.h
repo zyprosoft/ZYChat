@@ -16,4 +16,6 @@
 
 @property (nonatomic,strong)NSString *headThumb;
 
+@property (nonatomic,strong)NSString *mobile;
+
 @end

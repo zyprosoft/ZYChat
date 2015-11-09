@@ -10,7 +10,7 @@
 #import "GJGCRecentChatViewController.h"
 #import "ZYUserListViewController.h"
 
-#define RongYunAppKey @"8luwapkvucgxl"
+#define EaseMobAppKey     @"zyprosoft#zychat"
 
 @interface AppDelegate ()
 
@@ -45,11 +45,8 @@
     
     self.window.rootViewController = tabController;
     
-    //自动登录
-    [ZYUserCenter shareCenter];
-    
-    //注册融云
-//    [RCIMClient init:RongYunAppKey deviceToken:nil];
+    //注册环信
+    [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
     
     [self.window makeKeyAndVisible];
     
