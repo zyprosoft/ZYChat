@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ZYUserModel.h"
 
+#define ZYUserCenterLoginSuccessNoti @"ZYUserCenterLoginSuccessNoti"
+
 @interface ZYUserCenter : NSObject
 
 + (ZYUserCenter *)shareCenter;
@@ -24,5 +26,11 @@
 - (void)createUserTable;
 
 - (void)createUser;
+
+- (void)updateUsers;
+
+- (void)deleteUser;
+
+- (void)queryUser;
 
 @end

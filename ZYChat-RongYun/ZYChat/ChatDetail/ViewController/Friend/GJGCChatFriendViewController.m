@@ -604,6 +604,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
 }
 
 - (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell
@@ -1007,7 +1008,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [self.dataSourceManager mockSendAnMesssage:chatContentModel];
+    [self.dataSourceManager sendMesssage:chatContentModel];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendTextMessage:(NSString *)text
@@ -1037,7 +1038,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
+    [self.dataSourceManager sendMesssage:chatContentModel];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendGIFMessage:(NSString *)gifCode
@@ -1060,11 +1061,10 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.talkType = self.taklInfo.talkType;
     chatContentModel.headUrl = @"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=38ecb37c54fbb2fb347e50167a7a0c92/d01373f082025aafc50dc5eafaedab64034f1ad7.jpg";
 
-    
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
+    [self.dataSourceManager sendMesssage:chatContentModel];
 }
 
 #pragma mark - GJCUCaptureDelegate
@@ -1307,7 +1307,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         /* 从talkInfo中绑定更多信息给待发送内容 */
         [self setSendChatContentModelWithTalkInfo:chatContentModel];
         
-        [[GJGCChatMessageSender shareSender]sendMessageContent:chatContentModel];
+        [self.dataSourceManager sendMesssage:chatContentModel];
     }
 }
 

@@ -8,7 +8,9 @@
 
 #import "GJGCChatDetailDataSourceManager.h"
 
-@interface GJGCChatDetailDataSourceManager ()
+static dispatch_queue_t _messageSenderQueue;
+
+@interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate>
 
 @end
 
@@ -91,6 +93,10 @@
 
 - (void)initState
 {
+    if (!_messageSenderQueue) {
+        _messageSenderQueue = dispatch_queue_create("_gjgc_message_sender_queue", DISPATCH_QUEUE_SERIAL);
+    }
+    
     self.isFinishFirstHistoryLoad = NO;
     
     self.chatListArray = [[NSMutableArray alloc]init];
@@ -1066,41 +1072,148 @@
 //    return type;
 //}
 
-- (void)mockSendAnMesssage:(GJGCChatFriendContentModel *)messageContent
+- (void)sendMesssage:(GJGCChatFriendContentModel *)messageContent
 {
+    messageContent.sendStatus = GJGCChatFriendSendMessageStatusSending;
+    EMMessage *mesage = [self sendMessageContent:messageContent];
+    messageContent.easeMessageTime = mesage.timestamp;
+    messageContent.sendTime = [[NSDate date]timeIntervalSince1970];
+    
     //收到消息
     [self addChatContentModel:messageContent];
     
     [self updateTheNewMsgTimeString:messageContent];
     
-    //模拟一条对方发来的消息
-    GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
-    chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
-    chatContentModel.contentType = GJGCChatFriendContentTypeText;
-    NSString *text = @"其实我也很喜欢和你聊天，网址:http://www.163.com 个人QQ:1003081775";
-    NSDictionary *parseTextDict = [GJGCChatFriendCellStyle formateSimpleTextMessage:text];
-    chatContentModel.simpleTextMessage = [parseTextDict objectForKey:@"contentString"];
-    chatContentModel.originTextMessage = text;
-    chatContentModel.emojiInfoArray = [parseTextDict objectForKey:@"imageInfo"];
-    chatContentModel.phoneNumberArray = [parseTextDict objectForKey:@"phone"];
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
-    NSDate *sendTime = GJCFDateFromStringByFormat(@"2015-7-15 10:22:11", @"Y-M-d HH:mm:ss");
-    chatContentModel.sendTime = [sendTime timeIntervalSince1970];
-    chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString(sendTime)];
-    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
-    chatContentModel.isFromSelf = NO;
-    chatContentModel.talkType = self.taklInfo.talkType;
-    chatContentModel.headUrl = @"http://v1.qzone.cc/avatar/201403/30/09/33/533774802e7c6272.jpg!200x200.jpg";
-
-    [self addChatContentModel:chatContentModel];
-
-    [self updateTheNewMsgTimeString:chatContentModel];
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
         
         [self.delegate dataSourceManagerRequireUpdateListTable:self];
         
+    }
+}
+
+#pragma mark -  环信发送消息过程
+
+- (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
+{
+    EMMessage *sendMessage = nil;
+    switch (messageContent.contentType) {
+        case GJGCChatFriendContentTypeText:
+        {
+            sendMessage = [self sendTextMessage:messageContent];
+        }
+            break;
+        case GJGCChatFriendContentTypeAudio:
+        {
+            sendMessage = [self sendAudioMessage:messageContent];
+        }
+            break;
+        case GJGCChatFriendContentTypeImage:
+        {
+            sendMessage = [self sendImageMessage:messageContent];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    GJCFWeakSelf weakSelf = self;
+    EMMessage *resultMessage = [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:self prepare:^(EMMessage *message, EMError *error) {
+        
+    } onQueue:_messageSenderQueue completion:^(EMMessage *message, EMError *error) {
+        
+        GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
+        switch (message.deliveryState) {
+            case eMessageDeliveryState_Pending:
+            case eMessageDeliveryState_Delivering:
+            {
+                status = GJGCChatFriendSendMessageStatusSending;
+            }
+                break;
+            case eMessageDeliveryState_Delivered:
+            {
+                status = GJGCChatFriendSendMessageStatusSuccess;
+            }
+                break;
+            case eMessageDeliveryState_Failure:
+            {
+                status = GJGCChatFriendSendMessageStatusFaild;
+            }
+                break;
+            default:
+                break;
+        }
+        
+        [weakSelf updateMessageState:message state:status];
+        
+    } onQueue:_messageSenderQueue];
+        
+    return resultMessage;
+}
+
+- (EMMessage *)sendTextMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    EMChatText *chatText = [[EMChatText alloc]initWithText:messageContent.originTextMessage];
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithChatObject:chatText];
+    EMMessage *aMessage = [[EMMessage alloc]initWithReceiver:messageContent.toId bodies:@[messageBody]];
+    
+    return aMessage;
+}
+
+- (EMMessage *)sendAudioMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    EMChatVoice *voice = [[EMChatVoice alloc] initWithFile:messageContent.audioModel.localStorePath displayName:@"[语音]"];
+    voice.duration = messageContent.audioModel.duration;
+    EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithChatObject:voice];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
+}
+
+- (EMMessage *)sendImageMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    NSString *filePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePath:messageContent.imageLocalCachePath];
+    EMChatImage *imgChat = [[EMChatImage alloc] initWithUIImage:[UIImage imageWithContentsOfFile:filePath] displayName:@"[图片]"];
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithChatObject:imgChat];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
+}
+
+#pragma mark - 聊天消息发送回调
+
+- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(id<IEMMessageBody>)messageBody
+{
+    
+}
+
+- (void)updateMessageState:(EMMessage *)theMessage state:(GJGCChatFriendSendMessageStatus)status
+{
+    GJGCChatFriendContentModel *findContent = nil;
+    NSInteger findIndex = NSNotFound;
+    
+    for (NSInteger index =0 ;index < self.chatListArray.count;index++) {
+        
+        GJGCChatFriendContentModel *content = [self.chatListArray objectAtIndex:index];
+        
+        if (content.easeMessageTime == theMessage.timestamp) {
+            
+            findContent = content;
+            findIndex = index;
+            
+            break;
+        }
+    }
+    
+    if (findContent && findIndex !=NSNotFound) {
+        
+        findContent.sendStatus = status;
+        [self.chatListArray replaceObjectAtIndex:findIndex withObject:findContent];
+        
+        [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:findIndex];
     }
 }
 

@@ -125,6 +125,11 @@
 
 @property (nonatomic,strong)NSAttributedString *driftBottleContentString;
 
+#pragma mark - 环信消息时间戳标示
+
+@property (nonatomic,assign)long long easeMessageTime;
+
+
 + (GJGCChatFriendContentModel *)timeSubModel;
 
 

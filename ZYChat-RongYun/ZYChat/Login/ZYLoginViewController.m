@@ -63,17 +63,20 @@
     
     self.serviceManager = [[ZYFriendServiceManager alloc]init];
     
-    [[ZYUserCenter shareCenter] createUserTable];
-    [[ZYUserCenter shareCenter] createUser];
 }
 
 - (void)loginAction
 {
     ZYUserModel *aUser = [[ZYUserModel alloc]init];
     aUser.mobile = self.mobileTextField.text;
-    aUser.password = self.passwordTextField.text;
     
     [[ZYUserCenter shareCenter] loginUser:aUser withResult:^(BOOL state) {
+        
+        if (state) {
+
+            
+
+        }
         
     }];
 }

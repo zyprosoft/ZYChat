@@ -36,8 +36,6 @@
                                                       
                                                       @"mobile" : @"mobile",
                                                       
-                                                      @"chat_token" : @"chatToken",
-
                                                       }];
 }
 

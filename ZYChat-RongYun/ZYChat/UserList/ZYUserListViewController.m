@@ -24,8 +24,6 @@
     
     self.dataManager = [[ZYUserListDataManager alloc]init];
     self.dataManager.delegate = self;
-
-    [self.dataManager requestUserList];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(rightBarItemAction)];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -62,7 +60,7 @@
     // Configure the cell...
     ZYUserListContentModel *contentModel = [self.dataManager contentModelAtIndexPath:indexPath];
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:contentModel.headThumb]];
-    cell.textLabel.text = contentModel.nickname;
+    cell.textLabel.text = contentModel.mobile;
     
     return cell;
 }

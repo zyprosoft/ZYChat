@@ -78,11 +78,18 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
     
     /* 注销键盘 */
     [self.inputPanel inputBarRegsionFirstResponse];
     
     [self clearAllFirstResponse];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)clearAllFirstResponse

@@ -32,9 +32,5 @@
 
 @property (nonatomic,strong)NSString *addTime;
 
-@property (nonatomic,strong)NSString *chatToken;
-
-@property (nonatomic,strong)NSString *password;
-
 
 @end

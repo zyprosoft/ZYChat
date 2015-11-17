@@ -10,6 +10,7 @@
 
 @interface GJGCChatMessageSender ()<IEMChatProgressDelegate>
 
+
 @end
 
 @implementation GJGCChatMessageSender
@@ -26,51 +27,75 @@
     return _messageSender;
 }
 
-- (void)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
+- (instancetype)init
 {
+    if (self = [super init]) {
+                
+    }
+    return self;
+}
+
+- (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
+{
+    EMMessage *sendMessage = nil;
     switch (messageContent.contentType) {
         case GJGCChatFriendContentTypeText:
         {
-            [self sendTextMessage:messageContent];
+            sendMessage = [self sendTextMessage:messageContent];
         }
             break;
         case GJGCChatFriendContentTypeAudio:
         {
-            [self sendAudioMessage:messageContent];
+            sendMessage = [self sendAudioMessage:messageContent];
         }
             break;
         case GJGCChatFriendContentTypeImage:
         {
-            [self sendImageMessage:messageContent];
+            sendMessage = [self sendImageMessage:messageContent];
         }
             break;
         default:
             break;
     }
+    
+    return [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:self];
 }
 
-- (void)sendTextMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)sendTextMessage:(GJGCChatFriendContentModel *)messageContent
 {
     EMChatText *chatText = [[EMChatText alloc]initWithText:messageContent.originTextMessage];
     EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithChatObject:chatText];
     EMMessage *aMessage = [[EMMessage alloc]initWithReceiver:messageContent.toId bodies:@[messageBody]];
     
-    [[EaseMob sharedInstance].chatManager asyncSendMessage:aMessage progress:self];
+    return aMessage;
 }
 
-- (void)sendAudioMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)sendAudioMessage:(GJGCChatFriendContentModel *)messageContent
 {
+    EMChatVoice *voice = [[EMChatVoice alloc] initWithFile:messageContent.audioModel.localStorePath displayName:@"[语音]"];
+    voice.duration = messageContent.audioModel.duration;
+    EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithChatObject:voice];
     
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
 }
 
-- (void)sendImageMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)sendImageMessage:(GJGCChatFriendContentModel *)messageContent
 {
+    EMChatImage *imgChat = [[EMChatImage alloc] initWithUIImage:[UIImage imageWithContentsOfFile:messageContent.imageLocalCachePath] displayName:@"[图片]"];
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithChatObject:imgChat];
     
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
 }
 
 #pragma mark - 聊天消息发送回调
 
-- (void)setProgress:(float)progress
+- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(id<IEMMessageBody>)messageBody
 {
     
 }

@@ -85,7 +85,15 @@
 {
     NSMutableString *sql = [NSMutableString string];
     
-    
+    if (self.queryColoums.count == 0) {
+        
+        [sql appendFormat:@"select * from %@ where %@",self.tableName,[self whereConditionSql]];
+
+    }else{
+        
+        [sql appendFormat:@"select %@ from %@ where %@",[self.queryColoums componentsJoinedByString:@","],self.tableName,[self whereConditionSql]];
+
+    }
     
     return sql;
 }
@@ -101,23 +109,102 @@
 {
     NSMutableString *sql = [NSMutableString string];
     
+    [sql appendFormat:@"delete from %@ where %@",self.tableName,[self whereConditionSql]];
+    
     return sql;
 }
 
-- (NSArray *)updateMutilRowSqls
+- (NSString *)updateFormatSql
 {
-    NSMutableArray *sqls = [NSMutableArray array];
-    
-    for (NSDictionary *item in self.updateValues) {
-      
-        NSMutableString *sql = [NSMutableString string];
-        
-        [sql appendFormat:@"insert into %@ (%@) values(%@)",self.tableName,[self updateValuesToString:item.allKeys],[self updateValuesToString:item.allValues]];
-        
-        [sqls addObject:sql];
+    if (self.updateValues.count == 0) {
+        NSLog(@"试图更新表，缺没有任何更新值！");
+        return @"";
     }
     
-    return sqls;
+    NSDictionary *item = [self.updateValues firstObject];
+    
+    NSMutableString *sql = [NSMutableString string];
+    
+    switch (self.action) {
+        case ZYDatabaseActionInsert:
+        {
+            [sql appendFormat:@"insert into %@ (%@) values %@",self.tableName,[self updateKeysToString:item.allKeys],[self argumentTupleOfSize:item.allKeys.count]];
+        }
+            break;
+        case ZYDatabaseActionUpdate:
+        {
+            [sql appendFormat:@"update %@ set %@ where %@",self.tableName,[self argumentTupleOfSizeWithParams:item.allKeys],[self whereConditionSql]];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    NSLog(@"formate sql :%@",sql);
+    
+    return sql;
+}
+
+- (NSString *)whereConditionSql
+{
+    NSMutableString *sql = [NSMutableString string];
+    
+    for (NSInteger index = 0; index < self.andConditions.count; index ++) {
+        
+        ZYDatabaseWhereCondition *condition = self.andConditions[index];
+        
+        if (index != self.andConditions.count -1) {
+            
+            [sql appendFormat:@"%@,",condition.sqlformat];
+            
+        }else{
+            
+            [sql appendFormat:@"%@",condition.sqlformat];
+        }
+        
+    }
+    
+    return sql;
+}
+
+- (NSArray *)andConditionValues
+{
+    NSMutableArray *values = [NSMutableArray array];
+    
+    for (NSInteger index = 0; index < self.andConditions.count; index ++) {
+        
+        ZYDatabaseWhereCondition *condition = self.andConditions[index];
+        
+        [values addObject:condition.value];
+    }
+    
+    return values;
+}
+
+- (NSArray *)updateWhereValues
+{
+    NSMutableArray *values = [NSMutableArray array];
+    
+    for (NSInteger index = 0; index < self.andConditions.count; index ++) {
+        
+        ZYDatabaseWhereCondition *condition = self.andConditions[index];
+        
+        [values addObject:condition.value];
+    }
+    
+    return values;
+}
+
+- (NSArray *)updateFormateValues
+{
+    NSMutableArray *valueArray = [NSMutableArray array];
+    
+    for (NSDictionary *item in self.updateValues) {
+        
+        [valueArray addObject:item.allValues];
+    }
+    
+    return valueArray;
 }
 
 - (NSString *)updateValuesToString:(NSArray *)array
@@ -128,7 +215,7 @@
         
         if (index != array.count-1) {
             
-            [sql appendFormat:@"'%@',",array[index]];
+            [sql appendFormat:@"%@,",array[index]];
             
         }else{
             
@@ -144,5 +231,64 @@
 {
     return [array componentsJoinedByString:@","];
 }
-     
+
+- (NSString *)argumentTupleOfSize:(NSUInteger)tupleSize
+{
+    NSMutableArray * tupleString = [[NSMutableArray alloc] init];
+    [tupleString addObject:@"("];
+    for (NSUInteger columnIdx = 0; columnIdx < tupleSize; columnIdx++)
+    {
+        if (columnIdx > 0)
+        {
+            [tupleString addObject:@","];
+        }
+        [tupleString addObject:@"?"];
+    }
+    [tupleString addObject:@")"];
+    
+    return [tupleString componentsJoinedByString:@" "];
+}
+
+- (NSString *)argumentTupleOfSizeWithParams:(NSArray *)params
+{
+    NSMutableArray * tupleString = [[NSMutableArray alloc] init];
+    for (NSUInteger columnIdx = 0; columnIdx < params.count; columnIdx++)
+    {
+        if (columnIdx > 0)
+        {
+            [tupleString addObject:@","];
+        }
+        [tupleString addObject:[params objectAtIndex:columnIdx]];
+        [tupleString addObject:@"="];
+        [tupleString addObject:@"?"];
+    }
+    
+    return [tupleString componentsJoinedByString:@" "];
+}
+
+- (BOOL)isValidate
+{
+    BOOL isValidate = YES;
+    
+    if (GJCFStringIsNull(self.tableName)) {
+        isValidate = NO;
+        _conditionErrorMsg = @"没有表名";
+        return isValidate;
+    }
+    
+    switch (self.action) {
+        case ZYDatabaseActionInsert:
+        {
+            if (self.updateValues.count == 0) {
+                _conditionErrorMsg = @"插入一行记录但是没有任何值可以用";
+                isValidate = NO;
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return isValidate;
+}
 @end

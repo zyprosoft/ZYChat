@@ -17,6 +17,6 @@
 
 @property (nonatomic,strong)NSString *value;
 
-@property (nonatomic,readonly)NSString *sqlString;
+@property (nonatomic,readonly)NSString *sqlformat;
 
 @end

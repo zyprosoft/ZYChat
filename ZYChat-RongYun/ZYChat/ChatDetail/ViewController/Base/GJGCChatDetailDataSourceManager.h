@@ -205,11 +205,17 @@
 
 
 /**
- *  模拟发送一条消息
+ *  发送一条消息
  *
  *  @param messageContent
  */
-- (void)mockSendAnMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (void)sendMesssage:(GJGCChatFriendContentModel *)messageContent;
 
+/**
+ *  重发一条消息
+ *
+ *  @param theMessage 重发的消息
+ */
+- (void)reSendMesssage:(EMMessage *)theMessage;
 
 @end

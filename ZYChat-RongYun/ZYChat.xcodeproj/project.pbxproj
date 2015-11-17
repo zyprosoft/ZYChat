@@ -731,6 +731,11 @@
 		C8A449631BF0428900D29249 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A4495F1BF0428800D29249 /* libopencore-amrnb.a */; };
 		C8A449641BF0428900D29249 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A449601BF0428800D29249 /* libopencore-amrwb.a */; };
 		C8A449651BF0428900D29249 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A449621BF0428800D29249 /* wav.mm */; };
+		C8D1B1A21BFB1C3700201421 /* ZYUserDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D1B1A11BFB1C3700201421 /* ZYUserDatabaseManager.m */; };
+		C8D1B1A51BFB1C5F00201421 /* ZYChatDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D1B1A41BFB1C5F00201421 /* ZYChatDatabaseManager.m */; };
+		C8D1B1A81BFB30BC00201421 /* ZYPrivateChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D1B1A71BFB30BC00201421 /* ZYPrivateChatDataManager.m */; };
+		C8D1B1AB1BFB310C00201421 /* ZYChatConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D1B1AA1BFB310C00201421 /* ZYChatConversation.m */; };
+		C8D1B1AD1BFB47EB00201421 /* 聊天-icon-发送中@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8D1B1AC1BFB47EB00201421 /* 聊天-icon-发送中@2x.png */; };
 		C8DC49F11BEC781B00F2D161 /* ZYFriendServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC49F01BEC781B00F2D161 /* ZYFriendServiceManager.m */; };
 		C8DC49F51BEC785D00F2D161 /* ZYDataCenterRequestCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC49F41BEC785D00F2D161 /* ZYDataCenterRequestCondition.m */; };
 		C8DC49F81BEC786B00F2D161 /* ZYDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC49F71BEC786B00F2D161 /* ZYDataCenter.m */; };
@@ -1370,6 +1375,15 @@
 		C8A449601BF0428800D29249 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		C8A449611BF0428800D29249 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
 		C8A449621BF0428800D29249 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
+		C8D1B1A01BFB1C3700201421 /* ZYUserDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserDatabaseManager.h; sourceTree = "<group>"; };
+		C8D1B1A11BFB1C3700201421 /* ZYUserDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserDatabaseManager.m; sourceTree = "<group>"; };
+		C8D1B1A31BFB1C5F00201421 /* ZYChatDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYChatDatabaseManager.h; sourceTree = "<group>"; };
+		C8D1B1A41BFB1C5F00201421 /* ZYChatDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYChatDatabaseManager.m; sourceTree = "<group>"; };
+		C8D1B1A61BFB30BC00201421 /* ZYPrivateChatDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPrivateChatDataManager.h; sourceTree = "<group>"; };
+		C8D1B1A71BFB30BC00201421 /* ZYPrivateChatDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPrivateChatDataManager.m; sourceTree = "<group>"; };
+		C8D1B1A91BFB310C00201421 /* ZYChatConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYChatConversation.h; sourceTree = "<group>"; };
+		C8D1B1AA1BFB310C00201421 /* ZYChatConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYChatConversation.m; sourceTree = "<group>"; };
+		C8D1B1AC1BFB47EB00201421 /* 聊天-icon-发送中@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天-icon-发送中@2x.png"; sourceTree = "<group>"; };
 		C8DC49EF1BEC781B00F2D161 /* ZYFriendServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFriendServiceManager.h; sourceTree = "<group>"; };
 		C8DC49F01BEC781B00F2D161 /* ZYFriendServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFriendServiceManager.m; sourceTree = "<group>"; };
 		C8DC49F31BEC785D00F2D161 /* ZYDataCenterRequestCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDataCenterRequestCondition.h; sourceTree = "<group>"; };
@@ -2702,6 +2716,7 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C8D1B1AC1BFB47EB00201421 /* 聊天-icon-发送中@2x.png */,
 				365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */,
 				365F08B21B50E292005161D6 /* 好友头像占位-bg-2行列表@2x.png */,
 				365F08B31B50E292005161D6 /* 好友头像占位-bg-2行列表@3x.png */,
@@ -2754,6 +2769,14 @@
 				C8DC49F01BEC781B00F2D161 /* ZYFriendServiceManager.m */,
 				C8DC4A081BEC7B1700F2D161 /* ZYUserModel.h */,
 				C8DC4A091BEC7B1700F2D161 /* ZYUserModel.m */,
+				C8D1B1A01BFB1C3700201421 /* ZYUserDatabaseManager.h */,
+				C8D1B1A11BFB1C3700201421 /* ZYUserDatabaseManager.m */,
+				C8D1B1A31BFB1C5F00201421 /* ZYChatDatabaseManager.h */,
+				C8D1B1A41BFB1C5F00201421 /* ZYChatDatabaseManager.m */,
+				C8D1B1A61BFB30BC00201421 /* ZYPrivateChatDataManager.h */,
+				C8D1B1A71BFB30BC00201421 /* ZYPrivateChatDataManager.m */,
+				C8D1B1A91BFB310C00201421 /* ZYChatConversation.h */,
+				C8D1B1AA1BFB310C00201421 /* ZYChatConversation.m */,
 			);
 			path = RelationManager;
 			sourceTree = "<group>";
@@ -3409,6 +3432,7 @@
 				365F05C41B501A5D005161D6 /* 038[白眼]@2x.png in Resources */,
 				365F05CA1B501A5D005161D6 /* 041[哈欠]@2x.png in Resources */,
 				365F059C1B501A5D005161D6 /* 018[坏笑]@2x.png in Resources */,
+				C8D1B1AD1BFB47EB00201421 /* 聊天-icon-发送中@2x.png in Resources */,
 				365F069A1B501A5D005161D6 /* 大表情-bg-预览@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
@@ -3787,6 +3811,7 @@
 				365F08141B50B138005161D6 /* GJGCChatContentEmojiParser.m in Sources */,
 				C8DC4A631BEC816D00F2D161 /* UIImageView+WebCache.m in Sources */,
 				C8DC4A571BEC816D00F2D161 /* NSData+ImageContentType.m in Sources */,
+				C8D1B1AB1BFB310C00201421 /* ZYChatConversation.m in Sources */,
 				365F081E1B50B138005161D6 /* GJGCRefreshFooterView.m in Sources */,
 				365F03DB1B501A43005161D6 /* AFURLRequestSerialization.m in Sources */,
 				365F03D91B501A43005161D6 /* AFURLConnectionOperation.m in Sources */,
@@ -3802,6 +3827,7 @@
 				365F08221B50B138005161D6 /* UIImage+GJFixOrientation.m in Sources */,
 				365F087F1B50BC2F005161D6 /* GJGCCommonHeadView.m in Sources */,
 				365F03CF1B501A43005161D6 /* AFHTTPRequestOperation.m in Sources */,
+				C8D1B1A81BFB30BC00201421 /* ZYPrivateChatDataManager.m in Sources */,
 				365F03DF1B501A43005161D6 /* AFURLSessionManager.m in Sources */,
 				365F07E01B50B138005161D6 /* GJGCChatFriendContentModel.m in Sources */,
 				365F05621B501A5D005161D6 /* GJGCChatInputExpandMenuPanel.m in Sources */,
@@ -3826,6 +3852,7 @@
 				365F05681B501A5D005161D6 /* GJGCChatInputExpandMenuPanelItem.m in Sources */,
 				365F08321B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
 				365F04371B501A43005161D6 /* GJCFCoreTextLine.m in Sources */,
+				C8D1B1A21BFB1C3700201421 /* ZYUserDatabaseManager.m in Sources */,
 				C8DC4A641BEC816D00F2D161 /* UIView+WebCacheOperation.m in Sources */,
 				365F08831B50BD79005161D6 /* GJGCImageResizeHelper.m in Sources */,
 				365F05661B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,
@@ -3862,6 +3889,7 @@
 				365F04671B501A43005161D6 /* GJCUImageBrowserViewController.m in Sources */,
 				C8DC4A271BEC7B3500F2D161 /* JSONModelClassProperty.m in Sources */,
 				365F05521B501A5D005161D6 /* GJGCChatInputConst.m in Sources */,
+				C8D1B1A51BFB1C5F00201421 /* ZYChatDatabaseManager.m in Sources */,
 				365F054E1B501A5D005161D6 /* GJGCChatInputBar.m in Sources */,
 				C8DC4A2C1BEC7B3500F2D161 /* JSONModel+networking.m in Sources */,
 				365F04431B501A43005161D6 /* GJCFCoreTextImageScriptParser.m in Sources */,

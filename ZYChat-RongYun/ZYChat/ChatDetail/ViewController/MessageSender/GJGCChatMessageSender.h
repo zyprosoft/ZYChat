@@ -13,6 +13,6 @@
 
 + (GJGCChatMessageSender *)shareSender;
 
-- (void)sendMessageContent:(GJGCChatFriendContentModel *)messageContent;
+- (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent;
 
 @end

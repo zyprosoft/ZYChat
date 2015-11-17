@@ -42,42 +42,49 @@
         
         self.innerLoginUser = resultUser;
         
-        [self loginUser:aUser withResult:^(BOOL state) {
-        
-            
-        }];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
         
     } withFaild:^(NSError *error) {
         
-        
-    }];
-}
-
-- (void)loginTestUser
-{
-    ZYUserModel *aUser = [[ZYUserModel alloc]init];
-    aUser.mobile = @"13810551569";
-    aUser.password = @"123";
-    
-    [self loginUser:aUser withResult:^(BOOL state) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
         
     }];
 }
 
 - (void)loginUser:(ZYUserModel *)aUser withResult:(void(^)(BOOL state))resultBlock
 {
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:aUser.mobile password:aUser.password completion:^(NSDictionary *loginInfo, EMError *error) {
+    [[ZYUserCenter shareCenter] registUser:aUser withResult:^(BOOL state) {
+                
+        GJCFNotificationPost(ZYUserCenterLoginSuccessNoti);
         
-        if (!error) {
+        if (state) {
             
-            NSLog(@"loginUser:%@",loginInfo);
-            
-        }else{
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:aUser.mobile password:@"123" completion:^(NSDictionary *loginInfo, EMError *error) {
+                
+                if (!error) {
+                    
+                    NSLog(@"loginUser:%@",loginInfo);
+                    
+                    if (resultBlock) {
+                        resultBlock(YES);
+                    }
+                    
+                }else{
+                    
+                    if (resultBlock) {
+                        resultBlock(NO);
+                    }
+                }
+                
+            } onQueue:nil];
             
         }
         
-    } onQueue:nil];
-    
+    }];
 }
 
 - (void)currentUserLoginEaseMob
@@ -90,89 +97,76 @@
     return self.innerLoginUser;
 }
 
-- (void)createUserTable
+- (void)updateUsers
 {
-    ZYDatabaseCRUDCondition *createTableCondition = [[ZYDatabaseCRUDCondition alloc]init];
-    createTableCondition.action = ZYDatabaseActionCreateTable;
-    createTableCondition.tableName = @"user";
-    
-    NSMutableArray *colunms = [NSMutableArray array];
-    
-    //用户Id
-    ZYDatabaseColunmCondition *userId = [[ZYDatabaseColunmCondition alloc]init];
-    userId.colunmName = @"user_id";
-    userId.isAutoIncrease = YES;
-    userId.isPrimary = YES;
-    userId.isNotNull = YES;
-    userId.valueType = ZYDatabaseValueTypeInt;
-    [colunms addObject:userId];
-    
-    //用户名字
-    ZYDatabaseColunmCondition *name = [[ZYDatabaseColunmCondition alloc]init];
-    name.colunmName = @"name";
-    name.valueType = ZYDatabaseValueTypeVarchar;
-    name.limitLength = 30;
-    [colunms addObject:name];
-    
-    createTableCondition.createColunmConditions = colunms;
-    
-    NSString *dbPath = GJCFAppCachePath(@"test.db");
-    
-    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
-    dbOperation.dbPath = dbPath;
-    dbOperation.actionCondition = createTableCondition;
-    dbOperation.updateSuccess = ^(void){
-      
-        NSLog(@"创建表成功");
-        
-    };
-    dbOperation.faild = ^(NSError *error){
-      
-        NSLog(@"%@",error.userInfo[@"msg"]);
-        
-    };
-    
-    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
-    
-}
-
-- (void)createUser
-{
-    NSString *dbPath = GJCFAppCachePath(@"test.db");
-
     ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
-    curdCondition.action = ZYDatabaseActionInsert;
+    curdCondition.action = ZYDatabaseActionUpdate;
     curdCondition.tableName = @"user";
     curdCondition.updateValues = @[
                                    @{
-                                       @"name":@"vincent",
-                                       
-                                       },
-                                   @{
-                                       @"name":@"mike",
-                                       
-                                       },
-                                   @{
-                                       @"name":@"white",
-                                       
-                                       },
-                                   @{
-                                       @"name":@"black",
-                                       
-                                       },
-                                   @{
-                                       @"name":@"test1",
-                                       
-                                       },
-                                   @{
-                                       @"name":@"test2",
-                                       
+                                       @"name":@"iverson-hutao",
                                        },
                                    ];
     
+    //更新条件
+    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
+    whereCondition.operation = ZYDatabaseWhereOperationEqual;
+    whereCondition.columName = @"age";
+    whereCondition.value = @"33";
+    curdCondition.andConditions = @[whereCondition];
+    
     ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
-    dbOperation.dbPath = dbPath;
     dbOperation.actionCondition = curdCondition;
+    
+    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
+}
+
+- (void)deleteUser
+{
+    ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
+    curdCondition.action = ZYDatabaseActionDelete;
+    curdCondition.tableName = @"user";
+    
+    //更新条件
+    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
+    whereCondition.operation = ZYDatabaseWhereOperationEqual;
+    whereCondition.columName = @"age";
+    whereCondition.value = @"33";
+    curdCondition.andConditions = @[whereCondition];
+    
+    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
+    dbOperation.actionCondition = curdCondition;
+    
+    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
+}
+
+- (void)queryUser
+{
+    ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
+    curdCondition.action = ZYDatabaseActionSelect;
+    curdCondition.tableName = @"user";
+    
+    //更新条件
+    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
+    whereCondition.operation = ZYDatabaseWhereOperationBigger;
+    whereCondition.columName = @"age";
+    whereCondition.value = @"20";
+    curdCondition.andConditions = @[whereCondition];
+    
+    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
+    dbOperation.actionCondition = curdCondition;
+    dbOperation.QuerySuccess = ^(FMResultSet *result){
+      
+        NSLog(@"result :%@",result);
+        
+        NSInteger count = 0;
+        while ([result next]) {
+            
+            count ++;
+            
+            NSLog(@"result index count %ld",(long)count);
+        }
+    };
     
     [[ZYDatabaseManager shareManager] addOperation:dbOperation];
 }

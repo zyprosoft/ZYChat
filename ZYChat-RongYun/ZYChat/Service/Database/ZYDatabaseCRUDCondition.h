@@ -27,13 +27,23 @@
 //属性字符串数组
 @property (nonatomic,strong)NSArray *queryColoums;
 
-//需要创建或者更新的字段
+//需要创建或者更新的字段,@[@{},@{}]
 @property (nonatomic,strong)NSArray *updateValues;
 
-@property (nonatomic,readonly)NSArray *updateMutilRowSqls;
+//更新的formate语句
+@property (nonatomic,readonly)NSString *updateFormatSql;
+
+//更新的值数组
+@property (nonatomic,readonly)NSArray *updateFormateValues;
 
 //ZYDatabaseWhereCondition对象数组
 @property (nonatomic,strong)NSArray *andConditions;
+
+//条件查询时候的值，用来跟formate形式匹配
+@property (nonatomic,readonly)NSArray *andConditionValues;
+
+//更新的时候用的条件参数
+@property (nonatomic,readonly)NSArray *updateWhereValues;
 
 //ZYDatabaseSortCondition对象数组
 @property (nonatomic,strong)NSArray *sortConditions;
@@ -42,6 +52,10 @@
 @property (nonatomic,strong)NSArray *limitCondition;
 
 @property (nonatomic,readonly)NSString *sqlString;
+
+@property (nonatomic,readonly)BOOL isValidate;
+
+@property (nonatomic,readonly)NSString *conditionErrorMsg;
 
 
 @end

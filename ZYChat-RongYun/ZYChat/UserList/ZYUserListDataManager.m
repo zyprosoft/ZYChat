@@ -25,8 +25,14 @@
         
         self.sourceArray = [[NSMutableArray alloc]init];
     
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeLoginSuccess:) name:ZYUserCenterLoginSuccessNoti object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [GJCFNotificationCenter removeObserver:self];
 }
 
 - (NSInteger)totalCount
@@ -37,6 +43,11 @@
 - (ZYUserListContentModel *)contentModelAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.sourceArray objectAtIndex:indexPath.row];
+}
+
+- (void)observeLoginSuccess:(NSNotification *)noti
+{
+    [self requestUserList];
 }
 
 - (void)requestUserList
@@ -54,6 +65,9 @@
             
             [self.sourceArray addObject:contentModel];
         }
+        
+        //存数据库
+        [[ZYChatDatabaseManager shareManager].userDatabase insertUsers:modelArray];
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(dataManagerRequireRefresh:)]) {
             

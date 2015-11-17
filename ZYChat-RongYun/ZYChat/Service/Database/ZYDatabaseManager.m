@@ -62,10 +62,27 @@
         findQueue = queue;
     }
     
+    //操作条件是否合法
+    if (!operation.actionCondition.isValidate) {
+        if (operation.faild) {
+            operation.faild([NSError errorWithDomain:@"com.ZYDatabaseManager.error" code:-888 userInfo:@{@"errMsg":operation.actionCondition.conditionErrorMsg}]);
+        }
+        return;
+    }
+    
     [findQueue inDatabase:^(FMDatabase *db) {
+        
+        //数据库是否打开
+        if (![db open]) {
+            if (operation.faild) {
+                operation.faild([NSError errorWithDomain:@"com.ZYDatabaseManager.error" code:-888 userInfo:@{@"errMsg":@"数据库未打开"}]);
+            }
+            return ;
+        }
         
         switch (operation.actionCondition.action) {
             case ZYDatabaseActionCreateTable:
+            case ZYDatabaseActionDelete:
             {
                 BOOL result = [db executeUpdate:operation.actionCondition.sqlString];
                 
@@ -83,6 +100,27 @@
                         operation.faild([NSError errorWithDomain:@"ZYDatabaseManager" code:999 userInfo:@{@"msg":@"数据库执行失败"}]);
                     }
                 }
+                
+            }
+                break;
+            case ZYDatabaseActionSelect:
+            {
+                FMResultSet *resultSet = [db executeQuery:operation.actionCondition.sqlString];
+                
+                if (resultSet) {
+                    
+                    if (operation.QuerySuccess) {
+                        
+                        operation.QuerySuccess(resultSet);
+                    }
+                    
+                }else{
+                    
+                    if (operation.faild) {
+                        
+                        operation.faild([NSError errorWithDomain:@"ZYDatabaseManager" code:999 userInfo:@{@"msg":@"数据库执行失败"}]);
+                    }
+                }
 
             }
                 break;
@@ -90,29 +128,86 @@
             {
                 [db beginTransaction];
                 
+                BOOL isRollBack = NO;
+                
                 @try {
                     
-                    for (NSString *sql in operation.actionCondition.updateMutilRowSqls) {
+                    for (NSArray *valueItem in operation.actionCondition.updateFormateValues) {
                         
-                        [db executeUpdate:sql];
+                        [db executeUpdate:operation.actionCondition.updateFormatSql withArgumentsInArray:valueItem];
                         
                     }
                 }
                 @catch (NSException *exception) {
+                    
+                    isRollBack = YES;
                     
                     [db rollback];
                     
                 }
                 @finally {
                     
-                    [db commit];
+                    if (!isRollBack) {
+                        
+                        [db commit];
+                        
+                        if (operation.updateSuccess) {
+                            
+                            operation.updateSuccess();
+                        }
+                        
+                    }else{
+                        
+                        if (operation.faild) {
+                            
+                            operation.faild([NSError errorWithDomain:@"ZYDatabaseManager" code:999 userInfo:@{@"msg":@"数据库执行失败"}]);
+                        }
+                    }
                 }
-                
             }
                 break;
             case ZYDatabaseActionUpdate:
             {
+                [db beginTransaction];
                 
+                BOOL isRollBack = NO;
+                
+                @try {
+                    
+                    for (NSDictionary *valueItem in operation.actionCondition.updateValues) {
+                        
+                        [db executeUpdate:operation.actionCondition.updateFormatSql withArgumentsInArray:valueItem.allValues];
+                        
+                    }
+                }
+                @catch (NSException *exception) {
+                    
+                    isRollBack = YES;
+                    
+                    [db rollback];
+                    
+                }
+                @finally {
+                    
+                    if (!isRollBack) {
+                        
+                        [db commit];
+                        
+                        if (operation.updateSuccess) {
+                            
+                            operation.updateSuccess();
+                        }
+                        
+                    }else{
+                        
+                        if (operation.faild) {
+                            
+                            operation.faild([NSError errorWithDomain:@"ZYDatabaseManager" code:999 userInfo:@{@"msg":@"数据库执行失败"}]);
+                        }
+                    }
+                    
+                    
+                }
             }
                 break;
             default:

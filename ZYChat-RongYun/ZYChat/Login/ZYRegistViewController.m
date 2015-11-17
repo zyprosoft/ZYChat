@@ -65,7 +65,6 @@
 {
     ZYUserModel *aUser = [[ZYUserModel alloc]init];
     aUser.mobile = self.mobileTextField.text;
-    aUser.password = self.passwordTextField.text;
     
    [self.serviceManager registUser:aUser withSuccess:^(ZYUserModel *resultUser) {
        

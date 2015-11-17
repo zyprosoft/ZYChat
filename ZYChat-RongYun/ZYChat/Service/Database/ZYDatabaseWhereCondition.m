@@ -10,7 +10,7 @@
 
 @implementation ZYDatabaseWhereCondition
 
-- (NSString *)sqlString
+- (NSString *)sqlformat
 {
     NSMutableString *sql = [NSMutableString string];
     

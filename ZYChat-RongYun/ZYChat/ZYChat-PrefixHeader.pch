@@ -58,4 +58,6 @@
 
 #import "GJGCChatMessageSender.h"
 
+#import "ZYChatDatabaseManager.h"
+
 #endif

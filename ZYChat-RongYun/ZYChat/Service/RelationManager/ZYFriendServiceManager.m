@@ -17,7 +17,7 @@
     condition.requestType = ZYDataCenterRequestTypeRegist;
     condition.postParams = @{
                              @"mobile":aUser.mobile,
-                             @"password":aUser.password,
+                             @"password":@"123",
                              };
     
     [[ZYDataCenter shareCenter] requestWithCondition:condition withSuccessBlock:^(ZYNetWorkTask *task, NSDictionary *response) {
