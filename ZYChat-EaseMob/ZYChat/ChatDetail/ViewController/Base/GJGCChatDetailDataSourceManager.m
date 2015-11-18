@@ -1,0 +1,946 @@
+//
+//  GJGCChatDetailDataSourceManager.m
+//  ZYChat
+//
+//  Created by ZYVincent on 14-11-3.
+//  Copyright (c) 2014年 ZYProSoft. All rights reserved.
+//
+
+#import "GJGCChatDetailDataSourceManager.h"
+
+static dispatch_queue_t _messageSenderQueue;
+
+@interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
+
+@end
+
+@implementation GJGCChatDetailDataSourceManager
+
+- (instancetype)initWithTalk:(GJGCChatFriendTalkModel *)talk withDelegate:(id<GJGCChatDetailDataSourceManagerDelegate>)aDelegate
+{
+    if (self = [super init]) {
+        
+        _taklInfo = talk;
+        
+        _uniqueIdentifier = [NSString stringWithFormat:@"GJGCChatDetailDataSourceManager_%@",GJCFStringCurrentTimeStamp];
+        
+        self.delegate = aDelegate;
+        
+        //注册监听
+        [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:_messageSenderQueue];
+        
+        [self initState];
+        
+    }
+    return self;
+}
+
+#pragma mark - 插入新消息
+
+- (void)insertNewMessageWithStartIndex:(NSInteger)startIndex Count:(NSInteger)count
+{
+    NSMutableArray *willUpdateIndexPaths = [NSMutableArray array];
+    for (NSInteger index = startIndex + 1; index < startIndex + count; index++ ) {
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [willUpdateIndexPaths addObject:indexPath];
+    }
+    if (willUpdateIndexPaths.count > 0) {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:insertIndexPaths:)]) {
+            [self.delegate dataSourceManagerRequireUpdateListTable:self insertIndexPaths:willUpdateIndexPaths];
+        }
+    }
+}
+
+- (void)dealloc
+{
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [GJCFNotificationCenter removeObserver:self];
+}
+
+#pragma mark - 内部接口
+
+- (NSArray *)heightForContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    if (!contentModel) {
+        return nil;
+    }
+    
+    Class cellClass;
+    
+    switch (contentModel.baseMessageType) {
+        case GJGCChatBaseMessageTypeSystemNoti:
+        {
+            GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)contentModel;
+            cellClass = [GJGCChatSystemNotiConstans classForNotiType:notiModel.notiType];
+        }
+            break;
+        case GJGCChatBaseMessageTypeChatMessage:
+        {
+            GJGCChatFriendContentModel *chatContentModel = (GJGCChatFriendContentModel *)contentModel;
+            cellClass = [GJGCChatFriendConstans classForContentType:chatContentModel.contentType];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    GJGCChatBaseCell *baseCell = [[cellClass alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    [baseCell setContentModel:contentModel];
+    
+    CGFloat contentHeight = [baseCell heightForContentModel:contentModel];
+    CGSize  contentSize = [baseCell contentSize];
+    
+    return @[@(contentHeight),[NSValue valueWithCGSize:contentSize]];
+}
+
+- (void)initState
+{
+    if (!_messageSenderQueue) {
+        _messageSenderQueue = dispatch_queue_create("_gjgc_message_sender_queue", DISPATCH_QUEUE_SERIAL);
+    }
+    
+    self.isFinishFirstHistoryLoad = NO;
+    
+    self.chatListArray = [[NSMutableArray alloc]init];
+    
+    self.timeShowSubArray = [[NSMutableArray alloc]init];
+}
+
+#pragma mark - update UI By Dispatch_Source_t
+
+#pragma mark - 公开接口
+
+- (NSInteger)totalCount
+{
+    return self.chatListArray.count;
+}
+
+- (NSInteger)chatContentTotalCount
+{
+    return self.chatListArray.count - self.timeShowSubArray.count;
+}
+
+- (Class)contentCellAtIndex:(NSInteger)index
+{
+    Class resultClass;
+    
+    if (index > self.totalCount - 1) {
+        return nil;
+    }
+    
+    /* 分发信息 */
+    GJGCChatContentBaseModel *contentModel = [self.chatListArray objectAtIndex:index];
+    
+    switch (contentModel.baseMessageType) {
+        case GJGCChatBaseMessageTypeSystemNoti:
+        {
+            GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)contentModel;
+            resultClass = [GJGCChatSystemNotiConstans classForNotiType:notiModel.notiType];
+        }
+            break;
+        case GJGCChatBaseMessageTypeChatMessage:
+        {
+            GJGCChatFriendContentModel *messageModel = (GJGCChatFriendContentModel *)contentModel;
+            resultClass = [GJGCChatFriendConstans classForContentType:messageModel.contentType];
+        }
+            break;
+        default:
+            
+            break;
+    }
+    
+    return resultClass;
+}
+
+- (NSString *)contentCellIdentifierAtIndex:(NSInteger)index
+{
+    if (index > self.totalCount - 1) {
+        return nil;
+    }
+    
+    NSString *resultIdentifier = nil;
+    
+    /* 分发信息 */
+    GJGCChatContentBaseModel *contentModel = [self.chatListArray objectAtIndex:index];
+    
+    switch (contentModel.baseMessageType) {
+        case GJGCChatBaseMessageTypeSystemNoti:
+        {
+            GJGCChatSystemNotiModel *notiModel = (GJGCChatSystemNotiModel *)contentModel;
+            resultIdentifier = [GJGCChatSystemNotiConstans identifierForNotiType:notiModel.notiType];
+        }
+            break;
+        case GJGCChatBaseMessageTypeChatMessage:
+        {
+            GJGCChatFriendContentModel *messageModel = (GJGCChatFriendContentModel *)contentModel;
+            resultIdentifier = [GJGCChatFriendConstans identifierForContentType:messageModel.contentType];
+        }
+            break;
+        default:
+        
+            break;
+    }
+    
+    return resultIdentifier;
+}
+
+- (GJGCChatContentBaseModel *)contentModelAtIndex:(NSInteger)index
+{
+    return [self.chatListArray objectAtIndex:index];
+}
+
+- (CGFloat)rowHeightAtIndex:(NSInteger)index
+{
+    if (index > self.totalCount - 1) {
+        return 0.f;
+    }
+    
+    GJGCChatContentBaseModel *contentModel = [self contentModelAtIndex:index];
+    
+    return contentModel.contentHeight;
+}
+
+- (NSNumber *)updateContentModel:(GJGCChatContentBaseModel *)contentModel atIndex:(NSInteger)index
+{
+    NSArray *contentHeightArray = [self heightForContentModel:contentModel];
+    contentModel.contentHeight = [[contentHeightArray firstObject] floatValue];
+    contentModel.contentSize = [[contentHeightArray lastObject] CGSizeValue];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        
+        [self updateMsgContentHeightWithContentModel:contentModel];
+
+    });
+    
+    [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
+    
+    return @(contentModel.contentHeight);
+}
+
+- (void)updateAudioFinishRead:(NSString *)localMsgId
+{
+    
+}
+
+- (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    
+}
+
+- (GJGCChatContentBaseModel *)contentModelByLocalMsgId:(NSString *)localMsgId
+{
+    for (int i = 0 ; i < self.chatListArray.count ; i ++) {
+        
+        GJGCChatContentBaseModel *contentItem = [self.chatListArray objectAtIndex:i];
+        
+        if ([contentItem.localMsgId isEqualToString:localMsgId]) {
+            
+            return contentItem;
+            
+            break;
+        }
+    }
+    return nil;
+}
+
+- (void)updateContentModelValuesNotEffectRowHeight:(GJGCChatContentBaseModel *)contentModel atIndex:(NSInteger)index
+{
+    if ([contentModel.class isSubclassOfClass:[GJGCChatFriendContentModel class]]) {
+        
+        GJGCChatFriendContentModel *friendChatModel = (GJGCChatFriendContentModel *)contentModel;
+        
+        if (friendChatModel.contentType == GJGCChatFriendContentTypeAudio && friendChatModel.isPlayingAudio) {
+            
+            [self updateAudioFinishRead:friendChatModel.localMsgId];
+        }
+    }
+    [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
+}
+
+- (NSNumber *)addChatContentModel:(GJGCChatContentBaseModel *)contentModel
+{
+    contentModel.contentSourceIndex = self.chatListArray.count;
+    
+    NSNumber *heightNew = [NSNumber numberWithFloat:contentModel.contentHeight];
+    
+    if (contentModel.contentHeight == 0) {
+        
+        NSArray *contentHeightArray = [self heightForContentModel:contentModel];
+        contentModel.contentHeight = [[contentHeightArray firstObject] floatValue];
+        contentModel.contentSize = [[contentHeightArray lastObject] CGSizeValue];
+        
+        [self updateMsgContentHeightWithContentModel:contentModel];
+        
+    }else{
+        
+        NSLog(@"不需要计算内容高度:%f",contentModel.contentHeight);
+        
+    }
+    
+    [self.chatListArray addObject:contentModel];
+    
+    return heightNew;
+}
+
+- (void)removeChatContentModelAtIndex:(NSInteger)index
+{
+    [self.chatListArray removeObjectAtIndex:index];
+}
+
+- (void)readLastMessagesFromDB
+{
+    
+}
+
+- (NSArray *)deleteMessageAtIndex:(NSInteger)index
+{
+    return nil;
+}
+
+- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    
+}
+
+- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
+{
+    
+}
+
+#pragma mark - 加载历史消息
+
+- (void)trigglePullHistoryMsg
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        /* 底部加载特效 */
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireTriggleLoadMore:)]) {
+            [self.delegate dataSourceManagerRequireTriggleLoadMore:self];
+        }
+        
+        GJCFWeakSelf weakSelf = self;
+        
+//        [[GJGCIMRecieveMsgManager shareManager]getFirstPullHistoryMsgWithMsgType:GJGCTalkTypeString(self.taklInfo.talkType) toId:self.taklInfo.toId observer:self.uniqueIdentifier isNeedFistPullBlock:^(BOOL checkResult, BOOL isFinishFirstPull) {
+//            
+//            if (checkResult) {
+//                
+//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
+//                    
+//                    weakSelf.isFinishFirstHistoryLoad = YES;
+//                    
+//                    [weakSelf.delegate dataSourceManagerRequireFinishLoadMore:weakSelf];
+//                }
+//            }
+//            
+//        }];
+    });
+}
+
+
+- (void)trigglePullHistoryMsgForEarly
+{
+    NSLog(@"聊天详情触发拉取更早历史消息 talkType:%@ toId:%@",GJGCTalkTypeString(self.taklInfo.talkType),self.taklInfo.toId);
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        if (self.chatListArray && [self.chatListArray count] > 0) {
+            
+            /* 去掉时间模型，找到最上面一条消息内容 */
+            GJGCChatFriendContentModel *lastMsgContent;
+            for (int i = 0; i < self.totalCount ; i++) {
+                GJGCChatFriendContentModel *item = (GJGCChatFriendContentModel *)[self contentModelAtIndex:i];
+                
+                if (!item.isTimeSubModel) {
+                    lastMsgContent = item;
+                    break;
+                }
+                
+            }
+            
+            /* 最后一条消息的发送时间 */
+            long long lastMsgSendTime;
+            if (lastMsgContent) {
+                lastMsgSendTime = lastMsgContent.sendTime;
+            }else{
+                lastMsgSendTime = 0;
+            }
+            
+            //环信精确到毫秒所以要*1000
+            NSArray *localHistroyMsgArray = [self.taklInfo.conversation loadNumbersOfMessages:20 before:lastMsgSendTime*1000];
+            
+            if (localHistroyMsgArray && localHistroyMsgArray.count > 0 ) {
+                
+                [self pushAddMoreMsg:localHistroyMsgArray];
+                
+            }else{
+                
+                self.isFinishLoadAllHistoryMsg = YES;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    /* 悬停在第一次加载后的第一条消息上 */
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishRefresh:)]) {
+                        
+                        [self.delegate dataSourceManagerRequireFinishRefresh:self];
+                    }
+                    
+                });
+            }
+        }
+    });
+    
+}
+
+- (void)pushAddMoreMsg:(NSArray *)array
+{
+    
+}
+
+#pragma mark - 所有内容重排时间
+
+- (void)resortAllChatContentBySendTime
+{
+    
+    /* 去掉时间区间model */
+    for (GJGCChatContentBaseModel *contentBaseModel in self.timeShowSubArray) {
+        
+        /* 去掉时间区间重新排序 */
+        if (contentBaseModel.isTimeSubModel) {
+            [self.chatListArray removeObject:contentBaseModel];
+        }
+        
+    }
+    
+    NSArray *sortedArray = [self.chatListArray sortedArrayUsingSelector:@selector(compareContent:)];
+    [self.chatListArray removeAllObjects];
+    [self.chatListArray addObjectsFromArray:sortedArray];
+    
+    /* 重设时间区间 */
+    [self updateAllMsgTimeShowString];
+}
+
+- (void)resortAllSystemNotiContentBySendTime
+{
+    NSArray *sortedArray = [self.chatListArray sortedArrayUsingSelector:@selector(compareContent:)];
+    [self.chatListArray removeAllObjects];
+    [self.chatListArray addObjectsFromArray:sortedArray];
+}
+
+#pragma mark - 重设第一条消息的msgId
+- (void)resetFirstAndLastMsgId
+{
+    /* 重新设置第一条消息的Id */
+    if (self.chatListArray.count > 0) {
+        
+        GJGCChatContentBaseModel *firstMsgContent = [self.chatListArray firstObject];
+        
+        NSInteger nextMsgIndex = 0;
+        
+        while (firstMsgContent.isTimeSubModel) {
+            
+            nextMsgIndex++;
+            
+            firstMsgContent = [self.chatListArray objectAtIndex:nextMsgIndex];
+            
+        }
+        
+        self.lastFirstLocalMsgId = firstMsgContent.localMsgId;
+    }
+}
+
+#pragma mark - 更新所有聊天消息的时间显示块
+
+- (void)updateAllMsgTimeShowString
+{
+  /* 始终以当前时间为计算基准 最后最新一条时间开始往上计算*/
+  [self.timeShowSubArray removeAllObjects];
+  
+    NSTimeInterval firstMsgTimeInterval = 0;
+    
+    GJGCChatFriendContentModel *currentTimeSubModel = nil;
+    for (NSInteger i = 0; i < self.totalCount; i++) {
+        
+        GJGCChatFriendContentModel *contentModel = [self.chatListArray objectAtIndex:i];
+        if (contentModel.contentType == GJGCChatFriendContentTypeTime) {
+            NSLog(@"contentModel is time :%@",contentModel.uniqueIdentifier);
+        }
+        
+        NSString *timeString = [GJGCChatSystemNotiCellStyle timeAgoStringByLastMsgTime:contentModel.sendTime lastMsgTime:firstMsgTimeInterval];
+        
+        if (timeString) {
+            
+            /* 创建时间块，插入到数据源 */
+            firstMsgTimeInterval = contentModel.sendTime;
+            
+            GJGCChatFriendContentModel *timeSubModel = [GJGCChatFriendContentModel timeSubModel];
+            timeSubModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
+            timeSubModel.contentType = GJGCChatFriendContentTypeTime;
+            timeSubModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:timeString];
+            NSArray *contentHeightArray = [self heightForContentModel:timeSubModel];
+            timeSubModel.contentHeight = [[contentHeightArray firstObject] floatValue];
+            timeSubModel.sendTime = contentModel.sendTime;
+            timeSubModel.timeSubMsgCount = 1;
+            
+            currentTimeSubModel = timeSubModel;
+            
+            contentModel.timeSubIdentifier = timeSubModel.uniqueIdentifier;
+            
+            [self.chatListArray replaceObjectAtIndex:i withObject:contentModel];
+            
+            [self.chatListArray insertObject:timeSubModel atIndex:i];
+            
+            i++;
+        
+            [self.timeShowSubArray addObject:timeSubModel];
+            
+        }else{
+            
+            contentModel.timeSubIdentifier = currentTimeSubModel.uniqueIdentifier;
+            currentTimeSubModel.timeSubMsgCount = currentTimeSubModel.timeSubMsgCount + 1;
+            
+            [self updateContentModelByUniqueIdentifier:contentModel];
+            [self updateContentModelByUniqueIdentifier:currentTimeSubModel];
+            
+        }
+    }
+}
+
+- (void)updateContentModelByUniqueIdentifier:(GJGCChatContentBaseModel *)contentModel
+{
+    for (NSInteger i = 0; i < self.totalCount ; i++) {
+        
+        GJGCChatContentBaseModel *itemModel = [self.chatListArray objectAtIndex:i];
+        
+        if ([itemModel.uniqueIdentifier isEqualToString:contentModel.uniqueIdentifier]) {
+            
+            [self.chatListArray replaceObjectAtIndex:i withObject:contentModel];
+            
+            break;
+        }
+    }
+}
+
+- (GJGCChatContentBaseModel *)timeSubModelByUniqueIdentifier:(NSString *)identifier
+{
+    for (GJGCChatContentBaseModel *timeSubModel in self.chatListArray) {
+        
+        if ([timeSubModel.uniqueIdentifier isEqualToString:identifier]) {
+            
+            return timeSubModel;
+        }
+    }
+    return nil;
+}
+
+- (void)updateTheNewMsgTimeString:(GJGCChatContentBaseModel *)contentModel
+{
+    NSTimeInterval lastSubTimeInteval;
+     GJGCChatFriendContentModel *lastTimeSubModel = [self.timeShowSubArray lastObject];
+    if (self.timeShowSubArray.count > 0) {
+        lastSubTimeInteval = lastTimeSubModel.sendTime;
+    }else{
+        lastSubTimeInteval = 0;
+    }
+    
+    NSString *timeString = [GJGCChatSystemNotiCellStyle timeAgoStringByLastMsgTime:contentModel.sendTime lastMsgTime:lastSubTimeInteval];
+    
+    if (timeString) {
+        
+        GJGCChatFriendContentModel *newLastTimeSubModel = [GJGCChatFriendContentModel timeSubModel];
+        newLastTimeSubModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
+        newLastTimeSubModel.contentType = GJGCChatFriendContentTypeTime;
+        newLastTimeSubModel.sendTime = contentModel.sendTime;
+        newLastTimeSubModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:timeString];
+        NSArray *contentHeightArray = [self heightForContentModel:newLastTimeSubModel];
+        newLastTimeSubModel.contentHeight = [[contentHeightArray firstObject] floatValue];
+        newLastTimeSubModel.timeSubMsgCount = 1;
+        
+        contentModel.timeSubIdentifier = newLastTimeSubModel.uniqueIdentifier;
+        
+        [self updateContentModelByUniqueIdentifier:contentModel];
+        
+        [self.chatListArray insertObject:newLastTimeSubModel atIndex:self.totalCount - 1];
+        
+        [self.timeShowSubArray addObject:newLastTimeSubModel];
+
+    }else{
+        
+        contentModel.timeSubIdentifier = lastTimeSubModel.uniqueIdentifier;
+        lastTimeSubModel.timeSubMsgCount = lastTimeSubModel.timeSubMsgCount + 1;
+        
+        [self updateContentModelByUniqueIdentifier:contentModel];
+        [self updateContentModelByUniqueIdentifier:lastTimeSubModel];
+        
+    }
+    
+}
+
+/* 删除某条消息，更新下一条消息的区间 */
+- (NSString *)updateMsgContentTimeStringAtDeleteIndex:(NSInteger)index
+{
+    GJGCChatContentBaseModel *contentModel = [self.chatListArray objectAtIndex:index];
+    
+    GJGCChatContentBaseModel *timeSubModel = [self timeSubModelByUniqueIdentifier:contentModel.timeSubIdentifier];
+    timeSubModel.timeSubMsgCount = timeSubModel.timeSubMsgCount - 1;
+    
+    if (timeSubModel.timeSubMsgCount == 0) {
+        
+        return timeSubModel.uniqueIdentifier;
+        
+    }else{
+        
+        [self updateContentModelByUniqueIdentifier:timeSubModel];
+        
+        return nil;
+    }
+}
+
+- (void)removeContentModelByIdentifier:(NSString *)identifier
+{
+    for (GJGCChatContentBaseModel *item in self.chatListArray) {
+        
+        if ([item.uniqueIdentifier isEqualToString:identifier]) {
+            
+            [self.chatListArray removeObject:item];
+            
+            break;
+        }
+    }
+}
+
+- (void)removeTimeSubByIdentifier:(NSString *)identifier
+{
+    [self removeContentModelByIdentifier:identifier];
+    
+    for (GJGCChatContentBaseModel *item in self.timeShowSubArray) {
+        
+        if ([item.uniqueIdentifier isEqualToString:identifier]) {
+            
+            [self.timeShowSubArray removeObject:item];
+            
+            break;
+        }
+    }
+}
+
+- (NSInteger)getContentModelIndexByLocalMsgId:(NSString *)msgId
+{
+    NSInteger resultIndex = NSNotFound;
+ 
+    if (GJCFStringIsNull(msgId)) {
+        return resultIndex;
+    }
+    
+    for ( int i = 0; i < self.chatListArray.count; i++) {
+        
+        GJGCChatContentBaseModel *contentModel = [self.chatListArray objectAtIndex:i];
+        
+        if ([contentModel.localMsgId isEqualToString:msgId]) {
+            
+            resultIndex = i;
+            
+            break;
+        }
+
+    }
+    
+    return resultIndex;
+}
+
+- (GJGCChatContentBaseModel *)contentModelByMsgId:(NSString *)msgId
+{
+    NSInteger resultIndex = [self getContentModelIndexByLocalMsgId:msgId];
+    
+    if (resultIndex != NSNotFound) {
+        
+        return [self.chatListArray objectAtIndex:resultIndex];
+    }
+    return nil;
+}
+
+#pragma mark - 更细最后一条消息
+
+- (void)updateLastMsg:(GJGCChatFriendContentModel *)contentModel
+{
+    
+}
+
+- (void)updateLastMsgForRecentTalk
+{
+    GJGCChatFriendContentModel *contentModel = [self.chatListArray lastObject];
+    [self updateLastMsg:contentModel];
+}
+
+- (void)updateLastSystemMessageForRecentTalk
+{
+
+}
+
+#pragma mark - 清除过早历史消息
+
+- (void)clearOverEarlyMessage
+{
+    if (self.totalCount > 40) {
+        
+        [self.chatListArray removeObjectsInRange:NSMakeRange(0, self.totalCount - 40)];
+        self.isFinishLoadAllHistoryMsg = NO;//重新可以数据库翻页
+        [self resetFirstAndLastMsgId];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+            [self.delegate dataSourceManagerRequireUpdateListTable:self];
+        }
+    }
+}
+
+#pragma mark - 格式化消息内容
+
+- (GJGCChatFriendContentType)formateChatFriendContent:(GJGCChatFriendContentModel *)chatContentModel withMsgModel:(EMMessage *)msgModel
+{
+    GJGCChatFriendContentType type = GJGCChatFriendContentTypeNotFound;
+    
+    NSArray *bodies = msgModel.messageBodies;
+    
+    id<IEMMessageBody> messageBody = [bodies firstObject];
+    chatContentModel.messageBody = messageBody;
+    chatContentModel.contentType = type;
+    
+    switch ([messageBody messageBodyType]) {
+        case eMessageBodyType_Image:
+        {
+            chatContentModel.contentType = GJGCChatFriendContentTypeImage;
+        }
+            break;
+        case eMessageBodyType_Text:
+        {
+            chatContentModel.contentType = GJGCChatFriendContentTypeText;
+            
+            EMTextMessageBody *textMessageBody = (EMTextMessageBody *)messageBody;
+            
+            if (!GJCFNSCacheGetValue(textMessageBody.text)) {
+                [GJGCChatFriendCellStyle formateSimpleTextMessage:textMessageBody.text];
+            }
+            chatContentModel.originTextMessage = textMessageBody.text;
+        }
+            break;
+        case eMessageBodyType_Command:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_File:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_Location:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_Video:
+        {
+            
+        }
+            break;
+        case eMessageBodyType_Voice:
+        {
+            chatContentModel.contentType = GJGCChatFriendContentTypeAudio;
+            
+            EMVoiceMessageBody *voiceMessageBody = (EMVoiceMessageBody *)messageBody;
+            
+            chatContentModel.audioModel.localStorePath = voiceMessageBody.localPath;
+            chatContentModel.audioModel.duration = voiceMessageBody.duration;
+            chatContentModel.audioDuration =  [GJGCChatFriendCellStyle formateAudioDuration:GJCFStringFromInt(chatContentModel.audioModel.duration)];
+        }
+            break;
+        default:
+            break;
+    }
+    type = chatContentModel.contentType;
+
+    return type;
+}
+
+- (void)sendMesssage:(GJGCChatFriendContentModel *)messageContent
+{
+    messageContent.sendStatus = GJGCChatFriendSendMessageStatusSending;
+    EMMessage *mesage = [self sendMessageContent:messageContent];
+    messageContent.messageBody = [mesage.messageBodies firstObject];
+    messageContent.localMsgId = mesage.messageId;
+    messageContent.easeMessageTime = mesage.timestamp;
+    messageContent.sendTime = (NSInteger)(mesage.timestamp/1000);
+    
+    //收到消息
+    [self addChatContentModel:messageContent];
+    
+    [self updateTheNewMsgTimeString:messageContent];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+        
+        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+        
+    }
+}
+
+#pragma mark - 收环信消息到数据源，子类具体实现
+- (GJGCChatFriendContentModel *)addEaseMessage:(EMMessage *)aMessage
+{
+    return nil;
+}
+
+#pragma mark -  环信发送消息过程
+
+- (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
+{
+    EMMessage *sendMessage = nil;
+    switch (messageContent.contentType) {
+        case GJGCChatFriendContentTypeText:
+        {
+            sendMessage = [self sendTextMessage:messageContent];
+        }
+            break;
+        case GJGCChatFriendContentTypeAudio:
+        {
+            sendMessage = [self sendAudioMessage:messageContent];
+        }
+            break;
+        case GJGCChatFriendContentTypeImage:
+        {
+            sendMessage = [self sendImageMessage:messageContent];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    GJCFWeakSelf weakSelf = self;
+    EMMessage *resultMessage = [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:self prepare:^(EMMessage *message, EMError *error) {
+        
+    } onQueue:_messageSenderQueue completion:^(EMMessage *message, EMError *error) {
+        
+        GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
+        switch (message.deliveryState) {
+            case eMessageDeliveryState_Pending:
+            case eMessageDeliveryState_Delivering:
+            {
+                status = GJGCChatFriendSendMessageStatusSending;
+            }
+                break;
+            case eMessageDeliveryState_Delivered:
+            {
+                status = GJGCChatFriendSendMessageStatusSuccess;
+            }
+                break;
+            case eMessageDeliveryState_Failure:
+            {
+                status = GJGCChatFriendSendMessageStatusFaild;
+            }
+                break;
+            default:
+                break;
+        }
+        
+        [weakSelf updateMessageState:message state:status];
+        
+    } onQueue:_messageSenderQueue];
+        
+    return resultMessage;
+}
+
+- (EMMessage *)sendTextMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    EMChatText *chatText = [[EMChatText alloc]initWithText:messageContent.originTextMessage];
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithChatObject:chatText];
+    EMMessage *aMessage = [[EMMessage alloc]initWithReceiver:messageContent.toId bodies:@[messageBody]];
+    
+    return aMessage;
+}
+
+- (EMMessage *)sendAudioMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    EMChatVoice *voice = [[EMChatVoice alloc] initWithFile:messageContent.audioModel.localStorePath displayName:@"[语音]"];
+    voice.duration = messageContent.audioModel.duration;
+    EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithChatObject:voice];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
+}
+
+- (EMMessage *)sendImageMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    NSString *filePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePath:messageContent.imageLocalCachePath];
+    EMChatImage *imgChat = [[EMChatImage alloc] initWithUIImage:[UIImage imageWithContentsOfFile:filePath] displayName:@"[图片]"];
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithChatObject:imgChat];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
+}
+
+#pragma mark - 聊天消息发送回调
+
+- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(id<IEMMessageBody>)messageBody
+{
+    
+}
+
+- (void)updateMessageState:(EMMessage *)theMessage state:(GJGCChatFriendSendMessageStatus)status
+{
+    GJGCChatFriendContentModel *findContent = nil;
+    NSInteger findIndex = NSNotFound;
+    
+    for (NSInteger index =0 ;index < self.chatListArray.count;index++) {
+        
+        GJGCChatFriendContentModel *content = [self.chatListArray objectAtIndex:index];
+        
+        if (content.easeMessageTime == theMessage.timestamp) {
+            
+            findContent = content;
+            findIndex = index;
+            
+            break;
+        }
+    }
+    
+    if (findContent && findIndex !=NSNotFound) {
+        
+        findContent.sendStatus = status;
+        [self.chatListArray replaceObjectAtIndex:findIndex withObject:findContent];
+        
+        [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:findIndex];
+    }
+}
+
+#pragma mark - 接收消息回调
+
+- (void)didReceiveMessage:(EMMessage *)message
+{
+    if ([message.from isEqualToString:self.taklInfo.toId]) {
+        
+        GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
+        
+        [self updateTheNewMsgTimeString:contenModel];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+            
+            [self.delegate dataSourceManagerRequireUpdateListTable:self];
+        }
+    }
+}
+
+- (void)didReceiveMessageId:(NSString *)messageId chatter:(NSString *)conversationChatter error:(EMError *)error
+{
+    
+}
+
+- (void)didReceiveOfflineMessages:(NSArray *)offlineMessages
+{
+    
+}
+
+@end

@@ -1,1 +1,0 @@
-../../../EaseMobSDK/EaseMobSDK/include/ChatService/EMChatManager/types/EMChatImage.h

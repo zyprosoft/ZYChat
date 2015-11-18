@@ -1,1 +1,0 @@
-../../../EaseMobSDK/EaseMobSDK/include/ChatService/EMChatManager/delegates/internal/EMChatManagerUtilDelegate.h

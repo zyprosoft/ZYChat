@@ -1,1 +1,0 @@
-../../../EaseMobSDK/EaseMobSDK/include/CallService/EMCallManager/types/OpenGLView20.h

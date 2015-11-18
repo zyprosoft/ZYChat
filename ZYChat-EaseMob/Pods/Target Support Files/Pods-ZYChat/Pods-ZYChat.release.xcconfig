@@ -1,0 +1,6 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/EaseMobSDKFull"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/EaseMobSDKFull/EaseMobSDKFull/lib" $(inherited) "${PODS_ROOT}/EaseMobSDKFull/EaseMobSDKFull/lib" $(inherited) "${PODS_ROOT}/EaseMobSDKFull/EaseMobSDKFull/lib" $(inherited) "${PODS_ROOT}/EaseMobSDKFull/EaseMobSDKFull/lib" $(inherited) "${PODS_ROOT}/EaseMobSDKFull/EaseMobSDKFull/lib"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/EaseMobSDKFull"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"EaseMobClientSDK_arm64" -l"EaseMobClientSDK_armv7" -l"EaseMobClientSDK_armv7s" -l"EaseMobClientSDK_i386" -l"EaseMobClientSDK_x86_64" -l"iconv" -l"resolv" -l"sqlite3" -l"stdc++" -l"stdc++.6" -l"stdc++.6.0.9" -l"xml2" -l"z" -framework "AVFoundation" -framework "CFNetwork" -framework "CoreData" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMedia" -framework "Foundation" -framework "MediaPlayer" -framework "MobileCoreServices" -framework "OpenGLES" -framework "Security" -framework "SystemConfiguration"
+PODS_ROOT = ${SRCROOT}/Pods
