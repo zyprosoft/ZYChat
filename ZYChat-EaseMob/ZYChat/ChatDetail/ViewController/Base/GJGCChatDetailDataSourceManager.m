@@ -8,9 +8,11 @@
 
 #import "GJGCChatDetailDataSourceManager.h"
 
-static dispatch_queue_t _messageSenderQueue;
-
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
+
+@property (nonatomic,strong)dispatch_queue_t messageSenderQueue;
+
+@property (nonatomic,strong)dispatch_source_t refreshListSource;
 
 @end
 
@@ -28,6 +30,13 @@ static dispatch_queue_t _messageSenderQueue;
         
         //注册监听
         [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:_messageSenderQueue];
+        
+        //清除会话的未读数
+        [self.taklInfo.conversation markAllMessagesAsRead:YES];
+        
+        //最短消息间隔500毫秒
+        self.lastSendMsgTime = 0;
+        self.sendTimeLimit = 500;
         
         [self initState];
         
@@ -97,9 +106,19 @@ static dispatch_queue_t _messageSenderQueue;
 
 - (void)initState
 {
-    if (!_messageSenderQueue) {
-        _messageSenderQueue = dispatch_queue_create("_gjgc_message_sender_queue", DISPATCH_QUEUE_SERIAL);
+    if (!self.messageSenderQueue) {
+        self.messageSenderQueue = dispatch_queue_create("_gjgc_message_sender_queue", DISPATCH_QUEUE_SERIAL);
     }
+    
+    //缓冲刷新
+    if (!self.refreshListSource) {
+        self.refreshListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, _messageSenderQueue);
+        dispatch_source_set_event_handler(_refreshListSource, ^{
+           
+            [self dispatchOptimzeRefresh];
+        });
+    }
+    dispatch_resume(self.refreshListSource);
     
     self.isFinishFirstHistoryLoad = NO;
     
@@ -294,50 +313,58 @@ static dispatch_queue_t _messageSenderQueue;
     
 }
 
+#pragma mark - 删除消息
+
 - (NSArray *)deleteMessageAtIndex:(NSInteger)index
 {
-    return nil;
-}
-
-- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
-{
+    BOOL isDelete = YES;//数据库完成删除动作
+    GJGCChatFriendContentModel *deleteContentModel = [self.chatListArray objectAtIndex:index];
+    isDelete = [self.taklInfo.conversation removeMessage:[deleteContentModel.messageBody message]];
     
-}
-
-- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
-{
+    //消息删没了，把会话也删掉
+    if ([self.taklInfo.conversation loadAllMessages].count == 0) {
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:self.taklInfo.toId deleteMessages:YES append2Chat:YES];
+    }
     
+    NSMutableArray *willDeletePaths = [NSMutableArray array];
+    
+    if (isDelete) {
+        
+        /* 更新最近联系人列表得最后一条消息 */
+        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
+            
+            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
+            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
+            if (lastContentAfterDelete.isTimeSubModel) {
+                
+                if (self.chatContentTotalCount - 1 >= 1) {
+                    
+                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
+                    
+                }
+                
+            }
+            
+        }
+        
+        NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
+        
+        [self removeChatContentModelAtIndex:index];
+        
+        [willDeletePaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+        
+        if (willDeleteTimeSubIdentifier) {
+            
+            [willDeletePaths addObject:[NSIndexPath indexPathForRow:index - 1 inSection:0]];
+            
+            [self removeTimeSubByIdentifier:willDeleteTimeSubIdentifier];
+        }
+    }
+    
+    return willDeletePaths;
 }
 
 #pragma mark - 加载历史消息
-
-- (void)trigglePullHistoryMsg
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        
-        /* 底部加载特效 */
-        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireTriggleLoadMore:)]) {
-            [self.delegate dataSourceManagerRequireTriggleLoadMore:self];
-        }
-        
-        GJCFWeakSelf weakSelf = self;
-        
-//        [[GJGCIMRecieveMsgManager shareManager]getFirstPullHistoryMsgWithMsgType:GJGCTalkTypeString(self.taklInfo.talkType) toId:self.taklInfo.toId observer:self.uniqueIdentifier isNeedFistPullBlock:^(BOOL checkResult, BOOL isFinishFirstPull) {
-//            
-//            if (checkResult) {
-//                
-//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(dataSourceManagerRequireFinishLoadMore:)]) {
-//                    
-//                    weakSelf.isFinishFirstHistoryLoad = YES;
-//                    
-//                    [weakSelf.delegate dataSourceManagerRequireFinishLoadMore:weakSelf];
-//                }
-//            }
-//            
-//        }];
-    });
-}
-
 
 - (void)trigglePullHistoryMsgForEarly
 {
@@ -660,19 +687,6 @@ static dispatch_queue_t _messageSenderQueue;
     return nil;
 }
 
-#pragma mark - 更细最后一条消息
-
-- (void)updateLastMsg:(GJGCChatFriendContentModel *)contentModel
-{
-    
-}
-
-- (void)updateLastMsgForRecentTalk
-{
-    GJGCChatFriendContentModel *contentModel = [self.chatListArray lastObject];
-    [self updateLastMsg:contentModel];
-}
-
 - (void)updateLastSystemMessageForRecentTalk
 {
 
@@ -688,9 +702,7 @@ static dispatch_queue_t _messageSenderQueue;
         self.isFinishLoadAllHistoryMsg = NO;//重新可以数据库翻页
         [self resetFirstAndLastMsgId];
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
-            [self.delegate dataSourceManagerRequireUpdateListTable:self];
-        }
+        dispatch_source_merge_data(_refreshListSource, 1);
     }
 }
 
@@ -763,8 +775,24 @@ static dispatch_queue_t _messageSenderQueue;
     return type;
 }
 
-- (void)sendMesssage:(GJGCChatFriendContentModel *)messageContent
+- (BOOL)sendMesssage:(GJGCChatFriendContentModel *)messageContent
 {
+    /*
+     * 只有文本和gif这类消息会产生速度检测，
+     * 如果不加这个判定的话，在发送多张图片的时候，
+     * 分割成单张，会被认为间隔时间太短
+     */
+     if (messageContent.contentType == GJGCChatFriendContentTypeText || messageContent.contentType == GJGCChatFriendContentTypeGif) {
+         if (self.lastSendMsgTime != 0) {
+            
+            //间隔太短
+            NSTimeInterval now = [[NSDate date]timeIntervalSince1970]*1000;
+            if (now - self.lastSendMsgTime < self.sendTimeLimit) {
+                return NO;
+            }
+        }
+    }
+    
     messageContent.sendStatus = GJGCChatFriendSendMessageStatusSending;
     EMMessage *mesage = [self sendMessageContent:messageContent];
     messageContent.messageBody = [mesage.messageBodies firstObject];
@@ -777,11 +805,46 @@ static dispatch_queue_t _messageSenderQueue;
     
     [self updateTheNewMsgTimeString:messageContent];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+    //缓冲刷新
+    dispatch_source_merge_data(_refreshListSource, 1);
+    
+    self.lastSendMsgTime = [[NSDate date]timeIntervalSince1970]*1000;
+    
+    return YES;
+}
+
+- (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent
+{
+    GJCFWeakSelf weakSelf = self;
+    [[EaseMob sharedInstance].chatManager asyncResendMessage:[messageContent.messageBody message] progress:self prepare:^(EMMessage *message, EMError *error) {
         
-        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+    } onQueue:_messageSenderQueue completion:^(EMMessage *message, EMError *error) {
         
-    }
+        GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
+        switch (message.deliveryState) {
+            case eMessageDeliveryState_Pending:
+            case eMessageDeliveryState_Delivering:
+            {
+                status = GJGCChatFriendSendMessageStatusSending;
+            }
+                break;
+            case eMessageDeliveryState_Delivered:
+            {
+                status = GJGCChatFriendSendMessageStatusSuccess;
+            }
+                break;
+            case eMessageDeliveryState_Failure:
+            {
+                status = GJGCChatFriendSendMessageStatusFaild;
+            }
+                break;
+            default:
+                break;
+        }
+        
+        [weakSelf updateMessageState:message state:status];
+        
+    } onQueue:_messageSenderQueue];
 }
 
 #pragma mark - 收环信消息到数据源，子类具体实现
@@ -916,6 +979,16 @@ static dispatch_queue_t _messageSenderQueue;
     }
 }
 
+#pragma mark - Dispatch 缓冲刷新会话列表
+
+- (void)dispatchOptimzeRefresh
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
+        
+        [self.delegate dataSourceManagerRequireUpdateListTable:self];
+    }
+}
+
 #pragma mark - 接收消息回调
 
 - (void)didReceiveMessage:(EMMessage *)message
@@ -926,10 +999,7 @@ static dispatch_queue_t _messageSenderQueue;
         
         [self updateTheNewMsgTimeString:contenModel];
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceManagerRequireUpdateListTable:)]) {
-            
-            [self.delegate dataSourceManagerRequireUpdateListTable:self];
-        }
+        dispatch_source_merge_data(_refreshListSource, 1);
     }
 }
 
@@ -941,6 +1011,31 @@ static dispatch_queue_t _messageSenderQueue;
 - (void)didReceiveOfflineMessages:(NSArray *)offlineMessages
 {
     
+}
+
+#pragma mark - 检测网络变化
+
+- (void)didConnectionStateChanged:(EMConnectionState)connectionState
+{
+    if (connectionState == eEMConnectionDisconnected) {
+        
+        //把所有发送状态的消息改为失败
+        for (NSInteger index = 0; index < self.chatListArray.count; index++) {
+            
+            GJGCChatFriendContentModel *contentModel = self.chatListArray[index];
+            
+            if (contentModel.sendStatus == GJGCChatFriendSendMessageStatusSending) {
+                
+                contentModel.sendStatus = GJGCChatFriendSendMessageStatusFaild;
+                
+                [[contentModel.messageBody message] updateMessageStatusFailedToDB];
+                
+                [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
+            }
+        }
+        
+        dispatch_source_merge_data(self.refreshListSource, 1);
+    }
 }
 
 @end

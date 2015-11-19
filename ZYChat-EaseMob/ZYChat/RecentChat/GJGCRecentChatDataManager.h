@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "GJGCRecentChatModel.h"
+#import "GJGCRecentChatTitleView.h"
 
 @class GJGCRecentChatDataManager;
 @protocol GJGCRecentChatDataManagerDelegate <NSObject>
 
 - (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager;
+
+- (void)dataManager:(GJGCRecentChatDataManager *)dataManager requireUpdateTitleViewState:(GJGCRecentChatConnectState)connectState;
+
+- (BOOL)dataManagerRequireKnownViewIsShowing:(GJGCRecentChatDataManager *)dataManager;
 
 @end
 

@@ -186,11 +186,13 @@
 
 - (void)loginEaseMobWithMobile:(NSString *)mobile password:(NSString *)password
 {
+    GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(2)});
+   
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:mobile password:password completion:^(NSDictionary *loginInfo, EMError *error) {
         
         if (!error) {
             
-            GJCFNotificationPost(ZYUserCenterLoginEaseMobSuccessNoti);
+            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(1)});
             
             NSLog(@"loginUser:%@",loginInfo);
             
@@ -199,6 +201,9 @@
         }else{
             
             NSLog(@"登录环信失败");
+            
+            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
+
         }
         
     } onQueue:nil];

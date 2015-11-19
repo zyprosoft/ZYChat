@@ -16,13 +16,17 @@
 
 @property (nonatomic,strong)NSAttributedString *time;
 
-@property (nonatomic,strong)NSAttributedString *content;
+@property (nonatomic,strong)NSString *content;
 
 @property (nonatomic,assign)CGFloat contentHeight;
 
 @property (nonatomic,strong)NSString *toId;
 
 @property (nonatomic,assign)BOOL isGroupChat;
+
+@property (nonatomic,assign)CGSize contentSize;
+
+@property (nonatomic,assign)NSInteger unReadCount;
 
 @property (nonatomic,strong)EMConversation *conversation;
 

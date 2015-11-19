@@ -69,6 +69,16 @@
 @property (nonatomic,assign)BOOL isFinishLoadAllHistoryMsg;
 
 /**
+ *  发送消息时间间隔频度控制
+ */
+@property (nonatomic,assign)NSInteger sendTimeLimit;
+
+/**
+ *  上一条消息的时间
+ */
+@property (nonatomic,assign)long long lastSendMsgTime;
+
+/**
  *  当前第一条消息得msgId
  */
 @property (nonatomic,copy)NSString *lastFirstLocalMsgId;
@@ -111,7 +121,6 @@
  */
 - (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel;
 
-
 /**
  *  更新数据源对象的某些值，但是并不影响数据源高度
  *
@@ -148,12 +157,6 @@
 
 - (NSArray *)deleteMessageAtIndex:(NSInteger)index;
 
-- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId;
-
-- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId;
-
-- (void)trigglePullHistoryMsg;
-
 - (void)trigglePullHistoryMsgForEarly;
 
 /**
@@ -162,18 +165,6 @@
  *  @param array <#array description#>
  */
 - (void)pushAddMoreMsg:(NSArray *)array;
-
-/**
- *  更新会话最后一条消息
- *
- *  @param contentModel 
- */
-- (void)updateLastMsg:(GJGCChatFriendContentModel *)contentModel;
-
-/**
- *  为对应会话更新最后一条消息
- */
-- (void)updateLastMsgForRecentTalk;
 
 /**
  *  系统消息更新最后一条会话
@@ -218,14 +209,16 @@
  *  发送一条消息
  *
  *  @param messageContent
+ *
+ *  result YES成功 NO:时间间隔限制
  */
-- (void)sendMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (BOOL)sendMesssage:(GJGCChatFriendContentModel *)messageContent;
 
 /**
  *  重发一条消息
  *
  *  @param theMessage 重发的消息
  */
-- (void)reSendMesssage:(EMMessage *)theMessage;
+- (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent;
 
 @end

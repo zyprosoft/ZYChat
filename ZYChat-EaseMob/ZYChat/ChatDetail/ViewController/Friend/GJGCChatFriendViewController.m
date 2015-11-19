@@ -47,6 +47,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 @property (nonatomic,assign)BOOL isLastPlayedMyAudio;
 
+@property (nonatomic,strong)UILabel *sendLimitTipLabel;
+
 /*
  *  拨打电话webview
  */
@@ -390,13 +392,13 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
+    [self.dataSourceManager reSendMesssage:contentModel];
 }
 
 - (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
-
 }
 
 - (void)chatCellDidTapOnDriftBottleCard:(GJGCChatBaseCell *)tappedCell
@@ -772,14 +774,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
     chatContentModel.isFromSelf = YES;
     chatContentModel.talkType = self.taklInfo.talkType;
-    NSDate *sendTime = GJCFDateFromStringByFormat(@"2015-7-15 08:22:11", @"Y-M-d HH:mm:ss");
-    chatContentModel.sendTime = [sendTime timeIntervalSince1970];
-    chatContentModel.headUrl = @"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=38ecb37c54fbb2fb347e50167a7a0c92/d01373f082025aafc50dc5eafaedab64034f1ad7.jpg";
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    [self.dataSourceManager sendMesssage:chatContentModel];
+    BOOL isSuccess = [self.dataSourceManager sendMesssage:chatContentModel];
+    
+    //速度太快，达到间隔限制
+    if (!isSuccess) {
+        
+        [self showSendLimitTip];
+    }
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendGIFMessage:(NSString *)gifCode
@@ -1279,6 +1284,57 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         default:
             break;
     }
+}
+
+#pragma mark - 发送消息速度太快限制
+
+- (void)showSendLimitTip
+{
+    if (self.sendLimitTipLabel.gjcf_right == GJCFSystemScreenWidth) {
+        return;
+    }
+
+    if (!self.sendLimitTipLabel) {
+        self.sendLimitTipLabel = [[UILabel alloc]init];
+        self.sendLimitTipLabel.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.35];
+        self.sendLimitTipLabel.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
+        self.sendLimitTipLabel.textColor = [UIColor whiteColor];
+        self.sendLimitTipLabel.textAlignment = NSTextAlignmentCenter;
+        self.sendLimitTipLabel.text = @"您的发送速度太快了!";
+        self.sendLimitTipLabel.layer.cornerRadius = 3.f;
+        self.sendLimitTipLabel.layer.masksToBounds = YES;
+        [self.sendLimitTipLabel sizeToFit];
+        self.sendLimitTipLabel.gjcf_width += 2*8.f;
+        self.sendLimitTipLabel.gjcf_height += 2*5.f;
+        [self.view addSubview:self.sendLimitTipLabel];
+    }
+    self.sendLimitTipLabel.gjcf_bottom = self.inputPanel.gjcf_top;
+    self.sendLimitTipLabel.gjcf_left = GJCFSystemScreenWidth;
+    
+    [UIView animateWithDuration:0.26 animations:^{
+       
+        self.sendLimitTipLabel.gjcf_right = GJCFSystemScreenWidth;
+        
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self hiddenSendLimitTip];
+        
+    });
+}
+
+- (void)hiddenSendLimitTip
+{
+    if (self.sendLimitTipLabel.gjcf_left == GJCFSystemScreenWidth) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.26 animations:^{
+        
+        self.sendLimitTipLabel.gjcf_left = GJCFSystemScreenWidth;
+        
+    }];
 }
 
 @end

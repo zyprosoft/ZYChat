@@ -25,6 +25,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    //注册环信
+    [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
+    
     GJGCRecentChatViewController *recentVC = [[GJGCRecentChatViewController alloc]init];
     recentVC.title = @"消息";
     
@@ -44,9 +47,6 @@
     tabController.viewControllers = @[nav0,nav1];
     
     self.window.rootViewController = tabController;
-    
-    //注册环信
-    [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
     
     [[ZYUserCenter shareCenter]performSelector:@selector(autoLogin) withObject:nil afterDelay:3];
     

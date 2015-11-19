@@ -7,6 +7,7 @@
 //
 
 #import "GJGCRecentChatStyle.h"
+#import "GJGCChatSystemNotiCellStyle.h"
 
 @implementation GJGCRecentChatStyle
 
@@ -19,13 +20,62 @@
     return [[NSAttributedString alloc]initWithString:name attributes:[stringStyle attributedDictionary]];
 }
 
-+ (NSAttributedString *)formateTime:(NSString *)time
++ (NSAttributedString*)formateTime:(long long)time
 {
-    GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
-    stringStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
+    NSDate *date = GJCFDateFromTimeInterval(time);
     
-    return [[NSAttributedString alloc]initWithString:time attributes:[stringStyle attributedDictionary]];
+    if (GJCFCheckObjectNull(date)) {
+        return nil;
+    }
+    
+    long long timeNow = [[NSDate date]timeIntervalSince1970];
+    NSCalendar * calendar=[GJCFDateUitil sharedCalendar];
+    NSInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit|NSYearCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit;
+    NSDateComponents * component=[calendar components:unitFlags fromDate:date];
+    
+    NSInteger year=[component year];
+    NSInteger month=[component month];
+    NSInteger day=[component day];
+    
+    NSDate * today=[NSDate date];
+    component=[calendar components:unitFlags fromDate:today];
+    
+    NSInteger t_year=[component year];
+    NSInteger t_month = [component month];
+    NSInteger t_day= [component day];
+    
+    NSString *string = nil;
+    
+    long long now = [today timeIntervalSince1970];
+    
+    long long  distance= now - timeNow;
+    
+    if(distance <= 60*60*24 && day == t_day && t_month == month && t_year == year){
+        
+        string = [NSString stringWithFormat:@"今天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        
+    }
+    else if (day == t_day - 1 && t_month == month && t_year == year){
+        
+        string = [NSString stringWithFormat:@"昨天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        
+    }else if (day == t_day - 2 && t_month == month && t_year == year){
+        
+        string = [NSString stringWithFormat:@"前天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        
+    }else if(year==t_year){
+        
+        NSString *detailTime = GJCFDateToStringByFormat(date,@"HH:mm");
+        string=[NSString stringWithFormat:@"%ld-%ld  %@",(long)month,(long)day,detailTime];
+        
+    }else{
+        
+        NSString *detailTime = GJCFDateToStringByFormat(date,@"HH:mm");
+        
+        string=[NSString stringWithFormat:@"%ld-%ld-%ld  %@",(long)year,(long)month,(long)day,detailTime];
+    }
+    
+    return [GJGCChatSystemNotiCellStyle formateTime:string];
 }
 
 + (NSAttributedString *)formateContent:(NSString *)content

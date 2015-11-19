@@ -17,44 +17,11 @@
     if (self = [super initWithTalk:talk withDelegate:aDelegate]) {
 
         self.title = talk.toUserName;
-        
-        [self observeMediaUploadSuccessNoti];
-        
+                
         [self readLastMessagesFromDB];
         
     }
     return self;
-}
-
-#pragma mark - 观察到UI更新了附件地址消息
-
-- (void)observeMediaUploadSuccessNoti
-{
-    
-}
-
-- (void)recieveMediaUploadSuccessNoti:(NSNotification *)noti
-{
-    NSDictionary *notiInfo = noti.object;
-    
-    NSString *type = notiInfo[@"type"];
-    NSString *url = notiInfo[@"data"];
-    NSString *msgId = notiInfo[@"msgId"];
-    NSString *toId = notiInfo[@"toId"];
-    
-    if (![toId isEqualToString:self.taklInfo.toId]) {
-        return;
-    }
-    
-    if ([type isEqualToString:@"audio"]) {
-        
-        [self updateAudioUrl:url withLocalMsg:msgId toId:toId];
-    }
-    
-    if ([type isEqualToString:@"image"]) {
-        
-        [self updateImageUrl:url withLocalMsg:msgId toId:toId];
-    }
 }
 
 #pragma mark - 观察收到的消息，自己发送的消息也会当成一条收到的消息来处理插入
@@ -119,91 +86,6 @@
     }
 }
 
-#pragma mark - 删除消息
-
-- (NSArray *)deleteMessageAtIndex:(NSInteger)index
-{
-    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index];
-    
-    BOOL isDelete = YES;//数据库删除消息结果
-    
-    NSMutableArray *willDeletePaths = [NSMutableArray array];
-
-    if (isDelete) {
-        
-        /* 更新最近联系人列表得最后一条消息 */
-        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
-            
-            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
-            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
-            if (lastContentAfterDelete.isTimeSubModel) {
-                
-                if (self.chatContentTotalCount - 1 >= 1) {
-                    
-                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
-                    
-                }
-                
-            }
-            
-            if (lastContentAfterDelete) {
-                
-                /* 更新最近会话信息 */
-                [self updateLastMsg:lastContentAfterDelete];
-                
-            }
-        }
-        
-        NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
-        
-        [self removeChatContentModelAtIndex:index];
-        
-        [willDeletePaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-        
-        if (willDeleteTimeSubIdentifier) {
-            
-            [willDeletePaths addObject:[NSIndexPath indexPathForRow:index - 1 inSection:0]];
-            
-            [self removeTimeSubByIdentifier:willDeleteTimeSubIdentifier];
-        }
-    }
-    
-    return willDeletePaths;
-} 
-
-
-#pragma mark - 更新附件地址
-
-- (void)updateAudioUrl:(NSString *)audioUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
-{
-    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
-        
-        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
-            
-            NSLog(@"更新内存中语音的地址为:%@",audioUrl);
-            contentModel.audioModel.localStorePath = [[GJCFCachePathManager shareManager]mainAudioCacheFilePathForUrl:audioUrl];
-            
-            break;
-        }
-        
-    }
-}
-
-- (void)updateImageUrl:(NSString *)imageUrl withLocalMsg:(NSString *)localMsgId toId:(NSString *)toId
-{
-    for (GJGCChatFriendContentModel *contentModel in self.chatListArray) {
-        
-        if ([contentModel.localMsgId longLongValue] == [localMsgId longLongValue]) {
-            
-            contentModel.imageMessageUrl = imageUrl;
-            NSLog(@"更新内存中图片的地址为:%@",imageUrl);
-            
-            break;
-        }
-        
-    }
-}
-
 - (void)updateAudioFinishRead:(NSString *)localMsgId
 {
     
@@ -217,11 +99,6 @@
 }
 
 #pragma mark - 重试发送状态消息
-
-- (void)reTryAllSendingStateMsgDetailAction
-{
-    
-}
 
 - (void)mockSendAnMesssage:(GJGCChatFriendContentModel *)messageContent
 {

@@ -11,12 +11,17 @@
 #import "GJGCChatFriendViewController.h"
 #import "GJGCChatGroupViewController.h"
 #import "GJGCRecentChatDataManager.h"
+#import "GJGCRecentChatTitleView.h"
 
 @interface GJGCRecentChatViewController ()<UITableViewDelegate,UITableViewDataSource,GJGCRecentChatDataManagerDelegate>
 
 @property (nonatomic,strong)GJGCRecentChatDataManager *dataManager;
 
 @property (nonatomic,strong)UITableView *listTable;
+
+@property (nonatomic,strong)GJGCRecentChatTitleView *titleView;
+
+@property (nonatomic,strong)dispatch_source_t updateListSource;
 
 @end
 
@@ -25,17 +30,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setStrNavTitle:@"最近会话"];
+    //缓冲更新队列
+    self.updateListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+    dispatch_source_set_event_handler(self.updateListSource, ^{
+       
+        [self conversationListUpdate];
+        
+    });
+    dispatch_resume(self.updateListSource);
     
     self.dataManager = [[GJGCRecentChatDataManager alloc]init];
     self.dataManager.delegate = self;
+    
+    self.titleView = [[GJGCRecentChatTitleView alloc]init];
+    self.navigationItem.titleView = self.titleView;
+    GJGCRecentChatConnectState result = [[EaseMob sharedInstance].chatManager isConnected]? GJGCRecentChatConnectStateSuccess:GJGCRecentChatConnectStateFaild;
+    self.titleView.connectState = result;
     
     self.listTable = [[UITableView alloc]init];
     self.listTable.delegate = self;
     self.listTable.dataSource = self;
     self.listTable.frame = self.view.bounds;
+    self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.listTable];
     
+    [self.dataManager loadRecentConversations];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //重新刷新一下会话
     [self.dataManager loadRecentConversations];
 }
 
@@ -94,18 +120,34 @@
     talk.conversation = contenModel.conversation;
 
     GJGCChatFriendViewController *privateChat = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talk];
-
     [self.navigationController pushViewController:privateChat animated:YES];
     
+}
+
+#pragma mark - dispatch缓冲刷新会话列表
+
+- (void)conversationListUpdate
+{
+    if (self.view.window != nil) {
+        [self.listTable reloadData];
+    }
 }
 
 #pragma mark - RecentDataManager
 
 - (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager
 {
-    [self.listTable reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        dispatch_source_merge_data(self.updateListSource, 1);
+        
+    });
 }
 
+- (void)dataManager:(GJGCRecentChatDataManager *)dataManager requireUpdateTitleViewState:(GJGCRecentChatConnectState)connectState
+{
+    self.titleView.connectState = connectState;
+}
 
 
 @end

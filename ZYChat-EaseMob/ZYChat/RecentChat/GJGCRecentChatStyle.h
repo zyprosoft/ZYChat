@@ -12,7 +12,7 @@
 
 + (NSAttributedString *)formateName:(NSString *)name;
 
-+ (NSAttributedString *)formateTime:(NSString *)time;
++ (NSAttributedString *)formateTime:(long long)time;
 
 + (NSAttributedString *)formateContent:(NSString *)content;
 

@@ -7,6 +7,8 @@
 //
 
 #import "GJGCRecentChatCell.h"
+#import "GJGCChatContentEmojiParser.h"
+#import "GJGCChatFriendCellStyle.h"
 
 @interface GJGCRecentChatCell ()
 
@@ -17,6 +19,10 @@
 @property (nonatomic,strong)GJCFCoreTextContentView *timeLabel;
 
 @property (nonatomic,strong)GJCFCoreTextContentView *contentLabel;
+
+@property (nonatomic,strong)UIImageView *bottomLine;
+
+@property (nonatomic,strong)UILabel *unReadCountLabel;
 
 @end
 
@@ -48,7 +54,24 @@
         self.contentLabel = [[GJCFCoreTextContentView alloc]init];
         self.contentLabel.contentBaseWidth = self.nameLabel.contentBaseWidth + 40.f;
         self.contentLabel.contentBaseHeight = 10.f;
+        [self.contentLabel appendImageTag:[GJGCChatFriendCellStyle imageTag]];
         [self.contentView addSubview:self.contentLabel];
+        
+        self.unReadCountLabel = [[UILabel alloc]init];
+        self.unReadCountLabel.gjcf_size = (CGSize){26,26};
+        self.unReadCountLabel.backgroundColor = [UIColor redColor];
+        self.unReadCountLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        self.unReadCountLabel.textColor = [UIColor whiteColor];
+        self.unReadCountLabel.textAlignment = NSTextAlignmentCenter;
+        self.unReadCountLabel.layer.cornerRadius = self.unReadCountLabel.gjcf_width/2;
+        self.unReadCountLabel.layer.masksToBounds = YES;
+        [self.contentView addSubview:self.unReadCountLabel];
+        
+        self.bottomLine = [[UIImageView alloc]init];
+        self.bottomLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
+        self.bottomLine.gjcf_width = GJCFSystemScreenWidth;
+        self.bottomLine.gjcf_height = 0.5f;
+        [self.contentView addSubview:self.bottomLine];
         
     }
     return self;
@@ -61,7 +84,7 @@
     CGSize nameSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.name forBaseContentSize:self.nameLabel.contentBaseSize];
     self.nameLabel.gjcf_size = nameSize;
     self.nameLabel.gjcf_left = self.headView.gjcf_right + 13.f;
-    self.nameLabel.gjcf_top = 16.f;
+    self.nameLabel.gjcf_top = self.headView.gjcf_top;
     self.nameLabel.contentAttributedString = contentModel.name;
     
     CGSize timeSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.time forBaseContentSize:self.timeLabel.contentBaseSize];
@@ -69,13 +92,28 @@
     self.timeLabel.gjcf_right = GJCFSystemScreenWidth - 13.f;
     self.timeLabel.gjcf_top = self.nameLabel.gjcf_top;
     self.timeLabel.contentAttributedString = contentModel.time;
+    self.timeLabel.gjcf_centerY = self.nameLabel.gjcf_centerY;
+
+    self.unReadCountLabel.text = [NSString stringWithFormat:@"%ld",(long)contentModel.unReadCount];
+    self.unReadCountLabel.gjcf_right = GJCFSystemScreenWidth - 13.f;
+    self.unReadCountLabel.hidden = contentModel.unReadCount == 0? YES:NO;
     
-    CGSize contentSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.content forBaseContentSize:self.contentLabel.contentBaseSize];
-    self.contentLabel.gjcf_size = contentSize;
+    self.contentLabel.gjcf_width = self.unReadCountLabel.gjcf_left - 5.f - self.headView.gjcf_right - 6.f;
+    self.contentLabel.gjcf_height = 28.f;
     self.contentLabel.gjcf_left = self.nameLabel.gjcf_left;
-    self.contentLabel.gjcf_top = self.nameLabel.gjcf_bottom + 15.f;
-    self.contentLabel.contentAttributedString = contentModel.content;
+    self.contentLabel.gjcf_bottom = self.headView.gjcf_bottom;
+    self.unReadCountLabel.gjcf_centerY = self.contentLabel.gjcf_centerY;
+
+    NSDictionary *parseDict = GJCFNSCacheGetValue(contentModel.content);
+    if (!parseDict) {
+        parseDict = [GJGCChatContentEmojiParser parseContent:contentModel.content];
+    }
+    NSAttributedString *attributedString = [parseDict objectForKey:@"contentString"];
+    self.contentLabel.contentAttributedString = attributedString;
     
+    self.bottomLine.gjcf_bottom = self.contentLabel.gjcf_bottom + self.headView.gjcf_top;
+
+    NSLog(@"self.bottomLine.bottom:%lf",self.bottomLine.gjcf_bottom);
 }
 
 @end

@@ -61,6 +61,9 @@
     
     if (contentType != GJGCChatFriendContentTypeNotFound) {
         [self addChatContentModel:chatContentModel];
+        
+        //置为已读
+        [self.taklInfo.conversation markMessageWithId:aMessage.messageId asRead:YES];
     }
 
     return chatContentModel;
@@ -90,54 +93,6 @@
 
 #pragma mark - 删除消息
 
-- (NSArray *)deleteMessageAtIndex:(NSInteger)index
-{    
-    BOOL isDelete = YES;//数据库完成删除动作
-    
-    NSMutableArray *willDeletePaths = [NSMutableArray array];
-
-    if (isDelete) {
-        
-        /* 更新最近联系人列表得最后一条消息 */
-        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
-            
-            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
-            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
-            if (lastContentAfterDelete.isTimeSubModel) {
-                
-                if (self.chatContentTotalCount - 1 >= 1) {
-                    
-                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
-                    
-                }
-                
-            }
-            
-            if (lastContentAfterDelete) {
-                
-                /* 更新最近会话信息 */
-                [self updateLastMsg:lastContentAfterDelete];
-                
-            }
-
-        }
-        
-        NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
-        
-        [self removeChatContentModelAtIndex:index];
-        
-        [willDeletePaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-        
-        if (willDeleteTimeSubIdentifier) {
-            
-            [willDeletePaths addObject:[NSIndexPath indexPathForRow:index - 1 inSection:0]];
-            
-            [self removeTimeSubByIdentifier:willDeleteTimeSubIdentifier];
-        }
-    }
-    
-    return willDeletePaths;
-}
 
 - (void)pushAddMoreMsg:(NSArray *)array
 {

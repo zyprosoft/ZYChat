@@ -12,12 +12,13 @@
 #import "GJGCChatFriendBaseCell.h"
 #import "GJGCParticleEffectLayer.h"
 
-
 @interface GJGCChatDetailViewController ()<
                                             GJGCRefreshHeaderViewDelegate
                                           >
 
 @property (nonatomic,strong)GJGCParticleEffectLayer *effectLayer;
+
+@property (nonatomic,strong)dispatch_source_t highSpeedReloadFlushSource;
 
 @end
 
@@ -28,6 +29,13 @@
     if (self = [super init]) {
         
         _taklInfo = talkModel;
+        
+        self.highSpeedReloadFlushSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+        dispatch_source_set_event_handler(self.highSpeedReloadFlushSource, ^{
+            NSInteger index = dispatch_source_get_data(self.highSpeedReloadFlushSource);
+            [self highSpeedUpdateFlushWithIndex:index];
+        });
+        dispatch_resume(self.highSpeedReloadFlushSource);
         
         [self initDataManager];
         
@@ -103,26 +111,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 返回时候更新草稿
-- (void)leftButtonPressed:(id)sender
-{
-    [super leftButtonPressed:sender];
-    
-    if (self.taklInfo.talkType != GJGCChatFriendTalkSystemAssist) {
-        
-        [self.dataSourceManager updateLastMsgForRecentTalk];
-        
-    }else{
-        
-        [self.dataSourceManager updateLastSystemMessageForRecentTalk];
-    }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 #pragma mark - 初始化设置
 - (void)initSubViews
 {
+    self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+    
     CGFloat originY = GJCFSystemNavigationBarHeight + GJCFSystemOriginYDelta;
     
     /* 对话列表 */
@@ -808,11 +801,33 @@
        
         if (index >= 0 && index < self.dataSourceManager.totalCount) {
             
-            NSIndexPath *reloadPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [self.chatListTable reloadRowsAtIndexPaths:@[reloadPath] withRowAnimation:UITableViewRowAnimationNone];
+            dispatch_source_merge_data(self.highSpeedReloadFlushSource, index);
+            
         }
         
     });
+}
+
+- (void)highSpeedUpdateFlushWithIndex:(NSInteger)index
+{
+    if (index >= 0 && index < self.dataSourceManager.totalCount) {
+        
+        NSIndexPath *reloadPath = [NSIndexPath indexPathForRow:index inSection:0];
+        
+        /* 鉴定是否可见 */
+        if (![[self.chatListTable indexPathsForVisibleRows] containsObject:reloadPath]) {
+            return ;
+        }
+        
+        GJGCChatFriendBaseCell *chatCell = (GJGCChatFriendBaseCell *)[self.chatListTable cellForRowAtIndexPath:reloadPath];
+        GJGCChatContentBaseModel *contentModel = [self.dataSourceManager contentModelAtIndex:index];
+        
+        if ([chatCell isKindOfClass:[GJGCChatFriendBaseCell class]]) {
+            
+            [chatCell setSendStatus:contentModel.sendStatus];
+            
+        }
+    }
 }
 
 - (void)dataSourceManagerRequireUpdateListTable:(GJGCChatDetailDataSourceManager *)dataManager reloadForUpdateMsgStateAtIndex:(NSInteger)index
