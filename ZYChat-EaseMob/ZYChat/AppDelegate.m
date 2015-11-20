@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "GJGCRecentChatViewController.h"
 #import "ZYUserListViewController.h"
+#import "GJGCPublicGroupListViewController.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -35,6 +36,11 @@
     UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
     [nav0.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
+    //群组广场
+    GJGCPublicGroupListViewController *groupListVC = [[GJGCPublicGroupListViewController alloc]init];
+    groupListVC.title = @"群组";
+    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:groupListVC];
+    [nav2.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
     ZYUserListViewController *userList = [[ZYUserListViewController alloc]init];
     userList.title = @"用户";
@@ -42,9 +48,8 @@
     UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:userList];
     [nav1.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
-    
     UITabBarController *tabController = [[UITabBarController alloc]init];
-    tabController.viewControllers = @[nav0,nav1];
+    tabController.viewControllers = @[nav0,nav2,nav1];
     
     self.window.rootViewController = tabController;
     

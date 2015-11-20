@@ -257,21 +257,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     NSString *msgId = userInfo[@"msgId"];
     
-    if ([taskType isEqualToString:@"audio"]) {
-        
-        
-    }
-    
-    if ([taskType isEqualToString:@"image"]) {
-        
-        NSInteger rowIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:msgId];
-        
-        if (rowIndex != NSNotFound) {
-            
-           
-        }
-    }
-    
 }
 
 - (void)downloadFileWithTask:(GJCFFileDownloadTask *)task progress:(CGFloat)progress
@@ -798,14 +783,10 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.contentType = GJGCChatFriendContentTypeGif;
     chatContentModel.toId = self.taklInfo.toId;
     chatContentModel.toUserName = self.taklInfo.toUserName;
-    NSDate *sendTime = GJCFDateFromStringByFormat(@"2015-7-15 08:22:11", @"Y-M-d HH:mm:ss");
-    chatContentModel.sendTime = [sendTime timeIntervalSince1970];
-    chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString(sendTime)];
-    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
+    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSending;
     chatContentModel.isFromSelf = YES;
     chatContentModel.gifLocalId = gifCode;
     chatContentModel.talkType = self.taklInfo.talkType;
-    chatContentModel.headUrl = @"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=38ecb37c54fbb2fb347e50167a7a0c92/d01373f082025aafc50dc5eafaedab64034f1ad7.jpg";
 
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];

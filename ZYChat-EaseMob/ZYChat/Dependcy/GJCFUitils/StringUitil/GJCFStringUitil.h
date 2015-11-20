@@ -53,6 +53,8 @@
 
 + (BOOL)stringChineseNumberCharacterOnly:(NSString *)string;
 
++ (BOOL)sourceString:(NSString*)sourceString regexMatch:(NSString *)regexString;
+
 + (NSString*)stringFromFile:(NSString*)path;
 
 + (NSString*)currentTimeStampString;

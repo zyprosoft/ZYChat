@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZYUserModel.h"
+#import "GJGCMessageExtendUserModel.h"
 
 #define ZYUserCenterLoginSuccessNoti @"ZYUserCenterLoginSuccessNoti"
 
@@ -30,6 +31,8 @@ typedef void (^ZYUserCenterRequestFaildBlock)(NSError *error);
                 withPassword:(NSString *)password
                  withSuccess:(ZYUserCenterRequestSuccessBlock)success
                    withFaild:(ZYUserCenterRequestFaildBlock)faild;
+
+- (GJGCMessageExtendUserModel *)extendUserInfo;
 
 - (BOOL)isLogin;
 

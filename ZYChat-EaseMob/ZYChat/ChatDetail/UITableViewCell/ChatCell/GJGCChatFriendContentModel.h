@@ -9,9 +9,7 @@
 #import "GJGCChatContentBaseModel.h"
 #import "GJGCChatFriendConstans.h"
 #import "GJCFAudioModel.h"
-
-
-
+#import "GJGCMessageExtendModel.h"
 
 @interface GJGCChatFriendContentModel : GJGCChatContentBaseModel
 
@@ -134,5 +132,6 @@
 
 + (GJGCChatFriendContentModel *)timeSubModel;
 
+- (void)setupUserInfoByExtendUserContent:(GJGCMessageExtendUserModel *)userInfo;
 
 @end

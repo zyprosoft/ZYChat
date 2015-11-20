@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GJGCLoadingStatusHUD.h"
 
 @interface GJGCBaseViewController : UIViewController
+
+@property (nonatomic,readonly)CGFloat contentOriginY;
+
+@property (nonatomic,strong)GJGCLoadingStatusHUD *statusHUD;
 
 - (void)leftButtonPressed:(UIButton *)sender;
 
@@ -32,5 +37,9 @@
  *  @param state
  */
 - (void)appendRightBarItemWithCustomButton:(UIButton *)button toOldLeft:(BOOL)state;
+
+- (void)showSuccessMessage:(NSString *)message;
+
+- (void)showErrorMessage:(NSString *)message;
 
 @end

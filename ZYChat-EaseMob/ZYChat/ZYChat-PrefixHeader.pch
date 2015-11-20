@@ -50,13 +50,15 @@
 
 #import "GJCFCoreTextParagraphStyle.h"
 
+#import "GJGCChatFriendContentModel.h"
+
+#import "GJGCMessageExtendModel.h"
+
 #import "JSONModel.h"
 
 #import "UIImageView+WebCache.h"
 
 #import "ZYUserCenter.h"
-
-#import "GJGCChatMessageSender.h"
 
 #import "ZYChatDatabaseManager.h"
 

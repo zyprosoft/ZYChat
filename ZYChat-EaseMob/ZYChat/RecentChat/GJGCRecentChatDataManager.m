@@ -9,6 +9,7 @@
 #import "GJGCRecentChatDataManager.h"
 #import "GJGCRecentChatStyle.h"
 #import "GJGCChatFriendCellStyle.h"
+#import "GJGCMessageExtendModel.h"
 
 static
 
@@ -71,6 +72,14 @@ static
     }
 }
 
+- (GJGCMessageExtendUserModel *)userInfoFromMessage:(EMMessage *)theMessage
+{
+    //根据扩展消息结构体进一步解析
+    GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
+
+    return extendModel.userInfo;
+}
+
 - (NSString *)displayContentFromMessageBody:(EMMessage *)theMessage
 {
     NSArray *bodies = theMessage.messageBodies;
@@ -83,9 +92,22 @@ static
     switch (bodyType) {
         case eMessageBodyType_Text:
         {
-            EMTextMessageBody *textBody = (EMTextMessageBody *)messageBody;
+            //根据扩展消息结构体进一步解析
+            GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:[messageBody message].ext];
             
-            resultString = textBody.text;
+            //普通文本消息
+            if (!extendModel.isExtendMessageContent) {
+                EMTextMessageBody *textBody = (EMTextMessageBody *)messageBody;
+                
+                resultString = textBody.text;
+            }
+            
+            //扩展消息类型
+            if (extendModel.isExtendMessageContent) {
+                
+                resultString = extendModel.displayText;
+            }
+            
         }
             break;
         case eMessageBodyType_Voice:
@@ -190,9 +212,10 @@ static
     for (EMConversation *conversation in sortConversationList) {
         
         GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];
-        chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
         chatModel.toId = conversation.chatter;
-        chatModel.headUrl = @"";
+        GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+        chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
+        chatModel.headUrl = userInfo.headThumb;
         chatModel.unReadCount = conversation.unreadMessagesCount;
         chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
         chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];

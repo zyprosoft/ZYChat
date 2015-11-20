@@ -286,7 +286,7 @@ static dispatch_queue_t ZYNetworkManagerOperationQueue = nil;
                     
                 }else{
                     
-                    NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.BabyTrip" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":[jsonObject objectForKey:@"message"]}];
+                    NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.ZYChat" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":[jsonObject objectForKey:@"message"]}];
                     
                     [self faildWithTask:task error:commError];
                 }
@@ -300,7 +300,7 @@ static dispatch_queue_t ZYNetworkManagerOperationQueue = nil;
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
-            NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.BabyTrip" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":@"请求失败~"}];
+            NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.ZYChat" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":@"请求失败~"}];
 
             NSLog(@"error :%@",error);
             

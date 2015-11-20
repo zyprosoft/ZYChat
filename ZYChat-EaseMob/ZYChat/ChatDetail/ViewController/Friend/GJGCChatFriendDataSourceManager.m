@@ -7,6 +7,7 @@
 //
 
 #import "GJGCChatFriendDataSourceManager.h"
+#import "GJGCMessageExtendModel.h"
 
 @interface GJGCChatFriendDataSourceManager ()
 {
@@ -37,6 +38,16 @@
 
 #pragma mark - 观察本地发送消息创建成功和消息状态更新通知
 
+- (NSDictionary *)easeMessageStateRleations
+{
+    return @{
+             @(eMessageDeliveryState_Delivered):@(GJGCChatFriendSendMessageStatusSuccess),
+             @(eMessageDeliveryState_Delivering):@(GJGCChatFriendSendMessageStatusSending),
+             @(eMessageDeliveryState_Pending):@(GJGCChatFriendSendMessageStatusSending),
+             @(eMessageDeliveryState_Failure):@(GJGCChatFriendSendMessageStatusFaild),
+             };
+}
+
 - (GJGCChatFriendContentModel *)addEaseMessage:(EMMessage *)aMessage
 {
     /* 格式化消息 */
@@ -45,7 +56,7 @@
     chatContentModel.toId = aMessage.to;
     chatContentModel.toUserName = aMessage.to;
     chatContentModel.isFromSelf = [aMessage.from isEqualToString:[ZYUserCenter shareCenter].currentLoginUser.mobile]? YES:NO;
-    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
+    chatContentModel.sendStatus = [[self easeMessageStateRleations][@(aMessage.deliveryState)]integerValue];
     chatContentModel.sendTime = (NSInteger)(aMessage.timestamp/1000);
     chatContentModel.senderId = aMessage.from;
     chatContentModel.localMsgId = aMessage.messageId;
@@ -54,8 +65,7 @@
     chatContentModel.talkType = self.taklInfo.talkType;
     chatContentModel.contentHeight = 0.f;
     chatContentModel.contentSize = CGSizeZero;
-    chatContentModel.sessionId = @"88888";
-    
+
     /* 格式内容字段 */
     GJGCChatFriendContentType contentType = [self formateChatFriendContent:chatContentModel withMsgModel:aMessage];
     

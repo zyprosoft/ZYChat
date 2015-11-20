@@ -43,6 +43,20 @@
     return YES;
 }
 
++ (NSString *)gifNameById:(NSString *)gifEmojiId
+{
+    if (GJCFStringIsNull(gifEmojiId)) {
+        return @"";
+    }
+    
+    //先扫描本地的gif关系文件
+    NSDictionary *relationDict = [NSDictionary dictionaryWithContentsOfFile:GJCFMainBundlePath(@"gifLocal.plist")];
+    
+    NSString *gifName = [relationDict objectForKey:gifEmojiId];
+
+    return gifName;
+}
+
 + (BOOL)gifEmojiIsExistById:(NSString *)gifEmojiId
 {
     if ([self isGifIdLocalCached:gifEmojiId]) {

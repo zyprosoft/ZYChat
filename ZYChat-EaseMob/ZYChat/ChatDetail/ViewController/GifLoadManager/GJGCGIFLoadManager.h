@@ -16,4 +16,6 @@
 
 + (NSString *)gifCachePathById:(NSString *)gifEmojiId;
 
++ (NSString *)gifNameById:(NSString *)gifEmojiId;
+
 @end

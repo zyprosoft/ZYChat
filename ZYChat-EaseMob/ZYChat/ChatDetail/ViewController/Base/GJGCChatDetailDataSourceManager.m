@@ -7,6 +7,8 @@
 //
 
 #import "GJGCChatDetailDataSourceManager.h"
+#import "GJGCMessageExtendModel.h"
+#import "GJGCGIFLoadManager.h"
 
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
 
@@ -718,6 +720,9 @@
     chatContentModel.messageBody = messageBody;
     chatContentModel.contentType = type;
     
+    //普通文本消息和依靠普通文本消息扩展出来的消息类型
+    GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:msgModel.ext];
+    
     switch ([messageBody messageBodyType]) {
         case eMessageBodyType_Image:
         {
@@ -726,14 +731,61 @@
             break;
         case eMessageBodyType_Text:
         {
-            chatContentModel.contentType = GJGCChatFriendContentTypeText;
+            NSLog(@"解析扩展内容:%@",[extendModel contentDictionary]);
             
-            EMTextMessageBody *textMessageBody = (EMTextMessageBody *)messageBody;
-            
-            if (!GJCFNSCacheGetValue(textMessageBody.text)) {
-                [GJGCChatFriendCellStyle formateSimpleTextMessage:textMessageBody.text];
+            //普通文本消息
+            if (!extendModel.isExtendMessageContent) {
+                
+                chatContentModel.contentType = GJGCChatFriendContentTypeText;
+                
+                EMTextMessageBody *textMessageBody = (EMTextMessageBody *)messageBody;
+                
+                if (!GJCFNSCacheGetValue(textMessageBody.text)) {
+                    [GJGCChatFriendCellStyle formateSimpleTextMessage:textMessageBody.text];
+                }
+                chatContentModel.originTextMessage = textMessageBody.text;
+                
             }
-            chatContentModel.originTextMessage = textMessageBody.text;
+            
+            //扩展消息类型
+            if (extendModel.isExtendMessageContent) {
+                
+                chatContentModel.contentType = extendModel.chatFriendContentType;
+                
+                //是否支持显示的扩展消息
+                if (extendModel.isSupportDisplay) {
+                    
+                    //进一步解析消息内容
+                    switch (extendModel.chatFriendContentType) {
+                        case GJGCChatFriendContentTypeGif:
+                        {
+                            GJGCMessageExtendContentGIFModel *gifContent = (GJGCMessageExtendContentGIFModel *)extendModel.messageContent;
+                            chatContentModel.gifLocalId = gifContent.emojiCode;
+                        }
+                            break;
+                        case GJGCChatFriendContentTypeMini:
+                        {
+                            
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                //如果不支持，需要将消息显示成文本消息
+                if (![extendModel isSupportDisplay]) {
+                    
+                    chatContentModel.contentType = GJGCChatFriendContentTypeText;
+                    
+                    EMTextMessageBody *textMessageBody = (EMTextMessageBody *)messageBody;
+                    
+                    if (!GJCFNSCacheGetValue(textMessageBody.text)) {
+                        [GJGCChatFriendCellStyle formateSimpleTextMessage:textMessageBody.text];
+                    }
+                    chatContentModel.originTextMessage = textMessageBody.text;
+                }
+            }
         }
             break;
         case eMessageBodyType_Command:
@@ -771,7 +823,13 @@
             break;
     }
     type = chatContentModel.contentType;
-
+    
+    //解析用户信息
+    chatContentModel.headUrl = extendModel.userInfo.headThumb;
+    if (chatContentModel.talkType == GJGCChatFriendTalkTypeGroup) {
+        chatContentModel.senderName = [GJGCChatFriendCellStyle formateGroupChatSenderName:extendModel.userInfo.nickName];
+    }
+    
     return type;
 }
 
@@ -782,7 +840,7 @@
      * 如果不加这个判定的话，在发送多张图片的时候，
      * 分割成单张，会被认为间隔时间太短
      */
-     if (messageContent.contentType == GJGCChatFriendContentTypeText || messageContent.contentType == GJGCChatFriendContentTypeGif) {
+     if (messageContent.contentType == GJGCChatFriendContentTypeText || messageContent.contentType == GJGCChatFriendContentTypeGif || messageContent.contentType == GJGCChatFriendContentTypeGif ) {
          if (self.lastSendMsgTime != 0) {
             
             //间隔太短
@@ -799,7 +857,8 @@
     messageContent.localMsgId = mesage.messageId;
     messageContent.easeMessageTime = mesage.timestamp;
     messageContent.sendTime = (NSInteger)(mesage.timestamp/1000);
-    
+    [messageContent setupUserInfoByExtendUserContent:[[ZYUserCenter shareCenter]extendUserInfo]];
+
     //收到消息
     [self addChatContentModel:messageContent];
     
@@ -872,6 +931,42 @@
         case GJGCChatFriendContentTypeImage:
         {
             sendMessage = [self sendImageMessage:messageContent];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    //添加用户扩展信息
+    GJGCMessageExtendModel *extendInfo = [[GJGCMessageExtendModel alloc]init];
+    extendInfo.userInfo = [[ZYUserCenter shareCenter]extendUserInfo];
+    extendInfo.isExtendMessageContent = NO;
+    sendMessage.ext = [extendInfo contentDictionary];
+    NSLog(@"sendMessage Ext:%@",sendMessage.ext);
+    
+    //发送扩展类型的消息
+    switch (messageContent.contentType) {
+        case GJGCChatFriendContentTypeGif:
+        {
+            extendInfo.isExtendMessageContent = YES;
+            
+            GJGCMessageExtendContentGIFModel *gifContent = [[GJGCMessageExtendContentGIFModel alloc]init];
+            gifContent.emojiCode = messageContent.gifLocalId;
+            gifContent.emojiVersion = GJCFSystemAppStringVersion;
+            gifContent.displayText = [GJGCGIFLoadManager gifNameById:messageContent.gifLocalId];
+            gifContent.notSupportDisplayText = [NSString stringWithFormat:@"[GIF:%@]请更新你的源代码以支持此表情显示",gifContent.displayText];
+            
+            messageContent.originTextMessage = gifContent.notSupportDisplayText;
+            sendMessage = [self sendTextMessage:messageContent];
+
+            extendInfo.messageContent = gifContent;
+            extendInfo.chatFriendContentType = messageContent.contentType;
+            sendMessage.ext = [extendInfo contentDictionary];
+        }
+            break;
+        case GJGCChatFriendContentTypeMini:
+        {
+            
         }
             break;
         default:

@@ -7,6 +7,7 @@
 //
 
 #import "GJGCBaseViewController.h"
+#import "LeafNotification.h"
 
 #define BUTTONMarginX    10
 #define BUTTONMarginUP   0
@@ -20,6 +21,8 @@
 
 @property (nonatomic,strong)UILabel *titleLabel;
 
+@property (nonatomic,strong)LeafNotification *notificationView;
+
 @end
 
 @implementation GJGCBaseViewController
@@ -30,6 +33,22 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
+    /* 初始化加载特效 */
+    [self createStatusHUDWithView:self.view];
+    self.statusHUD.gjcf_height = self.statusHUD.gjcf_height - self.contentOriginY;
+    self.statusHUD.gjcf_top = self.contentOriginY;
+}
+
+- (void)createStatusHUDWithView:(UIView *)view
+{
+    [self.statusHUD removeFromSuperview];
+    self.statusHUD = nil;
+    self.statusHUD = [[GJGCLoadingStatusHUD alloc]initWithView:view];
+}
+
+- (CGFloat)contentOriginY
+{
+    return 64.f;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -206,6 +225,16 @@
     [oldRightBarItems insertObject:rightNewItem atIndex:0];
     
     self.navigationItem.rightBarButtonItems = oldRightBarItems;
+}
+
+- (void)showSuccessMessage:(NSString *)message
+{
+    [LeafNotification showInController:self withText:message type:LeafNotificationTypeSuccess];
+}
+
+- (void)showErrorMessage:(NSString *)message
+{
+    [LeafNotification showInController:self withText:message type:LeafNotificationTypeWarrning];
 }
 
 @end

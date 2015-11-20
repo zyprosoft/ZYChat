@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong)ZYUserModel *innerLoginUser;
 
+@property (nonatomic,strong)GJGCMessageExtendUserModel *innerExtendUserInfo;
+
 @end
 
 @implementation ZYUserCenter
@@ -149,6 +151,7 @@
     if (!self.innerLoginUser) {
         return;
     }
+    [self setupUserExtendInfo];
     
     NSDictionary *userInfo = [self.innerLoginUser toDictionary];
     
@@ -172,6 +175,7 @@
     NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     
     self.innerLoginUser = [[ZYUserModel alloc]initWithDictionary:userInfo error:nil];
+    [self setupUserExtendInfo];
 }
 
 - (void)autoLogin
@@ -182,6 +186,20 @@
     
     NSString *password = [self getUserPassword:self.innerLoginUser.userId];
     [self loginEaseMobWithMobile:self.innerLoginUser.mobile password:password];
+}
+
+- (void)setupUserExtendInfo
+{
+    self.innerExtendUserInfo = [[GJGCMessageExtendUserModel alloc]init];
+    self.innerExtendUserInfo.nickName = self.innerLoginUser.nickname;
+    self.innerExtendUserInfo.sex = self.innerLoginUser.sex;
+    self.innerExtendUserInfo.headThumb = self.innerLoginUser.headThumb;
+    self.innerExtendUserInfo.userName = self.innerLoginUser.name;
+}
+
+- (GJGCMessageExtendUserModel *)extendUserInfo
+{
+    return self.innerExtendUserInfo;
 }
 
 - (void)loginEaseMobWithMobile:(NSString *)mobile password:(NSString *)password

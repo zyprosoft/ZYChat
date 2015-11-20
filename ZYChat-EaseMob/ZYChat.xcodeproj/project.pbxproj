@@ -707,6 +707,43 @@
 		365F08BD1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08B51B50E292005161D6 /* 好友头像占位-bg-列表@3x.png */; };
 		365F08BF1B50E8FC005161D6 /* title-icon-向左返回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */; };
 		365F08C01B50E8FC005161D6 /* title-icon-向左返回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */; };
+		C81702931BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702901BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m */; };
+		C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702921BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m */; };
+		C81702A71BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702991BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m */; };
+		C81702A81BFF3D1D00FAE520 /* GJGCCreateGroupConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */; };
+		C81702A91BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */; };
+		C81702AA1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */; };
+		C81702AB1BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A21BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m */; };
+		C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A41BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m */; };
+		C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A61BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m */; };
+		C81702C51BFF3DC100FAE520 /* BTActionSheetBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702B01BFF3DC100FAE520 /* BTActionSheetBaseCell.m */; };
+		C81702C61BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702B21BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m */; };
+		C81702C71BFF3DC100FAE520 /* BTActionSheetConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702B41BFF3DC100FAE520 /* BTActionSheetConst.m */; };
+		C81702C81BFF3DC100FAE520 /* BTActionSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702B61BFF3DC100FAE520 /* BTActionSheetDataManager.m */; };
+		C81702C91BFF3DC100FAE520 /* BTActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702B81BFF3DC100FAE520 /* BTActionSheetDatePicker.m */; };
+		C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702BA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m */; };
+		C81702CB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702BC1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m */; };
+		C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702BE1BFF3DC100FAE520 /* BTActionSheetTimePicker.m */; };
+		C81702CD1BFF3DC100FAE520 /* BTActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C01BFF3DC100FAE520 /* BTActionSheetViewController.m */; };
+		C81702CE1BFF3DC100FAE520 /* BTDateActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C21BFF3DC100FAE520 /* BTDateActionSheetViewController.m */; };
+		C81702CF1BFF3DC100FAE520 /* BTTimeActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C41BFF3DC100FAE520 /* BTTimeActionSheetViewController.m */; };
+		C81702D71BFF3F4E00FAE520 /* LeafNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702D21BFF3F4E00FAE520 /* LeafNotification.m */; };
+		C81702D81BFF3F4E00FAE520 /* notification_success.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D31BFF3F4E00FAE520 /* notification_success.png */; };
+		C81702D91BFF3F4E00FAE520 /* notification_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */; };
+		C81702DA1BFF3F4E00FAE520 /* notification_warring.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D51BFF3F4E00FAE520 /* notification_warring.png */; };
+		C81702DB1BFF3F4E00FAE520 /* notification_warring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */; };
+		C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */; };
+		C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */; };
+		C81702E51BFF487200FAE520 /* keyboardButton-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E11BFF487200FAE520 /* keyboardButton-点击@3x.png */; };
+		C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E21BFF487200FAE520 /* keyboardButton@2x.png */; };
+		C81702E71BFF487200FAE520 /* keyboardButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E31BFF487200FAE520 /* keyboardButton@3x.png */; };
+		C81702EA1BFF48B000FAE520 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E81BFF48B000FAE520 /* right@2x.png */; };
+		C81702EB1BFF48B000FAE520 /* right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E91BFF48B000FAE520 /* right@3x.png */; };
+		C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702ED1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m */; };
+		C81702F11BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F01BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m */; };
+		C81702F41BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F31BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m */; };
+		C81702F71BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */; };
+		C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */; };
 		C84B41F31BEC9CB900BB5798 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F21BEC9CB900BB5798 /* AssetsLibrary.framework */; };
 		C84B41F51BEC9CBE00BB5798 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F41BEC9CBE00BB5798 /* AudioToolbox.framework */; };
 		C84B41F71BEC9CC200BB5798 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F61BEC9CC200BB5798 /* AVFoundation.framework */; };
@@ -784,7 +821,6 @@
 		C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A781BEC989C00F2D161 /* amrFileCodec.mm */; };
 		C8F3B9321BF093050057AF5B /* ZYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9311BF093050057AF5B /* ZYLoginViewController.m */; };
 		C8F3B9351BF093110057AF5B /* ZYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9341BF093110057AF5B /* ZYRegistViewController.m */; };
-		C8F3B9B51BF0A3730057AF5B /* GJGCChatMessageSender.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B41BF0A3730057AF5B /* GJGCChatMessageSender.m */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -797,6 +833,11 @@
 		C8F3B9D81BF0B5050057AF5B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9D31BF0B5050057AF5B /* FMResultSet.m */; };
 		C8F3B9DB1BF0B70E0057AF5B /* ZYDatabaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9DA1BF0B70E0057AF5B /* ZYDatabaseOperation.m */; };
 		C8F6F9211BFDD13600978081 /* 聊天-icon-发送失败@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F6F9201BFDD13600978081 /* 聊天-icon-发送失败@2x.png */; };
+		C8F6F9251BFEC65F00978081 /* GJGCMessageExtendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9241BFEC65F00978081 /* GJGCMessageExtendModel.m */; };
+		C8F6F92B1BFEC87000978081 /* GJGCMessageExtendConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92A1BFEC87000978081 /* GJGCMessageExtendConst.m */; };
+		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
+		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
+		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1340,6 +1381,71 @@
 		365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-向左返回@2x.png"; sourceTree = "<group>"; };
 		627A3D6C463894799F65CC64 /* Pods-ZYChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DE8265654025179D2DD2EDF /* libPods-ZYChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZYChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C817028F1BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupInfoExtendConst.h; sourceTree = "<group>"; };
+		C81702901BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupInfoExtendConst.m; sourceTree = "<group>"; };
+		C81702911BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupInfoExtendModel.h; sourceTree = "<group>"; };
+		C81702921BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupInfoExtendModel.m; sourceTree = "<group>"; };
+		C81702981BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupBaseCell.h; sourceTree = "<group>"; };
+		C81702991BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupBaseCell.m; sourceTree = "<group>"; };
+		C817029A1BFF3D1D00FAE520 /* GJGCCreateGroupCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupCellDelegate.h; sourceTree = "<group>"; };
+		C817029B1BFF3D1D00FAE520 /* GJGCCreateGroupConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupConst.h; sourceTree = "<group>"; };
+		C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupConst.m; sourceTree = "<group>"; };
+		C817029D1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupContentModel.h; sourceTree = "<group>"; };
+		C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCreateGroupContentModel.m; sourceTree = "<group>"; };
+		C817029F1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupDataManager.h; sourceTree = "<group>"; };
+		C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupDataManager.m; sourceTree = "<group>"; };
+		C81702A11BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupDetailChooseCell.h; sourceTree = "<group>"; };
+		C81702A21BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupDetailChooseCell.m; sourceTree = "<group>"; };
+		C81702A31BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupInputTextCell.h; sourceTree = "<group>"; };
+		C81702A41BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupInputTextCell.m; sourceTree = "<group>"; };
+		C81702A51BFF3D1D00FAE520 /* GJGCCreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupViewController.h; sourceTree = "<group>"; };
+		C81702A61BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupViewController.m; sourceTree = "<group>"; };
+		C81702AF1BFF3DC100FAE520 /* BTActionSheetBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetBaseCell.h; sourceTree = "<group>"; };
+		C81702B01BFF3DC100FAE520 /* BTActionSheetBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetBaseCell.m; sourceTree = "<group>"; };
+		C81702B11BFF3DC100FAE520 /* BTActionSheetBaseContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetBaseContentModel.h; sourceTree = "<group>"; };
+		C81702B21BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetBaseContentModel.m; sourceTree = "<group>"; };
+		C81702B31BFF3DC100FAE520 /* BTActionSheetConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetConst.h; sourceTree = "<group>"; };
+		C81702B41BFF3DC100FAE520 /* BTActionSheetConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetConst.m; sourceTree = "<group>"; };
+		C81702B51BFF3DC100FAE520 /* BTActionSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetDataManager.h; sourceTree = "<group>"; };
+		C81702B61BFF3DC100FAE520 /* BTActionSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetDataManager.m; sourceTree = "<group>"; };
+		C81702B71BFF3DC100FAE520 /* BTActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetDatePicker.h; sourceTree = "<group>"; };
+		C81702B81BFF3DC100FAE520 /* BTActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetDatePicker.m; sourceTree = "<group>"; };
+		C81702B91BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetNameAndDetailCell.h; sourceTree = "<group>"; };
+		C81702BA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetNameAndDetailCell.m; sourceTree = "<group>"; };
+		C81702BB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetSimpleTextCell.h; sourceTree = "<group>"; };
+		C81702BC1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetSimpleTextCell.m; sourceTree = "<group>"; };
+		C81702BD1BFF3DC100FAE520 /* BTActionSheetTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetTimePicker.h; sourceTree = "<group>"; };
+		C81702BE1BFF3DC100FAE520 /* BTActionSheetTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetTimePicker.m; sourceTree = "<group>"; };
+		C81702BF1BFF3DC100FAE520 /* BTActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTActionSheetViewController.h; sourceTree = "<group>"; };
+		C81702C01BFF3DC100FAE520 /* BTActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTActionSheetViewController.m; sourceTree = "<group>"; };
+		C81702C11BFF3DC100FAE520 /* BTDateActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDateActionSheetViewController.h; sourceTree = "<group>"; };
+		C81702C21BFF3DC100FAE520 /* BTDateActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDateActionSheetViewController.m; sourceTree = "<group>"; };
+		C81702C31BFF3DC100FAE520 /* BTTimeActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTTimeActionSheetViewController.h; sourceTree = "<group>"; };
+		C81702C41BFF3DC100FAE520 /* BTTimeActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTTimeActionSheetViewController.m; sourceTree = "<group>"; };
+		C81702D11BFF3F4E00FAE520 /* LeafNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeafNotification.h; sourceTree = "<group>"; };
+		C81702D21BFF3F4E00FAE520 /* LeafNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeafNotification.m; sourceTree = "<group>"; };
+		C81702D31BFF3F4E00FAE520 /* notification_success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_success.png; sourceTree = "<group>"; };
+		C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_success@2x.png"; sourceTree = "<group>"; };
+		C81702D51BFF3F4E00FAE520 /* notification_warring.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_warring.png; sourceTree = "<group>"; };
+		C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_warring@2x.png"; sourceTree = "<group>"; };
+		C81702DD1BFF470E00FAE520 /* GJGCPublicGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCPublicGroupListViewController.h; sourceTree = "<group>"; };
+		C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCPublicGroupListViewController.m; sourceTree = "<group>"; };
+		C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardButton-点击@2x.png"; sourceTree = "<group>"; };
+		C81702E11BFF487200FAE520 /* keyboardButton-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardButton-点击@3x.png"; sourceTree = "<group>"; };
+		C81702E21BFF487200FAE520 /* keyboardButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardButton@2x.png"; sourceTree = "<group>"; };
+		C81702E31BFF487200FAE520 /* keyboardButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardButton@3x.png"; sourceTree = "<group>"; };
+		C81702E81BFF48B000FAE520 /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right@2x.png"; sourceTree = "<group>"; };
+		C81702E91BFF48B000FAE520 /* right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right@3x.png"; sourceTree = "<group>"; };
+		C81702EC1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMutilTextInputViewController.h; sourceTree = "<group>"; };
+		C81702ED1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMutilTextInputViewController.m; sourceTree = "<group>"; };
+		C81702EF1BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupMemberCountSheetViewController.h; sourceTree = "<group>"; };
+		C81702F01BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupMemberCountSheetViewController.m; sourceTree = "<group>"; };
+		C81702F21BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupMemberCountSheetDataManager.h; sourceTree = "<group>"; };
+		C81702F31BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupMemberCountSheetDataManager.m; sourceTree = "<group>"; };
+		C81702F51BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupLabelsSheetDataManager.h; sourceTree = "<group>"; };
+		C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupLabelsSheetDataManager.m; sourceTree = "<group>"; };
+		C81702F81BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupLabelsSheetViewController.h; sourceTree = "<group>"; };
+		C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupLabelsSheetViewController.m; sourceTree = "<group>"; };
 		C84B41F21BEC9CB900BB5798 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C84B41F41BEC9CBE00BB5798 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C84B41F61BEC9CC200BB5798 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1560,8 +1666,6 @@
 		C8F3B9311BF093050057AF5B /* ZYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLoginViewController.m; sourceTree = "<group>"; };
 		C8F3B9331BF093110057AF5B /* ZYRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYRegistViewController.h; sourceTree = "<group>"; };
 		C8F3B9341BF093110057AF5B /* ZYRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYRegistViewController.m; sourceTree = "<group>"; };
-		C8F3B9B31BF0A3730057AF5B /* GJGCChatMessageSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatMessageSender.h; sourceTree = "<group>"; };
-		C8F3B9B41BF0A3730057AF5B /* GJGCChatMessageSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatMessageSender.m; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -1587,6 +1691,16 @@
 		C8F3B9D91BF0B70E0057AF5B /* ZYDatabaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseOperation.h; sourceTree = "<group>"; };
 		C8F3B9DA1BF0B70E0057AF5B /* ZYDatabaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseOperation.m; sourceTree = "<group>"; };
 		C8F6F9201BFDD13600978081 /* 聊天-icon-发送失败@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天-icon-发送失败@2x.png"; sourceTree = "<group>"; };
+		C8F6F9231BFEC65F00978081 /* GJGCMessageExtendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendModel.h; sourceTree = "<group>"; };
+		C8F6F9241BFEC65F00978081 /* GJGCMessageExtendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendModel.m; sourceTree = "<group>"; };
+		C8F6F9291BFEC87000978081 /* GJGCMessageExtendConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendConst.h; sourceTree = "<group>"; };
+		C8F6F92A1BFEC87000978081 /* GJGCMessageExtendConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendConst.m; sourceTree = "<group>"; };
+		C8F6F92C1BFECE4200978081 /* GJGCMessageExtendUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendUserModel.h; sourceTree = "<group>"; };
+		C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendUserModel.m; sourceTree = "<group>"; };
+		C8F6F9321BFED21500978081 /* GJGCMessageExtendContentGIFModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentGIFModel.h; sourceTree = "<group>"; };
+		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
+		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
+		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1665,6 +1779,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				C81702871BFF376800FAE520 /* Square */,
 				C8F3B92F1BF091AC0057AF5B /* Login */,
 				C8DC4A2F1BEC7F7800F2D161 /* UserList */,
 				C85A454E1BEB3E9B0084DBBF /* Service */,
@@ -1710,6 +1825,7 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				C81702D01BFF3F4E00FAE520 /* LeafNotificationView */,
 				C8D1B1B61BFC747B00201421 /* EaseMob */,
 				C8F3B9C81BF0B5050057AF5B /* fmdb */,
 				C8DC4A6D1BEC8F0D00F2D161 /* GJCFCachePathManager */,
@@ -2591,7 +2707,7 @@
 		365F076D1B50B138005161D6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C8F3B9361BF09D2B0057AF5B /* MessageSender */,
+				C8F6F9221BFEC62F00978081 /* MessageExtend */,
 				365F07791B50B138005161D6 /* Base */,
 				365F07801B50B138005161D6 /* DriftBottle */,
 				365F07871B50B138005161D6 /* Friend */,
@@ -2719,6 +2835,12 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C81702E81BFF48B000FAE520 /* right@2x.png */,
+				C81702E91BFF48B000FAE520 /* right@3x.png */,
+				C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */,
+				C81702E11BFF487200FAE520 /* keyboardButton-点击@3x.png */,
+				C81702E21BFF487200FAE520 /* keyboardButton@2x.png */,
+				C81702E31BFF487200FAE520 /* keyboardButton@3x.png */,
 				C8F6F9201BFDD13600978081 /* 聊天-icon-发送失败@2x.png */,
 				C8D1B1AC1BFB47EB00201421 /* 聊天-icon-发送中@2x.png */,
 				365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */,
@@ -2732,6 +2854,111 @@
 				365F08A41B50E094005161D6 /* 聊天对话框-BG-绿色@2x.png */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		C81702871BFF376800FAE520 /* Square */ = {
+			isa = PBXGroup;
+			children = (
+				C81702DC1BFF46DD00FAE520 /* PublicGroup */,
+				C81702AE1BFF3DC100FAE520 /* BTActionSheetViewController */,
+				C81702971BFF3CF700FAE520 /* CreateGroup */,
+				C817028E1BFF3CAE00FAE520 /* GroupInfoExtend */,
+			);
+			path = Square;
+			sourceTree = "<group>";
+		};
+		C817028E1BFF3CAE00FAE520 /* GroupInfoExtend */ = {
+			isa = PBXGroup;
+			children = (
+				C817028F1BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.h */,
+				C81702901BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m */,
+				C81702911BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.h */,
+				C81702921BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m */,
+			);
+			path = GroupInfoExtend;
+			sourceTree = "<group>";
+		};
+		C81702971BFF3CF700FAE520 /* CreateGroup */ = {
+			isa = PBXGroup;
+			children = (
+				C81702981BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.h */,
+				C81702991BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m */,
+				C817029A1BFF3D1D00FAE520 /* GJGCCreateGroupCellDelegate.h */,
+				C817029B1BFF3D1D00FAE520 /* GJGCCreateGroupConst.h */,
+				C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */,
+				C817029D1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.h */,
+				C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */,
+				C817029F1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.h */,
+				C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */,
+				C81702A11BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.h */,
+				C81702A21BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m */,
+				C81702A31BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.h */,
+				C81702A41BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m */,
+				C81702A51BFF3D1D00FAE520 /* GJGCCreateGroupViewController.h */,
+				C81702A61BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m */,
+				C81702EC1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.h */,
+				C81702ED1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m */,
+				C81702EF1BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.h */,
+				C81702F01BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m */,
+				C81702F21BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.h */,
+				C81702F31BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m */,
+				C81702F51BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.h */,
+				C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */,
+				C81702F81BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.h */,
+				C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */,
+			);
+			path = CreateGroup;
+			sourceTree = "<group>";
+		};
+		C81702AE1BFF3DC100FAE520 /* BTActionSheetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C81702AF1BFF3DC100FAE520 /* BTActionSheetBaseCell.h */,
+				C81702B01BFF3DC100FAE520 /* BTActionSheetBaseCell.m */,
+				C81702B11BFF3DC100FAE520 /* BTActionSheetBaseContentModel.h */,
+				C81702B21BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m */,
+				C81702B31BFF3DC100FAE520 /* BTActionSheetConst.h */,
+				C81702B41BFF3DC100FAE520 /* BTActionSheetConst.m */,
+				C81702B51BFF3DC100FAE520 /* BTActionSheetDataManager.h */,
+				C81702B61BFF3DC100FAE520 /* BTActionSheetDataManager.m */,
+				C81702B71BFF3DC100FAE520 /* BTActionSheetDatePicker.h */,
+				C81702B81BFF3DC100FAE520 /* BTActionSheetDatePicker.m */,
+				C81702B91BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.h */,
+				C81702BA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m */,
+				C81702BB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.h */,
+				C81702BC1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m */,
+				C81702BD1BFF3DC100FAE520 /* BTActionSheetTimePicker.h */,
+				C81702BE1BFF3DC100FAE520 /* BTActionSheetTimePicker.m */,
+				C81702BF1BFF3DC100FAE520 /* BTActionSheetViewController.h */,
+				C81702C01BFF3DC100FAE520 /* BTActionSheetViewController.m */,
+				C81702C11BFF3DC100FAE520 /* BTDateActionSheetViewController.h */,
+				C81702C21BFF3DC100FAE520 /* BTDateActionSheetViewController.m */,
+				C81702C31BFF3DC100FAE520 /* BTTimeActionSheetViewController.h */,
+				C81702C41BFF3DC100FAE520 /* BTTimeActionSheetViewController.m */,
+			);
+			path = BTActionSheetViewController;
+			sourceTree = "<group>";
+		};
+		C81702D01BFF3F4E00FAE520 /* LeafNotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				C81702D11BFF3F4E00FAE520 /* LeafNotification.h */,
+				C81702D21BFF3F4E00FAE520 /* LeafNotification.m */,
+				C81702D31BFF3F4E00FAE520 /* notification_success.png */,
+				C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */,
+				C81702D51BFF3F4E00FAE520 /* notification_warring.png */,
+				C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */,
+			);
+			path = LeafNotificationView;
+			sourceTree = "<group>";
+		};
+		C81702DC1BFF46DD00FAE520 /* PublicGroup */ = {
+			isa = PBXGroup;
+			children = (
+				C81702DD1BFF470E00FAE520 /* GJGCPublicGroupListViewController.h */,
+				C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */,
+			);
+			path = PublicGroup;
 			sourceTree = "<group>";
 		};
 		C85A454E1BEB3E9B0084DBBF /* Service */ = {
@@ -3219,15 +3446,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		C8F3B9361BF09D2B0057AF5B /* MessageSender */ = {
-			isa = PBXGroup;
-			children = (
-				C8F3B9B31BF0A3730057AF5B /* GJGCChatMessageSender.h */,
-				C8F3B9B41BF0A3730057AF5B /* GJGCChatMessageSender.m */,
-			);
-			path = MessageSender;
-			sourceTree = "<group>";
-		};
 		C8F3B9C81BF0B5050057AF5B /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
@@ -3244,6 +3462,23 @@
 				C8F3B9D31BF0B5050057AF5B /* FMResultSet.m */,
 			);
 			path = fmdb;
+			sourceTree = "<group>";
+		};
+		C8F6F9221BFEC62F00978081 /* MessageExtend */ = {
+			isa = PBXGroup;
+			children = (
+				C8F6F9231BFEC65F00978081 /* GJGCMessageExtendModel.h */,
+				C8F6F9241BFEC65F00978081 /* GJGCMessageExtendModel.m */,
+				C8F6F9291BFEC87000978081 /* GJGCMessageExtendConst.h */,
+				C8F6F92A1BFEC87000978081 /* GJGCMessageExtendConst.m */,
+				C8F6F92C1BFECE4200978081 /* GJGCMessageExtendUserModel.h */,
+				C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */,
+				C8F6F9321BFED21500978081 /* GJGCMessageExtendContentGIFModel.h */,
+				C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */,
+				C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */,
+				C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */,
+			);
+			path = MessageExtend;
 			sourceTree = "<group>";
 		};
 		D8331DA5D44C53B2FF553732 /* Frameworks */ = {
@@ -3381,6 +3616,7 @@
 				365F05B01B501A5D005161D6 /* 028[吐]@2x.png in Resources */,
 				365F05E41B501A5D005161D6 /* 054[爱心]@2x.png in Resources */,
 				365F05C01B501A5D005161D6 /* 036[爱财]@2x.png in Resources */,
+				C81702E71BFF487200FAE520 /* keyboardButton@3x.png in Resources */,
 				365F05B61B501A5D005161D6 /* 031[阴险]@2x.png in Resources */,
 				365F068C1B501A5D005161D6 /* 诱惑.gif in Resources */,
 				365F06C21B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */,
@@ -3402,6 +3638,7 @@
 				365F05EE1B501A5D005161D6 /* 059[蛋糕]@2x.png in Resources */,
 				365F06401B501A5D005161D6 /* 104[激动]@2x.png in Resources */,
 				365F05F41B501A5D005161D6 /* 062[勾引]@2x.png in Resources */,
+				C81702EB1BFF48B000FAE520 /* right@3x.png in Resources */,
 				365F05E81B501A5D005161D6 /* 056[示爱]@2x.png in Resources */,
 				365F063A1B501A5D005161D6 /* 101[点头]@2x.png in Resources */,
 				365F05BC1B501A5D005161D6 /* 034[左哼哼]@2x.png in Resources */,
@@ -3423,10 +3660,13 @@
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
 				365F06641B501A5D005161D6 /* 定.gif in Resources */,
 				365F06141B501A5D005161D6 /* 078[金钱]@2x.png in Resources */,
+				C81702DA1BFF3F4E00FAE520 /* notification_warring.png in Resources */,
 				365F06741B501A5D005161D6 /* 抠鼻.gif in Resources */,
+				C81702EA1BFF48B000FAE520 /* right@2x.png in Resources */,
 				365F05A61B501A5D005161D6 /* 023[困]@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
+				C81702D81BFF3F4E00FAE520 /* notification_success.png in Resources */,
 				365F06661B501A5D005161D6 /* 定@2x.png in Resources */,
 				365F06721B501A5D005161D6 /* 惊吓@2x.png in Resources */,
 				365F05F01B501A5D005161D6 /* 060[闪电]@2x.png in Resources */,
@@ -3479,10 +3719,13 @@
 				365F059A1B501A5D005161D6 /* 017[鼓掌]@2x.png in Resources */,
 				365F06A61B501A5D005161D6 /* 聊天-icon-语音及切换键盘1-灰@2x.png in Resources */,
 				365F05881B501A5D005161D6 /* 009[晕]@2x.png in Resources */,
+				C81702DB1BFF3F4E00FAE520 /* notification_warring@2x.png in Resources */,
 				365F05E01B501A5D005161D6 /* 052[凋谢]@2x.png in Resources */,
 				365F06941B501A5D005161D6 /* 逃跑.gif in Resources */,
+				C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */,
 				365F061C1B501A5D005161D6 /* 082[酷]@2x.png in Resources */,
 				365F06CC1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */,
+				C81702D91BFF3F4E00FAE520 /* notification_success@2x.png in Resources */,
 				365F05C21B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				365F064C1B501A5D005161D6 /* emojiName.plist in Resources */,
 				365F06CA1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */,
@@ -3541,6 +3784,7 @@
 				365F06301B501A5D005161D6 /* 096[NO]@2x.png in Resources */,
 				365F06061B501A5D005161D6 /* 071[足球]@2x.png in Resources */,
 				365F05FE1B501A5D005161D6 /* 067[握手]@2x.png in Resources */,
+				C81702E51BFF487200FAE520 /* keyboardButton-点击@3x.png in Resources */,
 				365F062A1B501A5D005161D6 /* 093[拳头]@2x.png in Resources */,
 				365F05EC1B501A5D005161D6 /* 058[月亮]@2x.png in Resources */,
 				365F06581B501A5D005161D6 /* 你好.gif in Resources */,
@@ -3554,6 +3798,7 @@
 				365F05CC1B501A5D005161D6 /* 042[咒骂]@2x.png in Resources */,
 				365F063C1B501A5D005161D6 /* 102[回头]@2x.png in Resources */,
 				365F06AA1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
+				C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */,
 				365F05EA1B501A5D005161D6 /* 057[太阳]@2x.png in Resources */,
 				365F06361B501A5D005161D6 /* 099[发抖]@2x.png in Resources */,
 				365F05D21B501A5D005161D6 /* 045[难过]@2x.png in Resources */,
@@ -3826,9 +4071,13 @@
 				365F042F1B501A43005161D6 /* GJCFAudioRecordSettings.m in Sources */,
 				365F043F1B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F040B1B501A43005161D6 /* GJCFAssetsPickerCell.m in Sources */,
+				C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */,
+				C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */,
+				C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */,
 				C8F3B9C71BF0ABF30057AF5B /* ZYDatabaseColunmCondition.m in Sources */,
 				C8F3B9351BF093110057AF5B /* ZYRegistViewController.m in Sources */,
 				365F04511B501A43005161D6 /* GJCFStringUitil.m in Sources */,
+				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
 				365F043B1B501A43005161D6 /* GJCFCoreTextParagraphStyle.m in Sources */,
 				365F08441B50B138005161D6 /* GJGCChatGroupViewController.m in Sources */,
 				365F07D01B50B138005161D6 /* GJGCChatBaseCell.m in Sources */,
@@ -3849,6 +4098,7 @@
 				365F03DB1B501A43005161D6 /* AFURLRequestSerialization.m in Sources */,
 				365F03D91B501A43005161D6 /* AFURLConnectionOperation.m in Sources */,
 				365F088F1B50D0EF005161D6 /* GJGCWebViewController.m in Sources */,
+				C8F6F9251BFEC65F00978081 /* GJGCMessageExtendModel.m in Sources */,
 				365F08341B50B138005161D6 /* GJGCChatFriendTalkModel.m in Sources */,
 				365F03D71B501A43005161D6 /* AFSecurityPolicy.m in Sources */,
 				C8DC49F11BEC781B00F2D161 /* ZYFriendServiceManager.m in Sources */,
@@ -3856,6 +4106,7 @@
 				C8DC4A261BEC7B3500F2D161 /* JSONModelArray.m in Sources */,
 				365F08521B50B138005161D6 /* GJGCChatSystemNotiDataManager.m in Sources */,
 				C8DC4A5A1BEC816D00F2D161 /* SDWebImageDecoder.m in Sources */,
+				C81702C71BFF3DC100FAE520 /* BTActionSheetConst.m in Sources */,
 				365F08041B50B138005161D6 /* GJGCChatSystemNotiCellStyle.m in Sources */,
 				365F08221B50B138005161D6 /* UIImage+GJFixOrientation.m in Sources */,
 				365F087F1B50BC2F005161D6 /* GJGCCommonHeadView.m in Sources */,
@@ -3863,6 +4114,7 @@
 				C8D1B1A81BFB30BC00201421 /* ZYPrivateChatDataManager.m in Sources */,
 				365F03DF1B501A43005161D6 /* AFURLSessionManager.m in Sources */,
 				365F07E01B50B138005161D6 /* GJGCChatFriendContentModel.m in Sources */,
+				C81702CB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m in Sources */,
 				365F05621B501A5D005161D6 /* GJGCChatInputExpandMenuPanel.m in Sources */,
 				C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */,
 				365F07DE1B50B138005161D6 /* GJGCChatFriendConstans.m in Sources */,
@@ -3881,17 +4133,23 @@
 				365F05761B501A5D005161D6 /* GJGCIconSeprateImageView.m in Sources */,
 				C8DC4A5B1BEC816D00F2D161 /* SDWebImageDownloader.m in Sources */,
 				365F05581B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifSubItem.m in Sources */,
+				C81702C81BFF3DC100FAE520 /* BTActionSheetDataManager.m in Sources */,
 				365F05681B501A5D005161D6 /* GJGCChatInputExpandMenuPanelItem.m in Sources */,
+				C81702CD1BFF3DC100FAE520 /* BTActionSheetViewController.m in Sources */,
 				365F08321B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
 				365F04371B501A43005161D6 /* GJCFCoreTextLine.m in Sources */,
+				C81702CE1BFF3DC100FAE520 /* BTDateActionSheetViewController.m in Sources */,
+				C81702AA1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m in Sources */,
 				C8D1B1A21BFB1C3700201421 /* ZYUserDatabaseManager.m in Sources */,
 				C8DC4A641BEC816D00F2D161 /* UIView+WebCacheOperation.m in Sources */,
 				365F08831B50BD79005161D6 /* GJGCImageResizeHelper.m in Sources */,
+				C8F6F92B1BFEC87000978081 /* GJGCMessageExtendConst.m in Sources */,
 				365F05661B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,
 				365F03ED1B501A43005161D6 /* GJCFFileDownloadTask.m in Sources */,
 				365F05721B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,
 				365F04391B501A43005161D6 /* GJCFCoreTextRun.m in Sources */,
 				365F08021B50B138005161D6 /* GJGCChatSystemNotiBaseCell.m in Sources */,
+				C81702C91BFF3DC100FAE520 /* BTActionSheetDatePicker.m in Sources */,
 				365F04451B501A43005161D6 /* GJCFCoreTextKeywordAttributedStringStyle.m in Sources */,
 				365F02E51B5019D0005161D6 /* AppDelegate.m in Sources */,
 				C8F3B9321BF093050057AF5B /* ZYLoginViewController.m in Sources */,
@@ -3903,9 +4161,11 @@
 				365F08361B50B138005161D6 /* GJGCDrfitBottleDetailViewController.m in Sources */,
 				365F05501B501A5D005161D6 /* GJGCChatInputBarItem.m in Sources */,
 				365F04331B501A43005161D6 /* GJCFCoreTextContentView.m in Sources */,
+				C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */,
 				365F044D1B501A43005161D6 /* GJCFQuickCacheUitil.m in Sources */,
 				365F04411B501A43005161D6 /* GJCFCoreTextImageAttributedStringStyle.m in Sources */,
 				365F083A1B50B138005161D6 /* GJGCProgressView.m in Sources */,
+				C81702F71BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m in Sources */,
 				C8DC4A591BEC816D00F2D161 /* SDWebImageCompat.m in Sources */,
 				C8DC4A5E1BEC816D00F2D161 /* SDWebImagePrefetcher.m in Sources */,
 				365F03D11B501A43005161D6 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -3925,8 +4185,8 @@
 				365F054E1B501A5D005161D6 /* GJGCChatInputBar.m in Sources */,
 				C8DC4A2C1BEC7B3500F2D161 /* JSONModel+networking.m in Sources */,
 				365F04431B501A43005161D6 /* GJCFCoreTextImageScriptParser.m in Sources */,
+				C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */,
 				365F040D1B501A43005161D6 /* GJCFAssetsPickerOverlayView.m in Sources */,
-				C8F3B9B51BF0A3730057AF5B /* GJGCChatMessageSender.m in Sources */,
 				365F04011B501A43005161D6 /* UIButton+GJCFAssetsPickerStyle.m in Sources */,
 				365F08001B50B138005161D6 /* GJGCChatSystemInviteFriendJoinGroupCell.m in Sources */,
 				C8DC4A2A1BEC7B3500F2D161 /* JSONAPI.m in Sources */,
@@ -3937,9 +4197,12 @@
 				365F04531B501A43005161D6 /* GJCFSystemUitil.m in Sources */,
 				C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */,
 				C8DC49FB1BEC787A00F2D161 /* ZYDataCenterInterface.m in Sources */,
+				C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */,
 				365F056A1B501A5D005161D6 /* GJGCChatInputGifFloatView.m in Sources */,
 				365F08381B50B138005161D6 /* GJGCDriftBottleImageScrollView.m in Sources */,
 				365F03F51B501A43005161D6 /* FLAnimatedImage.m in Sources */,
+				C81702A71BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m in Sources */,
+				C81702AB1BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m in Sources */,
 				365F04151B501A43005161D6 /* GJCFAssetsPickerPreviewItemViewController.m in Sources */,
 				365F04191B501A43005161D6 /* GJCFAssetsPreviewController.m in Sources */,
 				C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */,
@@ -3947,15 +4210,20 @@
 				365F089D1B50D78F005161D6 /* GJGCRecentChatModel.m in Sources */,
 				365F07F41B50B138005161D6 /* GJGCChatPostContentModel.m in Sources */,
 				C8DC4A0A1BEC7B1700F2D161 /* ZYUserModel.m in Sources */,
+				C81702F41BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m in Sources */,
 				C8F3B9D71BF0B5050057AF5B /* FMDatabaseQueue.m in Sources */,
 				365F07EE1B50B138005161D6 /* GJGCChatFriendPostMessageCell.m in Sources */,
 				C8F3B9C41BF0AB4D0057AF5B /* ZYDatabaseSortCondition.m in Sources */,
 				365F04651B501A43005161D6 /* GJCUImageBrowserNavigationViewController.m in Sources */,
 				365F056C1B501A5D005161D6 /* GJGCChatInputPanel.m in Sources */,
 				365F08651B50B621005161D6 /* GJCUFlashModeView.m in Sources */,
+				C81702F11BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m in Sources */,
 				365F07E41B50B138005161D6 /* GJGCChatFriendGifCell.m in Sources */,
 				C8DC4A251BEC7B3500F2D161 /* JSONModel.m in Sources */,
+				C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */,
+				C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */,
 				365F07D41B50B138005161D6 /* GJGCChatContentBaseModel.m in Sources */,
+				C81702C61BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m in Sources */,
 				365F08181B50B138005161D6 /* GJGCLoadingStatusHUD.m in Sources */,
 				365F07FE1B50B138005161D6 /* GJGCChatSystemActiveGuideCell.m in Sources */,
 				C8DC4A681BEC89A500F2D161 /* ZYUserCenter.m in Sources */,
@@ -3972,6 +4240,7 @@
 				365F08401B50B138005161D6 /* GJGCGIFLoadManager.m in Sources */,
 				365F03FF1B501A43005161D6 /* GJCFAssetsPickerStyle.m in Sources */,
 				365F04171B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,
+				C81702C51BFF3DC100FAE520 /* BTActionSheetBaseCell.m in Sources */,
 				365F04051B501A43005161D6 /* GJCFAlbums.m in Sources */,
 				C8DC4A5F1BEC816D00F2D161 /* UIButton+WebCache.m in Sources */,
 				365F08691B50B680005161D6 /* GJGCBaseViewController.m in Sources */,
@@ -3994,6 +4263,7 @@
 				365F04631B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
 				365F05741B501A5D005161D6 /* GJGCIconSeprateButton.m in Sources */,
 				365F05541B501A5D005161D6 /* GJGCChatInputExpandEmojiPanel.m in Sources */,
+				C81702D71BFF3F4E00FAE520 /* LeafNotification.m in Sources */,
 				C8DC4A351BEC7FB300F2D161 /* ZYUserListDataManager.m in Sources */,
 				C8D1B1B01BFC474C00201421 /* GJGCRecentChatDataManager.m in Sources */,
 				365F04351B501A43005161D6 /* GJCFCoreTextFrame.m in Sources */,
@@ -4011,6 +4281,9 @@
 				365F083E1B50B138005161D6 /* GJGCChatFriendViewController.m in Sources */,
 				365F055E1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem.m in Sources */,
 				365F03E71B501A43005161D6 /* VoiceConverter.mm in Sources */,
+				C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */,
+				C81702931BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m in Sources */,
+				C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */,
 				365F056E1B501A5D005161D6 /* GJGCChatInputPanelStyle.m in Sources */,
 				C8DC4A601BEC816D00F2D161 /* UIImage+GIF.m in Sources */,
 				365F042D1B501A43005161D6 /* GJCFAudioRecord.m in Sources */,
@@ -4018,6 +4291,7 @@
 				365F080A1B50B138005161D6 /* GJGCChatSystemNotiRoleGroupView.m in Sources */,
 				365F04071B501A43005161D6 /* GJCFAsset.m in Sources */,
 				365F04211B501A43005161D6 /* GJCFAudioManager.m in Sources */,
+				C81702A81BFF3D1D00FAE520 /* GJGCCreateGroupConst.m in Sources */,
 				C8DC4A701BEC8F0D00F2D161 /* GJCFCachePathManager.m in Sources */,
 				C8DC4A291BEC7B3500F2D161 /* NSArray+JSONModel.m in Sources */,
 				365F042B1B501A43005161D6 /* GJCFAudioPlayer.m in Sources */,
@@ -4026,9 +4300,11 @@
 				C8F3B9D81BF0B5050057AF5B /* FMResultSet.m in Sources */,
 				C8DC4A031BEC79DA00F2D161 /* ZYNetWorkTask.m in Sources */,
 				365F045F1B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
+				C81702A91BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m in Sources */,
 				365F041F1B501A43005161D6 /* GJCFAudioFileUitil.m in Sources */,
 				C8F3B9DB1BF0B70E0057AF5B /* ZYDatabaseOperation.m in Sources */,
 				365F041D1B501A43005161D6 /* GJCFEncodeAndDecode.m in Sources */,
+				C81702CF1BFF3DC100FAE520 /* BTTimeActionSheetViewController.m in Sources */,
 				365F02E21B5019D0005161D6 /* main.m in Sources */,
 				365F03EB1B501A43005161D6 /* GJCFFileDownloadManager.m in Sources */,
 				365F05601B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelPageItem.m in Sources */,
@@ -4243,6 +4519,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4286,6 +4563,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4312,6 +4590,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",
@@ -4348,6 +4628,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",

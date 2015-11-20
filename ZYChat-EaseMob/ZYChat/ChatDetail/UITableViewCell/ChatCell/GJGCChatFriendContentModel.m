@@ -7,6 +7,7 @@
 //
 
 #import "GJGCChatFriendContentModel.h"
+#import "GJGCChatFriendCellStyle.h"
 
 @implementation GJGCChatFriendContentModel
 
@@ -53,6 +54,14 @@
     timeSubModel.isTimeSubModel = YES;
     
     return timeSubModel;
+}
+
+- (void)setupUserInfoByExtendUserContent:(GJGCMessageExtendUserModel *)userInfo
+{
+    self.headUrl = userInfo.headThumb;
+    if (self.talkType == GJGCChatFriendTalkTypeGroup) {
+        self.senderName = [GJGCChatFriendCellStyle formateGroupChatSenderName:userInfo.nickName];
+    }
 }
 
 @end

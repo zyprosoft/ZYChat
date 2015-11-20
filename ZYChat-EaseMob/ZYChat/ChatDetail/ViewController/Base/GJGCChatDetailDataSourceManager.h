@@ -129,6 +129,13 @@
  */
 - (void)updateContentModelValuesNotEffectRowHeight:(GJGCChatContentBaseModel *)contentModel atIndex:(NSInteger)index;
 
+/**
+ *  添加一个对象
+ *
+ *  @param contentModel
+ *
+ *  @return 
+ */
 - (NSNumber *)addChatContentModel:(GJGCChatContentBaseModel *)contentModel;
 
 - (void)removeChatContentModelAtIndex:(NSInteger)index;
