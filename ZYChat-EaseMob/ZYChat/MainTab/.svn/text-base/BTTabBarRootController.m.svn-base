@@ -1,0 +1,97 @@
+//
+//  BTTabBarRootController.m
+//  BabyTrip
+//
+//  Created by ZYVincent on 15/7/18.
+//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//
+
+#import "BTTabBarRootController.h"
+#import "BTHomeViewController.h"
+#import "BTMyCenterViewController.h"
+#import "BTMessageViewController.h"
+#import "ZYNavigationController.h"
+#import "BTCustomTabBar.h"
+
+@interface BTTabBarRootController ()<BTCustomTabBarDelegate>
+
+@property (nonatomic,strong)BTCustomTabBar *customTabBar;
+
+@end
+
+@implementation BTTabBarRootController
+
+- (void)dealloc
+{
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    //首页
+    BTHomeViewController *homeVC = [[BTHomeViewController alloc]init];
+    homeVC.isMainModule = YES;
+    ZYNavigationController *homeNav = [[ZYNavigationController alloc]initWithRootViewController:homeVC];
+    
+    //我的
+    BTMyCenterViewController *myCenter = [[BTMyCenterViewController alloc]init];
+    myCenter.isMainModule = YES;
+    ZYNavigationController *myCenterNav = [[ZYNavigationController alloc]initWithRootViewController:myCenter];
+
+    self.viewControllers = @[
+                             homeNav,
+                             myCenterNav,
+                             ];
+    
+    //自定义TabBar
+    self.customTabBar = [[BTCustomTabBar alloc]initWithFrame:self.tabBar.frame withDataSource:self];
+    [self.view addSubview:self.customTabBar];
+    self.tabBar.hidden = YES;
+}
+
+- (void)hiddenTabBar
+{
+    self.customTabBar.hidden = YES;
+}
+
+- (void)showTabBar
+{
+    self.customTabBar.hidden = NO;
+}
+
+#pragma mark - 自定义TabBar 数据元
+
+- (NSArray *)customTabBarSourceItems:(BTCustomTabBar *)tabBar
+{
+    return @[
+             
+             @{
+                 @"normal":@"home",
+                 @"selected":@"homeblue",
+              },
+             @{
+                 @"normal":@"me",
+                 @"selected":@"meblue",
+                 },
+
+             ];
+}
+
+- (void)customTabBar:(BTCustomTabBar *)tabBar didChoosedIndex:(NSInteger)index
+{
+    ZYNavigationController *nav = (ZYNavigationController *)[self.viewControllers objectAtIndex:index];
+    BTBaseViewController *topController = (BTBaseViewController *)nav.topViewController;
+    if ([topController.class isSubclassOfClass:[BTHomeViewController class]]) {
+        BTHomeViewController *homeVC = (BTHomeViewController *)topController;
+        [homeVC inputRegionFirstResponse];
+    }
+    
+    if (self.selectedIndex == index) {
+        return;
+    }
+    self.selectedIndex = index;
+}
+
+
+@end

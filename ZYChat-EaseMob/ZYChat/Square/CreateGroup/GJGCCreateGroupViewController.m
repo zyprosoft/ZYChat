@@ -59,7 +59,7 @@
     self.dataManager = [[GJGCCreateGroupDataManager alloc]init];
     self.dataManager.delegate = self;
     
-    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0,0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - 44)];
+    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0,0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - 64 - 46)];
     self.listTable.delegate = self;
     self.listTable.dataSource = self;
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -75,7 +75,7 @@
     self.submitBtn.gjcf_centerX = GJCFSystemScreenWidth/2;
     self.submitBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
-    self.submitBtn.gjcf_bottom = GJCFSystemScreenHeight - 64 - 15.f;
+    self.submitBtn.gjcf_bottom = GJCFSystemScreenHeight - 64 - 10.f;
     [self.view addSubview:self.submitBtn];
     
     [self.dataManager createMemberList];
@@ -347,11 +347,13 @@
 - (void)dataManagerDidCreateGroupSuccess:(GJGCCreateGroupDataManager *)dataManager
 {
     BTToast(@"创建成功");
+    [self.statusHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)submitClick
 {
+    [self.statusHUD showWithStatusText:@"正在创建..."];
     [self.dataManager uploadGroupInfoAction];
 }
 

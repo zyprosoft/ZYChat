@@ -11,6 +11,6 @@
 
 @interface GJGCPersonInformationViewController : GJGCInformationBaseViewController
 
-- (instancetype)initWithExtendUser:(GJGCMessageExtendUserModel *)aUser;
+- (instancetype)initWithExtendUser:(GJGCMessageExtendUserModel *)aUser withUserId:(NSString *)userId;
 
 @end

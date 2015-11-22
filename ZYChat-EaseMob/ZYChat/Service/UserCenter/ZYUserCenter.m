@@ -92,6 +92,17 @@
     return [self getUserPassword:self.innerLoginUser.mobile];
 }
 
+- (void)updateNickname:(NSString *)nickname
+{
+    if (GJCFStringIsNull(nickname)) {
+        return;
+    }
+    
+    self.innerLoginUser.nickname = nickname;
+    
+    [self saveCurrentLoginUser];
+}
+
 - (void)saveCurrentLoginUser
 {
     if (!self.innerLoginUser) {

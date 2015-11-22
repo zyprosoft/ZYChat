@@ -11,6 +11,7 @@
 #import "GJGCMyHomePageViewController.h"
 #import "GJGCPublicGroupListViewController.h"
 #import "HALoginViewController.h"
+#import "BTTabBarRootController.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -32,7 +33,7 @@
     [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
     
     HALoginViewController *loginVC = [[HALoginViewController alloc]init];
-    loginVC.title = @"ZYChat";
+    loginVC.title = @"iOS码农之家";
     
     self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
     
@@ -51,33 +52,9 @@
 
 - (void)setupTab
 {
-    GJGCRecentChatViewController *recentVC = [[GJGCRecentChatViewController alloc]init];
-    recentVC.title = @"消息";
-    recentVC.isMainMoudle = YES;
+    BTTabBarRootController *tabBar = [[BTTabBarRootController alloc]init];
     
-    UINavigationController *nav0 = [[UINavigationController alloc]initWithRootViewController:recentVC];
-    UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
-    [nav0.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
-    
-    //群组广场
-    GJGCPublicGroupListViewController *groupListVC = [[GJGCPublicGroupListViewController alloc]init];
-    groupListVC.title = @"群组";
-    groupListVC.isMainMoudle = YES;
-    
-    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:groupListVC];
-    [nav2.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
-    
-    GJGCMyHomePageViewController *userList = [[GJGCMyHomePageViewController alloc]init];
-    userList.title = @"我的";
-    userList.isMainMoudle = YES;
-    
-    UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:userList];
-    [nav1.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
-    
-    UITabBarController *tabController = [[UITabBarController alloc]init];
-    tabController.viewControllers = @[nav0,nav2,nav1];
-    
-    self.window.rootViewController = tabController;
+    self.window.rootViewController = tabBar;
 }
 
 - (void)observeLoginStatus:(NSNotification *)noti

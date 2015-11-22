@@ -127,7 +127,7 @@
     headItem.tagName = @"头     像";
     headItem.contentType = GJGCCreateGroupContentTypeHeadThumb;
     headItem.placeHolder = @"请选择群组头像";
-    headItem.content = @"http://imgsrc.baidu.com/forum/w%3D580/sign=bc0a236b31adcbef01347e0e9cae2e0e/2df5e0fe9925bc3130c81b375edf8db1ca137083.jpg";
+    headItem.content = @"默认头像";
     headItem.isShowDetailIndicator = YES;
     
     [self addContentModel:headItem];
@@ -313,7 +313,7 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupExtendInfo.headUrl = contentModel.content;
+                groupExtendInfo.headUrl = @"http://imgsrc.baidu.com/forum/w%3D580/sign=bc0a236b31adcbef01347e0e9cae2e0e/2df5e0fe9925bc3130c81b375edf8db1ca137083.jpg";
             }
         }
         

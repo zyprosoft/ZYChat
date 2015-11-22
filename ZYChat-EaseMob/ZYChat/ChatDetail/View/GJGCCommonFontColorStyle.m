@@ -67,7 +67,7 @@
 
 + (UIColor *)mainThemeColor
 {
-    return GJCFQuickHexColor(@"0ccfd6");
+    return GJCFQuickHexColor(@"13a2dd");
 }
 
 + (UIColor *)mainAssociateColor

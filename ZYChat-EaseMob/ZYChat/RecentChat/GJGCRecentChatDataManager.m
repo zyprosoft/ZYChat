@@ -55,6 +55,9 @@ static
 
 - (GJGCRecentChatModel *)contentModelAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row < 0 && indexPath.row > self.sourceArray.count - 1) {
+        return nil;
+    }
     return [self.sourceArray objectAtIndex:indexPath.row];
 }
 
@@ -156,7 +159,9 @@ static
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
-    [self updateConversationList:conversationList];
+    if (conversationList.count > 0) {
+        [self updateConversationList:conversationList];
+    }
 }
 
 #pragma mark - 环信监听链接服务器状态
@@ -198,11 +203,17 @@ static
 - (void)didUnreadMessagesCountChanged
 {
     NSArray *converstaionList = [[EaseMob sharedInstance].chatManager conversations];
+    
     [self updateConversationList:converstaionList];
+    
 }
 
 - (void)updateConversationList:(NSArray *)conversationList
 {
+    if (conversationList.count == 0) {
+        return;
+    }
+    
     //重新载入一次会话列表
     if (self.sourceArray.count > 0) {
         [self.sourceArray removeAllObjects];
@@ -217,6 +228,8 @@ static
         
     }];
     
+    ZYUserModel *cUser = [[ZYUserCenter shareCenter]currentLoginUser];
+    
     for (EMConversation *conversation in sortConversationList) {
         
         GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];
@@ -224,7 +237,9 @@ static
         
         if (conversation.conversationType == eConversationTypeGroupChat && conversation.latestMessage) {
             
-            GJGCMessageExtendGroupModel *groupInfo = [self groupInfoFromMessage:conversation.latestMessage];
+            EMMessage *lastMessage = conversation.latestMessage;
+
+            GJGCMessageExtendGroupModel *groupInfo = [self groupInfoFromMessage:lastMessage];
             
             if (groupInfo&&[groupInfo toDictionary].count > 0) {
                 chatModel.name = [GJGCRecentChatStyle formateName:groupInfo.groupName];
@@ -246,11 +261,21 @@ static
         
         if (conversation.conversationType == eConversationTypeChat && conversation.latestMessage) {
             
-            chatModel.isGroupChat = NO;
-            GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
-            chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
-            chatModel.headUrl = userInfo.headThumb;
+            EMMessage *lastMessage = conversation.latestMessage;
+
+            if (![lastMessage.from isEqualToString:cUser.userId]) {
+                
+                GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+                chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
+                chatModel.headUrl = userInfo.headThumb;
+                
+            }else{
+                
+                chatModel.name = [GJGCRecentChatStyle formateName:lastMessage.to];
+                chatModel.headUrl = @"";
+            }
             chatModel.unReadCount = conversation.unreadMessagesCount;
+            chatModel.isGroupChat = NO;
             chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
             chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
             [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];

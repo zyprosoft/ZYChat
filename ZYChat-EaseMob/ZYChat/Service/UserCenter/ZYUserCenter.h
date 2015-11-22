@@ -42,6 +42,8 @@ typedef void (^ZYUserCenterRequestFaildBlock)(NSError *error);
 
 - (void)createUserTable;
 
+- (void)updateNickname:(NSString *)nickname;
+
 - (void)autoLogin;
 
 - (void)createUser;

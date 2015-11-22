@@ -9,7 +9,7 @@
 #import "GJGCChatGroupViewController.h"
 #import "GJGCChatGroupDataSourceManager.h"
 #import "GJGCGroupInformationViewController.h"
-//#import "GJGCPersonInformationViewController.h"
+#import "GJGCPersonInformationViewController.h"
 
 @interface GJGCChatGroupViewController ()
 
@@ -58,9 +58,7 @@
 - (void)chatCellDidLongPressOnHeadView:(GJGCChatBaseCell *)tapedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
-    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
-    [self.inputPanel appendFocusOnOther:[NSString stringWithFormat:@"@%@",contentModel.senderName.string]];
 }
 
 /**
@@ -72,11 +70,6 @@
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tappedCell];
     
-    GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
-    
-//    GJGCPersonInformationViewController *informationVC = [[GJGCPersonInformationViewController alloc]initWithUserId:[contentModel.userId longLongValue] reportType:GJGCReportTypePerson];
-//    [[GJGCUIStackManager share]pushViewController:informationVC animated:YES];
-
 }
 
 

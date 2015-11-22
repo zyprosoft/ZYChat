@@ -20,11 +20,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self setStrNavTitle:self.title];
+    
     [self setRightButtonWithTitle:@"完成"];
     
     self.textView = [[UITextView alloc]init];
     self.textView.gjcf_width = GJCFSystemScreenWidth;
-    self.textView.gjcf_height = GJCFSystemScreenHeight - 44 - 216;
+    self.textView.gjcf_height = GJCFSystemScreenHeight;
     [self.view addSubview:self.textView];
     
 }

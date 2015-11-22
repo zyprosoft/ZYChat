@@ -31,7 +31,7 @@
     
     self.informationListTable = [[UITableView alloc]init];
     self.informationListTable.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
-    self.informationListTable.frame = (CGRect){0,0,GJCFSystemScreenWidth,GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - 40.f};
+    self.informationListTable.frame = (CGRect){0,0,GJCFSystemScreenWidth,GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - 64.f};
     self.informationListTable.delegate = self;
     self.informationListTable.dataSource = self;
     self.informationListTable.separatorStyle = UITableViewCellSeparatorStyleNone;

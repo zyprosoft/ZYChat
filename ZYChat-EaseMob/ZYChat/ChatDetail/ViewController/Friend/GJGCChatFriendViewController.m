@@ -13,7 +13,7 @@
 #import "GJCUImageBrowserNavigationViewController.h"
 #import "UIImage+GJFixOrientation.h"
 #import "GJGCChatContentEmojiParser.h"
-//#import "GJGCPersonInformationViewController.h"
+#import "GJGCPersonInformationViewController.h"
 #import "GJCUCaptureViewController.h"
 #import "GJCFUitils.h"
 #import "GJGCGIFLoadManager.h"
@@ -383,7 +383,16 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 - (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
-    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+    
+    EMMessage *theMessage = [contentModel.messageBody message];
+    
+    GJGCMessageExtendModel *messageExtendModey = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
+    
+    GJGCPersonInformationViewController *informationVC = [[GJGCPersonInformationViewController alloc]initWithExtendUser:messageExtendModey.userInfo withUserId:messageExtendModey.userInfo.userName];
+    
+    [self.navigationController pushViewController:informationVC animated:YES];
 }
 
 - (void)chatCellDidTapOnDriftBottleCard:(GJGCChatBaseCell *)tappedCell

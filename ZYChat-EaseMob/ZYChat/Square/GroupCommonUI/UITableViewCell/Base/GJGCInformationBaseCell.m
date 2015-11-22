@@ -56,7 +56,7 @@
         self.accessoryIndicatorView = [[UIImageView alloc]init];
         self.accessoryIndicatorView.gjcf_width = 7;
         self.accessoryIndicatorView.gjcf_height = 12;
-        self.accessoryIndicatorView.image = GJCFQuickImage(@"按钮箭头.png");
+        self.accessoryIndicatorView.image = GJCFQuickImage(@"按钮箭头");
         self.accessoryIndicatorView.gjcf_top = 25.f;
         self.accessoryIndicatorView.gjcf_right = GJCFSystemScreenWidth - 13;
         [self.contentView addSubview:self.accessoryIndicatorView];

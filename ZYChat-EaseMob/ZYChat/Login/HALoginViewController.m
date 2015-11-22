@@ -31,6 +31,8 @@
     UIImageView* imgRightHandGone;
     
     JxbLoginShowType showType;
+    
+    BOOL isMoved;
 }
 @end
 
@@ -40,9 +42,9 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
-    [self setStrNavTitle:@"ZYChat"];
+    [self setStrNavTitle:@"iOS码农聊天室"];
     
-    UIImageView* imgLogin = [[UIImageView alloc] initWithFrame:CGRectMake(mainSize.width / 2 - 211*0.6 / 2, 88, 211*0.6, 109*0.6)];
+    UIImageView* imgLogin = [[UIImageView alloc] initWithFrame:CGRectMake(mainSize.width / 2 - 211*0.6 / 2, 34, 211*0.6, 109*0.6)];
     imgLogin.image = [UIImage imageNamed:@"owl-login"];
     imgLogin.layer.masksToBounds = YES;
     [self.view addSubview:imgLogin];
@@ -100,7 +102,7 @@
     
     UIButton *registButton = [UIButton buttonWithType:UIButtonTypeCustom];
     registButton.gjcf_width = GJCFSystemScreenWidth * 2/7;
-    registButton.gjcf_height = registButton.gjcf_width * 1/4;
+    registButton.gjcf_height = registButton.gjcf_width * 2/5;
     [registButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], registButton.gjcf_size) forState:UIControlStateNormal];
     [registButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     registButton.layer.cornerRadius = 4.f;
@@ -113,7 +115,7 @@
     
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     loginButton.gjcf_width = GJCFSystemScreenWidth * 2/7;
-    loginButton.gjcf_height = loginButton.gjcf_width * 1/4;
+    loginButton.gjcf_height = loginButton.gjcf_width * 2/5;
     [loginButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], loginButton.gjcf_size) forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginButton.layer.cornerRadius = 4.f;
@@ -144,6 +146,17 @@
 
 - (void)registAction
 {
+    [txtPwd resignFirstResponder];
+    [txtUser resignFirstResponder];
+    
+    if (isMoved) {
+        [UIView animateWithDuration:0.26 animations:^{
+            self.view.gjcf_top -= 60;
+        }completion:^(BOOL finished) {
+            isMoved = NO;
+        }];
+    }
+    
     HARegistViewController *registVC = [[HARegistViewController alloc]init];
     [self.navigationController pushViewController:registVC animated:YES];
 }
@@ -190,6 +203,14 @@
         } completion:^(BOOL b) {
         }];
     }
+    
+    if (!isMoved && textField == txtPwd) {
+        [UIView animateWithDuration:0.26 animations:^{
+            self.view.gjcf_top -= 60;
+        } completion:^(BOOL finished) {
+            isMoved = YES;
+        }];
+    }
 }
 
 - (void)rightNavigationBarItemPressed
@@ -200,6 +221,17 @@
 
 - (void)loginAction
 {
+    [txtPwd resignFirstResponder];
+    [txtUser resignFirstResponder];
+    
+    if (isMoved) {
+        [UIView animateWithDuration:0.26 animations:^{
+            self.view.gjcf_top -= 60;
+        }completion:^(BOOL finished) {
+            isMoved = NO;
+        }];
+    }
+    
     if (GJCFStringIsNull(txtUser.text)) {
         [self showErrorMessage:@"手机号不能为空"];
         return;

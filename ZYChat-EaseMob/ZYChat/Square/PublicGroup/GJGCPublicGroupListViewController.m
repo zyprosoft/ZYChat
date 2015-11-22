@@ -20,6 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self setStrNavTitle:@"广场"];
+
     [self setRightButtonWithTitle:@"创建群组"];
     
     [self.dataManager refresh];

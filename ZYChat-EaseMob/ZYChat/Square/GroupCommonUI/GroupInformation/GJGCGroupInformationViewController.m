@@ -44,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setStrNavTitle:@"群资料"];
+    
     [self requestGroupInfo];
 }
 
@@ -89,12 +91,17 @@
     /* 群账号 */
     if (group.groupId) {
         
-        GJGCInformationCellContentModel *accountItem = [GJGCGroupPersonInformationShowMap itemWithContentValueBaseText:group.groupId tagName:@"群  账  号"];
+        GJGCInformationCellContentModel *accountItem = [GJGCGroupPersonInformationShowMap itemWithContentValueBaseText:groupInfoExtend.name tagName:@"群  名  称"];
         accountItem.topLineMargin = 13.f;
         accountItem.seprateStyle = GJGCInformationSeprateLineStyleTopFullBottomShort;
         
         [self.dataSourceManager addInformationItem:accountItem];
     }
+    
+    /* 群名称 */
+    GJGCInformationCellContentModel *nicknameItem = nil;
+    nicknameItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:group.groupId  icon:@"详细地址icon.png" tagName:@"群  账  号"];
+    [self.dataSourceManager addInformationItem:nicknameItem];
     
     /* 群等级 */
     GJGCInformationCellContentModel *levelItem = nil;
@@ -104,6 +111,7 @@
         
         [self.dataSourceManager addInformationItem:levelItem];
     }
+    
     
     /* 群位置 */
     if (!GJCFStringIsNull(groupInfoExtend.address)) {

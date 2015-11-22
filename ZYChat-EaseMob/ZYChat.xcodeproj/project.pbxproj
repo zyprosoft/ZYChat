@@ -902,6 +902,25 @@
 		E4FEB4651C01EA3200E4A153 /* iconfont-password.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4601C01EA3200E4A153 /* iconfont-password.png */; };
 		E4FEB4681C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */; };
 		E4FEB4691C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */; };
+		E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB46A1C01FED100E4A153 /* 按钮箭头@2x.png */; };
+		E4FEB4731C0206F100E4A153 /* BTCustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB46E1C0206F100E4A153 /* BTCustomTabBar.m */; };
+		E4FEB4741C0206F100E4A153 /* BTCustomTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4701C0206F100E4A153 /* BTCustomTabBarItem.m */; };
+		E4FEB4751C0206F100E4A153 /* BTTabBarRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4721C0206F100E4A153 /* BTTabBarRootController.m */; };
+		E4FEB47E1C020EED00E4A153 /* msg_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4761C020EED00E4A153 /* msg_selected@2x.png */; };
+		E4FEB47F1C020EED00E4A153 /* msg_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4771C020EED00E4A153 /* msg_selected@3x.png */; };
+		E4FEB4801C020EED00E4A153 /* my@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4781C020EED00E4A153 /* my@2x.png */; };
+		E4FEB4811C020EED00E4A153 /* my@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4791C020EED00E4A153 /* my@3x.png */; };
+		E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB47A1C020EED00E4A153 /* square@3x.png */; };
+		E4FEB4831C020EED00E4A153 /* square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB47B1C020EED00E4A153 /* square@2x.png */; };
+		E4FEB4841C020EED00E4A153 /* square_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB47C1C020EED00E4A153 /* square_selected@2x.png */; };
+		E4FEB4851C020EED00E4A153 /* square_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB47D1C020EED00E4A153 /* square_selected@3x.png */; };
+		E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4861C020F0600E4A153 /* msg@2x.png */; };
+		E4FEB4891C020F0600E4A153 /* msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4861C020F0600E4A153 /* msg@2x.png */; };
+		E4FEB48A1C020F0600E4A153 /* msg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4871C020F0600E4A153 /* msg@3x.png */; };
+		E4FEB48B1C020F0600E4A153 /* msg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4871C020F0600E4A153 /* msg@3x.png */; };
+		E4FEB48D1C020FA400E4A153 /* my_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */; };
+		E4FEB48F1C02106800E4A153 /* my_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB48E1C02106800E4A153 /* my_selected@2x.png */; };
+		E4FEB4911C02248800E4A153 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4901C02248800E4A153 /* icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1856,6 +1875,26 @@
 		E4FEB4601C01EA3200E4A153 /* iconfont-password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-password.png"; sourceTree = "<group>"; };
 		E4FEB4661C01F78100E4A153 /* GJGCMyHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMyHomePageViewController.h; sourceTree = "<group>"; };
 		E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMyHomePageViewController.m; sourceTree = "<group>"; };
+		E4FEB46A1C01FED100E4A153 /* 按钮箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "按钮箭头@2x.png"; sourceTree = "<group>"; };
+		E4FEB46D1C0206F100E4A153 /* BTCustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCustomTabBar.h; sourceTree = "<group>"; };
+		E4FEB46E1C0206F100E4A153 /* BTCustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCustomTabBar.m; sourceTree = "<group>"; };
+		E4FEB46F1C0206F100E4A153 /* BTCustomTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCustomTabBarItem.h; sourceTree = "<group>"; };
+		E4FEB4701C0206F100E4A153 /* BTCustomTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCustomTabBarItem.m; sourceTree = "<group>"; };
+		E4FEB4711C0206F100E4A153 /* BTTabBarRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTTabBarRootController.h; sourceTree = "<group>"; };
+		E4FEB4721C0206F100E4A153 /* BTTabBarRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTTabBarRootController.m; sourceTree = "<group>"; };
+		E4FEB4761C020EED00E4A153 /* msg_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg_selected@2x.png"; sourceTree = "<group>"; };
+		E4FEB4771C020EED00E4A153 /* msg_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg_selected@3x.png"; sourceTree = "<group>"; };
+		E4FEB4781C020EED00E4A153 /* my@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my@2x.png"; sourceTree = "<group>"; };
+		E4FEB4791C020EED00E4A153 /* my@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my@3x.png"; sourceTree = "<group>"; };
+		E4FEB47A1C020EED00E4A153 /* square@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square@3x.png"; sourceTree = "<group>"; };
+		E4FEB47B1C020EED00E4A153 /* square@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square@2x.png"; sourceTree = "<group>"; };
+		E4FEB47C1C020EED00E4A153 /* square_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square_selected@2x.png"; sourceTree = "<group>"; };
+		E4FEB47D1C020EED00E4A153 /* square_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square_selected@3x.png"; sourceTree = "<group>"; };
+		E4FEB4861C020F0600E4A153 /* msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg@2x.png"; sourceTree = "<group>"; };
+		E4FEB4871C020F0600E4A153 /* msg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg@3x.png"; sourceTree = "<group>"; };
+		E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_selected@3x.png"; sourceTree = "<group>"; };
+		E4FEB48E1C02106800E4A153 /* my_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_selected@2x.png"; sourceTree = "<group>"; };
+		E4FEB4901C02248800E4A153 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1934,6 +1973,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB46C1C0206F000E4A153 /* MainTab */,
 				E4FEB44A1C01E7E200E4A153 /* Login */,
 				C81702871BFF376800FAE520 /* Square */,
 				C8DC4A2F1BEC7F7800F2D161 /* UserList */,
@@ -2993,6 +3033,20 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB4901C02248800E4A153 /* icon@2x.png */,
+				E4FEB48E1C02106800E4A153 /* my_selected@2x.png */,
+				E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */,
+				E4FEB4861C020F0600E4A153 /* msg@2x.png */,
+				E4FEB4871C020F0600E4A153 /* msg@3x.png */,
+				E4FEB4761C020EED00E4A153 /* msg_selected@2x.png */,
+				E4FEB4771C020EED00E4A153 /* msg_selected@3x.png */,
+				E4FEB4781C020EED00E4A153 /* my@2x.png */,
+				E4FEB4791C020EED00E4A153 /* my@3x.png */,
+				E4FEB47A1C020EED00E4A153 /* square@3x.png */,
+				E4FEB47B1C020EED00E4A153 /* square@2x.png */,
+				E4FEB47C1C020EED00E4A153 /* square_selected@2x.png */,
+				E4FEB47D1C020EED00E4A153 /* square_selected@3x.png */,
+				E4FEB46A1C01FED100E4A153 /* 按钮箭头@2x.png */,
 				E4FEB45C1C01EA3200E4A153 /* owl-login@2x.png */,
 				E4FEB45D1C01EA3200E4A153 /* owl-login-arm-right@2x.png */,
 				E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */,
@@ -3858,6 +3912,19 @@
 			path = PersonInformation;
 			sourceTree = "<group>";
 		};
+		E4FEB46C1C0206F000E4A153 /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB46D1C0206F100E4A153 /* BTCustomTabBar.h */,
+				E4FEB46E1C0206F100E4A153 /* BTCustomTabBar.m */,
+				E4FEB46F1C0206F100E4A153 /* BTCustomTabBarItem.h */,
+				E4FEB4701C0206F100E4A153 /* BTCustomTabBarItem.m */,
+				E4FEB4711C0206F100E4A153 /* BTTabBarRootController.h */,
+				E4FEB4721C0206F100E4A153 /* BTTabBarRootController.m */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3943,6 +4010,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				365F06DA1B501A5D005161D6 /* 聊天键盘切换-btn-圆@2x.png in Resources */,
+				E4FEB4911C02248800E4A153 /* icon@2x.png in Resources */,
 				365F06001B501A5D005161D6 /* 068[刀]@2x.png in Resources */,
 				365F06201B501A5D005161D6 /* 084[折磨]@2x.png in Resources */,
 				365F05861B501A5D005161D6 /* 008[呲牙]@2x.png in Resources */,
@@ -3964,6 +4032,7 @@
 				365F068C1B501A5D005161D6 /* 诱惑.gif in Resources */,
 				365F06C21B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */,
 				365F05B81B501A5D005161D6 /* 032[尴尬]@2x.png in Resources */,
+				E4FEB48F1C02106800E4A153 /* my_selected@2x.png in Resources */,
 				365F05A21B501A5D005161D6 /* 021[委屈]@2x.png in Resources */,
 				365F06181B501A5D005161D6 /* 080[可爱]@2x.png in Resources */,
 				365F02EA1B5019D0005161D6 /* LaunchScreen.xib in Resources */,
@@ -3976,6 +4045,7 @@
 				365F064E1B501A5D005161D6 /* 删除@2x.png in Resources */,
 				365F05BA1B501A5D005161D6 /* 033[右哼哼]@2x.png in Resources */,
 				365F05FA1B501A5D005161D6 /* 065[胜利]@2x.png in Resources */,
+				E4FEB4831C020EED00E4A153 /* square@2x.png in Resources */,
 				E4FEB4461C01CC3800E4A153 /* title-icon-群资料@3x.png in Resources */,
 				365F05901B501A5D005161D6 /* 013[亲亲]@2x.png in Resources */,
 				365F06101B501A5D005161D6 /* 076[便便]@2x.png in Resources */,
@@ -4002,6 +4072,8 @@
 				365F069A1B501A5D005161D6 /* 大表情-bg-预览@2x.png in Resources */,
 				E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
+				E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */,
+				E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */,
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
 				365F06641B501A5D005161D6 /* 定.gif in Resources */,
@@ -4010,6 +4082,7 @@
 				365F06741B501A5D005161D6 /* 抠鼻.gif in Resources */,
 				C81702EA1BFF48B000FAE520 /* right@2x.png in Resources */,
 				365F05A61B501A5D005161D6 /* 023[困]@2x.png in Resources */,
+				E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
 				C81702D81BFF3F4E00FAE520 /* notification_success.png in Resources */,
@@ -4026,12 +4099,14 @@
 				365F066C1B501A5D005161D6 /* 怕了吧.gif in Resources */,
 				365F06C41B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png in Resources */,
 				365F05AC1B501A5D005161D6 /* 026[调皮]@2x.png in Resources */,
+				E4FEB4811C020EED00E4A153 /* my@3x.png in Resources */,
 				365F05F61B501A5D005161D6 /* 063[强]@2x.png in Resources */,
 				365F05D41B501A5D005161D6 /* 046[奋斗]@2x.png in Resources */,
 				365F06D81B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@3x.png in Resources */,
 				365F060A1B501A5D005161D6 /* 073[米饭]@2x.png in Resources */,
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
 				365F057C1B501A5D005161D6 /* 003[大哭]@2x.png in Resources */,
+				E4FEB4841C020EED00E4A153 /* square_selected@2x.png in Resources */,
 				365F06341B501A5D005161D6 /* 098[接吻]@2x.png in Resources */,
 				365F06DE1B501A5D005161D6 /* 输入框-灰色@2x.png in Resources */,
 				365F067A1B501A5D005161D6 /* 汗@2x.png in Resources */,
@@ -4093,6 +4168,7 @@
 				365F05821B501A5D005161D6 /* 006[流泪]@2x.png in Resources */,
 				365F08BA1B50E292005161D6 /* 好友头像占位-bg-列表@2x.png in Resources */,
 				365F06B01B501A5D005161D6 /* 聊天语音-icon-取消@2x.png in Resources */,
+				E4FEB4851C020EED00E4A153 /* square_selected@3x.png in Resources */,
 				365F06981B501A5D005161D6 /* 大表情-bg-预览-居中@2x.png in Resources */,
 				365F08611B50B621005161D6 /* GJCUCaptureResourceBundle.bundle in Resources */,
 				365F057E1B501A5D005161D6 /* 004[发怒]@2x.png in Resources */,
@@ -4105,6 +4181,7 @@
 				365F061A1B501A5D005161D6 /* 081[撇嘴]@2x.png in Resources */,
 				365F05DA1B501A5D005161D6 /* 049[咖啡]@2x.png in Resources */,
 				365F06A01B501A5D005161D6 /* 聊天-icon-语音1-绿@2x.png in Resources */,
+				E4FEB4801C020EED00E4A153 /* my@2x.png in Resources */,
 				E4FEB4621C01EA3200E4A153 /* owl-login-arm-right@2x.png in Resources */,
 				365F05A01B501A5D005161D6 /* 020[惊恐]@2x.png in Resources */,
 				365F06381B501A5D005161D6 /* 100[呕火]@2x.png in Resources */,
@@ -4116,6 +4193,7 @@
 				365F05E21B501A5D005161D6 /* 053[蜡烛]@2x.png in Resources */,
 				365F05941B501A5D005161D6 /* 015[抠鼻]@2x.png in Resources */,
 				365F05A81B501A5D005161D6 /* 024[衰]@2x.png in Resources */,
+				E4FEB47F1C020EED00E4A153 /* msg_selected@3x.png in Resources */,
 				365F068E1B501A5D005161D6 /* 诱惑@2x.png in Resources */,
 				365F05D61B501A5D005161D6 /* 047[猪头]@2x.png in Resources */,
 				365F06441B501A5D005161D6 /* 106[左太极]@2x.png in Resources */,
@@ -4143,17 +4221,20 @@
 				365F045B1B501A43005161D6 /* GJCUImageBrowserResourceBundle.bundle in Resources */,
 				365F068A1B501A5D005161D6 /* 笑死了@2x.png in Resources */,
 				365F05CE1B501A5D005161D6 /* 043[可怜]@2x.png in Resources */,
+				E4FEB48D1C020FA400E4A153 /* my_selected@3x.png in Resources */,
 				365F05F21B501A5D005161D6 /* 061[OK]@2x.png in Resources */,
 				365F05CC1B501A5D005161D6 /* 042[咒骂]@2x.png in Resources */,
 				365F063C1B501A5D005161D6 /* 102[回头]@2x.png in Resources */,
 				365F06AA1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
 				C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */,
+				E4FEB47E1C020EED00E4A153 /* msg_selected@2x.png in Resources */,
 				365F05EA1B501A5D005161D6 /* 057[太阳]@2x.png in Resources */,
 				365F06361B501A5D005161D6 /* 099[发抖]@2x.png in Resources */,
 				365F05D21B501A5D005161D6 /* 045[难过]@2x.png in Resources */,
 				365F08AE1B50E094005161D6 /* 聊天对话框-BG-绿色@2x.png in Resources */,
 				365F05AE1B501A5D005161D6 /* 027[敲打]@2x.png in Resources */,
 				365F06861B501A5D005161D6 /* 睡觉@2x.png in Resources */,
+				E4FEB48A1C020F0600E4A153 /* msg@3x.png in Resources */,
 				365F08BC1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */,
 				E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */,
 				365F06081B501A5D005161D6 /* 072[乒乓]@2x.png in Resources */,
@@ -4205,6 +4286,7 @@
 				365F06671B501A5D005161D6 /* 定@2x.png in Resources */,
 				365F05971B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
 				365F06DD1B501A5D005161D6 /* 聊天键盘切换-btn-圆@3x.png in Resources */,
+				E4FEB4891C020F0600E4A153 /* msg@2x.png in Resources */,
 				365F08B91B50E292005161D6 /* 好友头像占位-bg-2行列表@3x.png in Resources */,
 				365F06831B501A5D005161D6 /* 疑问@2x.png in Resources */,
 				365F06AB1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
@@ -4298,6 +4380,7 @@
 				365F06C71B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png in Resources */,
 				365F06CD1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */,
 				365F05C31B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
+				E4FEB48B1C020F0600E4A153 /* msg@3x.png in Resources */,
 				365F06731B501A5D005161D6 /* 惊吓@2x.png in Resources */,
 				365F06AD1B501A5D005161D6 /* 聊天-icon-选择表情@2x.png in Resources */,
 				365F06091B501A5D005161D6 /* 072[乒乓]@2x.png in Resources */,
@@ -4454,6 +4537,7 @@
 				365F08341B50B138005161D6 /* GJGCChatFriendTalkModel.m in Sources */,
 				365F03D71B501A43005161D6 /* AFSecurityPolicy.m in Sources */,
 				C8DC49F11BEC781B00F2D161 /* ZYFriendServiceManager.m in Sources */,
+				E4FEB4731C0206F100E4A153 /* BTCustomTabBar.m in Sources */,
 				365F04031B501A43005161D6 /* UILabel+GJCFAssetsPickerStyle.m in Sources */,
 				E4FEB4281C017B8000E4A153 /* GJGCTagView.m in Sources */,
 				C8DC4A261BEC7B3500F2D161 /* JSONModelArray.m in Sources */,
@@ -4552,6 +4636,7 @@
 				C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */,
 				365F040D1B501A43005161D6 /* GJCFAssetsPickerOverlayView.m in Sources */,
 				365F04011B501A43005161D6 /* UIButton+GJCFAssetsPickerStyle.m in Sources */,
+				E4FEB4741C0206F100E4A153 /* BTCustomTabBarItem.m in Sources */,
 				365F08001B50B138005161D6 /* GJGCChatSystemInviteFriendJoinGroupCell.m in Sources */,
 				C8DC4A2A1BEC7B3500F2D161 /* JSONAPI.m in Sources */,
 				365F05561B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifPageItem.m in Sources */,
@@ -4692,6 +4777,7 @@
 				365F045F1B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
 				E4FEB41A1C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m in Sources */,
 				C81702A91BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m in Sources */,
+				E4FEB4751C0206F100E4A153 /* BTTabBarRootController.m in Sources */,
 				365F041F1B501A43005161D6 /* GJCFAudioFileUitil.m in Sources */,
 				C8F3B9DB1BF0B70E0057AF5B /* ZYDatabaseOperation.m in Sources */,
 				365F041D1B501A43005161D6 /* GJCFEncodeAndDecode.m in Sources */,

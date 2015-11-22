@@ -8,6 +8,7 @@
 
 #import "GJGCBaseViewController.h"
 #import "LeafNotification.h"
+#import "BTTabBarRootController.h"
 
 #define BUTTONMarginX    10
 #define BUTTONMarginUP   0
@@ -53,7 +54,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden = NO;
     //非根视图默认添加返回按钮
     if ([self.navigationController.viewControllers count] > 0
         && self != [self.navigationController.viewControllers objectAtIndex:0])
@@ -61,15 +61,20 @@
         [self setLeftButtonWithImageName:@"title-icon-向左返回" bgImageName:nil];
     }
     
-    if (self.isMainMoudle) {
-        self.tabBarController.tabBar.hidden = NO;
-    }else{
-        self.tabBarController.tabBar.hidden = YES;
+    BTTabBarRootController *tabBarController = (BTTabBarRootController *)self.tabBarController;
+    if ([tabBarController.class isSubclassOfClass:[BTTabBarRootController class]]) {
+        
+        if (self.isMainMoudle) {
+            
+            [tabBarController showTabBar];
+            
+        }else{
+            
+            [tabBarController hiddenTabBar];
+        }
     }
     
     [super viewWillAppear:animated];
-    
-    
 }
 
 - (void)leftButtonPressed:(UIButton *)sender

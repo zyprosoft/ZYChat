@@ -54,7 +54,7 @@
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.listTable];
     
-    [self.dataManager loadRecentConversations];
+    [self.dataManager performSelector:@selector(loadRecentConversations) withObject:nil afterDelay:2.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated

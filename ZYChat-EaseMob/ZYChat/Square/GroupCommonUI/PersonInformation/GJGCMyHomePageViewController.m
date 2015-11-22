@@ -11,8 +11,9 @@
 #import "Base64.h"
 #import "GJGCGroupPersonInformationShowMap.h"
 #import "GJGCChatGroupViewController.h"
+#import "GJGCMutilTextInputViewController.h"
 
-@interface GJGCMyHomePageViewController ()
+@interface GJGCMyHomePageViewController ()<GJGCMutilTextInputViewControllerDelegate>
 
 @end
 
@@ -21,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setStrNavTitle:@"我的"];
     
     [self setupMyInformation];
 }
@@ -49,6 +52,11 @@
     }
     
     /* 群等级 */
+    GJGCInformationCellContentModel *nicknameItem = nil;
+    nicknameItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:currentLoginUser.nickname  icon:@"详细地址icon.png" tagName:@"昵  称"];
+    [self.dataSourceManager addInformationItem:nicknameItem];
+    
+    /* 群等级 */
     GJGCInformationCellContentModel *levelItem = nil;
     levelItem = [GJGCGroupPersonInformationShowMap itemWithLevelValue:@"新手小白" tagName:@"等  级"];
     [self.dataSourceManager addInformationItem:levelItem];
@@ -56,7 +64,7 @@
     /* 群位置 */
     if (!GJCFStringIsNull(currentLoginUser.sex)) {
         
-        NSString *sex = currentLoginUser.sex == 0? @"男":@"女";
+        NSString *sex = [currentLoginUser.sex integerValue] == 0? @"男":@"女";
         
         GJGCInformationCellContentModel *locationItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:sex  icon:@"详细地址icon.png" tagName:@"性  别"];
         locationItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
@@ -66,6 +74,32 @@
     
     [self.informationListTable reloadData];
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCInformationCellContentModel *contentModel = (GJGCInformationCellContentModel *)[self.dataSourceManager contentModelAtIndex:indexPath.row];
+    
+    if ([contentModel.tag.string isEqualToString:@"昵  称"]) {
+        
+        GJGCMutilTextInputViewController *inputText = [[GJGCMutilTextInputViewController alloc]init];
+        inputText.title = @"修改昵称";
+        inputText.delegate = self;
+        
+        [self.navigationController pushViewController:inputText animated:YES];
+    }
+}
+
+#pragma mark - 昵称输入回调
+
+- (void)mutilTextInputViewController:(GJGCMutilTextInputViewController *)inputViewController didFinishInputText:(NSString *)text
+{
+    if (GJCFStringIsNull(text)) {
+        return;
+    }
+    [[ZYUserCenter shareCenter] updateNickname:text];
+    [self.dataSourceManager removeAllData];
+    [self  setupMyInformation];
 }
 
 @end
