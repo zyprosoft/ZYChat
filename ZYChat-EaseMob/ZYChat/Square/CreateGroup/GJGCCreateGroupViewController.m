@@ -205,6 +205,7 @@
         {
             GJGCMutilTextInputViewController *mutilInput = [[GJGCMutilTextInputViewController alloc]init];
             mutilInput.delegate = self;
+            mutilInput.title = @"填写群简介";
             [self.navigationController pushViewController:mutilInput animated:YES];
         }
             break;
