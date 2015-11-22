@@ -2,8 +2,8 @@
 //  BTTimeActionSheetViewController.h
 //  ZYChat
 //
-//  Created by ZYVincent on 15/9/6.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/9/6.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "BTActionSheetViewController.h"

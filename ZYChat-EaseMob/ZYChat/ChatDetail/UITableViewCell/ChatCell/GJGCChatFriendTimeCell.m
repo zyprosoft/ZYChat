@@ -2,7 +2,7 @@
 //  GJGCChatFriendTimeCell.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-12-26.
+//  Created by ZYVincent QQ:1003081775 on 14-12-26.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 

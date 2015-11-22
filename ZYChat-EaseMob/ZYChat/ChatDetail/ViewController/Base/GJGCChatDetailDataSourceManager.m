@@ -2,13 +2,14 @@
 //  GJGCChatDetailDataSourceManager.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-3.
+//  Created by ZYVincent QQ:1003081775 on 14-11-3.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
 #import "GJGCChatDetailDataSourceManager.h"
 #import "GJGCMessageExtendModel.h"
 #import "GJGCGIFLoadManager.h"
+#import "EMMessage.h"
 
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
 
@@ -942,7 +943,17 @@
     extendInfo.userInfo = [[ZYUserCenter shareCenter]extendUserInfo];
     extendInfo.isExtendMessageContent = NO;
     sendMessage.ext = [extendInfo contentDictionary];
-    NSLog(@"sendMessage Ext:%@",sendMessage.ext);
+    
+    //添加群组扩展信息
+    if (self.taklInfo.talkType == GJGCChatFriendTalkTypeGroup) {
+        GJGCMessageExtendGroupModel *groupInfo = [[GJGCMessageExtendGroupModel alloc]init];
+        
+        groupInfo.groupName = self.taklInfo.groupInfo.groupName;
+        groupInfo.groupHeadThumb = self.taklInfo.groupInfo.groupHeadThumb;
+
+        extendInfo.isGroupMessage = YES;
+        extendInfo.groupInfo = groupInfo;
+    }
     
     //发送扩展类型的消息
     switch (messageContent.contentType) {
@@ -958,10 +969,9 @@
             
             messageContent.originTextMessage = gifContent.notSupportDisplayText;
             sendMessage = [self sendTextMessage:messageContent];
-
+            
             extendInfo.messageContent = gifContent;
             extendInfo.chatFriendContentType = messageContent.contentType;
-            sendMessage.ext = [extendInfo contentDictionary];
         }
             break;
         case GJGCChatFriendContentTypeMini:
@@ -972,6 +982,20 @@
         default:
             break;
     }
+    
+    //设置消息类型
+    switch (messageContent.talkType) {
+        case GJGCChatFriendTalkTypePrivate:
+            sendMessage.messageType = eMessageTypeChat;
+            break;
+        case GJGCChatFriendTalkTypeGroup:
+            sendMessage.messageType = eMessageTypeGroupChat;
+            break;
+        default:
+            break;
+    }
+    sendMessage.ext = [extendInfo contentDictionary];
+    NSLog(@"sendMessage Ext:%@",sendMessage.ext);
     
     GJCFWeakSelf weakSelf = self;
     EMMessage *resultMessage = [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:self prepare:^(EMMessage *message, EMError *error) {
@@ -1131,6 +1155,17 @@
         
         dispatch_source_merge_data(self.refreshListSource, 1);
     }
+}
+
+
+- (NSDictionary *)easeMessageStateRleations
+{
+    return @{
+             @(eMessageDeliveryState_Delivered):@(GJGCChatFriendSendMessageStatusSuccess),
+             @(eMessageDeliveryState_Delivering):@(GJGCChatFriendSendMessageStatusSending),
+             @(eMessageDeliveryState_Pending):@(GJGCChatFriendSendMessageStatusSending),
+             @(eMessageDeliveryState_Failure):@(GJGCChatFriendSendMessageStatusFaild),
+             };
 }
 
 @end

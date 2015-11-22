@@ -1,0 +1,1120 @@
+//
+//  GJGCGroupInformationViewController.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-10.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCGroupInformationViewController.h"
+#import "GJCURoundCornerButton.h"
+#import "GJGCPGGroupMemberListViewController.h"
+#import "GJGCGroupPersonInformationShowMap.h"
+#import "GJGCPersonInformationViewController.h"
+#import "GJGCPGGroupManagerHeader.h"
+#import "GJGCCallbackManagerHeader.h"
+#import "GJGCCreatePGGroupViewController.h"
+#import "GJGCChatGroupViewController.h"
+#import "GJGCGroupSetViewController.h"
+#import "GJGCReportViewController.h"
+#import "GJGCInvitFriendViewController.h"
+#import "GJGCHostReferProtocolsNew.h"
+#import "Objection.h"
+#import "GJGCDefaultBlankView.h"
+#import "GJGCGroupLocationViewController.h"
+#import "GJGCUtilHelper.h"
+#import "GJGCNetworkStatusManager.h"
+#import "GJGCPermissionManger.h"
+#import "GJGCApplyReasonViewController.h"
+#import "GJGCUtilHelper.h"
+#import "GJGCDiscoveryConstant.h"
+#import "GJGCPGGroupInfoDataBaseApi.h"
+
+#define GJGC_TAG_Alert_Dissolve 444  // 解散群组
+#define GJGC_STR_Alert_Dissolve @"是否解散该群组"
+#define GJGC_TAG_Alert_Quit 555      // 退出群组
+#define GJGC_STR_Alert_quit @"是否退出该群组"
+
+#define GJGC_TAG_BottomView 2000         // 底部视图
+#define GJGC_TAG_JoinInGroupButton 2001  // 加群按钮
+#define GJGC_TAG_ChatSetButton 2002      // 聊天设置
+#define GJGC_TAG_QuitGroupButton 2003   // 退出群组
+#define GJGC_STR_ActionSet @"聊天设置"
+
+@interface GJGCGroupInformationViewController ()<UIActionSheetDelegate,GJGCCallbackObserverDelegate,UIAlertViewDelegate>
+
+@property (nonatomic,assign)BOOL isGroupMember;
+
+@property (nonatomic,strong)GJGCPGGroupModel *currentGroupModel;
+
+@property (nonatomic,assign) GJGCPGGroupInfoEditType groupInfoEditType; // 群信息编辑模式
+@property (nonatomic,strong) GJGCDefaultBlankView *blankView;          // 小驴图
+@property (nonatomic,assign) BOOL isQuitCurrentGroup;                   // 是否退出了当前群组
+
+@end
+
+@implementation GJGCGroupInformationViewController
+
+objection_initializer(initWithH5GroupId:)
+
+- (void)dealloc
+{
+    self.informationListTable.delegate = nil;
+    self.informationListTable.dataSource = nil;
+    self.informationListTable = nil;
+    [self removeObserver];
+}
+
+- (instancetype)initWithGroupId:(long long)groupId
+{
+    if (self = [super init]) {
+        
+        self.groupId = groupId;
+    }
+    return self;
+}
+
+- (instancetype)initWithH5GroupId:(NSString *)groupId
+{
+    if (self = [super init]) {
+        
+        self.groupId = [groupId longLongValue];
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self addObserver];
+    [self setStrNavTitle:@"群资料"];
+    
+    // 展示群资料
+    [GJGCUtilHelper addGanjiLog:@"12053" params:nil];
+    
+    _isQuitCurrentGroup = NO;
+    if (GJCFSystemVersionIs7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    self.currentGroupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:self.groupId];
+    if (self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupUnUser || self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupNone) {
+        self.isGroupMember = NO;
+    }else{
+        self.isGroupMember = YES;
+    }
+    GJGCLogVincent(@"isGrouMember:%d",self.isGroupMember);
+    if (self.isGroupMember) {
+        [self setRightButtonWithTitle:@"更多"];
+    }
+    
+    if (self.groupId != NSNotFound) {
+        GJGCPGGroupModel *selectGroup = [[GJGCPGGroupInfoDataBaseApi share] selectPGGroupById:self.groupId];
+        if (selectGroup && selectGroup.picUrls && selectGroup.picUrls.count > 0) {
+            self.currentGroupModel = selectGroup;
+            [self getGroupInfoResult:YES resultModel:selectGroup withErrorMsg:nil];
+        }
+        else {
+            self.informationListTable.hidden = YES;
+            [self showBlankViewWithType:GJGCDefaultBlankPicTypeLoading string:STR_Loading];
+        }
+        [self getGroupDetailInfo];
+    }
+    
+    // 设置触摸时间唯一性,避免多点点击
+    self.view.exclusiveTouch = YES;
+    self.informationListTable.exclusiveTouch = YES;
+}
+
+-(void)leftButtonPressed:(id)sender
+{
+    if (_isQuitCurrentGroup) {
+        // 退出了该群组,
+        NSArray *viewControllArr = [GJGCUIStackManager share].stackRootNav.viewControllers;
+        UIViewController *popToViewController = nil;
+        for (NSInteger i = viewControllArr.count - 1; i >= 0; i--) {
+            UIViewController *reduceViewC = (UIViewController*)viewControllArr[i];
+            if ([reduceViewC isKindOfClass:NSClassFromString(@"GJGCChatGroupViewController")]) {
+                popToViewController = (UIViewController*)viewControllArr[i-1];
+                break;
+            }
+        }
+        if (popToViewController) {
+            [[GJGCUIStackManager share] popToViewController:popToViewController animated:YES];
+        }
+        else {
+            [[GJGCUIStackManager share] popViewControllerAnimated:YES];
+        }
+    }
+    else {
+        [[GJGCUIStackManager share] popViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - 内部方法
+
+- (void)initBottomBar
+{
+    if (self.isGroupMember) {
+        [self setRightButtonWithTitle:@"更多"];
+    }
+    
+    self.informationListTable.showsHorizontalScrollIndicator = NO;
+    self.informationListTable.showsVerticalScrollIndicator = NO;
+    if (self.informationListTable.gjcf_height == GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - GJCFSystemOriginYDelta) {
+        self.informationListTable.gjcf_height = GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - GJCFSystemOriginYDelta - 44;
+    }
+    if (GJCFSystemVersionIs7) {
+        self.informationListTable.gjcf_height = GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - GJCFSystemOriginYDelta - 44;
+    }
+    
+    GJCURoundCornerButton *roundBack = (GJCURoundCornerButton*)[self.view viewWithTag:GJGC_TAG_BottomView];
+    if (!roundBack) {
+        // 当前不存在
+        roundBack = [[GJCURoundCornerButton alloc]init];
+        roundBack.tag = GJGC_TAG_BottomView;
+        
+        roundBack.cornerBackView.drawnBordersSides = GJCUDrawnBorderSidesTop;
+        roundBack.cornerBackView.borderColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
+        roundBack.cornerBackView.borderWidth = 1.f;
+        roundBack.cornerBackView.roundedCorners = GJCURoundedCornerNone;
+        roundBack.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+        [self.view addSubview:roundBack];
+        CGFloat barTop = GJCFSystemScreenHeight - GJCFSystemNavigationBarHeight - GJCFSystemOriginYDelta - 44;
+        [roundBack makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(0);
+            make.top.equalTo(barTop);
+            make.width.equalTo(GJCFSystemScreenWidth);
+            make.height.equalTo(44);
+        }];
+    }
+    
+    UIButton *chatButton = (UIButton*)[roundBack viewWithTag:GJGC_TAG_JoinInGroupButton];
+    if (!chatButton) {
+        chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        chatButton.tag = GJGC_TAG_JoinInGroupButton;
+        
+        chatButton.layer.cornerRadius = 3.f;
+        chatButton.layer.masksToBounds = YES;
+        [chatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        chatButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        [chatButton setTitle:@"申请加入该群" forState:UIControlStateNormal];
+        
+        CGFloat buttonWidth = GJCFSystemScreenWidth/3>(float)120.0?GJCFSystemScreenWidth/3:120.0;
+        CGSize chatSize = CGSizeMake(buttonWidth, 33);
+        
+        [chatButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], chatSize) forState:UIControlStateNormal];
+        [roundBack addSubview:chatButton];
+        [chatButton addTarget:self action:@selector(applyJoinGroupAction) forControlEvents:UIControlEventTouchUpInside];
+        __weak typeof(GJCURoundCornerButton*)weakRoundBut = roundBack;
+        [chatButton makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(buttonWidth);
+            make.height.equalTo(33);
+            make.center.equalTo(weakRoundBut);
+        }];
+    }
+    
+    if (self.isGroupMember) {
+        
+        [chatButton setTitle:@"聊天" forState:UIControlStateNormal];
+        
+        [chatButton removeTarget:self action:@selector(applyJoinGroupAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [chatButton addTarget:self action:@selector(startGroupChat) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (self.currentGroupModel.authority != GJGCPGGroupAuthorityPGGroupOwner) {
+            
+            CGFloat buttonWidth = GJCFSystemScreenWidth/3>(float)120.0?GJCFSystemScreenWidth/3:120.0;
+            UIButton *quitButton = (UIButton *)[roundBack viewWithTag:GJGC_TAG_QuitGroupButton];
+            if (!quitButton) {
+                quitButton =[UIButton buttonWithType:UIButtonTypeCustom];
+                quitButton.tag = GJGC_TAG_QuitGroupButton;
+                
+                quitButton.layer.cornerRadius = 3.f;
+                quitButton.layer.masksToBounds = YES;
+                [quitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                quitButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+                [quitButton setTitle:@"退出该群" forState:UIControlStateNormal];
+                
+                
+                CGSize chatSize = CGSizeMake(buttonWidth, 33);
+                
+                [quitButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], chatSize) forState:UIControlStateNormal];
+                [roundBack addSubview:quitButton];
+                [quitButton addTarget:self action:@selector(quitGroup) forControlEvents:UIControlEventTouchUpInside];
+            }
+            
+            
+            __weak typeof(GJCURoundCornerButton*)weakRoundBut = roundBack;
+            [chatButton makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(buttonWidth);
+                make.height.equalTo(33);
+                make.center.equalTo(weakRoundBut);
+                make.centerX.equalTo(weakRoundBut).offset(-(buttonWidth/2 + 10));
+            }];
+            
+            
+            [quitButton makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(buttonWidth);
+                make.height.equalTo(33);
+                make.centerY.equalTo(weakRoundBut);
+                make.centerX.equalTo(weakRoundBut).offset((buttonWidth/2) + 10);
+            }];
+        }
+        
+        
+        
+    }
+}
+
+/**
+ *  退出群后 更新界面
+ */
+-(void)resetViewAfterQuit
+{
+    _isQuitCurrentGroup = YES;
+    [self setRightButtonHiden:YES];
+    
+    GJCURoundCornerButton *bottomView = (GJCURoundCornerButton*)[self.view viewWithTag:GJGC_TAG_BottomView];
+    
+    UIButton *joinBut = (UIButton*)[bottomView viewWithTag:GJGC_TAG_JoinInGroupButton];
+    [joinBut removeTarget:self action:@selector(startGroupChat) forControlEvents:UIControlEventTouchUpInside];
+    [joinBut addTarget:self action:@selector(applyJoinGroupAction) forControlEvents:UIControlEventTouchUpInside];
+    [joinBut setTitle:@"申请加入该群" forState:UIControlStateNormal];
+    
+    CGFloat buttonWidth = GJCFSystemScreenWidth/3>(float)120.0?GJCFSystemScreenWidth/3:120.0;
+    __weak typeof(GJCURoundCornerButton*)weakBottom = bottomView;
+    [joinBut remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(buttonWidth);
+        make.height.equalTo(33);
+        make.center.equalTo(weakBottom);
+    }];
+    
+    UIButton *quitButton = (UIButton *)[bottomView viewWithTag:GJGC_TAG_QuitGroupButton];
+    [quitButton removeFromSuperview];
+    
+    UIButton *chatSetBut = (UIButton*)[bottomView viewWithTag:GJGC_TAG_ChatSetButton];
+    chatSetBut.hidden = YES;
+}
+
+-(void)showBlankViewWithType:(GJGCDefaultBlankPicType)picType string:(NSString*)aStr
+{
+    if (!aStr || aStr.length <= 0) {
+        aStr = @"未知错误";
+    }
+    if (!_blankView) {
+        _blankView = [[GJGCDefaultBlankView alloc] initWithType:picType title:aStr];
+        [self.view insertSubview:_blankView belowSubview:self.informationListTable];
+        //[self.view addSubview:_blankView];
+        _blankView.center = self.view.center;
+        _blankView.gjcf_centerY = self.view.center.y - 35;
+    }
+    else {
+        [_blankView setShowType:picType title:aStr];
+    }
+    if (self.informationListTable.hidden) {
+        // 没有显示列表时,显示小驴图
+        _blankView.hidden = NO;
+    }
+    else {
+        _blankView.hidden = YES;
+    }
+    if ([aStr isEqualToString:@"群不存在"]) {
+        // 群不存在,隐藏列表 并 隐藏底部按钮
+        _blankView.hidden = NO;
+        self.informationListTable.hidden = YES;
+        [self.dataSourceManager removeAllData];
+        [self.informationListTable reloadData];
+        GJCURoundCornerButton *bottomView = (GJCURoundCornerButton*)[self.view viewWithTag:GJGC_TAG_BottomView];
+        bottomView.hidden = YES;
+    }
+}
+
+-(void)hideBlackView
+{
+    if (_blankView) {
+        _blankView.hidden = YES;
+    }
+    self.informationListTable.hidden = NO;
+}
+
+-(void)showNoNetworkState
+{
+    if (self.informationListTable.hidden) {
+        // 群组列表 没有隐藏
+        GJCURoundCornerButton *bottomView = (GJCURoundCornerButton*)[self.view viewWithTag:GJGC_TAG_BottomView];
+        [self showBlankViewWithType:GJGCDefaultBlankPicTypeNN string:STR_NoNetWork];
+        bottomView.hidden = YES;
+    }
+}
+
+#pragma mark - 申请加群
+- (void)applyJoinGroupAction
+{
+    if (![self groupLogincheck]) {
+        return;
+    }
+    
+    [GJGCUtilHelper addGanjiLog:@"12054" params:[NSArray arrayWithObject:@"3"]];
+    if (self.currentGroupModel.authType == 1) {
+        // 不需要验证(申请理由)
+        [self.statusHUD showWithStatusText:GJGC_MESSAGE_DoSomething];
+        [GJGCPGGroupManagerNetOperateHandle applyJoinPGGroupBySelf:self.groupId reason:@""];
+    }
+    else {
+        GJGCApplyReasonViewController *applyReasonVc = [[GJGCApplyReasonViewController alloc] initWithGroupId:self.currentGroupModel.groupId];
+        [[GJGCUIStackManager share]pushViewController:applyReasonVc animated:YES];
+    }
+}
+
+#pragma mark - 退出群组
+/**
+ *  退出群组，弹出提示
+ */
+- (void)quitGroup
+{
+    GJGCLogJunJie(@"退出该群");
+    UIAlertView *dissolveAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:GJGC_STR_Alert_quit delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    dissolveAlert.tag = GJGC_TAG_Alert_Quit;
+    [dissolveAlert show];
+}
+
+#pragma mark - 开始聊天
+/**
+ *  群组登录检测
+ *
+ *  @return NO:未登录
+ */
+-(BOOL)groupLogincheck
+{
+    BOOL result = [GJGCUser share].isGroupUser;
+    if (!result) {
+        // 非群组用户
+        [[[GJGCPermissionManger alloc] init] validateUser:^(NSDictionary *params) {
+            // 登录成功
+            self.currentGroupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:self.groupId];
+            if (self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupUnUser || self.currentGroupModel.authority == GJGCPGGroupAuthorityPGGroupNone) {
+                self.isGroupMember = NO;
+            }else{
+                self.isGroupMember = YES;
+            }
+            [self initBottomBar];
+            // 重新请求网络
+            [self getGroupDetailInfo];
+        } noPassBlock:^(NSDictionary *params) {
+            //
+        } popBackViewController:self];
+    }
+    return result;
+}
+
+
+- (void)startGroupChat
+{
+    if (![self groupLogincheck]) {
+        return;
+    }
+    
+    [GJGCUtilHelper addGanjiLog:@"12054" params:[NSArray arrayWithObject:@"1"]];
+    GJGCUIStackManager *statckManager = [GJGCUIStackManager share];
+    NSArray *viewControllArr = nil;
+    if (statckManager.isPresentState && statckManager.presentControllerArray && statckManager.presentControllerArray.count > 0) {
+        // 当前处于Present状态
+        UINavigationController *theNavGation = (UINavigationController *)[statckManager.presentControllerArray lastObject];
+        viewControllArr = theNavGation.viewControllers;
+    }
+    else {
+        viewControllArr = [GJGCUIStackManager share].stackRootNav.viewControllers;
+    }
+    
+    UIViewController *popToViewController = nil;
+    if (viewControllArr.count-1-1 < viewControllArr.count - 1) {
+        popToViewController = viewControllArr[viewControllArr.count-1-1];
+    }
+    if ( popToViewController && [NSStringFromClass(popToViewController.class) isEqualToString:@"GJGCChatGroupViewController"]) {
+        [[GJGCUIStackManager share] popToViewController:popToViewController animated:YES];
+    }
+    else {
+        GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+        talk.toId = GJCFStringFromInt(self.groupId);
+        talk.toUserName = self.currentGroupModel.name;
+        talk.talkType = GJGCChatFriendTalkTypeGroup;
+        
+        GJGCChatGroupViewController *groupChat = [[GJGCChatGroupViewController alloc]initWithTalkInfo:talk];
+        [[GJGCUIStackManager share]pushViewController:groupChat animated:YES];
+    }
+}
+
+/**
+ *  聊天设置
+ */
+-(void)groupChatSet:(UIButton *)setBut
+{
+    [GJGCUtilHelper addGanjiLog:@"12054" params:[NSArray arrayWithObject:@"2"]];
+    GJGCGroupSetViewController *chatSetVc = [[GJGCGroupSetViewController alloc] initWithType:GJGCMessageSetTypeGroup theID:[NSString stringWithFormat:@"%lld",_currentGroupModel.groupId]];
+    [[GJGCUIStackManager share] pushViewController:chatSetVc animated:YES];
+}
+
+- (void)rightButtonPressed:(id)sender
+{
+    if (![self groupLogincheck] || !self.isGroupMember) {
+        return;
+    }
+    //    if ([GJGCNetworkStatusManager share].status == GJGCNetStatusNoReachable) {
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":STR_NoNetWork}];
+    //        return;
+    //    }
+    //GJGCPGGroupModel *groupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:self.groupId];
+    // 70010609
+    //switch (groupModel.authority) {
+    switch (self.currentGroupModel.authority) {
+        case GJGCPGGroupAuthorityPGGroupOwner:
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"群资料修改",@"解散该群",GJGC_STR_ActionSet,nil];
+            [actionSheet showInView:self.view];
+            
+        }
+            break;
+        case GJGCPGGroupAuthorityPGGroupUser:
+        case GJGCPGGroupAuthorityPGGroupManager:
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报该群",GJGC_STR_ActionSet, nil];
+            [actionSheet showInView:self.view];
+            
+        }
+            break;
+        case GJGCPGGroupAuthorityPGGroupSuperManager:
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"卸任群主",GJGC_STR_ActionSet,nil];
+            [actionSheet showInView:self.view];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - 设置资料
+- (void)createInformationListWithGroupModel:(GJGCPGGroupModel *)groupModel
+{
+    [self.dataSourceManager removeAllData];
+    
+    /* 群相册 */
+    if (groupModel.picUrls) {
+        NSString *distanceStr = [NSString stringWithFormat:@"%@",[groupModel getComputDistance]];
+        if ([distanceStr rangeOfString:@"null"].location != NSNotFound || [@"0m" isEqualToString:distanceStr]) {
+            distanceStr = @"";
+        }
+        GJGCInformationCellContentModel *photoBoxItem = [GJGCGroupPersonInformationShowMap itemWithGroupPhotoBox:groupModel.picUrls name:groupModel.name distance:distanceStr tagName:@"群相册"];
+        
+        [self.dataSourceManager addInformationItem:photoBoxItem];
+        
+    }
+    
+    /* 群账号 */
+    if (groupModel.groupId) {
+        
+        GJGCInformationCellContentModel *accountItem = [GJGCGroupPersonInformationShowMap itemWithContentValueBaseText:GJCFStringFromInt(groupModel.groupId) tagName:@"群  账  号"];
+        accountItem.topLineMargin = 13.f;
+        accountItem.seprateStyle = GJGCInformationSeprateLineStyleTopFullBottomShort;
+        
+        [self.dataSourceManager addInformationItem:accountItem];
+        
+    }
+    
+    /* 群等级 */
+    GJGCInformationCellContentModel *levelItem = nil;
+    if (groupModel.level != NSNotFound) {
+        
+        levelItem = [GJGCGroupPersonInformationShowMap itemWithLevelValue:GJCFStringFromInt(groupModel.level) tagName:@"群  等  级"];
+        
+        [self.dataSourceManager addInformationItem:levelItem];
+    }
+    
+    /* 群位置 */
+    if (!GJCFStringIsNull(groupModel.location)) {
+        
+        GJGCInformationCellContentModel *locationItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:groupModel.location icon:@"详细地址icon.png" tagName:@"群  位  置"];
+        locationItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
+        locationItem.isIconShowMap = YES;
+        [self.dataSourceManager addInformationItem:locationItem];
+        
+    }else{
+        
+        /* 改变群等级样式 */
+        if (levelItem) {
+            levelItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
+        }
+        
+    }
+    
+    /* 群主  */
+    //if (groupModel.owner && self.currentGroupModel.authority != GJGCPGGroupMemberAuthorityPGGroupOwner) {
+    // 群主查看自己的群组,不显示群组 一栏
+    if (groupModel.owner) {
+        NSString *name = [groupModel.owner objectForKey:@"nickName"];
+        long long ownerID = [[groupModel.owner objectForKey:@"userId"] longLongValue];
+        // 性别
+        NSString *gender = [groupModel.owner objectForKey:@"gender"];
+        
+        NSString *avatar = [GJGCUtilHelper headerUrl:CGSizeMake(56, 56) userId:ownerID];
+        if (ownerID == (long long)0) {
+            // 系统账号,不需要显示头像
+            name = [NSString stringWithFormat:@"暂无群主"];
+        }
+        else {
+            
+        }
+        GJGCInformationCellContentModel *ownerItem = nil;
+        if (ownerID == (long long)0) {
+            // 系统账号,不需要显示头像,不支持点击,不显示向右箭头
+            ownerItem = [GJGCGroupPersonInformationShowMap itemWithContentValueBaseText:name tagName:@"群       主"];
+        }
+        else {
+            ownerItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:name icon:avatar tagName:@"群       主"];
+            ownerItem.isShowOwnerIcon = YES;
+            ownerItem.isIconShowGroupOwner = YES;
+        }
+        ownerItem.topLineMargin = 13.f;
+        ownerItem.personUserId = [[groupModel.owner objectForKey:@"userId"] longLongValue];
+        ownerItem.seprateStyle = GJGCInformationSeprateLineStyleTopFullBottomShort;
+        // 是否 美女群主
+        if ([@"女" isEqualToString:gender]) {
+            ownerItem.groupAttrTagStr = @"美女群主";
+        }
+        else {
+            ownerItem.groupAttrTagStr = @"";
+        }
+        
+        [self.dataSourceManager addInformationItem:ownerItem];
+    }
+    
+    /* 群成员 */
+    if (groupModel.members) {
+        
+        NSMutableArray *memberModelArray = [NSMutableArray array];
+        
+        for (int i = 0; i < groupModel.members.count; i++) {
+            NSDictionary *memberDict = [groupModel.members objectAtIndex:i];
+            NSString *userIdStr = [NSString stringWithFormat:@"%@",memberDict[@"userId"]];
+            if (![@"0" isEqualToString:userIdStr]) {
+                // 系统账号无需添加
+                //[memberModelArray addObject:[memberDict objectForKey:@"avatar"]];
+                [memberModelArray addObject:memberDict];
+            }
+        }
+        NSString *memberCount = [NSString stringWithFormat:@"%lu位",(long)groupModel.currentCount];
+        GJGCInformationCellContentModel *memberItem = [GJGCGroupPersonInformationShowMap itemWithMemberShow:memberModelArray text:memberCount tagName:@"群  成  员"];
+        memberItem.isGroupMember = self.isGroupMember;
+        memberItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
+        if (groupModel.expandLabels.count > 0) {
+            NSString *expandStr = groupModel.expandLabels[0];
+            memberItem.groupAttrTagStr = expandStr;
+        }
+        else {
+            memberItem.groupAttrTagStr = @"";
+        }
+        
+        [self.dataSourceManager addInformationItem:memberItem];
+        
+    }
+    
+    /* 群标签 */
+    if (groupModel.labels) {
+        
+        NSMutableString *combineString = [NSMutableString string];
+        
+        for (NSInteger i = 0; i < groupModel.labels.count ; i++) {
+            
+            NSString *label = [groupModel.labels objectAtIndex:i];
+            
+            if (i != groupModel.labels.count - 1) {
+                //[combineString appendFormat:@"%@        ",label];
+                [combineString appendFormat:@"%@ ",label];
+            }else{
+                [combineString appendFormat:@"%@",label];
+            }
+            
+        }
+        if (combineString.length <= 0) {
+            [combineString appendString:@" "];
+        }
+        
+        GJGCInformationCellContentModel *labelItem = [GJGCGroupPersonInformationShowMap itemWithContentValueSummaryText:combineString tagName:@"群  标  签"];
+        labelItem.topLineMargin = 13.f;
+        labelItem.seprateStyle = GJGCInformationSeprateLineStyleTopFullBottomShort;
+        
+        [self.dataSourceManager addInformationItem:labelItem];
+        
+    }
+    
+    /* 创建时间 */
+    GJGCInformationCellContentModel *createTimeItem = nil;
+    if (groupModel.createTime != NSNotFound) {
+        
+        // 修改群注册时间 (精确到日期)
+        NSString *createDateString = GJCFDateToString(GJCFDateFromTimeInterval(groupModel.createTime));
+        createDateString = [createDateString componentsSeparatedByString:@" "][0];
+        if (createDateString.length <= 0) {
+            createDateString = GJCFDateToString(GJCFDateFromTimeInterval(groupModel.createTime));
+        }
+        
+        createTimeItem = [GJGCGroupPersonInformationShowMap itemWithContentValueBaseText:createDateString tagName:@"创建时间"];
+        
+        /* 如果没有群简介，那么需要改结束风格 */
+        if (GJCFStringIsNull(groupModel.introduction)) {
+            createTimeItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
+            createTimeItem.baseLineMargin = 13.f;
+        }
+        
+        [self.dataSourceManager addInformationItem:createTimeItem];
+    }
+    
+    /* 群简介 */
+    if (!GJCFStringIsNull(groupModel.introduction)) {
+        
+        GJGCInformationCellContentModel *introducItem = [GJGCGroupPersonInformationShowMap itemWithContentValueSummaryText:groupModel.introduction tagName:@"群  简  介"];
+        introducItem.baseLineMargin = 13.f;
+        introducItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomFull;
+        
+        [self.dataSourceManager addInformationItem:introducItem];
+        
+    }
+    
+    if (groupModel) {
+        [self hideBlackView];
+    }
+    [self.informationListTable reloadData];
+}
+
+
+#pragma mark - tableView delegate 重载
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /* 加入的群组被选中 */
+    GJGCInformationCellContentModel *contentModel = (GJGCInformationCellContentModel *)[self.dataSourceManager contentModelAtIndex:indexPath.row];
+    if (contentModel.baseContentType == GJGCInformationContentTypeMemberShow) {
+        
+        GJGCPGGroupModel *pgGroup = [[GJGCPGGroupModel alloc]init];
+        pgGroup.groupId = self.groupId;
+        
+        GJGCPGGroupMemberListViewController *memberListVC = [[GJGCPGGroupMemberListViewController alloc]initWithNibName:@"GJGCPGGroupMemberListViewController" bundle:nil group:self.currentGroupModel];
+        if (self.currentGroupModel.authority == GJGCPGGroupMemberAuthorityPGGroupManager) {
+            memberListVC.myGroupAuthority = GJGCPGGroupMemberAuthorityPGGroupManager;
+        }
+        else if (self.currentGroupModel.authority == GJGCPGGroupMemberAuthorityPGGroupOwner) {
+            memberListVC.myGroupAuthority = GJGCPGGroupMemberAuthorityPGGroupOwner;
+        }
+        
+        [[GJGCUIStackManager share]pushViewController:memberListVC animated:YES];
+        
+        return;
+    }
+    
+    /* 群主被选中 */
+    if (contentModel.baseContentType == GJGCInformationContentTypeBaseTextAndIcon) {
+        
+        if (contentModel.isIconShowGroupOwner) {
+            
+            GJGCPersonInformationViewController *personInformationVC = [[GJGCPersonInformationViewController alloc]initWithUserId:contentModel.personUserId reportType:GJGCReportTypePerson];
+            [[GJGCUIStackManager share]pushViewController:personInformationVC animated:YES];
+        }
+    }
+    
+    /* 群等级点击 */
+    if (contentModel.baseContentType == GJGCInformationContentTypeLevelType) {
+        UIViewController<GJGCH5PageViewControllerProtocol> *h5VC = [[JSObjection defaultInjector] getObject:@protocol(GJGCH5PageViewControllerProtocol)];
+        if (h5VC) {
+            [h5VC setTitle:@"群等级"];
+            
+            NSString *groupLevelUrl = [NSString stringWithFormat:@"http://sta.ganji.com/ng/app/client/common/index.html#app/client/app/group_chat/chat/view/level_group.js?group_id=%lld",self.groupId];
+            [h5VC setLoadUrl:groupLevelUrl];
+            h5VC.hidesBottomBarWhenPushed = YES;
+            [[GJGCUIStackManager share] pushViewController:h5VC animated:YES];
+            
+        }
+        
+    }
+    
+    /* 群位置点击 */
+    if (contentModel.baseContentType == GJGCInformationContentTypeBaseTextAndIcon) {
+        if (contentModel.isIconShowMap) {
+            // 纬度
+            NSString *latitude = self.currentGroupModel.latitude;
+            // 经度
+            NSString *longitude = self.currentGroupModel.longitude;
+            CLLocation *realCoor = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
+            GJGCGroupLocationViewController *groupLocationMap = [[GJGCGroupLocationViewController alloc] initWithCLLocation:realCoor title:@"群位置"];
+            [[GJGCUIStackManager share] pushViewController:groupLocationMap animated:YES];
+        }
+    }
+    
+    /* 群账号点击 */
+    if(contentModel.baseContentType == GJGCInformationContentTypeBaseTextContent)
+    {
+        if (contentModel.isGroupAccount) {
+            NSObject<GJGCShareSocialProtocol> *shareData = [[JSObjection defaultInjector] getObject:@protocol(GJGCShareSocialProtocol)];
+            UIViewController<GJGCShareViewControllerProtocol> *shareViewController = [[JSObjection defaultInjector] getObject:@protocol(GJGCShareViewControllerProtocol)];
+            if (shareData && shareViewController) {
+                
+                [shareData setShareURL:[NSString stringWithFormat:@"http://sta.ganji.com/ng/app/client/common/index.html#app/client/app/group_chat/chat/view/share.js?group_id=%lld",self.groupId]];
+                
+                NSString *url = self.currentGroupModel.avatar;
+                if (![url hasPrefix:@"http"]) {
+                    url = [NSString stringWithFormat:@"%@/%@",GJGC_Host_imgServerDomain,url];
+                }
+                //shareData.shareImageURL = url;
+                
+                UIImage *headImage = nil;
+                NSData *imageData = nil;
+                /* 检测默认缓存是否有这个图片 */
+                if (GJCFFileIsExist([self imageUrlToDefaultCachePath:url])) {
+                    UIImage *tempImage = GJCFQuickImageByFilePath([self imageUrlToDefaultCachePath:url]);
+                    imageData = UIImageJPEGRepresentation(tempImage, 0.1);
+                    headImage = [UIImage imageWithData:imageData];
+                }
+                else {
+                    headImage = GJCFQuickImage(@"群组头像占位-bg-3行列表");
+                    imageData = UIImageJPEGRepresentation(headImage, 0.1);
+                }
+                
+                shareData.shareImageForWX = headImage;
+                shareData.shareImageDataForWB = imageData;
+                shareData.shareTitle = [NSString stringWithFormat:@"\"%@\"等你来加入",self.currentGroupModel.name];
+                shareData.shareDescription = [NSString stringWithFormat:@"一个微小的群组，让心中的爱有个着落。找老乡，上赶集。"];
+                
+                [shareViewController loadShareData:shareData withShareType:@[@(2),@(3),@(5)]];
+                
+                GJGCUIStackManager *stackManager = [GJGCUIStackManager share];
+                UIViewController *theViewController = nil;
+                if (stackManager.isPresentState && stackManager.presentControllerArray && stackManager.presentControllerArray.count > 0) {
+                    theViewController = self;
+                }
+                
+                [shareViewController showShareViewInParentViewController:theViewController];
+                
+                [GJGCUtilHelper addGanjiLog:@"12051" params:nil];
+            }
+            
+        }
+    }
+}
+
+- (NSString *)imageUrlToDefaultCachePath:(NSString *)url
+{
+    if (GJCFStringIsNull(url)) {
+        return nil;
+    }
+    
+    NSString *cacheDir = [[GJCFCachePathManager shareManager]mainImageCacheDirectory];
+    
+    NSString *fileName = [url stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    return [cacheDir stringByAppendingPathComponent:fileName];
+}
+
+#pragma mark - InformationCell Delegate
+
+- (void)informationGroupPhotoBoxCell:(GJGCInformationBaseCell *)photoBoxCell didTapOnPhotoIndex:(NSInteger)index
+{
+    NSIndexPath *cellIndex = [self.informationListTable indexPathForCell:photoBoxCell];
+    GJGCInformationCellContentModel *contentModel = (GJGCInformationCellContentModel *)[self.dataSourceManager contentModelAtIndex:cellIndex.row];
+    
+    /* 补全地址 */
+    NSMutableArray *resultArray = [NSMutableArray array];
+    for (NSString *imageUrl in contentModel.photoBoxArray) {
+        if (![imageUrl hasPrefix:@"http://"]) {
+            
+            [resultArray addObject:[NSString stringWithFormat:@"%@/%@",[GJGCHostAttrsManager share].imgServerDomain,imageUrl]];
+            
+        }else{
+            
+            [resultArray addObject:imageUrl];
+        }
+    }
+    
+    GJCUImageBrowserNavigationViewController *browserVC = [[GJCUImageBrowserNavigationViewController alloc]initWithImageUrls:resultArray];
+    browserVC.pageIndex = index;
+    [[GJGCUIStackManager share] presentViewController:browserVC animated:YES completion:nil];
+}
+
+#pragma mark - 获取群资料
+
+- (void)getGroupDetailInfo
+{
+    GJCURoundCornerButton *bottomView = (GJCURoundCornerButton*)[self.view viewWithTag:GJGC_TAG_BottomView];
+    if ([GJGCNetworkStatusManager share].status == GJGCNetStatusNoReachable) {
+        // 断网状态
+        [self showNoNetworkState];
+        return;
+    }
+    else {
+        [self setRightButtonEnabled:YES];
+        bottomView.hidden = NO;
+    }
+    [GJGCPGGroupManagerNetOperateHandle getPGGroupInfo:self.groupId lastTime:NSTimeIntervalSince1970];
+}
+
+- (void)getGroupInfoResult:(BOOL)state resultModel:(GJGCPGGroupModel *)groupModel withErrorMsg:(NSString *)errMsg
+{
+    if (state && groupModel) {
+        
+        [self createInformationListWithGroupModel:groupModel];
+        [self initBottomBar];
+    }
+}
+
+#pragma mark - ActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if ([title isEqualToString:@"解散该群"]) {
+        GJGCLogJunJie(@"解散群");
+        UIAlertView *dissolveAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:GJGC_STR_Alert_Dissolve delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        dissolveAlert.tag = GJGC_TAG_Alert_Dissolve;
+        [dissolveAlert show];
+    }
+    else if ([title isEqualToString:@"退出该群"]) {
+        GJGCLogJunJie(@"退出该群");
+        UIAlertView *dissolveAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:GJGC_STR_Alert_quit delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        dissolveAlert.tag = GJGC_TAG_Alert_Quit;
+        [dissolveAlert show];
+    }
+    else if ([title isEqualToString:@"举报该群"]) {
+        GJGCLogJunJie(@"举报该群");
+        GJGCReportViewController *report = [[GJGCReportViewController alloc] init];
+        report.reportType = GJGCReportTypeGroup;
+        report.groupID = self.groupId;
+        report.groupName = self.currentGroupModel.name;
+        report.groupDiscription = self.currentGroupModel.introduction;
+        [report initData];
+        [[GJGCUIStackManager share] pushViewController:report animated:YES];
+    }
+    else if ([@"群资料修改" isEqualToString:title]) {
+        GJGCPGGroupModel *groupModel = [GJGCPGGroupManagerPGGroupListHandle getPGGroupWithGroupId:self.groupId];
+        if (groupModel.authority == GJGCPGGroupAuthorityPGGroupOwner) {
+            _groupInfoEditType = GJGCPGGroupInfoEditTypeByOwner;
+            
+            GJGCCreatePGGroupViewController *editGroupInfoVc = [[GJGCCreatePGGroupViewController alloc] initWithNibName:@"GJGCCreatePGGroupViewController" bundle:nil];
+            editGroupInfoVc.editGroupModel = groupModel;
+            editGroupInfoVc.gruopInfoEditType = _groupInfoEditType;
+            [[GJGCUIStackManager share] pushViewController:editGroupInfoVc animated:YES];
+        }
+    }
+    else if ([@"卸任群主" isEqualToString:title]) {
+        [self.statusHUD showWithStatusText:GJGC_MESSAGE_DoSomething];
+        [GJGCPGGroupManagerNetOperateHandle deleteGroupOwner:self.groupId];
+    }
+    else if ([GJGC_STR_ActionSet isEqualToString:title]) {
+        [self groupChatSet:nil];
+    }
+}
+
+#pragma mark - GJGCCallbackObserverDelegate
+
+-(void)callbackWithType:(GJGCBusiness2Cmd)type error:(NSError *)error object:(NSDictionary*)param
+{
+    switch (type) {
+        case GJGCBusiness2Cmd_ImGetGroupInfo:
+        {
+            long long deleteGroupId = [param[GJGC_KEY_GroupID] longLongValue];
+            // 返回的通知 是否与当前群组有关
+            if (deleteGroupId != self.groupId) {
+                return;
+            }
+            BOOL result = [[param objectForKey:@"result"] boolValue];
+            id resultModel = [param objectForKey:@"resultModel"];
+            NSString *errorMsg = [error.userInfo objectForKey:@"errorMsg"];
+            if (error) {
+                NSString *titStr = @"";
+                switch (error.code) {
+                    case GJGCBusinessErorCode_NetFailed: {
+                        // 网络请求失败
+                        titStr = GJGC_MESSAGE_NoneNetWork;
+                    }
+                        break;
+                    case GJGCBusinessErorCode_42302: {
+                        // 群补存在
+                        titStr = @"群不存在";
+                        [self setRightButtonHiden:YES];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                if (titStr.length > 0) {
+                    if ([titStr rangeOfString:@"NSURLErrorDomain"].location != NSNotFound) {
+                        [self showNoNetworkState];
+                    }
+                    else {
+                        [self showBlankViewWithType:GJGCDefaultBlankPicTypeNR string:titStr];
+                    }
+                }
+                else if (errorMsg.length > 0) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errorMsg}];
+                    [self showBlankViewWithType:GJGCDefaultBlankPicTypeNR string:errorMsg];
+                }
+                else {
+                    titStr = error.domain;
+                    [self showBlankViewWithType:GJGCDefaultBlankPicTypeNR string:titStr];
+                }
+            }
+            else {
+                self.currentGroupModel = resultModel;
+                self.isGroupMember = (self.currentGroupModel.authority != GJGCPGGroupAuthorityPGGroupNone && self.currentGroupModel.authority != GJGCPGGroupAuthorityPGGroupUnUser);
+                [self getGroupInfoResult:result resultModel:resultModel withErrorMsg:errorMsg];
+            }
+            
+            break;
+        }
+        case GJGCBusiness2Cmd_ImApplyJoinGroupBySelf:
+        {
+            long long deleteGroupId = [param[GJGC_KEY_GroupID] longLongValue];
+            if (deleteGroupId != self.currentGroupModel.groupId) {
+                return;
+            }
+            [self.statusHUD dismiss];
+            if (!error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message": [NSString stringWithFormat:@"申请成功，请等待管理员审核！"]}];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message": [NSString stringWithFormat:@"%@",[error.userInfo objectForKey:@"errorMsg"]]}];
+            }
+            break;
+        }
+        case GJGCBusiness2Cmd_ImDisbandGroup:
+        {
+            long long disGroupId = [param[GJGC_KEY_GroupID] longLongValue];
+            if (disGroupId != self.currentGroupModel.groupId) {
+                return;
+            }
+            [self.statusHUD dismiss];
+            if (!error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message": @"解散群成功!"}];
+                //解散群
+                _isQuitCurrentGroup = YES;
+                [self leftButtonPressed:nil];
+            }
+            else {
+                NSDictionary *failDic = error.userInfo;
+                NSString *errorMsg = failDic[GJGC_KEY_ErrorMsg];
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errorMsg}];
+            }
+        }
+            break;
+        case GJGCBusiness2Cmd_ImQuitGroup:
+        {
+            long long quitGroupId = [param[GJGC_KEY_GroupID] longLongValue];
+            if (quitGroupId != self.currentGroupModel.groupId) {
+                return;
+            }
+            [self.statusHUD dismiss];
+            if (!error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message": @"退出群成功!"}];
+                self.isGroupMember = NO;
+                self.currentGroupModel.authority = GJGCPGGroupAuthorityPGGroupUnUser;
+                [self resetViewAfterQuit];
+            }
+            else {
+                NSDictionary *failDic = error.userInfo;
+                NSString *errorMsg = failDic[GJGC_KEY_ErrorMsg];
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errorMsg}];
+            }
+        }
+            break;
+        case GJGCBusiness2Cmd_SystemAssistGroupBeenDelete:
+        {
+            // 群被解散通知,从消息助手 groupId
+            long long disbandGroupID = [param[@"groupId"] longLongValue];
+            if (disbandGroupID == self.currentGroupModel.groupId) {
+                _isQuitCurrentGroup = YES;
+                self.isGroupMember = NO;
+                [self showBlankViewWithType:GJGCDefaultBlankPicTypeNR string:@"群不存在"];
+            }
+        }
+            break;
+        case GJGCBusiness2Cmd_ImDeleteGroupOwner:
+        {
+            // 卸任群主
+            long long deleteGroupId = [param[GJGC_KEY_GroupID] longLongValue];
+            if (deleteGroupId != self.groupId) {
+                return;
+            }
+            [self.statusHUD dismiss];
+            if (!error) {
+                // 卸任成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message": @"卸任群主成功"}];
+                NSArray *keyArr = [NSArray arrayWithObjects:@"nickName",@"userId",@"avatar",nil];
+                NSArray *objArr = [NSArray arrayWithObjects:@"暂无群主",@"0",@"",nil];
+                NSDictionary *ownerDic = [[NSDictionary alloc] initWithObjects:objArr forKeys:keyArr];
+                self.currentGroupModel.owner = ownerDic;
+                self.currentGroupModel.authority = GJGCPGGroupAuthorityPGGroupUser;
+                [self createInformationListWithGroupModel:self.currentGroupModel];
+            }
+            else {
+                NSInteger code = error.code;
+                NSString *errMsg = error.userInfo[@"errorMsg"];
+                if (code == GJGCBusinessErorCode_NetFailed) {
+                    [self showBlankViewWithType:GJGCDefaultBlankPicTypeNR string:GJGC_MESSAGE_NoneNetWork];
+                }
+                else if (errMsg) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GJGC_NOTIFICATION_TOAST_NAME object:nil userInfo:@{@"message":errMsg}];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)addObserver
+{
+    id<GJGCCallbackObserverCenterInterface> observer = GJGCCallbackObserverCenter;
+    [observer addObserver:self withType:GJGCBusiness2Cmd_ImGetGroupInfo];
+    [observer addObserver:self withType:GJGCBusiness2Cmd_ImApplyJoinGroupBySelf];
+    [observer addObserver:self withType:GJGCBusiness2Cmd_ImDisbandGroup];
+    [observer addObserver:self withType:GJGCBusiness2Cmd_ImQuitGroup];
+    [observer addObserver:self withType:GJGCBusiness2Cmd_SystemAssistGroupBeenDelete];
+    [observer addObserver:self withType:GJGCBusiness2Cmd_ImDeleteGroupOwner];
+}
+
+- (void)removeObserver
+{
+    [GJGCCallbackObserverCenter delObserverAllType:self];
+}
+
+/**
+ *  点击了群成员展示的邀请按钮
+ */
+- (void)informationMemberShowCellDidTapOnInviteMember:(GJGCInformationBaseCell *)memberShowCell
+{
+    [GJGCUtilHelper addGanjiLog:@"12014" params:nil];
+    GJGCInvitFriendViewController *invitGroup = [[GJGCInvitFriendViewController alloc] initWithGroupID:self.groupId];
+    [[GJGCUIStackManager share] pushViewController:invitGroup animated:YES];
+}
+
+
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        switch (alertView.tag) {
+            case GJGC_TAG_Alert_Dissolve: {
+                [self.statusHUD showWithStatusText:GJGC_MESSAGE_DoSomething];
+                [GJGCPGGroupManagerNetOperateHandle disbandPGGroup:_groupId];
+            }
+                break;
+            case GJGC_TAG_Alert_Quit: {
+                [self.statusHUD showWithStatusText:GJGC_MESSAGE_DoSomething];
+                [GJGCPGGroupManagerNetOperateHandle quitPGGroup:_groupId];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+@end

@@ -3,7 +3,7 @@
 //  ZYChat
 //
 //  Created by ZYVincent on 15/9/21.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCCreateGroupDetailChooseCell.h"
@@ -35,7 +35,11 @@
     [super setContentModel:contentModel];
     
     self.contentLabel.gjcf_width = GJCFSystemScreenWidth - self.seprateLine.gjcf_right - 8.f - 13.f - 10.f;
-    self.contentLabel.text = contentModel.content;
+    if (GJCFStringIsNull(contentModel.content)) {
+        self.contentLabel.text = contentModel.placeHolder;
+    }else{
+        self.contentLabel.text = contentModel.content;
+    }
     [self.contentLabel sizeToFit];
     self.contentLabel.gjcf_right = self.arrowImageView.gjcf_left - 5.f;
     if (contentModel.isMutilContent) {

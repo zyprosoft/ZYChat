@@ -1,0 +1,26 @@
+//
+//  GJGCGroupLocationViewController.h
+//  GJGroupChat
+//
+//  Created by zhaobingqi on 14/12/10.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+//  群组位置
+//  仅用于位置显示
+//
+
+#import "GJGCBaseViewController.h"
+
+#import <CoreLocation/CoreLocation.h>
+
+@interface GJGCGroupLocationViewController : GJGCBaseViewController
+
+/**
+ *  显示位置
+ *
+ *  @param aLocation 位置
+ *  @param aTitle    需要显示的标题
+ */
+-(id)initWithCLLocation:(CLLocation*)aLocation title:(NSString*)aTitle;
+
+@end

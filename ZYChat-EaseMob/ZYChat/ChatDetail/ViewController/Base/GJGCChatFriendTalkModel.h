@@ -2,12 +2,13 @@
 //  GJGCChatFriendTalkModel.h
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-24.
+//  Created by ZYVincent QQ:1003081775 on 14-11-24.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "GJGCChatFriendContentModel.h"
+#import "GJGCGroupInfoExtendModel.h"
 
 #define GJGCTalkTypeString(talkType) [GJGCChatFriendTalkModel talkTypeString:talkType]
 
@@ -24,6 +25,8 @@
 @property (nonatomic,assign)NSInteger msgCount;
 
 @property (nonatomic,strong)EMConversation *conversation;
+
+@property (nonatomic,strong)GJGCMessageExtendGroupModel *groupInfo;
 
 + (NSString *)talkTypeString:(GJGCChatFriendTalkType)talkType;
 

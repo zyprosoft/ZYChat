@@ -2,7 +2,7 @@
 //  GJGCCommonColorStyle.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-3.
+//  Created by ZYVincent QQ:1003081775 on 14-11-3.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
@@ -67,7 +67,7 @@
 
 + (UIColor *)mainThemeColor
 {
-    return GJCFQuickHexColor(@"13a2dd");
+    return GJCFQuickHexColor(@"0ccfd6");
 }
 
 + (UIColor *)mainAssociateColor

@@ -2,7 +2,7 @@
 //  GJGCChatFriendDataSourceManager.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-12.
+//  Created by ZYVincent QQ:1003081775 on 14-11-12.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
@@ -37,16 +37,6 @@
 }
 
 #pragma mark - 观察本地发送消息创建成功和消息状态更新通知
-
-- (NSDictionary *)easeMessageStateRleations
-{
-    return @{
-             @(eMessageDeliveryState_Delivered):@(GJGCChatFriendSendMessageStatusSuccess),
-             @(eMessageDeliveryState_Delivering):@(GJGCChatFriendSendMessageStatusSending),
-             @(eMessageDeliveryState_Pending):@(GJGCChatFriendSendMessageStatusSending),
-             @(eMessageDeliveryState_Failure):@(GJGCChatFriendSendMessageStatusFaild),
-             };
-}
 
 - (GJGCChatFriendContentModel *)addEaseMessage:(EMMessage *)aMessage
 {

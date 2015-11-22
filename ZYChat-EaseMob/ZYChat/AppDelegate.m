@@ -3,18 +3,20 @@
 //  ZYChat
 //
 //  Created by ZYVincent on 15/7/10.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "GJGCRecentChatViewController.h"
 #import "ZYUserListViewController.h"
 #import "GJGCPublicGroupListViewController.h"
+#import "HALoginViewController.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
 @interface AppDelegate ()
 
+@property (nonatomic,strong)UINavigationController *loginNav;
 
 @end
 
@@ -29,8 +31,39 @@
     //注册环信
     [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
     
+    if (![[ZYUserCenter shareCenter] isLogin]) {
+        
+        HALoginViewController *loginVC = [[HALoginViewController alloc]init];
+        loginVC.title = @"ZYChat";
+        
+        self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+        
+        UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+        [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+        
+        self.window.rootViewController = self.loginNav;
+
+    }else{
+        
+        [self setupTab];
+        
+        [[ZYUserCenter shareCenter] autoLogin];
+        
+    }
+    
+    [self.window makeKeyAndVisible];
+    
+    //观察登录结果
+    [GJCFNotificationCenter addObserver:self selector:@selector(observeLoginStatus:) name:ZYUserCenterLoginEaseMobSuccessNoti object:nil];
+    
+    return YES;
+}
+
+- (void)setupTab
+{
     GJGCRecentChatViewController *recentVC = [[GJGCRecentChatViewController alloc]init];
     recentVC.title = @"消息";
+    recentVC.isMainMoudle = YES;
     
     UINavigationController *nav0 = [[UINavigationController alloc]initWithRootViewController:recentVC];
     UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
@@ -39,11 +72,14 @@
     //群组广场
     GJGCPublicGroupListViewController *groupListVC = [[GJGCPublicGroupListViewController alloc]init];
     groupListVC.title = @"群组";
+    groupListVC.isMainMoudle = YES;
+    
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:groupListVC];
     [nav2.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
     ZYUserListViewController *userList = [[ZYUserListViewController alloc]init];
     userList.title = @"用户";
+    userList.isMainMoudle = YES;
     
     UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:userList];
     [nav1.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
@@ -52,12 +88,23 @@
     tabController.viewControllers = @[nav0,nav2,nav1];
     
     self.window.rootViewController = tabController;
+}
+
+- (void)observeLoginStatus:(NSNotification *)noti
+{
+    NSInteger state = [noti.object[@"state"] integerValue];
     
-    [[ZYUserCenter shareCenter]performSelector:@selector(autoLogin) withObject:nil afterDelay:3];
+    if (state == 0) {
+        
+        BTToast(@"登陆失败");
+    }
     
-    [self.window makeKeyAndVisible];
-    
-    return YES;
+    if (state == 1) {
+        
+        BTToast(@"登录成功");
+        
+        [self setupTab];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

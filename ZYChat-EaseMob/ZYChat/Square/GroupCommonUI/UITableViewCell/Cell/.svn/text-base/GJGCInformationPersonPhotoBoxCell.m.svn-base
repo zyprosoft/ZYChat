@@ -1,0 +1,228 @@
+//
+//  GJGCInformationPersonPhotoBoxCell.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-6.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCInformationPersonPhotoBoxCell.h"
+#import "GJGCTagView.h"
+#import "GJGCCommonAttributedStringStyle.h"
+@interface GJGCInformationPersonPhotoBoxCell ()<GJGCInformationPhotoBoxDelegate>
+
+@end
+
+@implementation GJGCInformationPersonPhotoBoxCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.contentBordMargin = 5.f;
+        
+        self.photoBox = [[GJGCInformationPhotoBox alloc]init];
+        self.photoBox.gjcf_left = 8;
+        self.photoBox.gjcf_top = 8;
+        self.photoBox.gjcf_width = GJCFSystemScreenWidth - 2*8;
+        self.photoBox.gjcf_height = 73*2+4;
+        self.photoBox.delegate = self;
+        self.photoBox.backgroundColor = [UIColor clearColor];
+        [self.baseContentView addSubview:self.photoBox];
+
+        self.nameLabel = [[GJCFCoreTextContentView alloc]init];
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        self.nameLabel.gjcf_left = 13.f;
+        self.nameLabel.gjcf_top = self.photoBox.gjcf_bottom + 10;
+        self.nameLabel.gjcf_width = GJCFSystemScreenWidth - 80 - 2*13;
+        self.nameLabel.gjcf_height = 40;
+        self.nameLabel.contentBaseWidth = self.nameLabel.gjcf_width;
+        self.nameLabel.contentBaseHeight = self.nameLabel.gjcf_height;
+        [self.baseContentView addSubview:self.nameLabel];
+
+        
+        self.timeLabel = [[GJCFCoreTextContentView alloc]init];
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.gjcf_right = GJCFSystemScreenWidth - 8;
+        self.timeLabel.gjcf_width = GJCFSystemScreenWidth/2;
+        self.timeLabel.gjcf_height = 10;
+        self.timeLabel.gjcf_top = self.nameLabel.gjcf_top;
+        self.timeLabel.contentBaseWidth = self.timeLabel.gjcf_width;
+        self.timeLabel.contentBaseHeight = self.timeLabel.gjcf_height;
+        [self.baseContentView addSubview:self.timeLabel];
+        
+        self.distanceTimeSeprateLine = [[UIImageView alloc]init];
+        self.distanceTimeSeprateLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
+        self.distanceTimeSeprateLine.gjcf_right = self.timeLabel.gjcf_left - 5;
+        self.distanceTimeSeprateLine.gjcf_width = 1;
+        self.distanceTimeSeprateLine.gjcf_height = 13;
+        self.distanceTimeSeprateLine.gjcf_top = self.timeLabel.gjcf_top;
+        [self.baseContentView addSubview:self.distanceTimeSeprateLine];
+        
+        self.distanceLabel = [[GJCFCoreTextContentView alloc]init];
+        self.distanceLabel.backgroundColor = [UIColor clearColor];
+        self.distanceLabel.gjcf_right = self.distanceTimeSeprateLine.gjcf_left - 5;
+        self.distanceLabel.gjcf_top = self.timeLabel.gjcf_top;
+        self.distanceLabel.gjcf_width = GJCFSystemScreenWidth/2;
+        self.distanceLabel.gjcf_height = 10;
+        self.distanceLabel.contentBaseWidth = self.distanceLabel.gjcf_width;
+        self.distanceLabel.contentBaseHeight = self.distanceLabel.gjcf_height;
+        [self.baseContentView addSubview:self.distanceLabel];
+        
+        self.sexImgView = [[UIImageView alloc]init];
+        self.sexImgView.gjcf_left = self.nameLabel.gjcf_left;
+        self.sexImgView.gjcf_top = self.nameLabel.gjcf_bottom + 5;
+        self.sexImgView.gjcf_width = 15;
+        self.sexImgView.gjcf_height = 15;
+        [self.baseContentView addSubview:self.sexImgView];
+        
+        self.ageLabel = [[GJCFCoreTextContentView alloc]init];
+        self.ageLabel.backgroundColor = [UIColor clearColor];
+        self.ageLabel.gjcf_left = self.sexImgView.gjcf_right + 8;
+        self.ageLabel.gjcf_top = self.nameLabel.gjcf_bottom + 5;
+        self.ageLabel.gjcf_width = 60;
+        self.ageLabel.gjcf_height = 20;
+        self.ageLabel.contentBaseWidth = self.ageLabel.gjcf_width;
+        self.ageLabel.contentBaseHeight = self.ageLabel.gjcf_height;
+        [self.baseContentView addSubview:self.ageLabel];
+        
+        self.starNameLabel = [[GJCFCoreTextContentView alloc]init];
+        self.starNameLabel.backgroundColor = [UIColor clearColor];
+        self.starNameLabel.gjcf_top = self.ageLabel.gjcf_top;
+        self.starNameLabel.gjcf_left = self.ageLabel.gjcf_right + 8;
+        self.starNameLabel.gjcf_width = 60;
+        self.starNameLabel.gjcf_height = 10;
+        self.starNameLabel.contentBaseWidth = self.starNameLabel.gjcf_width;
+        self.starNameLabel.contentBaseHeight = self.starNameLabel.gjcf_height;
+        [self.baseContentView addSubview:self.starNameLabel];
+        
+        self.personAttrView = [[GJGCTagView alloc] initWithFrame:CGRectZero];
+        self.personAttrView.gjcf_top = self.starNameLabel.gjcf_top;
+        self.personAttrView.gjcf_left = self.starNameLabel.gjcf_right + 20;
+//        self.personAttrView.gjcf_width = 100;
+//        self.personAttrView.gjcf_height = 30;
+        [self.baseContentView addSubview:self.personAttrView];
+        self.personAttrView.hidden = YES;
+        
+        
+        self.helloCountLabel = [[GJCFCoreTextContentView alloc]init];
+        self.helloCountLabel.backgroundColor = [UIColor clearColor];
+        self.helloCountLabel.gjcf_top = self.starNameLabel.gjcf_top;
+        self.helloCountLabel.gjcf_right = self.timeLabel.gjcf_right;
+        self.helloCountLabel.gjcf_width = 160;
+        self.helloCountLabel.gjcf_height = 20;
+        self.helloCountLabel.contentBaseWidth = self.helloCountLabel.gjcf_width;
+        self.helloCountLabel.contentBaseHeight = self.helloCountLabel.gjcf_height;
+        [self.baseContentView addSubview:self.helloCountLabel];
+    }
+    return self;
+}
+
+- (void)setContentInformationModel:(GJGCInformationBaseModel *)contentModel
+{
+    if (!contentModel) {
+        return;
+    }
+    [super setContentInformationModel:contentModel];
+    
+    GJGCInformationCellContentModel *informationModel = (GJGCInformationCellContentModel *)contentModel;
+    [self.photoBox setContentPhotoBoxUrls:informationModel.photoBoxArray];
+    self.accessoryIndicatorView.hidden = YES;
+
+    self.nameLabel.gjcf_top = self.photoBox.gjcf_bottom + 13;
+    self.nameLabel.gjcf_left = self.photoBox.gjcf_left;
+    self.nameLabel.contentAttributedString = informationModel.name;
+    self.nameLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.name forBaseContentSize:self.nameLabel.contentBaseSize];
+    
+    self.timeLabel.contentAttributedString = informationModel.personLastActiveTime;
+    self.timeLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.personLastActiveTime forBaseContentSize:self.timeLabel.contentBaseSize];
+    self.timeLabel.gjcf_right = self.photoBox.gjcf_right;
+    self.timeLabel.gjcf_top = self.photoBox.gjcf_bottom + 13;
+    self.timeLabel.gjcf_centerY = self.nameLabel.gjcf_centerY;
+
+    self.distanceTimeSeprateLine.gjcf_top = self.timeLabel.gjcf_top;
+    self.distanceTimeSeprateLine.gjcf_right = self.timeLabel.gjcf_left - 5;
+
+    self.distanceLabel.contentAttributedString = informationModel.distance;
+    self.distanceLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.distance forBaseContentSize:self.distanceLabel.contentBaseSize];
+    self.distanceLabel.gjcf_centerY = self.nameLabel.gjcf_centerY;
+    self.distanceLabel.gjcf_right = self.distanceTimeSeprateLine.gjcf_left - 5;
+    
+    if (informationModel.personSex == 1) {
+        
+        self.sexImgView.image = GJCFQuickImage(@"男-icon");
+        
+    }else{
+        
+        self.sexImgView.image = GJCFQuickImage(@"女-icon");
+
+    }
+    self.sexImgView.gjcf_top = self.nameLabel.gjcf_bottom + 11;
+    self.sexImgView.gjcf_left = self.nameLabel.gjcf_left;
+    
+    self.ageLabel.gjcf_top = self.nameLabel.gjcf_bottom + 11;
+    self.ageLabel.contentAttributedString = informationModel.personAge;
+    self.ageLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.personAge forBaseContentSize:self.ageLabel.contentBaseSize];
+    self.ageLabel.gjcf_left = self.sexImgView.gjcf_right + 8;
+    self.ageLabel.gjcf_centerY = self.sexImgView.gjcf_centerY;
+    
+    self.starNameLabel.contentAttributedString = informationModel.personStarName;
+    self.starNameLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.personStarName forBaseContentSize:self.starNameLabel.contentBaseSize];
+    self.starNameLabel.gjcf_left = self.ageLabel.gjcf_right + 8;
+    self.starNameLabel.gjcf_top = self.ageLabel.gjcf_top;
+    self.starNameLabel.gjcf_centerY = self.sexImgView.gjcf_centerY;
+
+    
+    
+    
+    self.helloCountLabel.contentAttributedString = informationModel.personHelloCount;
+    self.helloCountLabel.gjcf_size = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:informationModel.personHelloCount forBaseContentSize:self.helloCountLabel.contentBaseSize];
+    self.helloCountLabel.gjcf_right = GJCFSystemScreenWidth - 8;
+    self.helloCountLabel.gjcf_top = self.ageLabel.gjcf_top;
+    self.helloCountLabel.gjcf_centerY = self.sexImgView.gjcf_centerY;
+    
+    // 当没有人打招呼时,距离,更新时间位置下移
+    if (!informationModel.personHelloCount || [informationModel.personHelloCount string].length <= 0) {
+        self.distanceLabel.gjcf_top = self.ageLabel.gjcf_top;
+        self.distanceTimeSeprateLine.gjcf_top = self.distanceLabel.gjcf_top;
+        self.timeLabel.gjcf_top = self.distanceLabel.gjcf_top;
+        
+        /* 是否需要隐藏时间距离分割线 */
+        if (GJCFStringIsNull(informationModel.personLastActiveTime.string) || GJCFStringIsNull(informationModel.distance.string)) {
+            self.distanceTimeSeprateLine.hidden = YES;
+        }
+    }
+    if (GJCFStringIsNull(informationModel.personLastActiveTime.string)) {
+        self.distanceLabel.gjcf_right = GJCFSystemScreenWidth - 13;
+    }
+    
+    self.baseContentView.gjcf_height = self.starNameLabel.gjcf_bottom + 13;
+    
+    self.topSeprateLine.gjcf_top = informationModel.topLineMargin;
+    self.baseContentView.gjcf_top = self.topSeprateLine.gjcf_bottom-0.5;
+    self.baseSeprateLine.gjcf_bottom = self.baseContentView.gjcf_bottom;
+    
+    [self.personAttrView setHidden:YES];
+    if (informationModel.expandLabels && informationModel.expandLabels.length > 0 && informationModel.labelColorType) {
+        [self.personAttrView setHidden:NO];
+        NSAttributedString *typeString = [GJGCCommonAttributedStringStyle getFolksTypeAttributedString:informationModel.expandLabels];
+        [self.personAttrView setContent:typeString];
+        [self.personAttrView setType:[informationModel.labelColorType integerValue]];
+        
+        self.personAttrView.gjcf_top = self.starNameLabel.gjcf_top;
+        self.personAttrView.gjcf_left = self.starNameLabel.gjcf_right + 20;
+        
+        [self.personAttrView setNeedsLayout];
+    }
+    
+}
+
+#pragma mark - PhotoBox Delegate
+- (void)photoBoxDidTapAtIndex:(NSInteger)index
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(informationPersonPhotoBoxCell:didTapOnPhotoIndex:)]) {
+        [self.delegate informationPersonPhotoBoxCell:self didTapOnPhotoIndex:index];
+    }
+}
+
+@end

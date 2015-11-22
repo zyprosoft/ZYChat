@@ -3,7 +3,7 @@
 //  ZYChat
 //
 //  Created by ZYVincent on 15/9/21.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCCreateGroupViewController.h"
@@ -13,6 +13,7 @@
 #import "GJGCMutilTextInputViewController.h"
 #import "GJGCCreateGroupLabelsSheetViewController.h"
 #import "GJGCCreateGroupMemberCountSheetViewController.h"
+#import "GJGCCreateGroupTypeSheetViewController.h"
 
 @interface GJGCCreateGroupViewController ()<
                                             UITableViewDataSource,
@@ -207,6 +208,18 @@
             [self.navigationController pushViewController:mutilInput animated:YES];
         }
             break;
+        case GJGCCreateGroupContentTypeGroupType:
+        {
+            GJGCCreateGroupTypeSheetViewController *typeVC = [[GJGCCreateGroupTypeSheetViewController alloc]init];
+            typeVC.title = @"选择群类型";
+            GJCFWeakSelf weakSelf = self;
+            typeVC.resultBlock = ^(BTActionSheetBaseContentModel *resultModel){
+                
+                [weakSelf.dataManager updateGroupType:resultModel.userInfo[@"type"] display:resultModel.userInfo[@"display"]];
+            };
+            [typeVC showFromViewController:self];
+        }
+            break;
         default:
             break;
     }
@@ -331,8 +344,9 @@
     [self showErrorMessage:message];
 }
 
-- (void)dataManagerDidUploadMemeberSuccess:(GJGCCreateGroupDataManager *)dataManager
+- (void)dataManagerDidCreateGroupSuccess:(GJGCCreateGroupDataManager *)dataManager
 {
+    BTToast(@"创建成功");
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -1,0 +1,15 @@
+//
+//  GJGCInformationMemeberShowCell.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-6.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCInformationTextCell.h"
+
+@interface GJGCInformationMemeberShowCell : GJGCInformationTextCell
+
+
+
+@end

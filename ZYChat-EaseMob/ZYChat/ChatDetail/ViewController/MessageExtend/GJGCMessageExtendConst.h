@@ -2,14 +2,18 @@
 //  GJGCMessageExtendConst.h
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/20.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/11/20.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 //是否扩展消息内容
 extern const NSString  *kGJGCMessageExtendIsExtendMessageContent;
+
+extern const NSString  *kGJGCMessageExtendIsGroupMessage;
+
+extern const NSString  *kGJGCMessageExtendGroupInfo;
 
 //扩展属性公共模块
 extern const NSString  *kGJGCMessageExtendUserInfo;

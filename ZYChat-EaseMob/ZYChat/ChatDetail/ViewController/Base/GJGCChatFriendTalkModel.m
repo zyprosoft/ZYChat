@@ -2,13 +2,23 @@
 //  GJGCChatFriendTalkModel.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-24.
+//  Created by ZYVincent QQ:1003081775 on 14-11-24.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
 #import "GJGCChatFriendTalkModel.h"
 
 @implementation GJGCChatFriendTalkModel
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        self.groupInfo = [[GJGCMessageExtendGroupModel alloc]init];
+        
+    }
+    return self;
+}
 
 + (NSString *)talkTypeString:(GJGCChatFriendTalkType)talkType
 {

@@ -2,7 +2,7 @@
 //  GJCURoundCornerButton.h
 //  GJCoreUserInterface
 //
-//  Created by ZYVincent on 14-11-4.
+//  Created by ZYVincent QQ:1003081775 on 14-11-4.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 

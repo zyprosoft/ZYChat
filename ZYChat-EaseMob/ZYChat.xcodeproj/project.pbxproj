@@ -711,7 +711,7 @@
 		C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702921BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m */; };
 		C81702A71BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702991BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m */; };
 		C81702A81BFF3D1D00FAE520 /* GJGCCreateGroupConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */; };
-		C81702A91BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */; };
+		C81702A91BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C817029E1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m */; };
 		C81702AA1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */; };
 		C81702AB1BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A21BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m */; };
 		C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702A41BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m */; };
@@ -819,8 +819,6 @@
 		C8DC4A6C1BEC8F0600F2D161 /* GJCUProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A6B1BEC8F0600F2D161 /* GJCUProgressView.m */; };
 		C8DC4A701BEC8F0D00F2D161 /* GJCFCachePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A6F1BEC8F0D00F2D161 /* GJCFCachePathManager.m */; };
 		C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A781BEC989C00F2D161 /* amrFileCodec.mm */; };
-		C8F3B9321BF093050057AF5B /* ZYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9311BF093050057AF5B /* ZYLoginViewController.m */; };
-		C8F3B9351BF093110057AF5B /* ZYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9341BF093110057AF5B /* ZYRegistViewController.m */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -838,6 +836,70 @@
 		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
+		E4FEB3A61BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
+		E4FEB3A71BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
+		E4FEB3AA1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */; };
+		E4FEB3AB1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */; };
+		E4FEB3AE1BFF7E0600E4A153 /* BTToast.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3AD1BFF7E0600E4A153 /* BTToast.m */; };
+		E4FEB3B21BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B11BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m */; };
+		E4FEB3B31BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B11BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m */; };
+		E4FEB3B61BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B51BFF84D100E4A153 /* GJGCInfoBaseListConst.m */; };
+		E4FEB3B71BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B51BFF84D100E4A153 /* GJGCInfoBaseListConst.m */; };
+		E4FEB3BA1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B91BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m */; };
+		E4FEB3BB1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3B91BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m */; };
+		E4FEB3BE1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3BD1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m */; };
+		E4FEB3BF1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3BD1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m */; };
+		E4FEB3C31BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3C21BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m */; };
+		E4FEB3C41BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3C21BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m */; };
+		E4FEB3C71BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3C61BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m */; };
+		E4FEB3C81BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3C61BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m */; };
+		E4FEB3CB1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3CA1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m */; };
+		E4FEB3CC1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3CA1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m */; };
+		E4FEB3CF1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3CE1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m */; };
+		E4FEB3D01C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3CE1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m */; };
+		E4FEB3D31C00529800E4A153 /* GJGCPulicGroupListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3D21C00529800E4A153 /* GJGCPulicGroupListDataManager.m */; };
+		E4FEB3D41C00529800E4A153 /* GJGCPulicGroupListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3D21C00529800E4A153 /* GJGCPulicGroupListDataManager.m */; };
+		E4FEB3D81C00574500E4A153 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3D71C00574500E4A153 /* Base64.m */; };
+		E4FEB40E1C017B1400E4A153 /* GJGCInformationBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3DD1C017B1400E4A153 /* GJGCInformationBaseCell.m */; };
+		E4FEB40F1C017B1400E4A153 /* GJGCInformationBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3E01C017B1400E4A153 /* GJGCInformationBaseModel.m */; };
+		E4FEB4101C017B1400E4A153 /* GJGCInformationCellConstans.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3E31C017B1400E4A153 /* GJGCInformationCellConstans.m */; };
+		E4FEB4111C017B1400E4A153 /* GJGCInformationCellContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3E51C017B1400E4A153 /* GJGCInformationCellContentModel.m */; };
+		E4FEB4121C017B1400E4A153 /* GJGCInformationCellStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3E71C017B1400E4A153 /* GJGCInformationCellStyle.m */; };
+		E4FEB4131C017B1400E4A153 /* GJGCInformationFeedListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3E91C017B1400E4A153 /* GJGCInformationFeedListCell.m */; };
+		E4FEB4141C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3EB1C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m */; };
+		E4FEB4151C017B1400E4A153 /* GJGCInformationGroupShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3ED1C017B1400E4A153 /* GJGCInformationGroupShowCell.m */; };
+		E4FEB4161C017B1400E4A153 /* GJGCInformationGroupShowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3EF1C017B1400E4A153 /* GJGCInformationGroupShowItem.m */; };
+		E4FEB4171C017B1400E4A153 /* GJGCInformationLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3F11C017B1400E4A153 /* GJGCInformationLevelCell.m */; };
+		E4FEB4181C017B1400E4A153 /* GJGCInformationMemberShowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3F31C017B1400E4A153 /* GJGCInformationMemberShowItem.m */; };
+		E4FEB4191C017B1400E4A153 /* GJGCInformationMemeberShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3F51C017B1400E4A153 /* GJGCInformationMemeberShowCell.m */; };
+		E4FEB41A1C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3F71C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m */; };
+		E4FEB41B1C017B1400E4A153 /* GJGCInformationPhotoBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3F91C017B1400E4A153 /* GJGCInformationPhotoBox.m */; };
+		E4FEB41C1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3FB1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m */; };
+		E4FEB41D1C017B1400E4A153 /* GJGCInformationTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3FD1C017B1400E4A153 /* GJGCInformationTextCell.m */; };
+		E4FEB4221C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4091C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m */; };
+		E4FEB4231C017B1400E4A153 /* GJGCInformationBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB40B1C017B1400E4A153 /* GJGCInformationBaseViewController.m */; };
+		E4FEB4281C017B8000E4A153 /* GJGCTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4271C017B8000E4A153 /* GJGCTagView.m */; };
+		E4FEB42B1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB42A1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m */; };
+		E4FEB4321C017D4E00E4A153 /* GJGCGroupInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4311C017D4E00E4A153 /* GJGCGroupInformationViewController.m */; };
+		E4FEB4331C017D4E00E4A153 /* GJGCGroupInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4311C017D4E00E4A153 /* GJGCGroupInformationViewController.m */; };
+		E4FEB4361C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4351C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m */; };
+		E4FEB43C1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB43B1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.m */; };
+		E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB43D1C01963600E4A153 /* 标签-bg-等级@2x.png */; };
+		E4FEB4411C01A35100E4A153 /* GJGCMessageExtendGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */; };
+		E4FEB4421C01A35100E4A153 /* GJGCMessageExtendGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */; };
+		E4FEB4451C01CC3800E4A153 /* title-icon-群资料@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4431C01CC3800E4A153 /* title-icon-群资料@2x.png */; };
+		E4FEB4461C01CC3800E4A153 /* title-icon-群资料@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4441C01CC3800E4A153 /* title-icon-群资料@3x.png */; };
+		E4FEB4531C01E7E200E4A153 /* HALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB44C1C01E7E200E4A153 /* HALoginViewController.m */; };
+		E4FEB4541C01E7E200E4A153 /* HARegistContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB44E1C01E7E200E4A153 /* HARegistContentModel.m */; };
+		E4FEB4551C01E7E200E4A153 /* HARegistInputTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4501C01E7E200E4A153 /* HARegistInputTextCell.m */; };
+		E4FEB4561C01E7E200E4A153 /* HARegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4521C01E7E200E4A153 /* HARegistViewController.m */; };
+		E4FEB45A1C01E97100E4A153 /* GJGCPersonInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4591C01E97100E4A153 /* GJGCPersonInformationViewController.m */; };
+		E4FEB45B1C01E97100E4A153 /* GJGCPersonInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4591C01E97100E4A153 /* GJGCPersonInformationViewController.m */; };
+		E4FEB4611C01EA3200E4A153 /* owl-login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45C1C01EA3200E4A153 /* owl-login@2x.png */; };
+		E4FEB4621C01EA3200E4A153 /* owl-login-arm-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45D1C01EA3200E4A153 /* owl-login-arm-right@2x.png */; };
+		E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */; };
+		E4FEB4641C01EA3200E4A153 /* iconfont-user.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45F1C01EA3200E4A153 /* iconfont-user.png */; };
+		E4FEB4651C01EA3200E4A153 /* iconfont-password.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4601C01EA3200E4A153 /* iconfont-password.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1391,7 +1453,7 @@
 		C817029B1BFF3D1D00FAE520 /* GJGCCreateGroupConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupConst.h; sourceTree = "<group>"; };
 		C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupConst.m; sourceTree = "<group>"; };
 		C817029D1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupContentModel.h; sourceTree = "<group>"; };
-		C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCreateGroupContentModel.m; sourceTree = "<group>"; };
+		C817029E1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupContentModel.m; sourceTree = "<group>"; };
 		C817029F1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupDataManager.h; sourceTree = "<group>"; };
 		C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupDataManager.m; sourceTree = "<group>"; };
 		C81702A11BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupDetailChooseCell.h; sourceTree = "<group>"; };
@@ -1662,10 +1724,6 @@
 		C8DC4A6F1BEC8F0D00F2D161 /* GJCFCachePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJCFCachePathManager.m; sourceTree = "<group>"; };
 		C8DC4A771BEC989C00F2D161 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		C8DC4A781BEC989C00F2D161 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
-		C8F3B9301BF093050057AF5B /* ZYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLoginViewController.h; sourceTree = "<group>"; };
-		C8F3B9311BF093050057AF5B /* ZYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLoginViewController.m; sourceTree = "<group>"; };
-		C8F3B9331BF093110057AF5B /* ZYRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYRegistViewController.h; sourceTree = "<group>"; };
-		C8F3B9341BF093110057AF5B /* ZYRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYRegistViewController.m; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -1701,6 +1759,99 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetDataManager.h; sourceTree = "<group>"; };
+		E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupTypeSheetDataManager.m; sourceTree = "<group>"; };
+		E4FEB3A81BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetViewController.h; sourceTree = "<group>"; };
+		E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupTypeSheetViewController.m; sourceTree = "<group>"; };
+		E4FEB3AC1BFF7E0600E4A153 /* BTToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTToast.h; sourceTree = "<group>"; };
+		E4FEB3AD1BFF7E0600E4A153 /* BTToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTToast.m; sourceTree = "<group>"; };
+		E4FEB3B01BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoBaseListContentModel.h; sourceTree = "<group>"; };
+		E4FEB3B11BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoBaseListContentModel.m; sourceTree = "<group>"; };
+		E4FEB3B41BFF84D100E4A153 /* GJGCInfoBaseListConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoBaseListConst.h; sourceTree = "<group>"; };
+		E4FEB3B51BFF84D100E4A153 /* GJGCInfoBaseListConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoBaseListConst.m; sourceTree = "<group>"; };
+		E4FEB3B81BFF84E300E4A153 /* GJGCInfoBaseListDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoBaseListDataManager.h; sourceTree = "<group>"; };
+		E4FEB3B91BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoBaseListDataManager.m; sourceTree = "<group>"; };
+		E4FEB3BC1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoBaseListViewController.h; sourceTree = "<group>"; };
+		E4FEB3BD1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoBaseListViewController.m; sourceTree = "<group>"; };
+		E4FEB3C11BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoBaseListBaseCell.h; sourceTree = "<group>"; };
+		E4FEB3C21BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoBaseListBaseCell.m; sourceTree = "<group>"; };
+		E4FEB3C51BFF8BE200E4A153 /* GJGCInfoRoleContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoRoleContentCell.h; sourceTree = "<group>"; };
+		E4FEB3C61BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoRoleContentCell.m; sourceTree = "<group>"; };
+		E4FEB3C91C00489F00E4A153 /* GJGCInfoUserRoleContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoUserRoleContentCell.h; sourceTree = "<group>"; };
+		E4FEB3CA1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoUserRoleContentCell.m; sourceTree = "<group>"; };
+		E4FEB3CD1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInfoGroupRoleContentCell.h; sourceTree = "<group>"; };
+		E4FEB3CE1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInfoGroupRoleContentCell.m; sourceTree = "<group>"; };
+		E4FEB3D11C00529800E4A153 /* GJGCPulicGroupListDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCPulicGroupListDataManager.h; sourceTree = "<group>"; };
+		E4FEB3D21C00529800E4A153 /* GJGCPulicGroupListDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCPulicGroupListDataManager.m; sourceTree = "<group>"; };
+		E4FEB3D61C00574500E4A153 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		E4FEB3D71C00574500E4A153 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		E4FEB3DC1C017B1400E4A153 /* GJGCInformationBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationBaseCell.h; sourceTree = "<group>"; };
+		E4FEB3DD1C017B1400E4A153 /* GJGCInformationBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationBaseCell.m; sourceTree = "<group>"; };
+		E4FEB3DE1C017B1400E4A153 /* GJGCInformationBaseCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationBaseCellDelegate.h; sourceTree = "<group>"; };
+		E4FEB3DF1C017B1400E4A153 /* GJGCInformationBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationBaseModel.h; sourceTree = "<group>"; };
+		E4FEB3E01C017B1400E4A153 /* GJGCInformationBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationBaseModel.m; sourceTree = "<group>"; };
+		E4FEB3E21C017B1400E4A153 /* GJGCInformationCellConstans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationCellConstans.h; sourceTree = "<group>"; };
+		E4FEB3E31C017B1400E4A153 /* GJGCInformationCellConstans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationCellConstans.m; sourceTree = "<group>"; };
+		E4FEB3E41C017B1400E4A153 /* GJGCInformationCellContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationCellContentModel.h; sourceTree = "<group>"; };
+		E4FEB3E51C017B1400E4A153 /* GJGCInformationCellContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationCellContentModel.m; sourceTree = "<group>"; };
+		E4FEB3E61C017B1400E4A153 /* GJGCInformationCellStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationCellStyle.h; sourceTree = "<group>"; };
+		E4FEB3E71C017B1400E4A153 /* GJGCInformationCellStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationCellStyle.m; sourceTree = "<group>"; };
+		E4FEB3E81C017B1400E4A153 /* GJGCInformationFeedListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationFeedListCell.h; sourceTree = "<group>"; };
+		E4FEB3E91C017B1400E4A153 /* GJGCInformationFeedListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationFeedListCell.m; sourceTree = "<group>"; };
+		E4FEB3EA1C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationGroupPhotoBoxCell.h; sourceTree = "<group>"; };
+		E4FEB3EB1C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationGroupPhotoBoxCell.m; sourceTree = "<group>"; };
+		E4FEB3EC1C017B1400E4A153 /* GJGCInformationGroupShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationGroupShowCell.h; sourceTree = "<group>"; };
+		E4FEB3ED1C017B1400E4A153 /* GJGCInformationGroupShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationGroupShowCell.m; sourceTree = "<group>"; };
+		E4FEB3EE1C017B1400E4A153 /* GJGCInformationGroupShowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationGroupShowItem.h; sourceTree = "<group>"; };
+		E4FEB3EF1C017B1400E4A153 /* GJGCInformationGroupShowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationGroupShowItem.m; sourceTree = "<group>"; };
+		E4FEB3F01C017B1400E4A153 /* GJGCInformationLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationLevelCell.h; sourceTree = "<group>"; };
+		E4FEB3F11C017B1400E4A153 /* GJGCInformationLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationLevelCell.m; sourceTree = "<group>"; };
+		E4FEB3F21C017B1400E4A153 /* GJGCInformationMemberShowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationMemberShowItem.h; sourceTree = "<group>"; };
+		E4FEB3F31C017B1400E4A153 /* GJGCInformationMemberShowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationMemberShowItem.m; sourceTree = "<group>"; };
+		E4FEB3F41C017B1400E4A153 /* GJGCInformationMemeberShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationMemeberShowCell.h; sourceTree = "<group>"; };
+		E4FEB3F51C017B1400E4A153 /* GJGCInformationMemeberShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationMemeberShowCell.m; sourceTree = "<group>"; };
+		E4FEB3F61C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationPersonPhotoBoxCell.h; sourceTree = "<group>"; };
+		E4FEB3F71C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationPersonPhotoBoxCell.m; sourceTree = "<group>"; };
+		E4FEB3F81C017B1400E4A153 /* GJGCInformationPhotoBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationPhotoBox.h; sourceTree = "<group>"; };
+		E4FEB3F91C017B1400E4A153 /* GJGCInformationPhotoBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationPhotoBox.m; sourceTree = "<group>"; };
+		E4FEB3FA1C017B1400E4A153 /* GJGCInformationTextAndIconCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationTextAndIconCell.h; sourceTree = "<group>"; };
+		E4FEB3FB1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationTextAndIconCell.m; sourceTree = "<group>"; };
+		E4FEB3FC1C017B1400E4A153 /* GJGCInformationTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationTextCell.h; sourceTree = "<group>"; };
+		E4FEB3FD1C017B1400E4A153 /* GJGCInformationTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationTextCell.m; sourceTree = "<group>"; };
+		E4FEB4081C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationBaseDataSourceManager.h; sourceTree = "<group>"; };
+		E4FEB4091C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationBaseDataSourceManager.m; sourceTree = "<group>"; };
+		E4FEB40A1C017B1400E4A153 /* GJGCInformationBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCInformationBaseViewController.h; sourceTree = "<group>"; };
+		E4FEB40B1C017B1400E4A153 /* GJGCInformationBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCInformationBaseViewController.m; sourceTree = "<group>"; };
+		E4FEB4261C017B8000E4A153 /* GJGCTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCTagView.h; sourceTree = "<group>"; };
+		E4FEB4271C017B8000E4A153 /* GJGCTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCTagView.m; sourceTree = "<group>"; };
+		E4FEB4291C017BF000E4A153 /* GJGCCommonAttributedStringStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCommonAttributedStringStyle.h; sourceTree = "<group>"; };
+		E4FEB42A1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCommonAttributedStringStyle.m; sourceTree = "<group>"; };
+		E4FEB4301C017D4E00E4A153 /* GJGCGroupInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupInformationViewController.h; sourceTree = "<group>"; };
+		E4FEB4311C017D4E00E4A153 /* GJGCGroupInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupInformationViewController.m; sourceTree = "<group>"; };
+		E4FEB4341C01837600E4A153 /* GJGCGroupPersonInformationShowMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupPersonInformationShowMap.h; sourceTree = "<group>"; };
+		E4FEB4351C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupPersonInformationShowMap.m; sourceTree = "<group>"; };
+		E4FEB43A1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAPersonProfileHeadInfoCell.h; sourceTree = "<group>"; };
+		E4FEB43B1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAPersonProfileHeadInfoCell.m; sourceTree = "<group>"; };
+		E4FEB43D1C01963600E4A153 /* 标签-bg-等级@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标签-bg-等级@2x.png"; sourceTree = "<group>"; };
+		E4FEB43F1C01A35100E4A153 /* GJGCMessageExtendGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendGroupModel.h; sourceTree = "<group>"; };
+		E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendGroupModel.m; sourceTree = "<group>"; };
+		E4FEB4431C01CC3800E4A153 /* title-icon-群资料@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-群资料@2x.png"; sourceTree = "<group>"; };
+		E4FEB4441C01CC3800E4A153 /* title-icon-群资料@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-群资料@3x.png"; sourceTree = "<group>"; };
+		E4FEB44B1C01E7E200E4A153 /* HALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALoginViewController.h; sourceTree = "<group>"; };
+		E4FEB44C1C01E7E200E4A153 /* HALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALoginViewController.m; sourceTree = "<group>"; };
+		E4FEB44D1C01E7E200E4A153 /* HARegistContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARegistContentModel.h; sourceTree = "<group>"; };
+		E4FEB44E1C01E7E200E4A153 /* HARegistContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARegistContentModel.m; sourceTree = "<group>"; };
+		E4FEB44F1C01E7E200E4A153 /* HARegistInputTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARegistInputTextCell.h; sourceTree = "<group>"; };
+		E4FEB4501C01E7E200E4A153 /* HARegistInputTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARegistInputTextCell.m; sourceTree = "<group>"; };
+		E4FEB4511C01E7E200E4A153 /* HARegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARegistViewController.h; sourceTree = "<group>"; };
+		E4FEB4521C01E7E200E4A153 /* HARegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARegistViewController.m; sourceTree = "<group>"; };
+		E4FEB4581C01E97100E4A153 /* GJGCPersonInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCPersonInformationViewController.h; sourceTree = "<group>"; };
+		E4FEB4591C01E97100E4A153 /* GJGCPersonInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCPersonInformationViewController.m; sourceTree = "<group>"; };
+		E4FEB45C1C01EA3200E4A153 /* owl-login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "owl-login@2x.png"; sourceTree = "<group>"; };
+		E4FEB45D1C01EA3200E4A153 /* owl-login-arm-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "owl-login-arm-right@2x.png"; sourceTree = "<group>"; };
+		E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "owl-login-arm-left@2x.png"; sourceTree = "<group>"; };
+		E4FEB45F1C01EA3200E4A153 /* iconfont-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-user.png"; sourceTree = "<group>"; };
+		E4FEB4601C01EA3200E4A153 /* iconfont-password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-password.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1779,8 +1930,8 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB44A1C01E7E200E4A153 /* Login */,
 				C81702871BFF376800FAE520 /* Square */,
-				C8F3B92F1BF091AC0057AF5B /* Login */,
 				C8DC4A2F1BEC7F7800F2D161 /* UserList */,
 				C85A454E1BEB3E9B0084DBBF /* Service */,
 				365F08921B50D36B005161D6 /* RecentChat */,
@@ -1825,6 +1976,7 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB3D51C00574500E4A153 /* Base64 */,
 				C81702D01BFF3F4E00FAE520 /* LeafNotificationView */,
 				C8D1B1B61BFC747B00201421 /* EaseMob */,
 				C8F3B9C81BF0B5050057AF5B /* fmdb */,
@@ -2678,6 +2830,8 @@
 		365F07561B50B137005161D6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB4291C017BF000E4A153 /* GJGCCommonAttributedStringStyle.h */,
+				E4FEB42A1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m */,
 				365F08891B50C228005161D6 /* GJGCCommonFontColorStyle.h */,
 				365F088A1B50C228005161D6 /* GJGCCommonFontColorStyle.m */,
 				365F087D1B50BC2F005161D6 /* GJGCCommonHeadView.h */,
@@ -2835,6 +2989,14 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB45C1C01EA3200E4A153 /* owl-login@2x.png */,
+				E4FEB45D1C01EA3200E4A153 /* owl-login-arm-right@2x.png */,
+				E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */,
+				E4FEB45F1C01EA3200E4A153 /* iconfont-user.png */,
+				E4FEB4601C01EA3200E4A153 /* iconfont-password.png */,
+				E4FEB4431C01CC3800E4A153 /* title-icon-群资料@2x.png */,
+				E4FEB4441C01CC3800E4A153 /* title-icon-群资料@3x.png */,
+				E4FEB43D1C01963600E4A153 /* 标签-bg-等级@2x.png */,
 				C81702E81BFF48B000FAE520 /* right@2x.png */,
 				C81702E91BFF48B000FAE520 /* right@3x.png */,
 				C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */,
@@ -2859,6 +3021,8 @@
 		C81702871BFF376800FAE520 /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB3D91C017B1400E4A153 /* GroupCommonUI */,
+				E4FEB3AF1BFF836500E4A153 /* InfoBaseList */,
 				C81702DC1BFF46DD00FAE520 /* PublicGroup */,
 				C81702AE1BFF3DC100FAE520 /* BTActionSheetViewController */,
 				C81702971BFF3CF700FAE520 /* CreateGroup */,
@@ -2887,7 +3051,7 @@
 				C817029B1BFF3D1D00FAE520 /* GJGCCreateGroupConst.h */,
 				C817029C1BFF3D1D00FAE520 /* GJGCCreateGroupConst.m */,
 				C817029D1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.h */,
-				C817029E1BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m */,
+				C817029E1BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m */,
 				C817029F1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.h */,
 				C81702A01BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m */,
 				C81702A11BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.h */,
@@ -2906,6 +3070,10 @@
 				C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */,
 				C81702F81BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.h */,
 				C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */,
+				E4FEB3A81BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.h */,
+				E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */,
+				E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */,
+				E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */,
 			);
 			path = CreateGroup;
 			sourceTree = "<group>";
@@ -2913,6 +3081,8 @@
 		C81702AE1BFF3DC100FAE520 /* BTActionSheetViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB3AC1BFF7E0600E4A153 /* BTToast.h */,
+				E4FEB3AD1BFF7E0600E4A153 /* BTToast.m */,
 				C81702AF1BFF3DC100FAE520 /* BTActionSheetBaseCell.h */,
 				C81702B01BFF3DC100FAE520 /* BTActionSheetBaseCell.m */,
 				C81702B11BFF3DC100FAE520 /* BTActionSheetBaseContentModel.h */,
@@ -2957,6 +3127,8 @@
 			children = (
 				C81702DD1BFF470E00FAE520 /* GJGCPublicGroupListViewController.h */,
 				C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */,
+				E4FEB3D11C00529800E4A153 /* GJGCPulicGroupListDataManager.h */,
+				E4FEB3D21C00529800E4A153 /* GJGCPulicGroupListDataManager.m */,
 			);
 			path = PublicGroup;
 			sourceTree = "<group>";
@@ -3435,17 +3607,6 @@
 			path = GJCFCachePathManager;
 			sourceTree = "<group>";
 		};
-		C8F3B92F1BF091AC0057AF5B /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				C8F3B9301BF093050057AF5B /* ZYLoginViewController.h */,
-				C8F3B9311BF093050057AF5B /* ZYLoginViewController.m */,
-				C8F3B9331BF093110057AF5B /* ZYRegistViewController.h */,
-				C8F3B9341BF093110057AF5B /* ZYRegistViewController.m */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		C8F3B9C81BF0B5050057AF5B /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
@@ -3477,6 +3638,8 @@
 				C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */,
 				C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */,
 				C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */,
+				E4FEB43F1C01A35100E4A153 /* GJGCMessageExtendGroupModel.h */,
+				E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */,
 			);
 			path = MessageExtend;
 			sourceTree = "<group>";
@@ -3514,6 +3677,179 @@
 				6DE8265654025179D2DD2EDF /* libPods-ZYChat.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4FEB3AF1BFF836500E4A153 /* InfoBaseList */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB3C01BFF851600E4A153 /* Cells */,
+				E4FEB3B01BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.h */,
+				E4FEB3B11BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m */,
+				E4FEB3B41BFF84D100E4A153 /* GJGCInfoBaseListConst.h */,
+				E4FEB3B51BFF84D100E4A153 /* GJGCInfoBaseListConst.m */,
+				E4FEB3B81BFF84E300E4A153 /* GJGCInfoBaseListDataManager.h */,
+				E4FEB3B91BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m */,
+				E4FEB3BC1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.h */,
+				E4FEB3BD1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m */,
+			);
+			path = InfoBaseList;
+			sourceTree = "<group>";
+		};
+		E4FEB3C01BFF851600E4A153 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB3C11BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.h */,
+				E4FEB3C21BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m */,
+				E4FEB3C51BFF8BE200E4A153 /* GJGCInfoRoleContentCell.h */,
+				E4FEB3C61BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m */,
+				E4FEB3C91C00489F00E4A153 /* GJGCInfoUserRoleContentCell.h */,
+				E4FEB3CA1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m */,
+				E4FEB3CD1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.h */,
+				E4FEB3CE1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E4FEB3D51C00574500E4A153 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB3D61C00574500E4A153 /* Base64.h */,
+				E4FEB3D71C00574500E4A153 /* Base64.m */,
+			);
+			path = Base64;
+			sourceTree = "<group>";
+		};
+		E4FEB3D91C017B1400E4A153 /* GroupCommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB4571C01E95400E4A153 /* PersonInformation */,
+				E4FEB42F1C017D3200E4A153 /* GroupInformation */,
+				E4FEB4251C017B8000E4A153 /* tagView */,
+				E4FEB3DA1C017B1400E4A153 /* UITableViewCell */,
+				E4FEB3FE1C017B1400E4A153 /* View */,
+				E4FEB4011C017B1400E4A153 /* ViewController */,
+			);
+			path = GroupCommonUI;
+			sourceTree = "<group>";
+		};
+		E4FEB3DA1C017B1400E4A153 /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB3DB1C017B1400E4A153 /* Base */,
+				E4FEB3E11C017B1400E4A153 /* Cell */,
+			);
+			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		E4FEB3DB1C017B1400E4A153 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB3DC1C017B1400E4A153 /* GJGCInformationBaseCell.h */,
+				E4FEB3DD1C017B1400E4A153 /* GJGCInformationBaseCell.m */,
+				E4FEB3DE1C017B1400E4A153 /* GJGCInformationBaseCellDelegate.h */,
+				E4FEB3DF1C017B1400E4A153 /* GJGCInformationBaseModel.h */,
+				E4FEB3E01C017B1400E4A153 /* GJGCInformationBaseModel.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E4FEB3E11C017B1400E4A153 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB43A1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.h */,
+				E4FEB43B1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.m */,
+				E4FEB3E21C017B1400E4A153 /* GJGCInformationCellConstans.h */,
+				E4FEB3E31C017B1400E4A153 /* GJGCInformationCellConstans.m */,
+				E4FEB3E41C017B1400E4A153 /* GJGCInformationCellContentModel.h */,
+				E4FEB3E51C017B1400E4A153 /* GJGCInformationCellContentModel.m */,
+				E4FEB3E61C017B1400E4A153 /* GJGCInformationCellStyle.h */,
+				E4FEB3E71C017B1400E4A153 /* GJGCInformationCellStyle.m */,
+				E4FEB3E81C017B1400E4A153 /* GJGCInformationFeedListCell.h */,
+				E4FEB3E91C017B1400E4A153 /* GJGCInformationFeedListCell.m */,
+				E4FEB3EA1C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.h */,
+				E4FEB3EB1C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m */,
+				E4FEB3EC1C017B1400E4A153 /* GJGCInformationGroupShowCell.h */,
+				E4FEB3ED1C017B1400E4A153 /* GJGCInformationGroupShowCell.m */,
+				E4FEB3EE1C017B1400E4A153 /* GJGCInformationGroupShowItem.h */,
+				E4FEB3EF1C017B1400E4A153 /* GJGCInformationGroupShowItem.m */,
+				E4FEB3F01C017B1400E4A153 /* GJGCInformationLevelCell.h */,
+				E4FEB3F11C017B1400E4A153 /* GJGCInformationLevelCell.m */,
+				E4FEB3F21C017B1400E4A153 /* GJGCInformationMemberShowItem.h */,
+				E4FEB3F31C017B1400E4A153 /* GJGCInformationMemberShowItem.m */,
+				E4FEB3F41C017B1400E4A153 /* GJGCInformationMemeberShowCell.h */,
+				E4FEB3F51C017B1400E4A153 /* GJGCInformationMemeberShowCell.m */,
+				E4FEB3F61C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.h */,
+				E4FEB3F71C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m */,
+				E4FEB3F81C017B1400E4A153 /* GJGCInformationPhotoBox.h */,
+				E4FEB3F91C017B1400E4A153 /* GJGCInformationPhotoBox.m */,
+				E4FEB3FA1C017B1400E4A153 /* GJGCInformationTextAndIconCell.h */,
+				E4FEB3FB1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m */,
+				E4FEB3FC1C017B1400E4A153 /* GJGCInformationTextCell.h */,
+				E4FEB3FD1C017B1400E4A153 /* GJGCInformationTextCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E4FEB3FE1C017B1400E4A153 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4FEB4011C017B1400E4A153 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB4081C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.h */,
+				E4FEB4091C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m */,
+				E4FEB40A1C017B1400E4A153 /* GJGCInformationBaseViewController.h */,
+				E4FEB40B1C017B1400E4A153 /* GJGCInformationBaseViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E4FEB4251C017B8000E4A153 /* tagView */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB4261C017B8000E4A153 /* GJGCTagView.h */,
+				E4FEB4271C017B8000E4A153 /* GJGCTagView.m */,
+			);
+			path = tagView;
+			sourceTree = "<group>";
+		};
+		E4FEB42F1C017D3200E4A153 /* GroupInformation */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB4341C01837600E4A153 /* GJGCGroupPersonInformationShowMap.h */,
+				E4FEB4351C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m */,
+				E4FEB4301C017D4E00E4A153 /* GJGCGroupInformationViewController.h */,
+				E4FEB4311C017D4E00E4A153 /* GJGCGroupInformationViewController.m */,
+			);
+			path = GroupInformation;
+			sourceTree = "<group>";
+		};
+		E4FEB44A1C01E7E200E4A153 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB44B1C01E7E200E4A153 /* HALoginViewController.h */,
+				E4FEB44C1C01E7E200E4A153 /* HALoginViewController.m */,
+				E4FEB44D1C01E7E200E4A153 /* HARegistContentModel.h */,
+				E4FEB44E1C01E7E200E4A153 /* HARegistContentModel.m */,
+				E4FEB44F1C01E7E200E4A153 /* HARegistInputTextCell.h */,
+				E4FEB4501C01E7E200E4A153 /* HARegistInputTextCell.m */,
+				E4FEB4511C01E7E200E4A153 /* HARegistViewController.h */,
+				E4FEB4521C01E7E200E4A153 /* HARegistViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E4FEB4571C01E95400E4A153 /* PersonInformation */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEB4581C01E97100E4A153 /* GJGCPersonInformationViewController.h */,
+				E4FEB4591C01E97100E4A153 /* GJGCPersonInformationViewController.m */,
+			);
+			path = PersonInformation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3604,6 +3940,7 @@
 				365F06001B501A5D005161D6 /* 068[刀]@2x.png in Resources */,
 				365F06201B501A5D005161D6 /* 084[折磨]@2x.png in Resources */,
 				365F05861B501A5D005161D6 /* 008[呲牙]@2x.png in Resources */,
+				E4FEB4451C01CC3800E4A153 /* title-icon-群资料@2x.png in Resources */,
 				365F058A1B501A5D005161D6 /* 010[傲慢]@2x.png in Resources */,
 				365F08B61B50E292005161D6 /* 好友头像占位-bg-2行列表@2x.png in Resources */,
 				365F05E61B501A5D005161D6 /* 055[心碎]@2x.png in Resources */,
@@ -3633,12 +3970,14 @@
 				365F064E1B501A5D005161D6 /* 删除@2x.png in Resources */,
 				365F05BA1B501A5D005161D6 /* 033[右哼哼]@2x.png in Resources */,
 				365F05FA1B501A5D005161D6 /* 065[胜利]@2x.png in Resources */,
+				E4FEB4461C01CC3800E4A153 /* title-icon-群资料@3x.png in Resources */,
 				365F05901B501A5D005161D6 /* 013[亲亲]@2x.png in Resources */,
 				365F06101B501A5D005161D6 /* 076[便便]@2x.png in Resources */,
 				365F05EE1B501A5D005161D6 /* 059[蛋糕]@2x.png in Resources */,
 				365F06401B501A5D005161D6 /* 104[激动]@2x.png in Resources */,
 				365F05F41B501A5D005161D6 /* 062[勾引]@2x.png in Resources */,
 				C81702EB1BFF48B000FAE520 /* right@3x.png in Resources */,
+				E4FEB4641C01EA3200E4A153 /* iconfont-user.png in Resources */,
 				365F05E81B501A5D005161D6 /* 056[示爱]@2x.png in Resources */,
 				365F063A1B501A5D005161D6 /* 101[点头]@2x.png in Resources */,
 				365F05BC1B501A5D005161D6 /* 034[左哼哼]@2x.png in Resources */,
@@ -3655,6 +3994,7 @@
 				365F059C1B501A5D005161D6 /* 018[坏笑]@2x.png in Resources */,
 				C8D1B1AD1BFB47EB00201421 /* 聊天-icon-发送中@2x.png in Resources */,
 				365F069A1B501A5D005161D6 /* 大表情-bg-预览@2x.png in Resources */,
+				E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
@@ -3752,12 +4092,14 @@
 				365F057E1B501A5D005161D6 /* 004[发怒]@2x.png in Resources */,
 				365F067E1B501A5D005161D6 /* 泪别@2x.png in Resources */,
 				365F03F91B501A43005161D6 /* GJCFAssetsPickerResourceBundle.bundle in Resources */,
+				E4FEB4611C01EA3200E4A153 /* owl-login@2x.png in Resources */,
 				365F06541B501A5D005161D6 /* gifEmoji.plist in Resources */,
 				365F06321B501A5D005161D6 /* 097[飞吻]@2x.png in Resources */,
 				365F05981B501A5D005161D6 /* 016[震惊]@2x111.png in Resources */,
 				365F061A1B501A5D005161D6 /* 081[撇嘴]@2x.png in Resources */,
 				365F05DA1B501A5D005161D6 /* 049[咖啡]@2x.png in Resources */,
 				365F06A01B501A5D005161D6 /* 聊天-icon-语音1-绿@2x.png in Resources */,
+				E4FEB4621C01EA3200E4A153 /* owl-login-arm-right@2x.png in Resources */,
 				365F05A01B501A5D005161D6 /* 020[惊恐]@2x.png in Resources */,
 				365F06381B501A5D005161D6 /* 100[呕火]@2x.png in Resources */,
 				365F063E1B501A5D005161D6 /* 103[挥手帕]@2x.png in Resources */,
@@ -3782,6 +4124,7 @@
 				365F06521B501A5D005161D6 /* gifCode.plist in Resources */,
 				365F06421B501A5D005161D6 /* 105[跳跳]@2x.png in Resources */,
 				365F06301B501A5D005161D6 /* 096[NO]@2x.png in Resources */,
+				E4FEB4651C01EA3200E4A153 /* iconfont-password.png in Resources */,
 				365F06061B501A5D005161D6 /* 071[足球]@2x.png in Resources */,
 				365F05FE1B501A5D005161D6 /* 067[握手]@2x.png in Resources */,
 				C81702E51BFF487200FAE520 /* keyboardButton-点击@3x.png in Resources */,
@@ -3806,6 +4149,7 @@
 				365F05AE1B501A5D005161D6 /* 027[敲打]@2x.png in Resources */,
 				365F06861B501A5D005161D6 /* 睡觉@2x.png in Resources */,
 				365F08BC1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */,
+				E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */,
 				365F06081B501A5D005161D6 /* 072[乒乓]@2x.png in Resources */,
 				365F05D81B501A5D005161D6 /* 048[炸弹]@2x.png in Resources */,
 				365F02E71B5019D0005161D6 /* Images.xcassets in Resources */,
@@ -4068,14 +4412,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4FEB4181C017B1400E4A153 /* GJGCInformationMemberShowItem.m in Sources */,
 				365F042F1B501A43005161D6 /* GJCFAudioRecordSettings.m in Sources */,
+				E4FEB4161C017B1400E4A153 /* GJGCInformationGroupShowItem.m in Sources */,
 				365F043F1B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F040B1B501A43005161D6 /* GJCFAssetsPickerCell.m in Sources */,
 				C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */,
 				C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */,
 				C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */,
 				C8F3B9C71BF0ABF30057AF5B /* ZYDatabaseColunmCondition.m in Sources */,
-				C8F3B9351BF093110057AF5B /* ZYRegistViewController.m in Sources */,
 				365F04511B501A43005161D6 /* GJCFStringUitil.m in Sources */,
 				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
 				365F043B1B501A43005161D6 /* GJCFCoreTextParagraphStyle.m in Sources */,
@@ -4092,6 +4437,7 @@
 				365F08081B50B138005161D6 /* GJGCChatSystemNotiModel.m in Sources */,
 				365F08141B50B138005161D6 /* GJGCChatContentEmojiParser.m in Sources */,
 				C8DC4A631BEC816D00F2D161 /* UIImageView+WebCache.m in Sources */,
+				E4FEB3BE1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m in Sources */,
 				C8DC4A571BEC816D00F2D161 /* NSData+ImageContentType.m in Sources */,
 				C8D1B1AB1BFB310C00201421 /* ZYChatConversation.m in Sources */,
 				365F081E1B50B138005161D6 /* GJGCRefreshFooterView.m in Sources */,
@@ -4103,8 +4449,11 @@
 				365F03D71B501A43005161D6 /* AFSecurityPolicy.m in Sources */,
 				C8DC49F11BEC781B00F2D161 /* ZYFriendServiceManager.m in Sources */,
 				365F04031B501A43005161D6 /* UILabel+GJCFAssetsPickerStyle.m in Sources */,
+				E4FEB4281C017B8000E4A153 /* GJGCTagView.m in Sources */,
 				C8DC4A261BEC7B3500F2D161 /* JSONModelArray.m in Sources */,
+				E4FEB41C1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m in Sources */,
 				365F08521B50B138005161D6 /* GJGCChatSystemNotiDataManager.m in Sources */,
+				E4FEB4121C017B1400E4A153 /* GJGCInformationCellStyle.m in Sources */,
 				C8DC4A5A1BEC816D00F2D161 /* SDWebImageDecoder.m in Sources */,
 				C81702C71BFF3DC100FAE520 /* BTActionSheetConst.m in Sources */,
 				365F08041B50B138005161D6 /* GJGCChatSystemNotiCellStyle.m in Sources */,
@@ -4112,6 +4461,7 @@
 				365F087F1B50BC2F005161D6 /* GJGCCommonHeadView.m in Sources */,
 				365F03CF1B501A43005161D6 /* AFHTTPRequestOperation.m in Sources */,
 				C8D1B1A81BFB30BC00201421 /* ZYPrivateChatDataManager.m in Sources */,
+				E4FEB4411C01A35100E4A153 /* GJGCMessageExtendGroupModel.m in Sources */,
 				365F03DF1B501A43005161D6 /* AFURLSessionManager.m in Sources */,
 				365F07E01B50B138005161D6 /* GJGCChatFriendContentModel.m in Sources */,
 				C81702CB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m in Sources */,
@@ -4133,12 +4483,14 @@
 				365F05761B501A5D005161D6 /* GJGCIconSeprateImageView.m in Sources */,
 				C8DC4A5B1BEC816D00F2D161 /* SDWebImageDownloader.m in Sources */,
 				365F05581B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifSubItem.m in Sources */,
+				E4FEB4221C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m in Sources */,
 				C81702C81BFF3DC100FAE520 /* BTActionSheetDataManager.m in Sources */,
 				365F05681B501A5D005161D6 /* GJGCChatInputExpandMenuPanelItem.m in Sources */,
 				C81702CD1BFF3DC100FAE520 /* BTActionSheetViewController.m in Sources */,
 				365F08321B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
 				365F04371B501A43005161D6 /* GJCFCoreTextLine.m in Sources */,
 				C81702CE1BFF3DC100FAE520 /* BTDateActionSheetViewController.m in Sources */,
+				E4FEB3C71BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m in Sources */,
 				C81702AA1BFF3D1D00FAE520 /* GJGCCreateGroupDataManager.m in Sources */,
 				C8D1B1A21BFB1C3700201421 /* ZYUserDatabaseManager.m in Sources */,
 				C8DC4A641BEC816D00F2D161 /* UIView+WebCacheOperation.m in Sources */,
@@ -4149,17 +4501,19 @@
 				365F05721B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,
 				365F04391B501A43005161D6 /* GJCFCoreTextRun.m in Sources */,
 				365F08021B50B138005161D6 /* GJGCChatSystemNotiBaseCell.m in Sources */,
+				E4FEB4111C017B1400E4A153 /* GJGCInformationCellContentModel.m in Sources */,
 				C81702C91BFF3DC100FAE520 /* BTActionSheetDatePicker.m in Sources */,
 				365F04451B501A43005161D6 /* GJCFCoreTextKeywordAttributedStringStyle.m in Sources */,
 				365F02E51B5019D0005161D6 /* AppDelegate.m in Sources */,
-				C8F3B9321BF093050057AF5B /* ZYLoginViewController.m in Sources */,
 				365F03D31B501A43005161D6 /* AFHTTPSessionManager.m in Sources */,
 				C8DC49F81BEC786B00F2D161 /* ZYDataCenter.m in Sources */,
 				365F07DC1B50B138005161D6 /* GJGCChatFriendCellStyle.m in Sources */,
+				E4FEB40F1C017B1400E4A153 /* GJGCInformationBaseModel.m in Sources */,
 				C8DC4A621BEC816D00F2D161 /* UIImageView+HighlightedWebCache.m in Sources */,
 				365F07E81B50B138005161D6 /* GJGCChatFriendImageMessageCell.m in Sources */,
 				365F08361B50B138005161D6 /* GJGCDrfitBottleDetailViewController.m in Sources */,
 				365F05501B501A5D005161D6 /* GJGCChatInputBarItem.m in Sources */,
+				E4FEB3A61BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */,
 				365F04331B501A43005161D6 /* GJCFCoreTextContentView.m in Sources */,
 				C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */,
 				365F044D1B501A43005161D6 /* GJCFQuickCacheUitil.m in Sources */,
@@ -4169,12 +4523,15 @@
 				C8DC4A591BEC816D00F2D161 /* SDWebImageCompat.m in Sources */,
 				C8DC4A5E1BEC816D00F2D161 /* SDWebImagePrefetcher.m in Sources */,
 				365F03D11B501A43005161D6 /* AFHTTPRequestOperationManager.m in Sources */,
+				E4FEB42B1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m in Sources */,
 				365F08301B50B138005161D6 /* GJGCChatDetailDataSourceManager.m in Sources */,
 				365F083C1B50B138005161D6 /* GJGCChatFriendDataSourceManager.m in Sources */,
 				365F04491B501A43005161D6 /* GJCFDateUitil.m in Sources */,
+				E4FEB3AE1BFF7E0600E4A153 /* BTToast.m in Sources */,
 				365F088B1B50C228005161D6 /* GJGCCommonFontColorStyle.m in Sources */,
 				365F045D1B501A43005161D6 /* GJCUImageBrowserConstans.m in Sources */,
 				365F07F01B50B138005161D6 /* GJGCChatFriendTextMessageCell.m in Sources */,
+				E4FEB4551C01E7E200E4A153 /* HARegistInputTextCell.m in Sources */,
 				365F04471B501A43005161D6 /* NSMutableAttributedString+GJCFCoreText.m in Sources */,
 				365F040F1B501A43005161D6 /* GJCFAssetsPickerScrollView.m in Sources */,
 				C8DC4A6C1BEC8F0600F2D161 /* GJCUProgressView.m in Sources */,
@@ -4185,6 +4542,7 @@
 				365F054E1B501A5D005161D6 /* GJGCChatInputBar.m in Sources */,
 				C8DC4A2C1BEC7B3500F2D161 /* JSONModel+networking.m in Sources */,
 				365F04431B501A43005161D6 /* GJCFCoreTextImageScriptParser.m in Sources */,
+				E4FEB45A1C01E97100E4A153 /* GJGCPersonInformationViewController.m in Sources */,
 				C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */,
 				365F040D1B501A43005161D6 /* GJCFAssetsPickerOverlayView.m in Sources */,
 				365F04011B501A43005161D6 /* UIButton+GJCFAssetsPickerStyle.m in Sources */,
@@ -4193,13 +4551,17 @@
 				365F05561B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifPageItem.m in Sources */,
 				365F07F21B50B138005161D6 /* GJGCChatFriendTimeCell.m in Sources */,
 				365F080C1B50B138005161D6 /* GJGCChatSystemNotiRolePersonView.m in Sources */,
+				E4FEB3C31BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m in Sources */,
 				365F07E21B50B138005161D6 /* GJGCChatFriendDriftBottleCell.m in Sources */,
 				365F04531B501A43005161D6 /* GJCFSystemUitil.m in Sources */,
 				C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */,
+				E4FEB3B21BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */,
 				C8DC49FB1BEC787A00F2D161 /* ZYDataCenterInterface.m in Sources */,
 				C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */,
+				E4FEB4531C01E7E200E4A153 /* HALoginViewController.m in Sources */,
 				365F056A1B501A5D005161D6 /* GJGCChatInputGifFloatView.m in Sources */,
 				365F08381B50B138005161D6 /* GJGCDriftBottleImageScrollView.m in Sources */,
+				E4FEB43C1C018D6200E4A153 /* HAPersonProfileHeadInfoCell.m in Sources */,
 				365F03F51B501A43005161D6 /* FLAnimatedImage.m in Sources */,
 				C81702A71BFF3D1D00FAE520 /* GJGCCreateGroupBaseCell.m in Sources */,
 				C81702AB1BFF3D1D00FAE520 /* GJGCCreateGroupDetailChooseCell.m in Sources */,
@@ -4208,8 +4570,10 @@
 				C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */,
 				365F07F81B50B138005161D6 /* GJGCChatAuthorizAskCell.m in Sources */,
 				365F089D1B50D78F005161D6 /* GJGCRecentChatModel.m in Sources */,
+				E4FEB4141C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m in Sources */,
 				365F07F41B50B138005161D6 /* GJGCChatPostContentModel.m in Sources */,
 				C8DC4A0A1BEC7B1700F2D161 /* ZYUserModel.m in Sources */,
+				E4FEB3CF1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m in Sources */,
 				C81702F41BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m in Sources */,
 				C8F3B9D71BF0B5050057AF5B /* FMDatabaseQueue.m in Sources */,
 				365F07EE1B50B138005161D6 /* GJGCChatFriendPostMessageCell.m in Sources */,
@@ -4217,8 +4581,10 @@
 				365F04651B501A43005161D6 /* GJCUImageBrowserNavigationViewController.m in Sources */,
 				365F056C1B501A5D005161D6 /* GJGCChatInputPanel.m in Sources */,
 				365F08651B50B621005161D6 /* GJCUFlashModeView.m in Sources */,
+				E4FEB3D81C00574500E4A153 /* Base64.m in Sources */,
 				C81702F11BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m in Sources */,
 				365F07E41B50B138005161D6 /* GJGCChatFriendGifCell.m in Sources */,
+				E4FEB41D1C017B1400E4A153 /* GJGCInformationTextCell.m in Sources */,
 				C8DC4A251BEC7B3500F2D161 /* JSONModel.m in Sources */,
 				C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */,
 				C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */,
@@ -4233,17 +4599,23 @@
 				C8DC4A5D1BEC816D00F2D161 /* SDWebImageManager.m in Sources */,
 				365F055C1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSource.m in Sources */,
 				365F04571B501A43005161D6 /* GJCUAsyncImageView.m in Sources */,
+				E4FEB4361C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m in Sources */,
 				C8DC4A2E1BEC7B3500F2D161 /* JSONValueTransformer.m in Sources */,
 				C8A449651BF0428900D29249 /* wav.mm in Sources */,
 				365F03D51B501A43005161D6 /* AFNetworkReachabilityManager.m in Sources */,
 				365F08061B50B138005161D6 /* GJGCChatSystemNotiConstans.m in Sources */,
 				365F08401B50B138005161D6 /* GJGCGIFLoadManager.m in Sources */,
+				E4FEB41B1C017B1400E4A153 /* GJGCInformationPhotoBox.m in Sources */,
 				365F03FF1B501A43005161D6 /* GJCFAssetsPickerStyle.m in Sources */,
 				365F04171B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,
+				E4FEB4151C017B1400E4A153 /* GJGCInformationGroupShowCell.m in Sources */,
 				C81702C51BFF3DC100FAE520 /* BTActionSheetBaseCell.m in Sources */,
 				365F04051B501A43005161D6 /* GJCFAlbums.m in Sources */,
 				C8DC4A5F1BEC816D00F2D161 /* UIButton+WebCache.m in Sources */,
+				E4FEB4561C01E7E200E4A153 /* HARegistViewController.m in Sources */,
+				E4FEB3AA1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */,
 				365F08691B50B680005161D6 /* GJGCBaseViewController.m in Sources */,
+				E4FEB4321C017D4E00E4A153 /* GJGCGroupInformationViewController.m in Sources */,
 				365F07FC1B50B138005161D6 /* GJGCChatOtherApplyMyAuthorizWithStateCell.m in Sources */,
 				365F044F1B501A43005161D6 /* GJCFQuickUIUitil.m in Sources */,
 				365F055A1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBar.m in Sources */,
@@ -4255,17 +4627,23 @@
 				C8F3B9D51BF0B5050057AF5B /* FMDatabaseAdditions.m in Sources */,
 				365F03FB1B501A43005161D6 /* GJCFAssetsPickerCommonStyleDescription.m in Sources */,
 				C8DC4A2B1BEC7B3500F2D161 /* JSONHTTPClient.m in Sources */,
+				E4FEB3CB1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */,
+				E4FEB3B61BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */,
 				365F08631B50B621005161D6 /* GJCUCaptureViewController.m in Sources */,
 				365F04231B501A43005161D6 /* GJCFAudioModel.m in Sources */,
+				E4FEB4131C017B1400E4A153 /* GJGCInformationFeedListCell.m in Sources */,
 				C8D1B2241BFD6FB800201421 /* GJGCRecentChatTitleView.m in Sources */,
 				365F081A1B50B138005161D6 /* GJGCParticleEffectLayer.m in Sources */,
 				365F03F71B501A43005161D6 /* FLAnimatedImageView.m in Sources */,
 				365F04631B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
+				E4FEB4191C017B1400E4A153 /* GJGCInformationMemeberShowCell.m in Sources */,
 				365F05741B501A5D005161D6 /* GJGCIconSeprateButton.m in Sources */,
 				365F05541B501A5D005161D6 /* GJGCChatInputExpandEmojiPanel.m in Sources */,
 				C81702D71BFF3F4E00FAE520 /* LeafNotification.m in Sources */,
 				C8DC4A351BEC7FB300F2D161 /* ZYUserListDataManager.m in Sources */,
 				C8D1B1B01BFC474C00201421 /* GJGCRecentChatDataManager.m in Sources */,
+				E4FEB3BA1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */,
+				E4FEB4541C01E7E200E4A153 /* HARegistContentModel.m in Sources */,
 				365F04351B501A43005161D6 /* GJCFCoreTextFrame.m in Sources */,
 				365F08161B50B138005161D6 /* GJGCLevelView.m in Sources */,
 				365F044B1B501A43005161D6 /* GJCFDispatchCenterUitil.m in Sources */,
@@ -4273,8 +4651,10 @@
 				365F043D1B501A43005161D6 /* GJCFCoreTextAttributedStringStyle.m in Sources */,
 				365F03EF1B501A43005161D6 /* GJCFFileUploadManager.m in Sources */,
 				C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */,
+				E4FEB3D31C00529800E4A153 /* GJGCPulicGroupListDataManager.m in Sources */,
 				365F07D81B50B138005161D6 /* GJGCChatFriendAudioMessageCell.m in Sources */,
 				C8DC4A581BEC816D00F2D161 /* SDImageCache.m in Sources */,
+				E4FEB40E1C017B1400E4A153 /* GJGCInformationBaseCell.m in Sources */,
 				365F03F31B501A43005161D6 /* GJCFUploadFileModel.m in Sources */,
 				365F03FD1B501A43005161D6 /* GJCFAssetsPickerConstans.m in Sources */,
 				365F07EC1B50B138005161D6 /* GJGCChatFriendMiniMessageCell.m in Sources */,
@@ -4282,6 +4662,7 @@
 				365F055E1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem.m in Sources */,
 				365F03E71B501A43005161D6 /* VoiceConverter.mm in Sources */,
 				C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */,
+				E4FEB4231C017B1400E4A153 /* GJGCInformationBaseViewController.m in Sources */,
 				C81702931BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m in Sources */,
 				C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */,
 				365F056E1B501A5D005161D6 /* GJGCChatInputPanelStyle.m in Sources */,
@@ -4291,7 +4672,9 @@
 				365F080A1B50B138005161D6 /* GJGCChatSystemNotiRoleGroupView.m in Sources */,
 				365F04071B501A43005161D6 /* GJCFAsset.m in Sources */,
 				365F04211B501A43005161D6 /* GJCFAudioManager.m in Sources */,
+				E4FEB4171C017B1400E4A153 /* GJGCInformationLevelCell.m in Sources */,
 				C81702A81BFF3D1D00FAE520 /* GJGCCreateGroupConst.m in Sources */,
+				E4FEB4101C017B1400E4A153 /* GJGCInformationCellConstans.m in Sources */,
 				C8DC4A701BEC8F0D00F2D161 /* GJCFCachePathManager.m in Sources */,
 				C8DC4A291BEC7B3500F2D161 /* NSArray+JSONModel.m in Sources */,
 				365F042B1B501A43005161D6 /* GJCFAudioPlayer.m in Sources */,
@@ -4300,7 +4683,8 @@
 				C8F3B9D81BF0B5050057AF5B /* FMResultSet.m in Sources */,
 				C8DC4A031BEC79DA00F2D161 /* ZYNetWorkTask.m in Sources */,
 				365F045F1B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
-				C81702A91BFF3D1D00FAE520 /* GJGCreateGroupContentModel.m in Sources */,
+				E4FEB41A1C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m in Sources */,
+				C81702A91BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m in Sources */,
 				365F041F1B501A43005161D6 /* GJCFAudioFileUitil.m in Sources */,
 				C8F3B9DB1BF0B70E0057AF5B /* ZYDatabaseOperation.m in Sources */,
 				365F041D1B501A43005161D6 /* GJCFEncodeAndDecode.m in Sources */,
@@ -4333,7 +4717,9 @@
 				365F05751B501A5D005161D6 /* GJGCIconSeprateButton.m in Sources */,
 				365F04521B501A43005161D6 /* GJCFStringUitil.m in Sources */,
 				365F055F1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem.m in Sources */,
+				E4FEB3B71BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */,
 				365F07DD1B50B138005161D6 /* GJGCChatFriendCellStyle.m in Sources */,
+				E4FEB3A71BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */,
 				365F04341B501A43005161D6 /* GJCFCoreTextContentView.m in Sources */,
 				365F040C1B501A43005161D6 /* GJCFAssetsPickerCell.m in Sources */,
 				365F041E1B501A43005161D6 /* GJCFEncodeAndDecode.m in Sources */,
@@ -4343,6 +4729,7 @@
 				365F05771B501A5D005161D6 /* GJGCIconSeprateImageView.m in Sources */,
 				365F08841B50BD79005161D6 /* GJGCImageResizeHelper.m in Sources */,
 				365F081B1B50B138005161D6 /* GJGCParticleEffectLayer.m in Sources */,
+				E4FEB3CC1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */,
 				365F080F1B50B138005161D6 /* GJGCChatSystemPostNotiCell.m in Sources */,
 				365F03DE1B501A43005161D6 /* AFURLResponseSerialization.m in Sources */,
 				365F04601B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
@@ -4373,15 +4760,18 @@
 				365F05671B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,
 				365F07D11B50B138005161D6 /* GJGCChatBaseCell.m in Sources */,
 				365F08531B50B138005161D6 /* GJGCChatSystemNotiDataManager.m in Sources */,
+				E4FEB45B1C01E97100E4A153 /* GJGCPersonInformationViewController.m in Sources */,
 				365F04241B501A43005161D6 /* GJCFAudioModel.m in Sources */,
 				365F08171B50B138005161D6 /* GJGCLevelView.m in Sources */,
 				365F086A1B50B680005161D6 /* GJGCBaseViewController.m in Sources */,
 				365F080B1B50B138005161D6 /* GJGCChatSystemNotiRoleGroupView.m in Sources */,
+				E4FEB3D01C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m in Sources */,
 				365F08151B50B138005161D6 /* GJGCChatContentEmojiParser.m in Sources */,
 				365F044A1B501A43005161D6 /* GJCFDateUitil.m in Sources */,
 				365F04641B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
 				365F04401B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F03F41B501A43005161D6 /* GJCFUploadFileModel.m in Sources */,
+				E4FEB3C41BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m in Sources */,
 				365F03F81B501A43005161D6 /* FLAnimatedImageView.m in Sources */,
 				365F04281B501A43005161D6 /* GJCFFileDownloadTask+GJCFAudioDownload.m in Sources */,
 				365F08351B50B138005161D6 /* GJGCChatFriendTalkModel.m in Sources */,
@@ -4404,6 +4794,7 @@
 				365F081F1B50B138005161D6 /* GJGCRefreshFooterView.m in Sources */,
 				365F04361B501A43005161D6 /* GJCFCoreTextFrame.m in Sources */,
 				365F07E71B50B138005161D6 /* GJGCChatFriendGroupCallCell.m in Sources */,
+				E4FEB3C81BFF8BE200E4A153 /* GJGCInfoRoleContentCell.m in Sources */,
 				365F08011B50B138005161D6 /* GJGCChatSystemInviteFriendJoinGroupCell.m in Sources */,
 				365F042C1B501A43005161D6 /* GJCFAudioPlayer.m in Sources */,
 				365F08211B50B138005161D6 /* GJGCRefreshHeaderView.m in Sources */,
@@ -4422,9 +4813,13 @@
 				365F04481B501A43005161D6 /* NSMutableAttributedString+GJCFCoreText.m in Sources */,
 				365F08311B50B138005161D6 /* GJGCChatDetailDataSourceManager.m in Sources */,
 				365F08331B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
+				E4FEB3B31BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */,
 				365F04061B501A43005161D6 /* GJCFAlbums.m in Sources */,
+				E4FEB3AB1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */,
 				365F04181B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,
+				E4FEB4421C01A35100E4A153 /* GJGCMessageExtendGroupModel.m in Sources */,
 				365F04421B501A43005161D6 /* GJCFCoreTextImageAttributedStringStyle.m in Sources */,
+				E4FEB3BB1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */,
 				365F05731B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,
 				365F04121B501A43005161D6 /* GJCFAssetsView.m in Sources */,
 				365F04461B501A43005161D6 /* GJCFCoreTextKeywordAttributedStringStyle.m in Sources */,
@@ -4445,6 +4840,7 @@
 				365F04441B501A43005161D6 /* GJCFCoreTextImageScriptParser.m in Sources */,
 				365F08071B50B138005161D6 /* GJGCChatSystemNotiConstans.m in Sources */,
 				365F04541B501A43005161D6 /* GJCFSystemUitil.m in Sources */,
+				E4FEB4331C017D4E00E4A153 /* GJGCGroupInformationViewController.m in Sources */,
 				365F03D81B501A43005161D6 /* AFSecurityPolicy.m in Sources */,
 				365F03F01B501A43005161D6 /* GJCFFileUploadManager.m in Sources */,
 				365F05571B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifPageItem.m in Sources */,
@@ -4464,6 +4860,7 @@
 				365F08641B50B621005161D6 /* GJCUCaptureViewController.m in Sources */,
 				365F083F1B50B138005161D6 /* GJGCChatFriendViewController.m in Sources */,
 				365F045E1B501A43005161D6 /* GJCUImageBrowserConstans.m in Sources */,
+				E4FEB3BF1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m in Sources */,
 				365F07ED1B50B138005161D6 /* GJGCChatFriendMiniMessageCell.m in Sources */,
 				365F044C1B501A43005161D6 /* GJCFDispatchCenterUitil.m in Sources */,
 				365F043A1B501A43005161D6 /* GJCFCoreTextRun.m in Sources */,
@@ -4476,6 +4873,7 @@
 				365F07E91B50B138005161D6 /* GJGCChatFriendImageMessageCell.m in Sources */,
 				365F07DF1B50B138005161D6 /* GJGCChatFriendConstans.m in Sources */,
 				365F04621B501A43005161D6 /* GJCUImageBrowserScrollView.m in Sources */,
+				E4FEB3D41C00529800E4A153 /* GJGCPulicGroupListDataManager.m in Sources */,
 				365F05651B501A5D005161D6 /* GJGCChatInputExpandMenuPanelConfigModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

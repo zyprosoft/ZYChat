@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell
+END
+GJGCInformationCellConstans.h
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellConstans.h
+END
+GJGCInformationPersonPhotoBoxCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationPersonPhotoBoxCell.h
+END
+GJGCInformationTextCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationTextCell.m
+END
+GJGCInformationCellContentModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 197
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellContentModel.h
+END
+GJGCInformationMemberShowItem.m
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationMemberShowItem.m
+END
+GJGCInformationGroupShowCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupShowCell.h
+END
+GJGCInformationCellConstans.m
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellConstans.m
+END
+GJGCInformationPersonPhotoBoxCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationPersonPhotoBoxCell.m
+END
+GJGCInformationFeedListCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationFeedListCell.h
+END
+GJGCInformationCellStyle.h
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellStyle.h
+END
+GJGCInformationCellContentModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 197
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellContentModel.m
+END
+GJGCInformationGroupShowCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupShowCell.m
+END
+GJGCInformationPhotoBox.h
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationPhotoBox.h
+END
+GJGCInformationFeedListCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationFeedListCell.m
+END
+GJGCInformationCellStyle.m
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationCellStyle.m
+END
+GJGCInformationLevelCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationLevelCell.h
+END
+GJGCInformationPhotoBox.m
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationPhotoBox.m
+END
+GJGCInformationLevelCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationLevelCell.m
+END
+GJGCInformationGroupShowItem.h
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupShowItem.h
+END
+GJGCInformationMemeberShowCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationMemeberShowCell.h
+END
+GJGCInformationGroupPhotoBoxCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 198
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupPhotoBoxCell.h
+END
+GJGCInformationTextAndIconCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationTextAndIconCell.h
+END
+GJGCInformationGroupShowItem.m
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupShowItem.m
+END
+GJGCInformationMemeberShowCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationMemeberShowCell.m
+END
+GJGCInformationGroupPhotoBoxCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 198
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationGroupPhotoBoxCell.m
+END
+GJGCInformationTextCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationTextCell.h
+END
+GJGCInformationTextAndIconCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationTextAndIconCell.m
+END
+GJGCInformationMemberShowItem.h
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/UITableViewCell/Cell/GJGCInformationMemberShowItem.h
+END

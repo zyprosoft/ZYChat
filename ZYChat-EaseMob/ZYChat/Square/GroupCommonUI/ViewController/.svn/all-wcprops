@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController
+END
+GJGCInformationBaseViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCInformationBaseViewController.h
+END
+GJGCPersonInformationViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCPersonInformationViewController.m
+END
+GJGCGroupInformationViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupInformationViewController.h
+END
+GJGCGroupLocationViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupLocationViewController.h
+END
+GJGCInformationBaseViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCInformationBaseViewController.m
+END
+GJGCGroupInformationViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupInformationViewController.m
+END
+GJGCInformationBaseDataSourceManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCInformationBaseDataSourceManager.h
+END
+GJGCGroupPersonInformationShowMap.h
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupPersonInformationShowMap.h
+END
+GJGCGroupLocationViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupLocationViewController.m
+END
+GJGCInformationBaseDataSourceManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/Mobile/!svn/ver/93903/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCInformationBaseDataSourceManager.m
+END
+GJGCPersonInformationViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCPersonInformationViewController.h
+END
+GJGCGroupPersonInformationShowMap.m
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/Mobile/!svn/ver/93963/iOS/branches/GJLifeApp/gjlifeApp_branch_6.6.6/Components/IM/GJGroupChat/GJGroupChat/MainUI/MainCommon/GroupCommonUI/ViewController/GJGCGroupPersonInformationShowMap.m
+END

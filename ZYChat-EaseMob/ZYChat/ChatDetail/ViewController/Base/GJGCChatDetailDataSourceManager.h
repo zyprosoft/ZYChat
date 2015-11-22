@@ -2,7 +2,7 @@
 //  GJGCChatDetailDataSourceManager.h
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-3.
+//  Created by ZYVincent QQ:1003081775 on 14-11-3.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
@@ -227,5 +227,12 @@
  *  @param theMessage 重发的消息
  */
 - (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent;
+
+/**
+ *  消息状态对应关系
+ *
+ *  @return 
+ */
+- (NSDictionary *)easeMessageStateRleations;
 
 @end

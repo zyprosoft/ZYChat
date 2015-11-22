@@ -1,0 +1,27 @@
+//
+//  GJGCPersonInformationViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-10.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCInformationBaseViewController.h"
+#import "GJGCHostReferProtocolsNew.h"
+
+#import "GJGCReportViewController.h"
+@class GJGCPGGroupModel;
+
+@interface GJGCPersonInformationViewController : GJGCInformationBaseViewController<GJGCPersonInformationBuildProtocol>
+
+@property (nonatomic,readonly)long long userId;
+
+@property (nonatomic,strong) GJGCPGGroupModel *belongGroup;      // 从属于的群组
+
+@property (nonatomic,assign)BOOL isTappedHeadViewFromDriftBottleMsg; //从漂流瓶消息头像点击进来的
+
+- (instancetype)initWithUserId:(long long)aUserId reportType:(GJGCReportType)aReportType;
+
+- (instancetype)initWithH5UserId:(NSString *)userId;
+
+@end

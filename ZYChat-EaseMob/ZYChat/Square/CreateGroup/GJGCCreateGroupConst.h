@@ -2,8 +2,8 @@
 //  GJGCCreateGroupConst.h
 //  ZYChat
 //
-//  Created by ZYVincent on 15/9/21.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/9/21.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -62,6 +62,14 @@ typedef NS_ENUM(NSUInteger, GJGCCreateGroupContentType) {
      *  群人数选择
      */
     GJGCCreateGroupContentTypeMemberCount,
+    /**
+     *  群组类型
+     */
+    GJGCCreateGroupContentTypeGroupType,
+    /**
+     *  公司组织
+     */
+    GJGCCreateGroupContentTypeCompany,
 };
 
 @interface GJGCCreateGroupConst : NSObject
@@ -70,5 +78,6 @@ typedef NS_ENUM(NSUInteger, GJGCCreateGroupContentType) {
 
 + (NSString *)cellIdentifierForContentType:(GJGCCreateGroupContentType)contentType;
 
++ (NSString *)levelForGroupMemberCount:(NSInteger )groupMemberCount;
 
 @end

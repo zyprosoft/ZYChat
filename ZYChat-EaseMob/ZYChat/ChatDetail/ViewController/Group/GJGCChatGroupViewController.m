@@ -2,13 +2,13 @@
 //  GJGCChatGroupViewController.m
 //  ZYChat
 //
-//  Created by ZYVincent on 14-11-3.
+//  Created by ZYVincent QQ:1003081775 on 14-11-3.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 
 #import "GJGCChatGroupViewController.h"
 #import "GJGCChatGroupDataSourceManager.h"
-//#import "GJGCGroupInformationViewController.h"
+#import "GJGCGroupInformationViewController.h"
 //#import "GJGCPersonInformationViewController.h"
 
 @interface GJGCChatGroupViewController ()
@@ -43,9 +43,9 @@
 
 - (void)rightButtonPressed:(id)sender
 {
-//    GJGCGroupInformationViewController *groupInformation = [[GJGCGroupInformationViewController alloc]initWithGroupId:[self.taklInfo.toId longLongValue]];
-//    [[GJGCUIStackManager share]pushViewController:groupInformation animated:YES];
-    
+    GJGCGroupInformationViewController *groupInformation = [[GJGCGroupInformationViewController alloc]initWithGroupId:self.taklInfo.toId];
+    [self.navigationController pushViewController:groupInformation animated:YES];
+
     /* 收起输入键盘 */
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self reserveChatInputPanelState];
@@ -61,7 +61,6 @@
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
     [self.inputPanel appendFocusOnOther:[NSString stringWithFormat:@"@%@",contentModel.senderName.string]];
-    
 }
 
 /**
@@ -72,6 +71,7 @@
 - (void)chatCellDidTapOnWelcomeMemberCard:(GJGCChatBaseCell *)tappedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tappedCell];
+    
     GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
 //    GJGCPersonInformationViewController *informationVC = [[GJGCPersonInformationViewController alloc]initWithUserId:[contentModel.userId longLongValue] reportType:GJGCReportTypePerson];

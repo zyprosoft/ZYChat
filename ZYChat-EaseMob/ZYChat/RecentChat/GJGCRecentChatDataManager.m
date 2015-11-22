@@ -2,8 +2,8 @@
 //  GJGCRecentChatDataManager.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/18.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/11/18.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCRecentChatDataManager.h"
@@ -78,6 +78,14 @@ static
     GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
 
     return extendModel.userInfo;
+}
+
+- (GJGCMessageExtendGroupModel *)groupInfoFromMessage:(EMMessage *)theMessage
+{
+    //根据扩展消息结构体进一步解析
+    GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
+    
+    return extendModel.groupInfo;
 }
 
 - (NSString *)displayContentFromMessageBody:(EMMessage *)theMessage
@@ -213,13 +221,41 @@ static
         
         GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];
         chatModel.toId = conversation.chatter;
-        GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
-        chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
-        chatModel.headUrl = userInfo.headThumb;
-        chatModel.unReadCount = conversation.unreadMessagesCount;
-        chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
-        chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-        [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+        
+        if (conversation.conversationType == eConversationTypeGroupChat && conversation.latestMessage) {
+            
+            GJGCMessageExtendGroupModel *groupInfo = [self groupInfoFromMessage:conversation.latestMessage];
+            
+            if (groupInfo&&[groupInfo toDictionary].count > 0) {
+                chatModel.name = [GJGCRecentChatStyle formateName:groupInfo.groupName];
+                chatModel.headUrl = groupInfo.groupHeadThumb;
+            }else{
+                chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
+            }
+            
+            GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+          
+            chatModel.groupInfo = groupInfo;
+            chatModel.isGroupChat = YES;
+            chatModel.unReadCount = conversation.unreadMessagesCount;
+            NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
+            chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
+            chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+            [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+        }
+        
+        if (conversation.conversationType == eConversationTypeChat && conversation.latestMessage) {
+            
+            chatModel.isGroupChat = NO;
+            GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+            chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
+            chatModel.headUrl = userInfo.headThumb;
+            chatModel.unReadCount = conversation.unreadMessagesCount;
+            chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
+            chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+            [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+        }
+        
         chatModel.conversation = conversation;
         
         [self.sourceArray addObject:chatModel];

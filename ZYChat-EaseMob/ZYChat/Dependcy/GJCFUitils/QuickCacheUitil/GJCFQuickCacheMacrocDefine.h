@@ -2,7 +2,7 @@
 //  GJCFQuickCacheMacrocDefine.h
 //  GJCommonFoundation
 //
-//  Created by ZYVincent on 14-10-16.
+//  Created by ZYVincent QQ:1003081775 on 14-10-16.
 //  Copyright (c) 2014年 ZYProSoft. All rights reserved.
 //
 

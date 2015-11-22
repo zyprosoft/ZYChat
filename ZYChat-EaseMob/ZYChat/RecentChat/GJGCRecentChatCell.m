@@ -2,8 +2,8 @@
 //  GJGCRecentChatCell.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/7/11.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/7/11.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCRecentChatCell.h"
@@ -38,7 +38,6 @@
         self.headView.gjcf_top = 10.f;
         self.headView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.headView];
-        
         
         self.nameLabel = [[GJCFCoreTextContentView alloc]init];
         self.nameLabel.contentBaseWidth = GJCFSystemScreenWidth - self.headView.gjcf_width - 3*13.f - 40.f;

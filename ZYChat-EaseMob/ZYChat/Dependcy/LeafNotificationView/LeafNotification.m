@@ -111,7 +111,7 @@
 -(void)showWithAnimation:(BOOL)animation{
     CGRect frame = self.frame;
     if([self.controller.parentViewController isKindOfClass:[UINavigationController class]] && !self.controller.navigationController.navigationBar.isHidden){
-        frame.origin.y = 64 + DEFAULT_SPACE_IMG_TEXT;
+        frame.origin.y = DEFAULT_SPACE_IMG_TEXT;
     }else{
         frame.origin.y = 64 - DEFAULT_SPACE_IMG_TEXT;
     }

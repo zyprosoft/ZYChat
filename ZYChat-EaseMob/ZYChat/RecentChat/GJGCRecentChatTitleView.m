@@ -2,8 +2,8 @@
 //  GJGCRecentChatTitleView.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/19.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/11/19.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCRecentChatTitleView.h"
@@ -51,7 +51,7 @@
     [self.titleLabel sizeToFit];
     
     self.indicatorView.gjcf_size = (CGSize){self.titleLabel.gjcf_height,self.titleLabel.gjcf_height};
-    self.indicatorView.gjcf_right = self.titleLabel.gjcf_left-5;
+    self.indicatorView.gjcf_right = self.titleLabel.gjcf_left;
     self.titleLabel.gjcf_centerX = self.gjcf_width/2;
     self.titleLabel.gjcf_centerY = self.gjcf_height/2;
     self.indicatorView.gjcf_centerY = self.titleLabel.gjcf_centerY;

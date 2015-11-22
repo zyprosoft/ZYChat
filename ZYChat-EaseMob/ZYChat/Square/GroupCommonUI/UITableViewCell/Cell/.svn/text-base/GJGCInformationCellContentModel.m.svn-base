@@ -1,0 +1,13 @@
+//
+//  GJGCInformationCellContentModel.m
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-6.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCInformationCellContentModel.h"
+
+@implementation GJGCInformationCellContentModel
+
+@end

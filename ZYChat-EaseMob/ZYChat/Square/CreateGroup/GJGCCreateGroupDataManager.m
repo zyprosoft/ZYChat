@@ -2,12 +2,13 @@
 //  GJGCCreateGroupDataManager.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/9/21.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/9/21.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCCreateGroupDataManager.h"
 #import "GJGCCreateGroupBaseCell.h"
+#import "GJGCGroupInfoExtendModel.h"
 
 @interface GJGCCreateGroupDataManager ()
 
@@ -87,7 +88,7 @@
 {
     //名称
     GJGCCreateGroupContentModel *nameItem = [[GJGCCreateGroupContentModel alloc]init];
-    nameItem.tagName = @"群组名称";
+    nameItem.tagName = @"名     称";
     nameItem.contentType = GJGCCreateGroupContentTypeSubject;
     nameItem.placeHolder = @"请填写群组名称";
     nameItem.maxInputLength = 15;
@@ -96,7 +97,7 @@
     
     //简介
     GJGCCreateGroupContentModel *descriptionItem = [[GJGCCreateGroupContentModel alloc]init];
-    descriptionItem.tagName = @"群组简介";
+    descriptionItem.tagName = @"简     介";
     descriptionItem.contentType = GJGCCreateGroupContentTypeDescription;
     descriptionItem.content = @"请填写群组简介";
     descriptionItem.isShowDetailIndicator = YES;
@@ -105,45 +106,64 @@
     
     //人数
     GJGCCreateGroupContentModel *memeberCountItem = [[GJGCCreateGroupContentModel alloc]init];
-    memeberCountItem.tagName = @"群组人数";
+    memeberCountItem.tagName = @"人     数";
     memeberCountItem.contentType = GJGCCreateGroupContentTypeMemberCount;
-    memeberCountItem.content = @"请选择群组人数";
+    memeberCountItem.placeHolder = @"请选择群组人数";
     memeberCountItem.isShowDetailIndicator = YES;
     
     [self addContentModel:memeberCountItem];
     
+    //人数
+    GJGCCreateGroupContentModel *groupTypeItem = [[GJGCCreateGroupContentModel alloc]init];
+    groupTypeItem.tagName = @"类     型";
+    groupTypeItem.contentType = GJGCCreateGroupContentTypeGroupType;
+    groupTypeItem.placeHolder = @"请选择群组类型";
+    groupTypeItem.isShowDetailIndicator = YES;
+    
+    [self addContentModel:groupTypeItem];
+    
     //头像
     GJGCCreateGroupContentModel *headItem = [[GJGCCreateGroupContentModel alloc]init];
-    headItem.tagName = @"群组头像";
+    headItem.tagName = @"头     像";
     headItem.contentType = GJGCCreateGroupContentTypeHeadThumb;
-    headItem.content = @"请选择群组头像";
+    headItem.placeHolder = @"请选择群组头像";
+    headItem.content = @"http://imgsrc.baidu.com/forum/w%3D580/sign=bc0a236b31adcbef01347e0e9cae2e0e/2df5e0fe9925bc3130c81b375edf8db1ca137083.jpg";
     headItem.isShowDetailIndicator = YES;
     
     [self addContentModel:headItem];
     
     //位置
     GJGCCreateGroupContentModel *locationItem = [[GJGCCreateGroupContentModel alloc]init];
-    locationItem.tagName = @"群组位置";
+    locationItem.tagName = @"位     置";
     locationItem.contentType = GJGCCreateGroupContentTypeLocation;
-    locationItem.content = @"请选择群组位置";
+    locationItem.placeHolder = @"请选择群组位置";
     locationItem.isShowDetailIndicator = YES;
 
-    [self addContentModel:locationItem];
+//    [self addContentModel:locationItem];
     
     //地址
     GJGCCreateGroupContentModel *addressItem = [[GJGCCreateGroupContentModel alloc]init];
-    addressItem.tagName = @"群组地址";
+    addressItem.tagName = @"地     址";
     addressItem.contentType = GJGCCreateGroupContentTypeAddress;
     addressItem.placeHolder = @"请输入详细地址";
     addressItem.maxInputLength = 30;
     
     [self addContentModel:addressItem];
     
+    //组织
+    GJGCCreateGroupContentModel *companyItem = [[GJGCCreateGroupContentModel alloc]init];
+    companyItem.tagName = @"组     织";
+    companyItem.contentType = GJGCCreateGroupContentTypeAddress;
+    companyItem.placeHolder = @"请输入公司组织信息";
+    companyItem.maxInputLength = 30;
+    
+    [self addContentModel:companyItem];
+    
     //标签
     GJGCCreateGroupContentModel *labelsItem = [[GJGCCreateGroupContentModel alloc]init];
-    labelsItem.tagName = @"群组标签";
+    labelsItem.tagName = @"标     签";
     labelsItem.contentType = GJGCCreateGroupContentTypeLabels;
-    labelsItem.content = @"请选择标签";
+    labelsItem.placeHolder = @"请选择标签";
     labelsItem.isShowDetailIndicator = YES;
     
     [self addContentModel:labelsItem];
@@ -152,11 +172,6 @@
         
         [self.delegate dataManagerRequireRefresh:self];
     }
-}
-
-- (void)uploadGroupInfoAction
-{
-    
 }
 
 - (void)updateSimpleDescription:(NSString *)description
@@ -174,6 +189,34 @@
 - (void)updateLabels:(NSString *)labels
 {
     [self updateDisplayWithContentType:GJGCCreateGroupContentTypeLabels withDisplayContent:labels];
+    [self.delegate dataManagerRequireRefresh:self];
+}
+
+- (void)updateGroupType:(NSNumber *)type display:(NSString *)display
+{
+    NSInteger findIndex = NSNotFound;
+    GJGCCreateGroupContentModel *findContent = nil;
+    
+    for (NSInteger index =0 ; index < self.sourceArray.count; index++) {
+        
+        GJGCCreateGroupContentModel *item = self.sourceArray[index];
+        
+        if (item.contentType == GJGCCreateGroupContentTypeGroupType) {
+            
+            findIndex = index;
+            findContent = item;
+            break;
+        }
+    }
+    
+    if (findContent && findIndex != NSNotFound) {
+        
+        findContent.content = display;
+        findContent.groupStyle = type;
+        
+        [self.sourceArray replaceObjectAtIndex:findIndex withObject:findContent];
+    }
+    
     [self.delegate dataManagerRequireRefresh:self];
 }
 
@@ -200,6 +243,138 @@
         
         [self.sourceArray replaceObjectAtIndex:findIndex withObject:findContent];
     }
+}
+
+
+- (void)uploadGroupInfoAction
+{
+    //参数合法性检查
+    NSString *errMsg = @"";
+    BOOL isValidateParams = YES;
+    
+    EMGroupStyleSetting *groupSetting = [[EMGroupStyleSetting alloc]init];
+    
+    GJGCGroupInfoExtendModel *groupExtendInfo = [[GJGCGroupInfoExtendModel alloc]init];
+    
+    for (GJGCCreateGroupContentModel *contentModel in self.sourceArray) {
+        
+        //群名称
+        if (contentModel.contentType == GJGCCreateGroupContentTypeSubject) {
+        
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群名称不可以为空";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupExtendInfo.name = contentModel.content;
+            }
+            
+        }
+        
+        //群类型
+        if (contentModel.contentType == GJGCCreateGroupContentTypeGroupType) {
+            if (!contentModel.groupStyle) {
+                errMsg = @"群类型必须选择";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupSetting.groupStyle = [contentModel.groupStyle integerValue];
+            }
+        }
+        
+        //群人数
+        if (contentModel.contentType == GJGCCreateGroupContentTypeMemberCount) {
+            
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群人数必须选择";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupSetting.groupMaxUsersCount = [contentModel.content integerValue];
+            }
+        }
+        
+        //群简介
+        if (contentModel.contentType == GJGCCreateGroupContentTypeDescription) {
+            
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群简介必填";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupExtendInfo.simpleDescription = contentModel.content;
+            }
+        }
+        
+        //群头像
+        if (contentModel.contentType == GJGCCreateGroupContentTypeHeadThumb) {
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群头像必选";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupExtendInfo.headUrl = contentModel.content;
+            }
+        }
+        
+        //群标签
+        if (contentModel.contentType == GJGCCreateGroupContentTypeLabels) {
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群标签必选";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupExtendInfo.labels = contentModel.content;
+            }
+        }
+        
+        //群地址
+        if (contentModel.contentType == GJGCCreateGroupContentTypeAddress) {
+            if (GJCFStringIsNull(contentModel.content)) {
+                errMsg = @"群地址必选";
+                isValidateParams = NO;
+                break;
+            }else{
+                groupExtendInfo.address = contentModel.content;
+            }
+        }
+        
+        //群组织
+        if (contentModel.contentType == GJGCCreateGroupContentTypeCompany) {
+            groupExtendInfo.company = contentModel.content;
+        }
+    }
+    
+    if (!isValidateParams) {
+        
+        [self.delegate dataManager:self showErrorMessage:errMsg];
+        return;
+    }
+    
+    //等级
+    groupExtendInfo.level = [GJGCCreateGroupConst levelForGroupMemberCount:groupSetting.groupMaxUsersCount];
+    
+    //添加时间
+    NSString *dateString = GJCFDateToString([NSDate date]);
+    groupExtendInfo.addTime = dateString;
+    
+    //使用群简介来丰富群信息
+    NSData *extendData = [NSKeyedArchiver archivedDataWithRootObject:[groupExtendInfo toDictionary]];
+    NSString *extendString = [extendData base64Encoding];
+    
+    //向环信创建群组
+    [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil initialWelcomeMessage:nil styleSetting:groupSetting completion:^(EMGroup *group, EMError *error) {
+        
+        if (!error) {
+            
+            [self.delegate dataManagerDidCreateGroupSuccess:self];
+            
+        }else{
+            
+            BTToast(error.description);
+        }
+        
+    } onQueue:nil];
 }
 
 @end

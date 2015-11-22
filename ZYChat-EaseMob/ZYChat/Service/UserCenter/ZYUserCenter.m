@@ -3,7 +3,7 @@
 //  ZYChat
 //
 //  Created by ZYVincent on 15/11/6.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "ZYUserCenter.h"
@@ -47,68 +47,9 @@
     return self;
 }
 
-- (void)registUserWithMobile:(NSString *)mobile withPassword:(NSString *)password withSuccess:(ZYUserCenterRequestSuccessBlock)success withFaild:(ZYUserCenterRequestFaildBlock)faild
-{
-    ZYDataCenterRequestCondition *condition = [[ZYDataCenterRequestCondition alloc]init];
-    condition.requestType = ZYDataCenterRequestTypeRegist;
-    condition.postParams = @{
-                             @"mobile":mobile,
-                             @"password":password,
-                             };
-    
-    [[ZYDataCenter shareCenter] requestWithCondition:condition withSuccessBlock:^(ZYNetWorkTask *task, NSDictionary *response) {
-        
-        self.innerLoginUser = [[ZYUserModel alloc]initWithDictionary:response error:nil];
-        [self saveCurrentLoginUser];
-        [self saveUserPassword:self.innerLoginUser.userId password:password];
-
-        if (success) {
-            success(@"登录成功");
-        }
-        
-    } withFaildBlock:^(ZYNetWorkTask *task, NSError *error) {
-        
-        if (faild) {
-            faild(error);
-        }
-        
-    }];
-
-}
-
 - (void)LoginUserWithMobile:(NSString *)mobile withPassword:(NSString *)password withSuccess:(ZYUserCenterRequestSuccessBlock)success withFaild:(ZYUserCenterRequestFaildBlock)faild
 {
-    ZYDataCenterRequestCondition *condition = [[ZYDataCenterRequestCondition alloc]init];
-    condition.requestType = ZYDataCenterRequestTypeRegist;
-    condition.postParams = @{
-                             @"mobile":mobile,
-                             @"password":password,
-                             };
-    
-    [[ZYDataCenter shareCenter] requestWithCondition:condition withSuccessBlock:^(ZYNetWorkTask *task, NSDictionary *response) {
-        
-        self.innerLoginUser = [[ZYUserModel alloc]initWithDictionary:response error:nil];
-        
-        //保存登录用户
-        [self saveCurrentLoginUser];
-        [self saveUserPassword:self.innerLoginUser.userId password:password];
-        
-        if (success) {
-            success(@"注册成功");
-        }
-        
-        GJCFNotificationPost(ZYUserCenterLoginSuccessNoti);
-        
-        
-
-        
-    } withFaildBlock:^(ZYNetWorkTask *task, NSError *error) {
-        
-        if (faild) {
-            faild(error);
-        }
-        
-    }];
+    [self loginEaseMobWithMobile:mobile password:password];
 }
 
 
@@ -209,96 +150,41 @@
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:mobile password:password completion:^(NSDictionary *loginInfo, EMError *error) {
         
         if (!error) {
-            
-            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(1)});
+        GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(1)});
             
             NSLog(@"loginUser:%@",loginInfo);
             
+            if (!self.innerLoginUser) {
+                self.innerLoginUser = [[ZYUserModel alloc]init];
+                self.innerLoginUser.name = mobile;
+                self.innerLoginUser.nickname = @"至尊宝001";
+                self.innerLoginUser.headThumb = @"http://att.zhibo8.cc/attachments/1207131906d0b25442e9681c72.jpg";
+                self.innerLoginUser.sex = @"0";
+            }
+            self.innerLoginUser.userId = [loginInfo objectForKey:@"username"];
+            [self saveCurrentLoginUser];
+            [self saveUserPassword:mobile password:password];
+            
             NSLog(@"登录环信成功");
+            
+//            [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsListWithCompletion:^(NSArray *groups, EMError *error) {
+//                
+//                for (EMGroup *group in groups) {
+//                    
+//                    [[EaseMob sharedInstance].chatManager asyncDestroyGroup:group.groupId];
+//                    
+//                }
+//                
+//            } onQueue:nil];
             
         }else{
             
             NSLog(@"登录环信失败");
-            
-            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
+        GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
 
         }
         
     } onQueue:nil];
-}
-
-- (void)updateUsers
-{
-    ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
-    curdCondition.action = ZYDatabaseActionUpdate;
-    curdCondition.tableName = @"user";
-    curdCondition.updateValues = @[
-                                   @{
-                                       @"name":@"iverson-hutao",
-                                       },
-                                   ];
-    
-    //更新条件
-    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
-    whereCondition.operation = ZYDatabaseWhereOperationEqual;
-    whereCondition.columName = @"age";
-    whereCondition.value = @"33";
-    curdCondition.andConditions = @[whereCondition];
-    
-    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
-    dbOperation.actionCondition = curdCondition;
-    
-    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
-}
-
-- (void)deleteUser
-{
-    ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
-    curdCondition.action = ZYDatabaseActionDelete;
-    curdCondition.tableName = @"user";
-    
-    //更新条件
-    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
-    whereCondition.operation = ZYDatabaseWhereOperationEqual;
-    whereCondition.columName = @"age";
-    whereCondition.value = @"33";
-    curdCondition.andConditions = @[whereCondition];
-    
-    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
-    dbOperation.actionCondition = curdCondition;
-    
-    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
-}
-
-- (void)queryUser
-{
-    ZYDatabaseCRUDCondition *curdCondition = [[ZYDatabaseCRUDCondition alloc]init];
-    curdCondition.action = ZYDatabaseActionSelect;
-    curdCondition.tableName = @"user";
-    
-    //更新条件
-    ZYDatabaseWhereCondition *whereCondition = [[ZYDatabaseWhereCondition alloc]init];
-    whereCondition.operation = ZYDatabaseWhereOperationBigger;
-    whereCondition.columName = @"age";
-    whereCondition.value = @"20";
-    curdCondition.andConditions = @[whereCondition];
-    
-    ZYDatabaseOperation *dbOperation = [[ZYDatabaseOperation alloc]init];
-    dbOperation.actionCondition = curdCondition;
-    dbOperation.QuerySuccess = ^(FMResultSet *result){
-      
-        NSLog(@"result :%@",result);
-        
-        NSInteger count = 0;
-        while ([result next]) {
-            
-            count ++;
-            
-            NSLog(@"result index count %ld",(long)count);
-        }
-    };
-    
-    [[ZYDatabaseManager shareManager] addOperation:dbOperation];
 }
 
 @end

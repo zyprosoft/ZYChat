@@ -2,8 +2,8 @@
 //  UIViewController.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/7/11.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/7/11.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCBaseViewController.h"
@@ -60,10 +60,17 @@
     {
         [self setLeftButtonWithImageName:@"title-icon-向左返回" bgImageName:nil];
     }
+    
+    if (self.isMainMoudle) {
+        self.tabBarController.tabBar.hidden = NO;
+    }else{
+        self.tabBarController.tabBar.hidden = YES;
+    }
+    
     [super viewWillAppear:animated];
+    
+    
 }
-
-
 
 - (void)leftButtonPressed:(UIButton *)sender
 {

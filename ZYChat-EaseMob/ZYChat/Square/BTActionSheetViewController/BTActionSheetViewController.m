@@ -3,7 +3,7 @@
 //  ZYChat
 //
 //  Created by ZYVincent on 15/9/2.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "BTActionSheetViewController.h"
@@ -49,7 +49,7 @@
     
     self.contentView = [[UIView alloc]init];
     self.contentView.gjcf_width = GJCFSystemScreenWidth;
-    self.contentView.gjcf_height = GJCFSystemScreenHeight - self.contentOriginY - 120;
+    self.contentView.gjcf_height = GJCFSystemScreenHeight - 100 - 120;
     self.contentView.gjcf_top = GJCFSystemScreenHeight;
     [self.view addSubview:self.contentView];
     
@@ -111,7 +111,7 @@
         self.doneButton.hidden = NO;
     }
     
-    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0,0,GJCFSystemScreenWidth,self.contentView.gjcf_height - self.toolBar.gjcf_height)];
+    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0,0,GJCFSystemScreenWidth,self.contentView.gjcf_height - self.toolBar.gjcf_height-64)];
     self.listTable.delegate = self;
     self.listTable.dataSource = self;
     self.listTable.gjcf_top = self.toolBar.gjcf_bottom;
@@ -125,7 +125,7 @@
 - (void)setContentHeight:(CGFloat)contentHeight
 {
     self.contentView.gjcf_height = contentHeight;
-    self.listTable.gjcf_height = self.contentView.gjcf_height - 40.f;
+    self.listTable.gjcf_height = self.contentView.gjcf_height - self.toolBar.gjcf_height;
     self.listTable.gjcf_bottom = self.contentView.gjcf_height;
     self.contentView.gjcf_bottom = GJCFSystemScreenHeight;
 }

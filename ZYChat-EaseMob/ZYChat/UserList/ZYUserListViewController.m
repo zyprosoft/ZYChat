@@ -2,18 +2,19 @@
 //  ZYUserListViewController.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/6.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/11/6.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "ZYUserListViewController.h"
 #import "ZYUserListDataManager.h"
-#import "ZYLoginViewController.h"
 #import "GJGCChatFriendViewController.h"
 
-@interface ZYUserListViewController ()<ZYUserListDataManagerDelegate>
+@interface ZYUserListViewController ()<UITableViewDataSource,UITableViewDelegate,ZYUserListDataManagerDelegate>
 
 @property (nonatomic,strong)ZYUserListDataManager *dataManager;
+
+@property (nonatomic,strong)UITableView *tableView;
 
 @end
 
@@ -28,6 +29,13 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(rightBarItemAction)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+    self.tableView = [[UITableView alloc]init];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.gjcf_width = GJCFSystemScreenWidth;
+    self.tableView.gjcf_height = GJCFSystemScreenHeight - 64.f;
+    [self.view addSubview:self.tableView];
+    
     if ([ZYUserCenter shareCenter].isLogin) {
         [self.dataManager requestUserList];
     }
@@ -35,8 +43,7 @@
 
 - (void)rightBarItemAction
 {
-    ZYLoginViewController *loginVC = [[ZYLoginViewController alloc]init];
-    [self.navigationController pushViewController:loginVC animated:YES];
+    
 }
 
 #pragma mark - Table view data source

@@ -2,8 +2,8 @@
 //  GJGCMessageExtendBaseModel.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/20.
-//  Copyright (c) 2015年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent QQ:1003081775 on 15/11/20.
+//  Copyright (c) 2015年 ZYProSoft.  QQ群:219357847  All rights reserved.
 //
 
 #import "GJGCMessageExtendModel.h"
@@ -20,6 +20,13 @@
         [result setObject:[self.userInfo toDictionary] forKey:kGJGCMessageExtendUserInfo];
         
     }
+    
+    if (self.isGroupMessage && self.groupInfo) {
+        
+        [result setObject:[self.groupInfo toDictionary] forKey:kGJGCMessageExtendGroupInfo];
+    }
+    
+    [result setObject:@(self.isGroupMessage) forKey:kGJGCMessageExtendIsGroupMessage];
     
     if (self.messageContent) {
         
@@ -40,7 +47,15 @@
     if (self = [super init]) {
         
         self.isExtendMessageContent = [contentDict[kGJGCMessageExtendIsExtendMessageContent]boolValue];
+        
         self.userInfo = [[GJGCMessageExtendUserModel alloc]initWithDictionary:contentDict[kGJGCMessageExtendUserInfo] error:nil];
+        
+        self.isGroupMessage = [contentDict[kGJGCMessageExtendIsGroupMessage] boolValue];
+        
+        if (self.isGroupMessage) {
+            
+            self.groupInfo = [[GJGCMessageExtendGroupModel alloc]initWithDictionary:contentDict[kGJGCMessageExtendGroupInfo] error:nil];
+        }
         
         if (self.isExtendMessageContent) {
             

@@ -1,0 +1,20 @@
+//
+//  GJGCGroupInformationViewController.h
+//  GJGroupChat
+//
+//  Created by ZYVincent on 14-11-10.
+//  Copyright (c) 2014年 ganji. All rights reserved.
+//
+
+#import "GJGCInformationBaseViewController.h"
+#import "GJGCHostReferProtocolsNew.h"
+
+@interface GJGCGroupInformationViewController : GJGCInformationBaseViewController<GJGCGroupInformationBuildProtocol>
+
+@property (nonatomic,assign)long long groupId;
+
+- (instancetype)initWithGroupId:(long long)groupId;
+
+- (instancetype)initWithH5GroupId:(NSString *)groupId;
+
+@end
