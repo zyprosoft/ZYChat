@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "GJGCRecentChatViewController.h"
-#import "ZYUserListViewController.h"
+#import "GJGCMyHomePageViewController.h"
 #import "GJGCPublicGroupListViewController.h"
 #import "HALoginViewController.h"
 
@@ -31,25 +31,15 @@
     //注册环信
     [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
     
-    if (![[ZYUserCenter shareCenter] isLogin]) {
-        
-        HALoginViewController *loginVC = [[HALoginViewController alloc]init];
-        loginVC.title = @"ZYChat";
-        
-        self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
-        
-        UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
-        [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
-        
-        self.window.rootViewController = self.loginNav;
-
-    }else{
-        
-        [self setupTab];
-        
-        [[ZYUserCenter shareCenter] autoLogin];
-        
-    }
+    HALoginViewController *loginVC = [[HALoginViewController alloc]init];
+    loginVC.title = @"ZYChat";
+    
+    self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    
+    UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+    [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    
+    self.window.rootViewController = self.loginNav;
     
     [self.window makeKeyAndVisible];
     
@@ -77,8 +67,8 @@
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:groupListVC];
     [nav2.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
-    ZYUserListViewController *userList = [[ZYUserListViewController alloc]init];
-    userList.title = @"用户";
+    GJGCMyHomePageViewController *userList = [[GJGCMyHomePageViewController alloc]init];
+    userList.title = @"我的";
     userList.isMainMoudle = YES;
     
     UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:userList];

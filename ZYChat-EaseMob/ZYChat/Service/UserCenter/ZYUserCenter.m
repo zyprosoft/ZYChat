@@ -162,8 +162,10 @@
                 self.innerLoginUser.sex = @"0";
             }
             self.innerLoginUser.userId = [loginInfo objectForKey:@"username"];
-            [self saveCurrentLoginUser];
+            self.innerLoginUser.mobile = self.innerLoginUser.userId;
+            
             [self saveUserPassword:mobile password:password];
+            [self saveCurrentLoginUser];
             
             NSLog(@"登录环信成功");
             

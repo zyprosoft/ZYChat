@@ -123,6 +123,21 @@
     loginButton.gjcf_left = registButton.gjcf_right + buttonMargin;
     [loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginButton];
+    
+    if ([[ZYUserCenter shareCenter] isLogin]) {
+        
+        [self.statusHUD showWithStatusText:@"自动登录..."];
+        txtUser.text = [[ZYUserCenter shareCenter] currentLoginUser].mobile;
+        [[ZYUserCenter shareCenter] LoginUserWithMobile:txtUser.text withPassword:txtPwd.text withSuccess:^(NSString *message) {
+            
+            [self.statusHUD dismiss];
+            
+        } withFaild:^(NSError *error) {
+            
+            [self.statusHUD dismiss];
+            
+        }];
+    }
 }
 
 - (void)registAction

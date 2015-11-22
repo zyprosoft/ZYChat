@@ -10,8 +10,6 @@
 
 //#define ZYDataCenterServerHost @"http://localhost/happy_fun/index.php"
 
-#define ZYDataCenterServerHost @"https://101.200.203.24/happy_fun/index.php"
-
 //#define ZYDataCenterServerHost @"http://192.168.1.18/happy_fun/index.php"
 
 /**

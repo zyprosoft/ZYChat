@@ -900,6 +900,8 @@
 		E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */; };
 		E4FEB4641C01EA3200E4A153 /* iconfont-user.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB45F1C01EA3200E4A153 /* iconfont-user.png */; };
 		E4FEB4651C01EA3200E4A153 /* iconfont-password.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4601C01EA3200E4A153 /* iconfont-password.png */; };
+		E4FEB4681C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */; };
+		E4FEB4691C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1852,6 +1854,8 @@
 		E4FEB45E1C01EA3200E4A153 /* owl-login-arm-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "owl-login-arm-left@2x.png"; sourceTree = "<group>"; };
 		E4FEB45F1C01EA3200E4A153 /* iconfont-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-user.png"; sourceTree = "<group>"; };
 		E4FEB4601C01EA3200E4A153 /* iconfont-password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-password.png"; sourceTree = "<group>"; };
+		E4FEB4661C01F78100E4A153 /* GJGCMyHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMyHomePageViewController.h; sourceTree = "<group>"; };
+		E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMyHomePageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3848,6 +3852,8 @@
 			children = (
 				E4FEB4581C01E97100E4A153 /* GJGCPersonInformationViewController.h */,
 				E4FEB4591C01E97100E4A153 /* GJGCPersonInformationViewController.m */,
+				E4FEB4661C01F78100E4A153 /* GJGCMyHomePageViewController.h */,
+				E4FEB4671C01F78100E4A153 /* GJGCMyHomePageViewController.m */,
 			);
 			path = PersonInformation;
 			sourceTree = "<group>";
@@ -4603,6 +4609,7 @@
 				C8DC4A2E1BEC7B3500F2D161 /* JSONValueTransformer.m in Sources */,
 				C8A449651BF0428900D29249 /* wav.mm in Sources */,
 				365F03D51B501A43005161D6 /* AFNetworkReachabilityManager.m in Sources */,
+				E4FEB4681C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */,
 				365F08061B50B138005161D6 /* GJGCChatSystemNotiConstans.m in Sources */,
 				365F08401B50B138005161D6 /* GJGCGIFLoadManager.m in Sources */,
 				E4FEB41B1C017B1400E4A153 /* GJGCInformationPhotoBox.m in Sources */,
@@ -4755,6 +4762,7 @@
 				365F08391B50B138005161D6 /* GJGCDriftBottleImageScrollView.m in Sources */,
 				365F087C1B50BB94005161D6 /* TKRoundedView.m in Sources */,
 				365F041A1B501A43005161D6 /* GJCFAssetsPreviewController.m in Sources */,
+				E4FEB4691C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */,
 				365F08661B50B621005161D6 /* GJCUFlashModeView.m in Sources */,
 				365F05511B501A5D005161D6 /* GJGCChatInputBarItem.m in Sources */,
 				365F05671B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,

@@ -49,10 +49,14 @@
 
 - (void)requestGroupInfo
 {
+    [self.statusHUD showWithStatusText:@"正在获取..."];
+    
     GJCFWeakSelf weakSelf = self;
     [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:self.currentGroupId completion:^(EMGroup *group, EMError *error) {
         
         NSLog(@"groupInfo:%@",group.debugDescription);
+        
+        [weakSelf.statusHUD dismiss];
         
         if (!error) {
             [weakSelf createInformationListWith:group];
