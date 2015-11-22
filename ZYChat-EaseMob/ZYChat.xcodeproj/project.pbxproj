@@ -461,8 +461,8 @@
 		365F067D1B501A5D005161D6 /* 泪别.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051A1B501A5D005161D6 /* 泪别.gif */; };
 		365F067E1B501A5D005161D6 /* 泪别@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F051B1B501A5D005161D6 /* 泪别@2x.png */; };
 		365F067F1B501A5D005161D6 /* 泪别@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F051B1B501A5D005161D6 /* 泪别@2x.png */; };
-		365F06801B501A5D005161D6 /* 疑问@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051C1B501A5D005161D6 /* 疑问@2x.gif */; };
-		365F06811B501A5D005161D6 /* 疑问@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051C1B501A5D005161D6 /* 疑问@2x.gif */; };
+		365F06801B501A5D005161D6 /* 疑问.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051C1B501A5D005161D6 /* 疑问.gif */; };
+		365F06811B501A5D005161D6 /* 疑问.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051C1B501A5D005161D6 /* 疑问.gif */; };
 		365F06821B501A5D005161D6 /* 疑问@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F051D1B501A5D005161D6 /* 疑问@2x.png */; };
 		365F06831B501A5D005161D6 /* 疑问@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F051D1B501A5D005161D6 /* 疑问@2x.png */; };
 		365F06841B501A5D005161D6 /* 睡觉.gif in Resources */ = {isa = PBXBuildFile; fileRef = 365F051E1B501A5D005161D6 /* 睡觉.gif */; };
@@ -1274,7 +1274,7 @@
 		365F05191B501A5D005161D6 /* 汗@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "汗@2x.png"; sourceTree = "<group>"; };
 		365F051A1B501A5D005161D6 /* 泪别.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "泪别.gif"; sourceTree = "<group>"; };
 		365F051B1B501A5D005161D6 /* 泪别@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "泪别@2x.png"; sourceTree = "<group>"; };
-		365F051C1B501A5D005161D6 /* 疑问@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "疑问@2x.gif"; sourceTree = "<group>"; };
+		365F051C1B501A5D005161D6 /* 疑问.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "疑问.gif"; sourceTree = "<group>"; };
 		365F051D1B501A5D005161D6 /* 疑问@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "疑问@2x.png"; sourceTree = "<group>"; };
 		365F051E1B501A5D005161D6 /* 睡觉.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "睡觉.gif"; sourceTree = "<group>"; };
 		365F051F1B501A5D005161D6 /* 睡觉@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "睡觉@2x.png"; sourceTree = "<group>"; };
@@ -2743,7 +2743,7 @@
 				365F05191B501A5D005161D6 /* 汗@2x.png */,
 				365F051A1B501A5D005161D6 /* 泪别.gif */,
 				365F051B1B501A5D005161D6 /* 泪别@2x.png */,
-				365F051C1B501A5D005161D6 /* 疑问@2x.gif */,
+				365F051C1B501A5D005161D6 /* 疑问.gif */,
 				365F051D1B501A5D005161D6 /* 疑问@2x.png */,
 				365F051E1B501A5D005161D6 /* 睡觉.gif */,
 				365F051F1B501A5D005161D6 /* 睡觉@2x.png */,
@@ -4059,7 +4059,7 @@
 				365F05BC1B501A5D005161D6 /* 034[左哼哼]@2x.png in Resources */,
 				365F05FC1B501A5D005161D6 /* 066[抱拳]@2x.png in Resources */,
 				365F06B61B501A5D005161D6 /* 聊天键盘-icon-拍照-点击@2x.png in Resources */,
-				365F06801B501A5D005161D6 /* 疑问@2x.gif in Resources */,
+				365F06801B501A5D005161D6 /* 疑问.gif in Resources */,
 				365F05D01B501A5D005161D6 /* 044[惊吓]@2x.png in Resources */,
 				365F06B81B501A5D005161D6 /* 聊天键盘-icon-拍照-点击@3x.png in Resources */,
 				365F06921B501A5D005161D6 /* 跪求@2x.png in Resources */,
@@ -4298,7 +4298,7 @@
 				365F061B1B501A5D005161D6 /* 081[撇嘴]@2x.png in Resources */,
 				365F03FA1B501A43005161D6 /* GJCFAssetsPickerResourceBundle.bundle in Resources */,
 				365F05D11B501A5D005161D6 /* 044[惊吓]@2x.png in Resources */,
-				365F06811B501A5D005161D6 /* 疑问@2x.gif in Resources */,
+				365F06811B501A5D005161D6 /* 疑问.gif in Resources */,
 				365F057B1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
 				365F068D1B501A5D005161D6 /* 诱惑.gif in Resources */,
 				365F05EB1B501A5D005161D6 /* 057[太阳]@2x.png in Resources */,
