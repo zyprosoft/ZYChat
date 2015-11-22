@@ -128,6 +128,8 @@
         
         [self.statusHUD showWithStatusText:@"自动登录..."];
         txtUser.text = [[ZYUserCenter shareCenter] currentLoginUser].mobile;
+        txtPwd.text = [[ZYUserCenter shareCenter] getLastUserPassword];
+        
         [[ZYUserCenter shareCenter] LoginUserWithMobile:txtUser.text withPassword:txtPwd.text withSuccess:^(NSString *message) {
             
             [self.statusHUD dismiss];

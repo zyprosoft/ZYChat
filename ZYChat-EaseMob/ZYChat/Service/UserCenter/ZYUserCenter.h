@@ -38,7 +38,7 @@ typedef void (^ZYUserCenterRequestFaildBlock)(NSError *error);
 
 - (ZYUserModel *)currentLoginUser;
 
-- (NSString *)getUserPassword:(NSString *)userId;
+- (NSString *)getLastUserPassword;
 
 - (void)createUserTable;
 

@@ -87,6 +87,11 @@
     return GJCFUDFGetValue(passKey);
 }
 
+- (NSString *)getLastUserPassword
+{
+    return [self getUserPassword:self.innerLoginUser.mobile];
+}
+
 - (void)saveCurrentLoginUser
 {
     if (!self.innerLoginUser) {
