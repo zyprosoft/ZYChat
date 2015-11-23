@@ -60,7 +60,7 @@
     
     self.timeLabel.text = contentModel.time;
     [self.timeLabel sizeToFit];
-    self.timeLabel.gjcf_centerY = self.timeLabel.gjcf_centerY;
+    self.timeLabel.gjcf_centerY = self.titleLabel.gjcf_centerY;
     self.timeLabel.gjcf_right = GJCFSystemScreenWidth - 10.f;
     
     self.bottomLine.gjcf_bottom = self.headView.gjcf_bottom + self.headView.gjcf_top;

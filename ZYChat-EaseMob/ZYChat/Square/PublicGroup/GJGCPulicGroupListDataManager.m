@@ -54,6 +54,8 @@
             contentModel.summary = groupInfoExtend.simpleDescription;
             contentModel.groupLabels = groupInfoExtend.labels;
             contentModel.headUrl = groupInfoExtend.headUrl;
+            NSDate *date = GJCFDateFromStringByFormat(groupInfoExtend.addTime,kNSDateHelperFormatSQLDateWithTime);
+            contentModel.time = [NSString stringWithFormat:@"始于:%@",GJCFDateToStringByFormat(date, kNSDateHelperFormatSQLDate)];
         }
         
         [self addContentModel:contentModel];
