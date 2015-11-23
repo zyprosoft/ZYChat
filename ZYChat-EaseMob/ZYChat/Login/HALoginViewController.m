@@ -102,20 +102,20 @@
     
     UIButton *registButton = [UIButton buttonWithType:UIButtonTypeCustom];
     registButton.gjcf_width = GJCFSystemScreenWidth * 2/7;
-    registButton.gjcf_height = registButton.gjcf_width * 2/5;
+    registButton.gjcf_height = registButton.gjcf_width * 2/7 +3;
     [registButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], registButton.gjcf_size) forState:UIControlStateNormal];
     [registButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     registButton.layer.cornerRadius = 4.f;
     registButton.layer.masksToBounds = YES;
     [registButton setTitle:@"注     册" forState:UIControlStateNormal];
     registButton.gjcf_top = vLogin.gjcf_bottom + 20.f;
-    registButton.gjcf_left = vLogin.gjcf_left + buttonMargin;
+    registButton.gjcf_left = vLogin.gjcf_left + buttonMargin - 6;
     [registButton addTarget:self action:@selector(registAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registButton];
     
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     loginButton.gjcf_width = GJCFSystemScreenWidth * 2/7;
-    loginButton.gjcf_height = loginButton.gjcf_width * 2/5;
+    loginButton.gjcf_height = loginButton.gjcf_width * 2/7 +3;
     [loginButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], loginButton.gjcf_size) forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginButton.layer.cornerRadius = 4.f;

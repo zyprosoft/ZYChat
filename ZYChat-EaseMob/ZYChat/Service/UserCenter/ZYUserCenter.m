@@ -184,8 +184,9 @@
             if (!self.innerLoginUser) {
                 self.innerLoginUser = [[ZYUserModel alloc]init];
                 self.innerLoginUser.name = mobile;
-                self.innerLoginUser.nickname = @"至尊宝001";
-                self.innerLoginUser.headThumb = @"http://att.zhibo8.cc/attachments/1207131906d0b25442e9681c72.jpg";
+                NSString *timeString = GJCFStringCurrentTimeStamp;
+                self.innerLoginUser.nickname = [NSString stringWithFormat:@"至尊宝%@",[timeString substringFromIndex:timeString.length-4]];
+                self.innerLoginUser.headThumb = @"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg";
                 self.innerLoginUser.sex = @"0";
             }
             self.innerLoginUser.userId = [loginInfo objectForKey:@"username"];
