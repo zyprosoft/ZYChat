@@ -66,8 +66,14 @@
         self.bottomLine.gjcf_height = 0.5f;
         [self.contentView addSubview:self.bottomLine];
         
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeTextChanged:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [GJCFNotificationCenter removeObserver:self];
 }
 
 - (void)setContentModel:(HARegistContentModel *)contentModel
@@ -94,14 +100,16 @@
     self.stateView.gjcf_width = GJCFSystemScreenWidth;
     self.stateView.gjcf_height = contentHeight;
     self.bottomLine.gjcf_bottom = contentHeight;
+    
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)observeTextChanged:(NSNotification *)noti
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(inputCell:didUpdateContent:)] && !GJCFStringIsNull(textField.text)) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(inputCell:didUpdateContent:)] && !GJCFStringIsNull(self.inputTextField.text)) {
         
-        [self.delegate inputCell:self didUpdateContent:textField.text];
+        [self.delegate inputCell:self didUpdateContent:self.inputTextField.text];
     }
 }
+
 
 @end

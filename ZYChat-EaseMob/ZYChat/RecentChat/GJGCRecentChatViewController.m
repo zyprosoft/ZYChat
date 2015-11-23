@@ -51,6 +51,7 @@
     self.listTable.delegate = self;
     self.listTable.dataSource = self;
     self.listTable.frame = self.view.bounds;
+    self.listTable.gjcf_height = GJCFSystemScreenHeight - 64.f;
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.listTable];
     

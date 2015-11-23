@@ -11,7 +11,10 @@
 #import "GJGCChatFriendCellStyle.h"
 #import "GJGCMessageExtendModel.h"
 
-static
+
+#define GJGCRecentConversationNicknameListUDF @"GJGCRecentConversationNicknameListUDF"
+
+#define GJGCRecentConversationHeadListUDF @"GJGCRecentConversationHeadListUDF"
 
 @interface GJGCRecentChatDataManager ()<EMChatManagerDelegate>
 
@@ -261,19 +264,22 @@ static
         
         if (conversation.conversationType == eConversationTypeChat && conversation.latestMessage) {
             
-            EMMessage *lastMessage = conversation.latestMessage;
+            //对方的最近一条消息
+            EMMessage *lastMessage = conversation.latestMessageFromOthers;
 
-            if (![lastMessage.from isEqualToString:cUser.userId]) {
+            if (lastMessage) {
                 
-                GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+                GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:lastMessage];
                 chatModel.name = [GJGCRecentChatStyle formateName:userInfo.nickName];
                 chatModel.headUrl = userInfo.headThumb;
-                
+
             }else{
                 
+                lastMessage = conversation.latestMessage;
                 chatModel.name = [GJGCRecentChatStyle formateName:lastMessage.to];
                 chatModel.headUrl = @"";
             }
+            
             chatModel.unReadCount = conversation.unreadMessagesCount;
             chatModel.isGroupChat = NO;
             chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
@@ -288,6 +294,12 @@ static
     
     [self.delegate dataManagerRequireRefresh:self];
 }
+
+- (void)saveUser:(NSString *)userId nickname:(NSString *)nickname headUrl:(NSString *)headUrl
+{
+    
+}
+
 
 #pragma mark - 监听网络变化，尝试重新登录
 
