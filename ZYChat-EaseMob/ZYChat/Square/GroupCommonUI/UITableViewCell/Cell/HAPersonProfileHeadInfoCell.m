@@ -31,27 +31,18 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.backgroundImageView = [[GJCUAsyncImageView alloc]init];
-        self.backgroundImageView.gjcf_width = GJCFSystemScreenWidth;
-        self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:self.backgroundImageView];
-        
-        self.headBackView = [[UIImageView alloc]init];
-        self.headBackView.gjcf_size = CGSizeMake(90, 90);
-        self.headBackView.backgroundColor = [UIColor whiteColor];
-//        [self.baseContentView addSubview:self.headBackView];
-        
         self.headView = [[GJCUAsyncImageView alloc]init];
-        self.headView.gjcf_size = CGSizeMake(45, 45);
+        self.headView.gjcf_size = CGSizeMake(66, 66);
         self.headView.gjcf_centerX = GJCFSystemScreenWidth/2;
         self.headView.layer.cornerRadius = self.headView.gjcf_width/2;
         self.headView.layer.masksToBounds = YES;
-        self.headView.layer.borderColor = [UIColor redColor].CGColor;
+        self.headView.layer.borderColor = [GJGCCommonFontColorStyle mainThemeColor].CGColor;
         self.headView.layer.borderWidth = 1.f;
+        self.headView.contentMode = UIViewContentModeScaleAspectFit;
         [self.baseContentView addSubview:self.headView];
         
         self.nameLabel = [[UILabel alloc]init];
-        self.nameLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+        self.nameLabel.font = [UIFont boldSystemFontOfSize:16];
         self.nameLabel.textColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
         [self.baseContentView addSubview:self.nameLabel];
         
@@ -65,19 +56,16 @@
     
     GJGCInformationCellContentModel *informationModel = (GJGCInformationCellContentModel *)contentModel;
     
-    self.backgroundImageView.gjcf_height = informationModel.contentHeight;
-    [self.backgroundImageView setUrl:informationModel.groupHeadUrl];
-    
-    self.headView.gjcf_centerY = self.backgroundImageView.gjcf_height/2;
-    self.headView.gjcf_centerX = GJCFSystemScreenWidth/2;
+    self.headView.gjcf_top = 10.f;
+    self.headView.gjcf_left = 13.f;
     [self.headView setUrl:informationModel.groupHeadUrl];
     
     self.nameLabel.text = informationModel.groupName;
     [self.nameLabel sizeToFit];
-    self.nameLabel.gjcf_centerX = self.headView.gjcf_centerX;
-    self.nameLabel.gjcf_top = self.headView.gjcf_bottom + self.contentMargin;
+    self.nameLabel.gjcf_left = self.headView.gjcf_right + 8.f;
+    self.nameLabel.gjcf_centerY = self.headView.gjcf_centerY;
     
-    self.baseContentView.gjcf_height = self.backgroundImageView.gjcf_bottom + self.contentMargin;
+    self.baseContentView.gjcf_height = self.headView.gjcf_bottom + 10.f;
     
     self.topSeprateLine.gjcf_top = contentModel.topLineMargin;
     self.baseContentView.gjcf_top = self.topSeprateLine.gjcf_bottom-0.5;

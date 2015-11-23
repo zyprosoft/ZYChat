@@ -819,6 +819,25 @@
 		C8DC4A6C1BEC8F0600F2D161 /* GJCUProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A6B1BEC8F0600F2D161 /* GJCUProgressView.m */; };
 		C8DC4A701BEC8F0D00F2D161 /* GJCFCachePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A6F1BEC8F0D00F2D161 /* GJCFCachePathManager.m */; };
 		C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DC4A781BEC989C00F2D161 /* amrFileCodec.mm */; };
+		C8E50E361C02B68B00AFA10F /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E351C02B68B00AFA10F /* GDataXMLNode.m */; };
+		C8E50E431C02B84200AFA10F /* WallPaperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E391C02B84200AFA10F /* WallPaperViewController.m */; };
+		C8E50E441C02B84200AFA10F /* shopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E3C1C02B84200AFA10F /* shopModel.m */; };
+		C8E50E451C02B84200AFA10F /* ZWCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E3E1C02B84200AFA10F /* ZWCollectionViewFlowLayout.m */; };
+		C8E50E461C02B84200AFA10F /* ZWCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E411C02B84200AFA10F /* ZWCollectionViewCell.m */; };
+		C8E50E471C02B84200AFA10F /* ZWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E421C02B84200AFA10F /* ZWCollectionViewCell.xib */; };
+		C8E50E491C02BA7600AFA10F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E50E481C02BA7500AFA10F /* libxml2.2.dylib */; };
+		C8E50E5B1C02C25F00AFA10F /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E4B1C02C25F00AFA10F /* MJRefresh.bundle */; };
+		C8E50E5C1C02C25F00AFA10F /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E4E1C02C25F00AFA10F /* MJRefreshBaseView.m */; };
+		C8E50E5D1C02C25F00AFA10F /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E501C02C25F00AFA10F /* MJRefreshConst.m */; };
+		C8E50E5E1C02C25F00AFA10F /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E521C02C25F00AFA10F /* MJRefreshFooterView.m */; };
+		C8E50E5F1C02C25F00AFA10F /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E541C02C25F00AFA10F /* MJRefreshHeaderView.m */; };
+		C8E50E601C02C25F00AFA10F /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E561C02C25F00AFA10F /* UIScrollView+MJExtension.m */; };
+		C8E50E611C02C25F00AFA10F /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E581C02C25F00AFA10F /* UIScrollView+MJRefresh.m */; };
+		C8E50E621C02C25F00AFA10F /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E5A1C02C25F00AFA10F /* UIView+MJExtension.m */; };
+		C8E50E661C02C44E00AFA10F /* WJItemsControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E651C02C44E00AFA10F /* WJItemsControlView.m */; };
+		C8E50E691C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E681C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m */; };
+		C8E50E6D1C02D8FF00AFA10F /* City.s3db in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E6A1C02D8FF00AFA10F /* City.s3db */; };
+		C8E50E6E1C02D8FF00AFA10F /* sqlService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E6C1C02D8FF00AFA10F /* sqlService.m */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -1745,6 +1764,41 @@
 		C8DC4A6F1BEC8F0D00F2D161 /* GJCFCachePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJCFCachePathManager.m; sourceTree = "<group>"; };
 		C8DC4A771BEC989C00F2D161 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		C8DC4A781BEC989C00F2D161 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		C8E50E341C02B68B00AFA10F /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		C8E50E351C02B68B00AFA10F /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		C8E50E381C02B84200AFA10F /* WallPaperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WallPaperViewController.h; sourceTree = "<group>"; };
+		C8E50E391C02B84200AFA10F /* WallPaperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WallPaperViewController.m; sourceTree = "<group>"; };
+		C8E50E3B1C02B84200AFA10F /* shopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopModel.h; sourceTree = "<group>"; };
+		C8E50E3C1C02B84200AFA10F /* shopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopModel.m; sourceTree = "<group>"; };
+		C8E50E3D1C02B84200AFA10F /* ZWCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		C8E50E3E1C02B84200AFA10F /* ZWCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		C8E50E401C02B84200AFA10F /* ZWCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWCollectionViewCell.h; sourceTree = "<group>"; };
+		C8E50E411C02B84200AFA10F /* ZWCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWCollectionViewCell.m; sourceTree = "<group>"; };
+		C8E50E421C02B84200AFA10F /* ZWCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZWCollectionViewCell.xib; sourceTree = "<group>"; };
+		C8E50E481C02BA7500AFA10F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		C8E50E4B1C02C25F00AFA10F /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
+		C8E50E4C1C02C25F00AFA10F /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
+		C8E50E4D1C02C25F00AFA10F /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
+		C8E50E4E1C02C25F00AFA10F /* MJRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshBaseView.m; sourceTree = "<group>"; };
+		C8E50E4F1C02C25F00AFA10F /* MJRefreshConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshConst.h; sourceTree = "<group>"; };
+		C8E50E501C02C25F00AFA10F /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
+		C8E50E511C02C25F00AFA10F /* MJRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooterView.h; sourceTree = "<group>"; };
+		C8E50E521C02C25F00AFA10F /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
+		C8E50E531C02C25F00AFA10F /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
+		C8E50E541C02C25F00AFA10F /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		C8E50E551C02C25F00AFA10F /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
+		C8E50E561C02C25F00AFA10F /* UIScrollView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJExtension.m"; sourceTree = "<group>"; };
+		C8E50E571C02C25F00AFA10F /* UIScrollView+MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJRefresh.h"; sourceTree = "<group>"; };
+		C8E50E581C02C25F00AFA10F /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
+		C8E50E591C02C25F00AFA10F /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
+		C8E50E5A1C02C25F00AFA10F /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		C8E50E641C02C44E00AFA10F /* WJItemsControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJItemsControlView.h; sourceTree = "<group>"; };
+		C8E50E651C02C44E00AFA10F /* WJItemsControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJItemsControlView.m; sourceTree = "<group>"; };
+		C8E50E671C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupAddressSheetViewController.h; sourceTree = "<group>"; };
+		C8E50E681C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupAddressSheetViewController.m; sourceTree = "<group>"; };
+		C8E50E6A1C02D8FF00AFA10F /* City.s3db */ = {isa = PBXFileReference; lastKnownFileType = file; path = City.s3db; sourceTree = "<group>"; };
+		C8E50E6B1C02D8FF00AFA10F /* sqlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlService.h; sourceTree = "<group>"; };
+		C8E50E6C1C02D8FF00AFA10F /* sqlService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sqlService.m; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -1902,6 +1956,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8E50E491C02BA7600AFA10F /* libxml2.2.dylib in Frameworks */,
+				C84B42111BEC9D1100BB5798 /* libxml2.dylib in Frameworks */,
 				C8D1B1B51BFC71C900201421 /* CoreData.framework in Frameworks */,
 				C84B421D1BEC9D3500BB5798 /* UIKit.framework in Frameworks */,
 				C84B421B1BEC9D2F00BB5798 /* SystemConfiguration.framework in Frameworks */,
@@ -1909,7 +1965,6 @@
 				C84B42171BEC9D2000BB5798 /* OpenGLES.framework in Frameworks */,
 				C84B42151BEC9D1B00BB5798 /* MapKit.framework in Frameworks */,
 				C84B42131BEC9D1600BB5798 /* libz.dylib in Frameworks */,
-				C84B42111BEC9D1100BB5798 /* libxml2.dylib in Frameworks */,
 				C84B420F1BEC9D0A00BB5798 /* libstdc++.dylib in Frameworks */,
 				C84B420D1BEC9D0400BB5798 /* libsqlite3.dylib in Frameworks */,
 				C84B420B1BEC9CFD00BB5798 /* libc++abi.dylib in Frameworks */,
@@ -1973,6 +2028,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				C8E50E321C02B65600AFA10F /* WallPaper */,
 				E4FEB46C1C0206F000E4A153 /* MainTab */,
 				E4FEB44A1C01E7E200E4A153 /* Login */,
 				C81702871BFF376800FAE520 /* Square */,
@@ -3132,6 +3188,11 @@
 				E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */,
 				E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */,
 				E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */,
+				C8E50E671C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.h */,
+				C8E50E681C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m */,
+				C8E50E6A1C02D8FF00AFA10F /* City.s3db */,
+				C8E50E6B1C02D8FF00AFA10F /* sqlService.h */,
+				C8E50E6C1C02D8FF00AFA10F /* sqlService.m */,
 			);
 			path = CreateGroup;
 			sourceTree = "<group>";
@@ -3665,6 +3726,90 @@
 			path = GJCFCachePathManager;
 			sourceTree = "<group>";
 		};
+		C8E50E321C02B65600AFA10F /* WallPaper */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E631C02C44E00AFA10F /* WJSegment */,
+				C8E50E4A1C02C25F00AFA10F /* MJRefresh */,
+				C8E50E371C02B84200AFA10F /* controller */,
+				C8E50E3A1C02B84200AFA10F /* model */,
+				C8E50E3F1C02B84200AFA10F /* view */,
+				C8E50E331C02B68B00AFA10F /* XML */,
+			);
+			path = WallPaper;
+			sourceTree = "<group>";
+		};
+		C8E50E331C02B68B00AFA10F /* XML */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E341C02B68B00AFA10F /* GDataXMLNode.h */,
+				C8E50E351C02B68B00AFA10F /* GDataXMLNode.m */,
+			);
+			path = XML;
+			sourceTree = "<group>";
+		};
+		C8E50E371C02B84200AFA10F /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E381C02B84200AFA10F /* WallPaperViewController.h */,
+				C8E50E391C02B84200AFA10F /* WallPaperViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		C8E50E3A1C02B84200AFA10F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E3B1C02B84200AFA10F /* shopModel.h */,
+				C8E50E3C1C02B84200AFA10F /* shopModel.m */,
+				C8E50E3D1C02B84200AFA10F /* ZWCollectionViewFlowLayout.h */,
+				C8E50E3E1C02B84200AFA10F /* ZWCollectionViewFlowLayout.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		C8E50E3F1C02B84200AFA10F /* view */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E401C02B84200AFA10F /* ZWCollectionViewCell.h */,
+				C8E50E411C02B84200AFA10F /* ZWCollectionViewCell.m */,
+				C8E50E421C02B84200AFA10F /* ZWCollectionViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		C8E50E4A1C02C25F00AFA10F /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E4B1C02C25F00AFA10F /* MJRefresh.bundle */,
+				C8E50E4C1C02C25F00AFA10F /* MJRefresh.h */,
+				C8E50E4D1C02C25F00AFA10F /* MJRefreshBaseView.h */,
+				C8E50E4E1C02C25F00AFA10F /* MJRefreshBaseView.m */,
+				C8E50E4F1C02C25F00AFA10F /* MJRefreshConst.h */,
+				C8E50E501C02C25F00AFA10F /* MJRefreshConst.m */,
+				C8E50E511C02C25F00AFA10F /* MJRefreshFooterView.h */,
+				C8E50E521C02C25F00AFA10F /* MJRefreshFooterView.m */,
+				C8E50E531C02C25F00AFA10F /* MJRefreshHeaderView.h */,
+				C8E50E541C02C25F00AFA10F /* MJRefreshHeaderView.m */,
+				C8E50E551C02C25F00AFA10F /* UIScrollView+MJExtension.h */,
+				C8E50E561C02C25F00AFA10F /* UIScrollView+MJExtension.m */,
+				C8E50E571C02C25F00AFA10F /* UIScrollView+MJRefresh.h */,
+				C8E50E581C02C25F00AFA10F /* UIScrollView+MJRefresh.m */,
+				C8E50E591C02C25F00AFA10F /* UIView+MJExtension.h */,
+				C8E50E5A1C02C25F00AFA10F /* UIView+MJExtension.m */,
+			);
+			path = MJRefresh;
+			sourceTree = "<group>";
+		};
+		C8E50E631C02C44E00AFA10F /* WJSegment */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E641C02C44E00AFA10F /* WJItemsControlView.h */,
+				C8E50E651C02C44E00AFA10F /* WJItemsControlView.m */,
+			);
+			path = WJSegment;
+			sourceTree = "<group>";
+		};
 		C8F3B9C81BF0B5050057AF5B /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
@@ -3705,6 +3850,7 @@
 		D8331DA5D44C53B2FF553732 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8E50E481C02BA7500AFA10F /* libxml2.2.dylib */,
 				C8D1B1B41BFC71C800201421 /* CoreData.framework */,
 				C84B422D1BECA5C600BB5798 /* libopencore-amrnb.a */,
 				C84B422E1BECA5C600BB5798 /* RongCloud.bundle */,
@@ -4107,6 +4253,7 @@
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
 				365F057C1B501A5D005161D6 /* 003[大哭]@2x.png in Resources */,
 				E4FEB4841C020EED00E4A153 /* square_selected@2x.png in Resources */,
+				C8E50E5B1C02C25F00AFA10F /* MJRefresh.bundle in Resources */,
 				365F06341B501A5D005161D6 /* 098[接吻]@2x.png in Resources */,
 				365F06DE1B501A5D005161D6 /* 输入框-灰色@2x.png in Resources */,
 				365F067A1B501A5D005161D6 /* 汗@2x.png in Resources */,
@@ -4157,6 +4304,7 @@
 				365F06121B501A5D005161D6 /* 077[飞机]@2x.png in Resources */,
 				365F058E1B501A5D005161D6 /* 012[快哭了]@2x.png in Resources */,
 				365F05DE1B501A5D005161D6 /* 051[玫瑰]@2x.png in Resources */,
+				C8E50E6D1C02D8FF00AFA10F /* City.s3db in Resources */,
 				365F06DC1B501A5D005161D6 /* 聊天键盘切换-btn-圆@3x.png in Resources */,
 				365F06021B501A5D005161D6 /* 069[喝彩]@2x.png in Resources */,
 				365F05B41B501A5D005161D6 /* 030[闭嘴]@2x.png in Resources */,
@@ -4234,6 +4382,7 @@
 				365F08AE1B50E094005161D6 /* 聊天对话框-BG-绿色@2x.png in Resources */,
 				365F05AE1B501A5D005161D6 /* 027[敲打]@2x.png in Resources */,
 				365F06861B501A5D005161D6 /* 睡觉@2x.png in Resources */,
+				C8E50E471C02B84200AFA10F /* ZWCollectionViewCell.xib in Resources */,
 				E4FEB48A1C020F0600E4A153 /* msg@3x.png in Resources */,
 				365F08BC1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */,
 				E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */,
@@ -4507,9 +4656,12 @@
 				365F043F1B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F040B1B501A43005161D6 /* GJCFAssetsPickerCell.m in Sources */,
 				C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */,
+				C8E50E5F1C02C25F00AFA10F /* MJRefreshHeaderView.m in Sources */,
+				C8E50E5C1C02C25F00AFA10F /* MJRefreshBaseView.m in Sources */,
 				C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */,
 				C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */,
 				C8F3B9C71BF0ABF30057AF5B /* ZYDatabaseColunmCondition.m in Sources */,
+				C8E50E461C02B84200AFA10F /* ZWCollectionViewCell.m in Sources */,
 				365F04511B501A43005161D6 /* GJCFStringUitil.m in Sources */,
 				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
 				365F043B1B501A43005161D6 /* GJCFCoreTextParagraphStyle.m in Sources */,
@@ -4530,6 +4682,7 @@
 				C8DC4A571BEC816D00F2D161 /* NSData+ImageContentType.m in Sources */,
 				C8D1B1AB1BFB310C00201421 /* ZYChatConversation.m in Sources */,
 				365F081E1B50B138005161D6 /* GJGCRefreshFooterView.m in Sources */,
+				C8E50E6E1C02D8FF00AFA10F /* sqlService.m in Sources */,
 				365F03DB1B501A43005161D6 /* AFURLRequestSerialization.m in Sources */,
 				365F03D91B501A43005161D6 /* AFURLConnectionOperation.m in Sources */,
 				365F088F1B50D0EF005161D6 /* GJGCWebViewController.m in Sources */,
@@ -4554,6 +4707,8 @@
 				E4FEB4411C01A35100E4A153 /* GJGCMessageExtendGroupModel.m in Sources */,
 				365F03DF1B501A43005161D6 /* AFURLSessionManager.m in Sources */,
 				365F07E01B50B138005161D6 /* GJGCChatFriendContentModel.m in Sources */,
+				C8E50E5E1C02C25F00AFA10F /* MJRefreshFooterView.m in Sources */,
+				C8E50E361C02B68B00AFA10F /* GDataXMLNode.m in Sources */,
 				C81702CB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m in Sources */,
 				365F05621B501A5D005161D6 /* GJGCChatInputExpandMenuPanel.m in Sources */,
 				C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */,
@@ -4618,6 +4773,7 @@
 				365F083C1B50B138005161D6 /* GJGCChatFriendDataSourceManager.m in Sources */,
 				365F04491B501A43005161D6 /* GJCFDateUitil.m in Sources */,
 				E4FEB3AE1BFF7E0600E4A153 /* BTToast.m in Sources */,
+				C8E50E451C02B84200AFA10F /* ZWCollectionViewFlowLayout.m in Sources */,
 				365F088B1B50C228005161D6 /* GJGCCommonFontColorStyle.m in Sources */,
 				365F045D1B501A43005161D6 /* GJCUImageBrowserConstans.m in Sources */,
 				365F07F01B50B138005161D6 /* GJGCChatFriendTextMessageCell.m in Sources */,
@@ -4629,6 +4785,7 @@
 				C8DC4A271BEC7B3500F2D161 /* JSONModelClassProperty.m in Sources */,
 				365F05521B501A5D005161D6 /* GJGCChatInputConst.m in Sources */,
 				C8D1B1A51BFB1C5F00201421 /* ZYChatDatabaseManager.m in Sources */,
+				C8E50E611C02C25F00AFA10F /* UIScrollView+MJRefresh.m in Sources */,
 				365F054E1B501A5D005161D6 /* GJGCChatInputBar.m in Sources */,
 				C8DC4A2C1BEC7B3500F2D161 /* JSONModel+networking.m in Sources */,
 				365F04431B501A43005161D6 /* GJCFCoreTextImageScriptParser.m in Sources */,
@@ -4679,6 +4836,7 @@
 				C8DC4A251BEC7B3500F2D161 /* JSONModel.m in Sources */,
 				C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */,
 				C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */,
+				C8E50E601C02C25F00AFA10F /* UIScrollView+MJExtension.m in Sources */,
 				365F07D41B50B138005161D6 /* GJGCChatContentBaseModel.m in Sources */,
 				C81702C61BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m in Sources */,
 				365F08181B50B138005161D6 /* GJGCLoadingStatusHUD.m in Sources */,
@@ -4687,6 +4845,7 @@
 				C8DC4A2D1BEC7B3500F2D161 /* JSONKeyMapper.m in Sources */,
 				365F081C1B50B138005161D6 /* GJGCPlaceHolderImageView.m in Sources */,
 				365F04291B501A43005161D6 /* GJCFFileUploadTask+GJCFAudioUpload.m in Sources */,
+				C8E50E441C02B84200AFA10F /* shopModel.m in Sources */,
 				C8DC4A5D1BEC816D00F2D161 /* SDWebImageManager.m in Sources */,
 				365F055C1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSource.m in Sources */,
 				365F04571B501A43005161D6 /* GJCUAsyncImageView.m in Sources */,
@@ -4698,6 +4857,7 @@
 				365F08061B50B138005161D6 /* GJGCChatSystemNotiConstans.m in Sources */,
 				365F08401B50B138005161D6 /* GJGCGIFLoadManager.m in Sources */,
 				E4FEB41B1C017B1400E4A153 /* GJGCInformationPhotoBox.m in Sources */,
+				C8E50E661C02C44E00AFA10F /* WJItemsControlView.m in Sources */,
 				365F03FF1B501A43005161D6 /* GJCFAssetsPickerStyle.m in Sources */,
 				365F04171B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,
 				E4FEB4151C017B1400E4A153 /* GJGCInformationGroupShowCell.m in Sources */,
@@ -4712,6 +4872,7 @@
 				365F044F1B501A43005161D6 /* GJCFQuickUIUitil.m in Sources */,
 				365F055A1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBar.m in Sources */,
 				C8DC49F51BEC785D00F2D161 /* ZYDataCenterRequestCondition.m in Sources */,
+				C8E50E621C02C25F00AFA10F /* UIView+MJExtension.m in Sources */,
 				365F04271B501A43005161D6 /* GJCFFileDownloadTask+GJCFAudioDownload.m in Sources */,
 				365F04131B501A43005161D6 /* GJCFAlbumsViewController.m in Sources */,
 				C8DC4A5C1BEC816D00F2D161 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -4748,6 +4909,7 @@
 				C8DC4A581BEC816D00F2D161 /* SDImageCache.m in Sources */,
 				E4FEB40E1C017B1400E4A153 /* GJGCInformationBaseCell.m in Sources */,
 				365F03F31B501A43005161D6 /* GJCFUploadFileModel.m in Sources */,
+				C8E50E5D1C02C25F00AFA10F /* MJRefreshConst.m in Sources */,
 				365F03FD1B501A43005161D6 /* GJCFAssetsPickerConstans.m in Sources */,
 				365F07EC1B50B138005161D6 /* GJGCChatFriendMiniMessageCell.m in Sources */,
 				365F083E1B50B138005161D6 /* GJGCChatFriendViewController.m in Sources */,
@@ -4772,11 +4934,13 @@
 				365F042B1B501A43005161D6 /* GJCFAudioPlayer.m in Sources */,
 				365F087B1B50BB94005161D6 /* TKRoundedView.m in Sources */,
 				365F05641B501A5D005161D6 /* GJGCChatInputExpandMenuPanelConfigModel.m in Sources */,
+				C8E50E691C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m in Sources */,
 				C8F3B9D81BF0B5050057AF5B /* FMResultSet.m in Sources */,
 				C8DC4A031BEC79DA00F2D161 /* ZYNetWorkTask.m in Sources */,
 				365F045F1B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
 				E4FEB41A1C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m in Sources */,
 				C81702A91BFF3D1D00FAE520 /* GJGCCreateGroupContentModel.m in Sources */,
+				C8E50E431C02B84200AFA10F /* WallPaperViewController.m in Sources */,
 				E4FEB4751C0206F100E4A153 /* BTTabBarRootController.m in Sources */,
 				365F041F1B501A43005161D6 /* GJCFAudioFileUitil.m in Sources */,
 				C8F3B9DB1BF0B70E0057AF5B /* ZYDatabaseOperation.m in Sources */,
@@ -5094,6 +5258,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -5132,6 +5297,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

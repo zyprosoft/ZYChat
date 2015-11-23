@@ -42,6 +42,10 @@
 
 - (void)updateLabels:(NSString *)labels;
 
+- (void)updateAddress:(NSString *)address;
+
+- (void)updateHeadUrl:(NSString *)headUrl;
+
 - (void)updateGroupType:(NSNumber *)type display:(NSString *)display;
 
 - (void)uploadGroupInfoAction;

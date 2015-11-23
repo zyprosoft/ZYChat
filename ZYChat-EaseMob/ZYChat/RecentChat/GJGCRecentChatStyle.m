@@ -52,27 +52,24 @@
     
     if(distance <= 60*60*24 && day == t_day && t_month == month && t_year == year){
         
-        string = [NSString stringWithFormat:@"今天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        string = [NSString stringWithFormat:@"%@",GJCFDateToStringByFormat(date,@"HH:mm")];
         
     }
     else if (day == t_day - 1 && t_month == month && t_year == year){
         
-        string = [NSString stringWithFormat:@"昨天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        string = [NSString stringWithFormat:@"昨天"];
         
     }else if (day == t_day - 2 && t_month == month && t_year == year){
         
-        string = [NSString stringWithFormat:@"前天  %@",GJCFDateToStringByFormat(date,@"HH:mm")];
+        string = [NSString stringWithFormat:@"前天"];
         
     }else if(year==t_year){
         
-        NSString *detailTime = GJCFDateToStringByFormat(date,@"HH:mm");
-        string=[NSString stringWithFormat:@"%ld-%ld  %@",(long)month,(long)day,detailTime];
+        string=[NSString stringWithFormat:@"%ld-%ld",(long)month,(long)day];
         
     }else{
         
-        NSString *detailTime = GJCFDateToStringByFormat(date,@"HH:mm");
-        
-        string=[NSString stringWithFormat:@"%ld-%ld-%ld  %@",(long)year,(long)month,(long)day,detailTime];
+        string=[NSString stringWithFormat:@"%ld-%ld-%ld",(long)year,(long)month,(long)day];
     }
     
     return [GJGCChatSystemNotiCellStyle formateTime:string];
@@ -82,7 +79,7 @@
 {
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
     stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
-    stringStyle.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    stringStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
     
     return [[NSAttributedString alloc]initWithString:content attributes:[stringStyle attributedDictionary]];
 }

@@ -12,6 +12,8 @@
 
 @property (nonatomic,strong)UILabel *contentLabel;
 
+@property (nonatomic,strong)UIImageView *headView;
+
 @end
 
 @implementation GJGCCreateGroupDetailChooseCell
@@ -26,6 +28,11 @@
         self.contentLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
         self.contentLabel.numberOfLines = 0;
         [self.contentView addSubview:self.contentLabel];
+        
+        self.headView = [[UIImageView alloc]init];
+        self.headView.gjcf_size = (CGSize){36,36};
+        [self.contentView addSubview:self.headView];
+        
     }
     return self;
 }
@@ -46,6 +53,21 @@
         self.contentLabel.gjcf_top = 6.f;
     }else{
         self.contentLabel.gjcf_centerY = self.tagLabel.gjcf_centerY;
+    }
+    
+    if (contentModel.contentType == GJGCCreateGroupContentTypeHeadThumb) {
+        
+        self.contentLabel.hidden = YES;
+        self.contentLabel.text = @"";
+        self.headView.hidden = NO;
+        self.headView.gjcf_right = self.arrowImageView.gjcf_left - 10.f;
+        self.headView.gjcf_centerY = self.arrowImageView.gjcf_centerY;
+        [self.headView sd_setImageWithURL:[NSURL URLWithString:contentModel.content]];
+        
+    }else{
+        
+        self.headView.hidden = YES;
+        self.contentLabel.hidden = NO;
     }
     
     if (contentModel.isMutilContent) {

@@ -14,6 +14,8 @@
 #import "GJGCCreateGroupLabelsSheetViewController.h"
 #import "GJGCCreateGroupMemberCountSheetViewController.h"
 #import "GJGCCreateGroupTypeSheetViewController.h"
+#import "WallPaperViewController.h"
+#import "GJGCCreateGroupAddressSheetViewController.h"
 
 @interface GJGCCreateGroupViewController ()<
                                             UITableViewDataSource,
@@ -169,12 +171,26 @@
     switch (contentModel.contentType) {
         case GJGCCreateGroupContentTypeHeadThumb:
         {
-            
+            WallPaperViewController *wallPaper = [[WallPaperViewController alloc]init];
+            GJCFWeakSelf weakSelf = self;
+            wallPaper.resultBlock = ^(NSString *imageUrl){
+                
+                [weakSelf.dataManager updateHeadUrl:imageUrl];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            };
+            [self.navigationController pushViewController:wallPaper animated:YES];
         }
             break;
-        case GJGCCreateGroupContentTypeLocation:
+        case GJGCCreateGroupContentTypeAddress:
         {
-            
+            GJGCCreateGroupAddressSheetViewController *memberCountVC = [[GJGCCreateGroupAddressSheetViewController alloc]init];
+            memberCountVC.title = @"选择地址";
+            GJCFWeakSelf weakSelf = self;
+            memberCountVC.resultBlock = ^(BTActionSheetBaseContentModel *resultModel){
+                
+                [weakSelf.dataManager updateAddress:resultModel.userInfo[@"data"]];
+            };
+            [memberCountVC showFromViewController:self];
         }
             break;
         case GJGCCreateGroupContentTypeMemberCount:

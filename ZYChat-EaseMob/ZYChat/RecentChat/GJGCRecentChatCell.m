@@ -83,7 +83,7 @@
     CGSize nameSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.name forBaseContentSize:self.nameLabel.contentBaseSize];
     self.nameLabel.gjcf_size = nameSize;
     self.nameLabel.gjcf_left = self.headView.gjcf_right + 13.f;
-    self.nameLabel.gjcf_top = self.headView.gjcf_top;
+    self.nameLabel.gjcf_top = self.headView.gjcf_top + 6.f;
     self.nameLabel.contentAttributedString = contentModel.name;
     
     CGSize timeSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.time forBaseContentSize:self.timeLabel.contentBaseSize];

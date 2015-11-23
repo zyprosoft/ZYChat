@@ -29,6 +29,8 @@
     self.textView.gjcf_height = GJCFSystemScreenHeight;
     [self.view addSubview:self.textView];
     
+    [self.textView becomeFirstResponder];
+    
 }
 
 - (void)rightButtonPressed:(UIButton *)sender

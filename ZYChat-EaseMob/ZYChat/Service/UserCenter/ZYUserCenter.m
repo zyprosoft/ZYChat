@@ -103,6 +103,17 @@
     [self saveCurrentLoginUser];
 }
 
+- (void)updateAvatar:(NSString *)imageUrl
+{
+    if (GJCFStringIsNull(imageUrl)) {
+        return;
+    }
+    
+    self.innerLoginUser.headThumb = imageUrl;
+    
+    [self saveCurrentLoginUser];
+}
+
 - (void)saveCurrentLoginUser
 {
     if (!self.innerLoginUser) {
@@ -185,15 +196,15 @@
             
             NSLog(@"登录环信成功");
             
-//            [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsListWithCompletion:^(NSArray *groups, EMError *error) {
-//                
-//                for (EMGroup *group in groups) {
-//                    
-//                    [[EaseMob sharedInstance].chatManager asyncDestroyGroup:group.groupId];
-//                    
-//                }
-//                
-//            } onQueue:nil];
+            [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsListWithCompletion:^(NSArray *groups, EMError *error) {
+                
+                for (EMGroup *group in groups) {
+                    
+                    [[EaseMob sharedInstance].chatManager asyncDestroyGroup:group.groupId];
+                    
+                }
+                
+            } onQueue:nil];
             
         }else{
             

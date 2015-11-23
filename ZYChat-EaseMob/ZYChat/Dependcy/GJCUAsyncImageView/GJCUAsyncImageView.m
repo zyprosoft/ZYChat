@@ -182,6 +182,11 @@
         return;
     }
     
+    //改用SDWebImage
+    [self sd_setImageWithURL:[NSURL URLWithString:url]];
+    
+    return;
+    
     self.cachePath = nil;
 
     /* 检测缓存路径有没有这个文件 */

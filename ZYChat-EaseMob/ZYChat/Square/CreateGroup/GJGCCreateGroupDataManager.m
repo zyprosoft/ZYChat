@@ -127,7 +127,7 @@
     headItem.tagName = @"头     像";
     headItem.contentType = GJGCCreateGroupContentTypeHeadThumb;
     headItem.placeHolder = @"请选择群组头像";
-    headItem.content = @"默认头像";
+    headItem.content = @"http://pic.3gbizhi.com/2015/0805/20150805013152212.jpg.255.344.jpg";
     headItem.isShowDetailIndicator = YES;
     
     [self addContentModel:headItem];
@@ -145,15 +145,15 @@
     GJGCCreateGroupContentModel *addressItem = [[GJGCCreateGroupContentModel alloc]init];
     addressItem.tagName = @"地     址";
     addressItem.contentType = GJGCCreateGroupContentTypeAddress;
-    addressItem.placeHolder = @"请输入详细地址";
-    addressItem.maxInputLength = 30;
-    
+    addressItem.placeHolder = @"请选择地址";
+    addressItem.isShowDetailIndicator = YES;
+
     [self addContentModel:addressItem];
     
     //组织
     GJGCCreateGroupContentModel *companyItem = [[GJGCCreateGroupContentModel alloc]init];
     companyItem.tagName = @"组     织";
-    companyItem.contentType = GJGCCreateGroupContentTypeAddress;
+    companyItem.contentType = GJGCCreateGroupContentTypeCompany;
     companyItem.placeHolder = @"请输入公司组织信息";
     companyItem.maxInputLength = 30;
     
@@ -189,6 +189,18 @@
 - (void)updateLabels:(NSString *)labels
 {
     [self updateDisplayWithContentType:GJGCCreateGroupContentTypeLabels withDisplayContent:labels];
+    [self.delegate dataManagerRequireRefresh:self];
+}
+
+- (void)updateAddress:(NSString *)address
+{
+    [self updateDisplayWithContentType:GJGCCreateGroupContentTypeAddress withDisplayContent:address];
+    [self.delegate dataManagerRequireRefresh:self];
+}
+
+- (void)updateHeadUrl:(NSString *)headUrl
+{
+    [self updateDisplayWithContentType:GJGCCreateGroupContentTypeHeadThumb withDisplayContent:headUrl];
     [self.delegate dataManagerRequireRefresh:self];
 }
 

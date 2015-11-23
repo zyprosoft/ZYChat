@@ -12,6 +12,7 @@
 #import "GJGCGroupPersonInformationShowMap.h"
 #import "GJGCChatGroupViewController.h"
 #import "GJGCMutilTextInputViewController.h"
+#import "WallPaperViewController.h"
 
 @interface GJGCMyHomePageViewController ()<GJGCMutilTextInputViewControllerDelegate>
 
@@ -37,7 +38,8 @@
     contentModel.baseContentType = GJGCInformationContentTypeGroupHeadInfo;
     contentModel.groupHeadUrl = currentLoginUser.headThumb;
     contentModel.groupName = currentLoginUser.nickname;
-    contentModel.contentHeight = 164.f;
+    contentModel.contentHeight = 86.f;
+    contentModel.shouldShowIndicator = YES;
     
     [self.dataSourceManager addInformationItem:contentModel];
     
@@ -88,6 +90,28 @@
         
         [self.navigationController pushViewController:inputText animated:YES];
     }
+    
+    if (contentModel.baseContentType == GJGCInformationContentTypeGroupHeadInfo) {
+        
+        WallPaperViewController *wallPage = [[WallPaperViewController alloc]init];
+        GJCFWeakSelf weakSelf = self;
+        wallPage.resultBlock = ^(NSString *imageUrl){
+            
+            [weakSelf updateUserAvatar:imageUrl];
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+        
+        [self.navigationController pushViewController:wallPage animated:YES];
+    }
+}
+
+- (void)updateUserAvatar:(NSString *)imageUrl
+{
+    [[ZYUserCenter shareCenter] updateAvatar:imageUrl];
+    
+    [self.dataSourceManager removeAllData];
+    [self setupMyInformation];
 }
 
 #pragma mark - 昵称输入回调

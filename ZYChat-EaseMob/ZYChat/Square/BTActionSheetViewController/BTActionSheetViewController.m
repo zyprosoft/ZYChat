@@ -49,7 +49,7 @@
     
     self.contentView = [[UIView alloc]init];
     self.contentView.gjcf_width = GJCFSystemScreenWidth;
-    self.contentView.gjcf_height = GJCFSystemScreenHeight - 100 - 120;
+    self.contentView.gjcf_height = GJCFSystemScreenHeight - 64 - 60;
     self.contentView.gjcf_top = GJCFSystemScreenHeight;
     [self.view addSubview:self.contentView];
     

@@ -84,7 +84,7 @@
     contentModel.baseContentType = GJGCInformationContentTypeGroupHeadInfo;
     contentModel.groupHeadUrl = groupInfoExtend.headUrl;
     contentModel.groupName = groupInfoExtend.name;
-    contentModel.contentHeight = 164.f;
+    contentModel.contentHeight = 86.f;
     
     [self.dataSourceManager addInformationItem:contentModel];
     

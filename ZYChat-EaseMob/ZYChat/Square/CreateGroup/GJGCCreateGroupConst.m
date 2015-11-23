@@ -28,7 +28,7 @@
              
              @(GJGCCreateGroupContentTypeHeadThumb) : @"GJGCCreateGroupDetailChooseCell",
              
-             @(GJGCCreateGroupContentTypeAddress) : @"GJGCCreateGroupInputTextCell",
+             @(GJGCCreateGroupContentTypeAddress) : @"GJGCCreateGroupDetailChooseCell",
 
              @(GJGCCreateGroupContentTypeCompany) : @"GJGCCreateGroupInputTextCell",
 

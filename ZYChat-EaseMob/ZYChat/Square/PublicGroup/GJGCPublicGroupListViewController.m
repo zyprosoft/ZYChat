@@ -41,6 +41,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     GJGCInfoBaseListContentModel *contentModel = [self.dataManager contentModelAtIndexPath:indexPath];
     
     GJGCGroupInformationViewController *groupInfoVC = [[GJGCGroupInformationViewController alloc]initWithGroupId:contentModel.groupId];
