@@ -12,4 +12,4 @@
 
 ###项目代码结构图
 
-![c_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/code_show.png "c_show")  
+![c_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/c_show.png "c_show")  
