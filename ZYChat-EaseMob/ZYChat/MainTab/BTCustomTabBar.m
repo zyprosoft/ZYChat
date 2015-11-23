@@ -10,11 +10,12 @@
 
 #define BTCustomTabBarItemBaseTag 998789
 
-@interface BTCustomTabBar ()<BTCustomTabBarItemDelegate>
+@interface BTCustomTabBar ()<BTCustomTabBarItemDelegate,EMChatManagerDelegate>
 
 @property (nonatomic,strong)UIImageView *topSeprateLine;
 
-@property (nonatomic,strong)UIImageView *redTipView;
+@property (nonatomic,strong)UILabel *redTipLabel;
+
 
 @end
 
@@ -28,6 +29,16 @@
         
         self.delegate = aDelegate;
         
+        self.redTipLabel = [[UILabel alloc]init];
+        self.redTipLabel.gjcf_size = (CGSize){24,24};
+        self.redTipLabel.backgroundColor = [UIColor redColor];
+        self.redTipLabel.layer.cornerRadius = self.redTipLabel.gjcf_width/2.f;
+        self.redTipLabel.textColor = [UIColor whiteColor];
+        self.redTipLabel.font = [UIFont systemFontOfSize:19.f];
+        self.redTipLabel.textAlignment = NSTextAlignmentCenter;
+        self.redTipLabel.layer.masksToBounds = YES;
+        [self addSubview:self.redTipLabel];
+        
         [self setupSubViews];
         
         self.topSeprateLine = [[UIImageView alloc]init];
@@ -36,6 +47,13 @@
         self.topSeprateLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
         [self addSubview:self.topSeprateLine];
         
+        [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+        
+        [self refreshUnReadCount];
+        
+        if (self.selectedIndex == 0) {
+            self.redTipLabel.hidden = YES;
+        }
     }
     
     return self;
@@ -43,6 +61,7 @@
 
 - (void)dealloc
 {
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [GJCFNotificationCenter removeObserver:self];
 }
 
@@ -78,6 +97,10 @@
         if (index == 0) {
             barItem.selected = YES;
             self.selectedIndex = index;
+            [self bringSubviewToFront:self.redTipLabel];
+            self.redTipLabel.center = barItem.center;
+            self.redTipLabel.gjcf_centerX += 12.f;
+            self.redTipLabel.gjcf_centerY -= 12.f;
         }
     }
 }
@@ -94,9 +117,49 @@
     self.selectedIndex = currentIndex;
     item.selected = YES;
     
+    if (self.selectedIndex != 0) {
+        [self refreshUnReadCount];
+    }else{
+        self.redTipLabel.hidden = YES;
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(customTabBar:didChoosedIndex:)]) {
         
         [self.delegate customTabBar:self didChoosedIndex:self.selectedIndex];
+    }
+}
+
+#pragma mark - 未读数更新
+
+- (void)didUnreadMessagesCountChanged
+{
+    if (self.selectedIndex != 0) {
+        
+        [self refreshUnReadCount];
+
+    }else{
+        
+        self.redTipLabel.hidden = YES;
+    }
+}
+
+- (void)refreshUnReadCount
+{
+    NSUInteger count = [[EaseMob sharedInstance].chatManager loadTotalUnreadMessagesCountFromDatabase];
+    
+    if (count > 99) {
+        count = 99;
+    }
+    
+    if (count > 0) {
+        
+        self.redTipLabel.text = [NSString stringWithFormat:@"%ld",(long)count];
+        
+        self.redTipLabel.hidden = NO;
+        
+    }else{
+        
+        self.redTipLabel.hidden = YES;
     }
 }
 
