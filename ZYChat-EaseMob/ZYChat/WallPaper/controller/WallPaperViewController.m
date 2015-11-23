@@ -15,12 +15,14 @@
 #import "WJItemsControlView.h"
 
 @interface WallPaperViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,ZWwaterFlowDelegate>
-@property (nonatomic,retain)UICollectionView * collectView;
+
+@property (nonatomic,strong)UICollectionView * collectView;
 @property (nonatomic,strong)NSMutableArray * shops;
 @property (nonatomic,assign)NSInteger currentPageIndex;
 @property (nonatomic,strong)WJItemsControlView *itemControlView;
 @property (nonatomic,strong)NSArray *categories;
 @property (nonatomic,strong)NSString *currentCategory;
+
 @end
 
 @implementation WallPaperViewController
@@ -56,15 +58,14 @@
     [self.view addSubview:_itemControlView];
     
 //注册cell
-    ZWCollectionViewFlowLayout * layOut = [[ZWCollectionViewFlowLayout alloc] init];
+    ZWCollectionViewFlowLayout *layOut = [[ZWCollectionViewFlowLayout alloc] init];
     layOut.degelate =self;
-    UICollectionView * collectView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth,GJCFSystemScreenHeight - 64.f - 40.f) collectionViewLayout:layOut];
-    collectView.delegate =self;
-    collectView.dataSource =self;
-    collectView.gjcf_top = 40.f;
-    [self.view addSubview:collectView];
-    [collectView registerNib:[UINib nibWithNibName:@"ZWCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-    self.collectView = collectView;
+    self.collectView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth,GJCFSystemScreenHeight - 64.f - 40.f) collectionViewLayout:layOut];
+    self.collectView.delegate =self;
+    self.collectView.dataSource =self;
+    self.collectView.gjcf_top = 40.f;
+    [self.view addSubview:self.collectView];
+    [self.collectView registerNib:[UINib nibWithNibName:@"ZWCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     
     [self setupRefresh];
 }
@@ -154,37 +155,37 @@
         
         NSLog(@"htmlDoc :%@",htmlDoc);
         
-        @autoreleasepool {
+        NSArray *elements = [htmlDoc nodesForXPath:@"//img" error:nil];
+        
+        NSLog(@"elememnts:%@",elements);
+        
+        if (self.currentPageIndex == 1) {
+            [self.shops removeAllObjects];
+        }
+        
+        for (GDataXMLElement *node in elements) {
             
-            NSArray *elements = [htmlDoc nodesForXPath:@"//img" error:nil];
-            
-            NSLog(@"elememnts:%@",elements);
-            
-            if (self.currentPageIndex == 1) {
-                [self.shops removeAllObjects];
-            }
-            
-            for (GDataXMLElement *node in elements) {
+            @autoreleasepool {
                 
-                for (GDataXMLNode *subNode in node.attributes) {
+            for (GDataXMLNode *subNode in node.attributes) {
+                
+                if (!GJCFStringIsNull(subNode.stringValue)) {
                     
-                    if (!GJCFStringIsNull(subNode.stringValue)) {
+                    NSLog(@"stringValue:%@",subNode.stringValue);
+                    
+                    if ([subNode.stringValue hasPrefix:@"http://"]) {
                         
-                        NSLog(@"stringValue:%@",subNode.stringValue);
+                        shopModel *item = [[shopModel alloc]init];
+                        item.h = 321;
+                        item.w = 238;
+                        item.img = subNode.stringValue;
                         
-                        if ([subNode.stringValue hasPrefix:@"http://"]) {
-                            
-                            shopModel *item = [[shopModel alloc]init];
-                            item.h = 321;
-                            item.w = 238;
-                            item.img = subNode.stringValue;
-                            
-                            [self.shops addObject:item];
-
-                        }
+                        [self.shops addObject:item];
+                        
                     }
                 }
-            }
+             }
+           }
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -192,7 +193,8 @@
             [self.collectView headerEndRefreshing];
             [self.collectView  footerEndRefreshing];
             
-            [self.collectView reloadData];
+            //reloadData会不起效果iOS7.0 ,用这个方法可以
+            [self.collectView reloadSections:[NSIndexSet indexSetWithIndex:0]];
 
         });
 

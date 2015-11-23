@@ -325,7 +325,7 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupExtendInfo.headUrl = @"http://imgsrc.baidu.com/forum/w%3D580/sign=bc0a236b31adcbef01347e0e9cae2e0e/2df5e0fe9925bc3130c81b375edf8db1ca137083.jpg";
+                groupExtendInfo.headUrl = contentModel.content;
             }
         }
         

@@ -54,6 +54,7 @@
     }];
     return CGSizeMake(0, [self.maxYdic[maxCol] floatValue]);
 }
+
 -(UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
    __block NSString * minCol = @"0";

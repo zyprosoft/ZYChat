@@ -39,7 +39,7 @@
 {
     [super viewDidLoad];
     
-    self.cityPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0, 320, 216)];
+    self.cityPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0,20, 320, 216)];
     self.cityPicker.dataSource = self;
     self.cityPicker.delegate = self;
     self.cityPicker.showsSelectionIndicator = YES;      // 这个弄成YES, picker中间就会有个条, 被选中的样子
