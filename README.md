@@ -99,7 +99,7 @@
  * 在GJGCChatFriendConstans 实现 ContentType 和 Cell的绑定
  *在创建GJGCChatFriendContentModel的时候将内容设置为GJGCChatFriendContentTypeGif就可以实现加载对应的gifCell
 
-#如何基于环信的 GJGCMessageExtendModel 扩展消息类型
+#如何基于环信的消息扩展字段配合GJGCMessageExtendModel实现扩展消息类型的目的
 
  *userInfo : 用户信息，始终从消息中带过去，根据App情况，也可以不用传过去节省流量，这里我们是没有服务器，所以传过去
  
