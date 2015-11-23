@@ -34,7 +34,7 @@
         self.redTipLabel.backgroundColor = [UIColor redColor];
         self.redTipLabel.layer.cornerRadius = self.redTipLabel.gjcf_width/2.f;
         self.redTipLabel.textColor = [UIColor whiteColor];
-        self.redTipLabel.font = [UIFont systemFontOfSize:19.f];
+        self.redTipLabel.font = [UIFont systemFontOfSize:13.f];
         self.redTipLabel.textAlignment = NSTextAlignmentCenter;
         self.redTipLabel.layer.masksToBounds = YES;
         [self addSubview:self.redTipLabel];
