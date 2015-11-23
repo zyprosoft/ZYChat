@@ -197,16 +197,6 @@
             
             NSLog(@"登录环信成功");
             
-            [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsListWithCompletion:^(NSArray *groups, EMError *error) {
-                
-                for (EMGroup *group in groups) {
-                    
-                    [[EaseMob sharedInstance].chatManager asyncDestroyGroup:group.groupId];
-                    
-                }
-                
-            } onQueue:nil];
-            
         }else{
             
             NSLog(@"登录环信失败");
