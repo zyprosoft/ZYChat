@@ -19,27 +19,49 @@
 # ChatDetail  具体聊天
   *Resource 用到的图片
   *UITableViewCell 聊天所有的cell使用
+  
     *Base      聊天内容基类Cell,负责分发类型
+    
     *ChatCell  聊天内容Cell,    负责处理聊天类型的消息展示
+    
       *GJGCChatFriendBaseCell , 基础内容Cell，包含消息显示的：头像，昵称(根据会话类型显示隐藏),气泡,状态
+      
       *GJGCChatFriendTextMessageCell, 文本内容显示
+      
       *GJGCChatFriendImageMessageCell, 图片内容显示
+      
       *GJGCChatFriendAudioMessageCell, 语音内容显示
+      
       *GJGCChatFriendTimeCell, 时间块显示
+      
     *SystemNoti 系统消息Cell,   负责展示系统消息
+    
   *View 聊天时候用到的自定义视图和风格控制
+  
     *GJGCCommonFontColorStyle 全局风格控制
+    
     *GJGCCommonHeadView 全局头像显示
+    
     *GJGCChatContentEmojiParser 文本解析成图文内容
+    
     *GJGCRefreshHeader 下拉刷新
+    
     *GJGCRefreshFooter 上拉加载
+    
     *GJGCLoadingStatusHUD 加载HUD,基类初始化，全局可用
+    
   *ViewController
+  
     *Base 基础类,负责分发 系统消息或者对话消息类型
+  
     *MessageExtend 消息类型扩展，基于环信的消息ext字段来扩展消息，以支持gif等更多类型消息
+    
     *Friend 单聊会话，群聊本质上也是1v1会话，只是有一些特殊逻辑需要单独处理，为了避免庞大的DataManager和ViewController,需要分开
+    
     *GifLoadManager 本地Gif包管理
+    
     *Group 群聊管理
+    
     *SystemAssist 系统消息管理
     
 #RecentChat 最近会话
