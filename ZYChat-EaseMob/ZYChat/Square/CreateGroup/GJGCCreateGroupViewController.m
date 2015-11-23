@@ -160,6 +160,8 @@
         case GJGCCreateGroupContentTypeHeadThumb:
         case GJGCCreateGroupContentTypeDescription:
         case GJGCCreateGroupContentTypeAddress:
+        case GJGCCreateGroupContentTypeMemberCount:
+        case GJGCCreateGroupContentTypeGroupType:
         {
             [self hideKeyboard];
         }

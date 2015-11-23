@@ -47,11 +47,9 @@
     GJGCRecentChatConnectState result = [[EaseMob sharedInstance].chatManager isConnected]? GJGCRecentChatConnectStateSuccess:GJGCRecentChatConnectStateFaild;
     self.titleView.connectState = result;
     
-    self.listTable = [[UITableView alloc]init];
+    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - self.tabBarController.tabBar.gjcf_height - self.contentOriginY) style:UITableViewStylePlain];
     self.listTable.delegate = self;
     self.listTable.dataSource = self;
-    self.listTable.frame = self.view.bounds;
-    self.listTable.gjcf_height = GJCFSystemScreenHeight - 64.f;
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.listTable];
     

@@ -7,7 +7,6 @@
 //
 
 #import "GJGCBaseViewController.h"
-#import "LeafNotification.h"
 #import "BTTabBarRootController.h"
 
 #define BUTTONMarginX    10
@@ -22,7 +21,7 @@
 
 @property (nonatomic,strong)UILabel *titleLabel;
 
-@property (nonatomic,strong)LeafNotification *notificationView;
+@property (nonatomic,strong)UILabel *tipLabel;
 
 @end
 
@@ -38,6 +37,14 @@
     [self createStatusHUDWithView:self.view];
     self.statusHUD.gjcf_height = self.statusHUD.gjcf_height - self.contentOriginY;
     self.statusHUD.gjcf_top = self.contentOriginY;
+    
+    self.tipLabel = [[UILabel alloc]init];
+    self.tipLabel.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.65];
+    self.tipLabel.font = [GJGCCommonFontColorStyle detailBigTitleFont];
+    self.tipLabel.textColor = [UIColor whiteColor];
+    self.tipLabel.textAlignment = NSTextAlignmentCenter;
+    self.tipLabel.layer.cornerRadius = 3.f;
+    [self.view addSubview:self.tipLabel];
 }
 
 - (void)createStatusHUDWithView:(UIView *)view
@@ -241,12 +248,51 @@
 
 - (void)showSuccessMessage:(NSString *)message
 {
-    [LeafNotification showInController:self withText:message type:LeafNotificationTypeSuccess];
+    [self showMessage:message];
 }
 
 - (void)showErrorMessage:(NSString *)message
 {
-    [LeafNotification showInController:self withText:message type:LeafNotificationTypeWarrning];
+    [self showMessage:message];
+}
+
+- (void)showMessage:(NSString *)message
+{
+    [self.view bringSubviewToFront:self.tipLabel];
+    
+    self.tipLabel.text = message;
+    [self.tipLabel sizeToFit];
+    self.tipLabel.gjcf_width += 2*10.f;
+    self.tipLabel.gjcf_height += 2*7.f;
+    
+    if (self.tipLabel.gjcf_top == 13.f) {
+        return;
+    }
+    self.tipLabel.gjcf_top = - self.contentOriginY;
+    self.tipLabel.gjcf_centerX = GJCFSystemScreenWidth/2;
+    
+    [UIView animateWithDuration:0.26 animations:^{
+       
+        self.tipLabel.gjcf_top = 13.f;
+        
+    } completion:^(BOOL finished) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self dismissTip];
+            
+        });
+        
+    }];
+}
+
+- (void)dismissTip
+{
+    [UIView animateWithDuration:0.26 animations:^{
+        
+        self.tipLabel.gjcf_top = - self.contentOriginY;
+
+    }];
 }
 
 @end

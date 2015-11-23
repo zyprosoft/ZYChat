@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - self.contentOriginY - 44.f) style:UITableViewStylePlain];
+    self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, GJCFSystemScreenHeight  - self.contentOriginY - self.tabBarController.tabBar.gjcf_height) style:UITableViewStylePlain];
     self.listTable.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.listTable.dataSource = self;

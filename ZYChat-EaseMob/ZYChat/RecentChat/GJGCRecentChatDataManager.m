@@ -231,8 +231,6 @@
         
     }];
     
-    ZYUserModel *cUser = [[ZYUserCenter shareCenter]currentLoginUser];
-    
     for (EMConversation *conversation in sortConversationList) {
         
         GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];

@@ -17,7 +17,7 @@
 #define DEFAULT_HEIGHT 45.0f
 
 @interface LeafNotification()
-@property(nonatomic,strong) UIViewController *controller;
+@property(nonatomic,weak) UIViewController *controller;
 @property(nonatomic,strong) NSString *text;
 @property(nonatomic,strong) UIImageView *flagImageView;
 @property(nonatomic,strong) UILabel *textLabel;
@@ -150,7 +150,7 @@
 }
 +(void)showInController:(UIViewController *)controller withText:(NSString *)text type:(LeafNotificationType)type{
     LeafNotification *notification = [[LeafNotification alloc] initWithController:controller text:text];
-    [controller.view addSubview:notification];
+//    [controller.view addSubview:notification];
     notification.type = type;
     [notification showWithAnimation:YES];
     
