@@ -84,6 +84,36 @@
   *GJGCPersonInformationViewController 个人资料展示
   
 
+#如何扩展消息类型
+
+ 扩展消息类型需要做三件事情
+ 
+ 1. 继承GJGCChatFriendBaseCell 来扩展对话消息
+ 2. GJGCChatFriendConstans 在关系绑定中将内容类型和新扩展的消息类型绑定
+ 3. 在创建内容模型的时候，将内容类型设置为新创建的内容类型即可绑定
+ 
+##例子
+
+ *首先创建内容展示的样子，GJGCCHatFriendGifCell
+ *在内容模型中定义        gifLocalId , 在 GJGCChatFriendConstans 中定义内容类型 GJGCChatFriendContentTypeGif
+ * 在GJGCChatFriendConstans 实现 ContentType 和 Cell的绑定
+ *在创建GJGCChatFriendContentModel的时候将内容设置为GJGCChatFriendContentTypeGif就可以实现加载对应的gifCell
+
+#如何基于环信的 GJGCMessageExtendModel 扩展消息类型
+
+ *userInfo : 用户信息，始终从消息中带过去，根据App情况，也可以不用传过去节省流量，这里我们是没有服务器，所以传过去
+ 
+ *data:   扩展消息的内容，看一下我们定义的一些常量key,对应的我们可以把需要扩展的内容填充
+ 
+ *message_type: 扩展的消息类型，类似常规时候的 text,gif,voice这些类型的定义方式
+ 
+ *is_message_extend: 是否是消息扩展，当不是扩展消息的时候，我们只读用户扩展信息userInfo就可以了
+ 
+ *display_text: 扩展消息应该展示的文本，如果对方源码不支持此扩展消息，相应这个文本会有变化
+ 
+ *is_support_display: 根据双方本地的内容协议支持来确定，是否支持正常显示这条扩展消息
+ 
+
 ###工具类库注释 (Dependcy)
 
 *Base64   用于压缩编码字符串，在群信息压缩的环节使用
