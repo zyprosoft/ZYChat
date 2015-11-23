@@ -9,3 +9,7 @@
 ### 项目运行截图
 
 ![s_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/s_show.png "s_show")  
+
+###项目代码结构图
+
+![c_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/code_show.png "c_show")  
