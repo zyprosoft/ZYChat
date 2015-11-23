@@ -82,6 +82,7 @@
 {
     self.currentPageIndex = 0;
     self.isRefresh = YES;
+    self.isReachFinish = NO;
     [self requestListData];
 }
 
