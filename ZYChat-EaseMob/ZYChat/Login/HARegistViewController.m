@@ -23,6 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.navigationController.navigationBar setHidden:NO];
     [self setStrNavTitle:@"注册新用户"];
     [self setRightButtonWithTitle:@"发送"];
     

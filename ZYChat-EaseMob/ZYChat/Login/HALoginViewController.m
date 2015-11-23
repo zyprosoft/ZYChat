@@ -42,7 +42,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
-    [self setStrNavTitle:@"iOS码农聊天室"];
     
     UIImageView* imgLogin = [[UIImageView alloc] initWithFrame:CGRectMake(mainSize.width / 2 - 211*0.6 / 2, 34, 211*0.6, 109*0.6)];
     imgLogin.image = [UIImage imageNamed:@"owl-login"];
@@ -144,18 +143,21 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (GJCFSystemiPhone4) {
+        [self.navigationController.navigationBar setHidden:YES];
+    }else{
+        [self setStrNavTitle:@"iOS码农聊天室"];
+    }
+}
+
 - (void)registAction
 {
     [txtPwd resignFirstResponder];
     [txtUser resignFirstResponder];
-    
-    if (isMoved) {
-        [UIView animateWithDuration:0.26 animations:^{
-            self.view.gjcf_top -= 60;
-        }completion:^(BOOL finished) {
-            isMoved = NO;
-        }];
-    }
     
     HARegistViewController *registVC = [[HARegistViewController alloc]init];
     [self.navigationController pushViewController:registVC animated:YES];
@@ -203,14 +205,6 @@
         } completion:^(BOOL b) {
         }];
     }
-    
-    if (!isMoved && textField == txtPwd) {
-        [UIView animateWithDuration:0.26 animations:^{
-            self.view.gjcf_top -= 60;
-        } completion:^(BOOL finished) {
-            isMoved = YES;
-        }];
-    }
 }
 
 - (void)rightNavigationBarItemPressed
@@ -223,14 +217,6 @@
 {
     [txtPwd resignFirstResponder];
     [txtUser resignFirstResponder];
-    
-    if (isMoved) {
-        [UIView animateWithDuration:0.26 animations:^{
-            self.view.gjcf_top -= 60;
-        }completion:^(BOOL finished) {
-            isMoved = NO;
-        }];
-    }
     
     if (GJCFStringIsNull(txtUser.text)) {
         [self showErrorMessage:@"手机号不能为空"];
