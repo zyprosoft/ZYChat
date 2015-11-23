@@ -129,9 +129,13 @@
 
 - (void)conversationListUpdate
 {
-    if (self.view.window != nil) {
-        [self.listTable reloadData];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (self.view.window != nil) {
+            [self.listTable reloadData];
+        }
+        
+    });
 }
 
 #pragma mark - RecentDataManager

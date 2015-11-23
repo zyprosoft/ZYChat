@@ -273,8 +273,7 @@
 
             }else{
                 
-                lastMessage = conversation.latestMessage;
-                chatModel.name = [GJGCRecentChatStyle formateName:lastMessage.to];
+                chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
                 chatModel.headUrl = @"";
             }
             

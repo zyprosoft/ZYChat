@@ -123,6 +123,9 @@
 //代理方法
 -(CGFloat)ZWwaterFlow:(ZWCollectionViewFlowLayout *)waterFlow heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPach
 {
+    if (indexPach.item < 0 || indexPach.item > self.shops.count -1) {
+        return 0.f;
+    }
     shopModel * shop = self.shops[indexPach.item];
     return shop.h/shop.w*width;
 }
