@@ -27,6 +27,8 @@
     self.textView = [[UITextView alloc]init];
     self.textView.gjcf_width = GJCFSystemScreenWidth;
     self.textView.gjcf_height = GJCFSystemScreenHeight;
+    self.textView.font = [UIFont systemFontOfSize:15.f];
+    self.textView.text = self.paramString;
     [self.view addSubview:self.textView];
     
     [self.textView becomeFirstResponder];

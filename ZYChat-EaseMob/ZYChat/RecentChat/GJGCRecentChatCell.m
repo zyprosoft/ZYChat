@@ -78,6 +78,10 @@
 
 - (void)setContentModel:(GJGCRecentChatModel *)contentModel
 {
+    if (!contentModel) {
+        return;
+    }
+    
     [self.headView setHeadUrl:contentModel.headUrl];
     
     CGSize nameSize = [GJCFCoreTextContentView contentSuggestSizeWithAttributedString:contentModel.name forBaseContentSize:self.nameLabel.contentBaseSize];

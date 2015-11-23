@@ -19,5 +19,6 @@
 
 @property (nonatomic,weak)id<GJGCMutilTextInputViewControllerDelegate> delegate;
 @property (nonatomic,assign)NSInteger userType;
+@property (nonatomic,strong)NSString *paramString;
 
 @end

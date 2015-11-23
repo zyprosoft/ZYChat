@@ -87,6 +87,7 @@
         GJGCMutilTextInputViewController *inputText = [[GJGCMutilTextInputViewController alloc]init];
         inputText.title = @"修改昵称";
         inputText.delegate = self;
+        inputText.paramString = contentModel.baseContent.string;
         
         [self.navigationController pushViewController:inputText animated:YES];
     }

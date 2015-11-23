@@ -58,7 +58,7 @@
 
 - (GJGCRecentChatModel *)contentModelAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < 0 && indexPath.row > self.sourceArray.count - 1) {
+    if (indexPath.row < 0 || indexPath.row > self.sourceArray.count - 1) {
         return nil;
     }
     return [self.sourceArray objectAtIndex:indexPath.row];
@@ -205,10 +205,11 @@
 
 - (void)didUnreadMessagesCountChanged
 {
-    NSArray *converstaionList = [[EaseMob sharedInstance].chatManager conversations];
-    
-    [self updateConversationList:converstaionList];
-    
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    if (self.sourceArray.count == 0 && conversations.count == 0) {
+        return;
+    }
+    [self updateConversationList:conversations];
 }
 
 - (void)updateConversationList:(NSArray *)conversationList
@@ -236,31 +237,30 @@
         GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];
         chatModel.toId = conversation.chatter;
         
-        if (conversation.conversationType == eConversationTypeGroupChat && conversation.latestMessage) {
+        if (conversation.conversationType == eConversationTypeGroupChat) {
             
             EMMessage *lastMessage = conversation.latestMessage;
 
             GJGCMessageExtendGroupModel *groupInfo = [self groupInfoFromMessage:lastMessage];
             
-            if (groupInfo&&[groupInfo toDictionary].count > 0) {
+            if (lastMessage && groupInfo && [groupInfo toDictionary].count > 0) {
                 chatModel.name = [GJGCRecentChatStyle formateName:groupInfo.groupName];
                 chatModel.headUrl = groupInfo.groupHeadThumb;
+                chatModel.groupInfo = groupInfo;
+                GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+                NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
+                chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
+                chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+                [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
             }else{
                 chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
             }
-            
-            GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
-          
-            chatModel.groupInfo = groupInfo;
+
             chatModel.isGroupChat = YES;
             chatModel.unReadCount = conversation.unreadMessagesCount;
-            NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
-            chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
-            chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-            [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
         }
         
-        if (conversation.conversationType == eConversationTypeChat && conversation.latestMessage) {
+        if (conversation.conversationType == eConversationTypeChat) {
             
             //对方的最近一条消息
             EMMessage *lastMessage = conversation.latestMessageFromOthers;
@@ -280,6 +280,7 @@
             
             chatModel.unReadCount = conversation.unreadMessagesCount;
             chatModel.isGroupChat = NO;
+            
             chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
             chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
             [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
