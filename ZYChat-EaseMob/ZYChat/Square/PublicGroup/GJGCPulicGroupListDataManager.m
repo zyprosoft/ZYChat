@@ -12,14 +12,25 @@
 #import "Base64.h"
 #import "EMGroup.h"
 
+@interface GJGCPulicGroupListDataManager ()
+
+@property (nonatomic,strong)NSString *loadMoreCursor;
+
+@end
+
 @implementation GJGCPulicGroupListDataManager
+
+- (void)refresh
+{
+    self.loadMoreCursor = nil;
+    
+    [super refresh];
+}
 
 - (void)requestListData
 {
-    NSString *pageIndex = [NSString stringWithFormat:@"%ld",(long)self.currentPageIndex];
-    
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchPublicGroupsFromServerWithCursor:pageIndex pageSize:20 andCompletion:^(EMCursorResult *result, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncFetchPublicGroupsFromServerWithCursor:self.loadMoreCursor pageSize:20 andCompletion:^(EMCursorResult *result, EMError *error) {
         
         if (!error) {
             
@@ -38,6 +49,8 @@
     if (self.isRefresh) {
         [self clearData];
     }
+    
+    self.loadMoreCursor = result.cursor;
     
     for (EMGroup *group in result.list) {
         
@@ -61,6 +74,8 @@
         [self addContentModel:contentModel];
     }
     
+    self.isRefresh = NO;
+    self.isLoadMore = NO;
     [self.delegate dataManagerRequireRefresh:self];
 }
 
