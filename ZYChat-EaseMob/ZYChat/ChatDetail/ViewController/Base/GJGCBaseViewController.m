@@ -30,9 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.hidesBottomBarWhenPushed = YES;
-    
+        
     /* 初始化加载特效 */
     [self createStatusHUDWithView:self.view];
     self.statusHUD.gjcf_height = self.statusHUD.gjcf_height - self.contentOriginY;
@@ -97,7 +95,6 @@
 - (void)setStrNavTitle:(NSString *)title
 {
     UIView* navTitleView = (self.navigationItem.titleView);
-    
     
     if([navTitleView isKindOfClass:[UILabel class]])//先要判断是否为label
     {
