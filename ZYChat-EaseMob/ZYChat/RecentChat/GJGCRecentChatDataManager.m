@@ -110,14 +110,14 @@
             GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:[messageBody message].ext];
             
             //普通文本消息
-            if (!extendModel.isExtendMessageContent) {
+            if (!extendModel.isExtendMessageContent || !extendModel) {
                 EMTextMessageBody *textBody = (EMTextMessageBody *)messageBody;
                 
                 resultString = textBody.text;
             }
             
             //扩展消息类型
-            if (extendModel.isExtendMessageContent) {
+            if (extendModel.isExtendMessageContent && extendModel) {
                 
                 resultString = extendModel.displayText;
             }
@@ -247,15 +247,17 @@
                 chatModel.name = [GJGCRecentChatStyle formateName:groupInfo.groupName];
                 chatModel.headUrl = groupInfo.groupHeadThumb;
                 chatModel.groupInfo = groupInfo;
-                GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
-                NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
-                chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
-                chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-                [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                
             }else{
                 chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
             }
 
+            GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];
+            NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
+            chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
+            chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+            [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+            
             chatModel.isGroupChat = YES;
             chatModel.unReadCount = conversation.unreadMessagesCount;
         }
