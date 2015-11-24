@@ -7,14 +7,17 @@
 //
 
 #import "GJGCWebHostListViewController.h"
-#import "GDataXMLNode.h"
+#import "GJGCWebViewController.h"
 
 #define GJGCWebHostListFile @"GJGCWebHostListFile"
-
+#define GJGCWebHostCacheName @"GJGCWebHostCacheName"
+#define GJGCWebHostCacheUrl @"GJGCWebHostCacheUrl"
 
 @interface GJGCWebHostListViewController ()<UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong)NSMutableArray *hostList;
+
+@property (nonatomic,strong)UITableView *tableView;
 
 @end
 
@@ -30,6 +33,10 @@
     
     [self setupHostList];
     
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - self.contentOriginY) style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
     
 }
 
@@ -54,10 +61,26 @@
     if (!cell) {
         
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    NSDictionary *item = [self.hostList objectAtIndex:indexPath.row];
+    cell.textLabel.text = item[GJGCWebHostCacheName];
+    cell.detailTextLabel.text = item[GJGCWebHostCacheUrl];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 48.f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *item = [self.hostList objectAtIndex:indexPath.row];
+
+    GJGCWebViewController *webVC = [[GJGCWebViewController alloc]initWithUrl:item[GJGCWebHostCacheUrl]];
+    [self.navigationController pushViewController:webVC animated:YES];    
 }
 
 - (void)rightButtonPressed:(UIButton *)sender
@@ -84,35 +107,62 @@
         return;
     }
     
-    NSURL *hostUrl = [NSURL URLWithString:host];
-    
-    NSData *hostData = [NSData dataWithContentsOfURL:hostUrl];
-    
-    NSString *htmlString = [[NSString alloc]initWithData:hostData encoding:NSUTF8StringEncoding];
-    
-    GDataXMLDocument *html = [[GDataXMLDocument alloc]initWithHTMLString:htmlString encoding:NSUTF8StringEncoding error:nil];
-    
-    NSLog(@"html :%@",html);
-    
-    NSString *cachePath = GJCFAppCachePath(GJGCWebHostListFile);
-    
-    NSMutableArray *cacheArray = nil;
-    if (!GJCFFileIsExist(cachePath)) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        cacheArray = [NSMutableArray array];
+        @autoreleasepool {
+            
+            NSURL *hostUrl = [NSURL URLWithString:host];
+            
+            NSData *hostData = [NSData dataWithContentsOfURL:hostUrl];
+            
+            NSString *htmlString = [[NSString alloc]initWithData:hostData encoding:NSUTF8StringEncoding];
+            
+            NSRange titleRange = [htmlString rangeOfString:@"<title>"];
+            NSRange titleEndRange = [htmlString rangeOfString:@"</title>"];
+            
+            NSInteger startIndex = titleRange.location + titleRange.length;
+            NSInteger titleLength = titleEndRange.location - startIndex;
+            NSString *title = [htmlString substringWithRange:NSMakeRange(startIndex,titleLength)];
+            
+            if (GJCFStringIsNull(title)) {
+                title = @"未知的网页";
+            }
+            NSDictionary *item = @{
+                                   GJGCWebHostCacheName:title,
+                                   GJGCWebHostCacheUrl:host,
+                                   };
+            
+            NSString *cachePath = GJCFAppCachePath(GJGCWebHostListFile);
+            
+            NSMutableArray *cacheArray = nil;
+            if (!GJCFFileIsExist(cachePath)) {
+                
+                cacheArray = [NSMutableArray array];
+                
+            }else{
+                
+                NSData *cacheData = [NSData dataWithContentsOfFile:cachePath];
+                
+                cacheArray = [NSKeyedUnarchiver unarchiveObjectWithData:cacheData];
+            }
+            
+            [cacheArray addObject:item];
+            
+            NSData *cacheData = [NSKeyedArchiver archivedDataWithRootObject:cacheArray];
+            
+            [cacheData writeToFile:cachePath atomically:YES];
+
+        }
         
-    }else{
-        
-        NSData *cacheData = [NSData dataWithContentsOfFile:cachePath];
-        
-        cacheArray = [NSKeyedUnarchiver unarchiveObjectWithData:cacheData];
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self setupHostList];
+            
+            [self.tableView reloadData];
+            
+        });
+    });
     
-    [cacheArray addObject:host];
-    
-    NSData *cacheData = [NSKeyedArchiver archivedDataWithRootObject:cacheArray];
-    
-    [cacheData writeToFile:cachePath atomically:YES];
 }
 
 - (NSArray *)cacheHostList
@@ -136,6 +186,9 @@
 
 - (void)setupHostList
 {
+    if (self.hostList.count > 0) {
+        [self.hostList removeAllObjects];
+    }
     self.hostList = [[NSMutableArray alloc]initWithArray:[self cacheHostList]];
 }
 

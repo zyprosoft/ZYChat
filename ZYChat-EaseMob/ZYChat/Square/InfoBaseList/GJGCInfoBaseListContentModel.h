@@ -33,5 +33,14 @@
 
 @property (nonatomic,strong)NSString *groupId;
 
+#pragma mark - 用户信息
+
+@property (nonatomic,strong)NSString *groupName;
+
+@property (nonatomic,strong)NSString *groupHeadThumb;
+
+@property (nonatomic,strong)NSString *chatter;
+
+@property (nonatomic,assign)EMConversation *conversation;
 
 @end

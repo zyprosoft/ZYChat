@@ -10,6 +10,7 @@
 #import "GJGCMessageExtendModel.h"
 #import "GJGCGIFLoadManager.h"
 #import "EMMessage.h"
+#import "Base64.h"
 
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
 
@@ -766,6 +767,16 @@
                             break;
                         case GJGCChatFriendContentTypeMini:
                         {
+                            
+                        }
+                            break;
+                        case GJGCChatFriendContentTypeWebPage:
+                        {
+                            GJGCMessageExtendContentWebPageModel *webPageContent = (GJGCMessageExtendContentWebPageModel *)extendModel.messageContent;
+                            chatContentModel.webPageThumbImageData = [webPageContent.thumbImageBase64 base64DecodedData];
+                            chatContentModel.webPageTitle = webPageContent.title;
+                            chatContentModel.webPageSumary = webPageContent.sumary;
+                            chatContentModel.webPageUrl = webPageContent.url;
                             
                         }
                             break;

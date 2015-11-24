@@ -61,6 +61,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatFriendContentType) {
      *  漂流瓶
      */
     GJGCChatFriendContentTypeDriftBottle = 11,
+    /**
+     *  网页消息
+     */
+    GJGCChatFriendContentTypeWebPage,
     
 };
 

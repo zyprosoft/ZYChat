@@ -70,6 +70,14 @@
     self.customTabBar.hidden = NO;
 }
 
+- (NSArray *)recentConversations
+{
+    UINavigationController *recentChatNav = [self.viewControllers firstObject];
+    GJGCRecentChatViewController *recentVC = [recentChatNav.viewControllers firstObject];
+    
+    return [recentVC allConversationModels];
+}
+
 #pragma mark - 自定义TabBar 数据元
 
 - (NSArray *)customTabBarSourceItems:(BTCustomTabBar *)tabBar

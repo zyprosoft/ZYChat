@@ -30,6 +30,8 @@
  */
 - (void)setRightButtonWithTitle:(NSString *)title;
 
+- (void)setLeftButtonWithImageName:(NSString*)imageName bgImageName:(NSString*)bgImageName;
+
 - (void)setRightButtonWithStateImage:(NSString *)iconName stateHighlightedImage:(NSString *)highlightIconName stateDisabledImage:(NSString *)disableIconName titleName:(NSString *)title;
 
 /**

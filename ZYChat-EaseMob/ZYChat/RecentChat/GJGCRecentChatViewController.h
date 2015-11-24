@@ -10,4 +10,6 @@
 
 @interface GJGCRecentChatViewController : GJGCBaseViewController
 
+- (NSArray *)allConversationModels;
+
 @end

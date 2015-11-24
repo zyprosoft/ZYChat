@@ -10,6 +10,8 @@
 
 @interface GJGCWebViewController : GJGCBaseViewController
 
+- (instancetype)initWithUrl:(NSString *)url;
+
 - (void)setUrl:(NSString *)url;
 
 @end

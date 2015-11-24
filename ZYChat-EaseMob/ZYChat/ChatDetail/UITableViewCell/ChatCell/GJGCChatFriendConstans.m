@@ -36,6 +36,8 @@
 
              @"GJGCChatFriendDriftBottleCell": @"GJGCChatFriendDriftBottleCellIdentifier",
 
+             @"GJGCChatFriendWebPageCell": @"GJGCChatFriendWebPageCellIdentifier",
+
              };
     
 }
@@ -66,6 +68,8 @@
              
              @(GJGCChatFriendContentTypeDriftBottle) : @"GJGCChatFriendDriftBottleCell",
              
+             @(GJGCChatFriendContentTypeWebPage) : @"GJGCChatFriendWebPageCell",
+
              };
 }
 

@@ -129,6 +129,17 @@
 
 @property (nonatomic,strong)id<IEMMessageBody> messageBody;
 
+#pragma mark - 扩展网页消息
+
+@property (nonatomic,strong)NSString *webPageTitle;
+
+@property (nonatomic,strong)NSData *webPageThumbImageData;
+
+@property (nonatomic,strong)NSString *webPageSumary;
+
+@property (nonatomic,strong)NSString *webPageUrl;
+
+
 
 + (GJGCChatFriendContentModel *)timeSubModel;
 

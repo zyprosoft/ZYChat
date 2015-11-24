@@ -51,6 +51,11 @@
     [GJCFNotificationCenter removeObserver:self];
 }
 
+- (NSArray *)allConversationModels
+{
+    return self.sourceArray;
+}
+
 - (NSInteger)totalCount
 {
     return self.sourceArray.count;

@@ -14,4 +14,6 @@
 
 - (void)showTabBar;
 
+- (NSArray *)recentConversations;
+
 @end

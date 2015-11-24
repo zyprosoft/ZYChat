@@ -33,6 +33,8 @@
 
 - (void)loadRecentConversations;
 
+- (NSArray *)allConversationModels;
+
 + (BOOL)isConversationHasBeenExist:(NSString *)chatter;
 
 @end

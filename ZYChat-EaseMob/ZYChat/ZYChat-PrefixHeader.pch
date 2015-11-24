@@ -64,4 +64,8 @@
 
 #import "ZYChatDatabaseManager.h"
 
+#import "GJGCMessageExtendConst.h"
+
+#import "GJGCMessageExtendModel.h"
+
 #endif

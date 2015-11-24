@@ -101,6 +101,7 @@
     return @{
              @(GJGCChatFriendContentTypeGif):vGJGCMessageExtendContentGIF,
              @(GJGCChatFriendContentTypeMini):vGJGCMessageExtendContentMini,
+             @(GJGCChatFriendContentTypeWebPage):vGJGCMessageExtendContentWebPage,
              };
 }
 
@@ -109,6 +110,7 @@
     return @{
              vGJGCMessageExtendContentGIF:@(GJGCChatFriendContentTypeGif),
              vGJGCMessageExtendContentMini:@(GJGCChatFriendContentTypeMini),
+             vGJGCMessageExtendContentWebPage:@(GJGCChatFriendContentTypeWebPage),
              };
 }
 
@@ -153,6 +155,18 @@
         case GJGCChatFriendContentTypeMini:
         {
     
+        }
+            break;
+        case GJGCChatFriendContentTypeWebPage:
+        {
+            GJGCMessageExtendContentWebPageModel *webContent = (GJGCMessageExtendContentWebPageModel *)self.messageContent;
+            
+            resultString = [[GJGCMessageExtendConst extendContentSupportTypes] containsObject:self.contentType]? webContent.displayText:webContent.notSupportDisplayText;
+            if (self.isSupportDisplay) {
+                resultString = [NSString stringWithFormat:@"[网页:%@]",resultString];
+            }else{
+                resultString = [NSString stringWithFormat:@"%@",resultString];
+            }
         }
             break;
         default:

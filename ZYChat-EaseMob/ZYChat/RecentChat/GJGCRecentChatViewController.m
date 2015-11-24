@@ -56,6 +56,11 @@
     [self.dataManager performSelector:@selector(loadRecentConversations) withObject:nil afterDelay:2.0];
 }
 
+- (NSArray *)allConversationModels
+{
+    return [self.dataManager allConversationModels];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
