@@ -18,7 +18,7 @@
 
 - (void)refresh
 {
-    [self requestListData];
+    [self refresh];
 }
 
 - (void)loadMore
