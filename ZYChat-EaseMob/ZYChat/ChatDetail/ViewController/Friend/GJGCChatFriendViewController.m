@@ -23,6 +23,7 @@
 #import "GJCFAssetsPickerViewControllerDelegate.h"
 #import "GJGCWebViewController.h"
 #import "GJCFAssetsPickerViewController.h"
+#import "GJGCWebHostListViewController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -705,6 +706,12 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         case GJGCChatInputMenuPanelActionTypeMyFavoritePost:
         {
             
+        }
+            break;
+        case GJGCChatInputMenuPanelActionTypeWebView:
+        {
+            GJGCWebHostListViewController *hostList = [[GJGCWebHostListViewController alloc]init];
+            [self.navigationController pushViewController:hostList animated:YES];
         }
             break;
         default:
