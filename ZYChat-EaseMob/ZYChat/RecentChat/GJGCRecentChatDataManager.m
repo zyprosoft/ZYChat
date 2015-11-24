@@ -315,4 +315,22 @@
     }
 }
 
+#pragma mark - 检测会话是否已经存在
+
++ (BOOL)isConversationHasBeenExist:(NSString *)chatter
+{
+    NSInteger findIndex = NSNotFound;
+    
+    for (EMConversation *conversation in [[EaseMob sharedInstance].chatManager conversations]) {
+        
+        if ([conversation.chatter isEqualToString:chatter]) {
+            
+            findIndex = 1;
+            break;
+        }
+    }
+    
+    return findIndex == NSNotFound? NO:YES;
+}
+
 @end

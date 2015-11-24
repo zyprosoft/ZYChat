@@ -73,6 +73,13 @@
 
 - (void)readLastMessagesFromDB
 {
+    //如果会话不存在
+    if (!self.taklInfo.conversation) {
+        self.isFinishFirstHistoryLoad = YES;
+        self.isFinishLoadAllHistoryMsg = YES;
+        return;
+    }
+    
     //读取最近的20条消息
     long long beforeTime = [[NSDate date]timeIntervalSince1970]*1000;
     NSArray *messages = [self.taklInfo.conversation loadNumbersOfMessages:20 before:beforeTime];

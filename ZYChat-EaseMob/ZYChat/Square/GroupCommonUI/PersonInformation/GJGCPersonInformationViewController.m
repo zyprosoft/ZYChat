@@ -10,6 +10,7 @@
 #import "GJGCGroupPersonInformationShowMap.h"
 #import "GJGCChatFriendTalkModel.h"
 #import "GJGCChatFriendViewController.h"
+#import "GJGCRecentChatDataManager.h"
 
 @interface GJGCPersonInformationViewController ()
 
@@ -135,8 +136,13 @@
     talk.toId = self.theUserId;
     talk.toUserName = self.theUser.nickName;
     
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talk.toId conversationType:eConversationTypeChat];
-    talk.conversation = conversation;
+    //如果有会话记录才插入这样一条会话，不然就什么都不做
+    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talk.toId]) {
+        
+        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talk.toUserName conversationType:eConversationTypeChat];
+        talk.conversation = conversation;
+        
+    }
     
     GJGCChatFriendViewController *privateChat = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talk];
     [self.navigationController pushViewController:privateChat animated:YES];

@@ -12,6 +12,7 @@
 #import "GJGCGroupPersonInformationShowMap.h"
 #import "GJGCChatGroupViewController.h"
 #import "GJGCGroupMemberListViewController.h"
+#import "GJGCRecentChatDataManager.h"
 
 @interface GJGCGroupInformationViewController ()
 
@@ -321,9 +322,12 @@
     talkModel.groupInfo.groupHeadThumb = self.groupExtendInfo.headUrl;
     talkModel.groupInfo.groupName = self.groupExtendInfo.name;
     
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talkModel.toId conversationType:eConversationTypeGroupChat];
-    if (conversation) {
+    //如果有会话记录才插入这样一条会话，不然就什么都不做
+    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talkModel.toId]) {
+        
+        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talkModel.toUserName conversationType:eConversationTypeGroupChat];
         talkModel.conversation = conversation;
+        
     }
     
     GJGCChatGroupViewController *groupChat =  [[GJGCChatGroupViewController alloc]initWithTalkInfo:talkModel];

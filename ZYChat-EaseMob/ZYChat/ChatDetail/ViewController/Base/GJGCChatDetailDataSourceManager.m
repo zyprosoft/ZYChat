@@ -917,6 +917,22 @@
 
 - (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
 {
+    //如果当前会话信息不存在，创建一个
+    if (!self.taklInfo.conversation) {
+        EMConversationType conversationType;
+        switch (self.taklInfo.talkType) {
+            case GJGCChatFriendTalkTypePrivate:
+                conversationType = eConversationTypeChat;
+                break;
+            case GJGCChatFriendTalkTypeGroup:
+                conversationType = eConversationTypeGroupChat;
+                break;
+            default:
+                break;
+        }
+        self.taklInfo.conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:messageContent.toId conversationType:conversationType];
+    }
+    
     EMMessage *sendMessage = nil;
     switch (messageContent.contentType) {
         case GJGCChatFriendContentTypeText:
