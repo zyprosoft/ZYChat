@@ -54,6 +54,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputMenuPanelActionType) {
      *  群主召唤
      */
     GJGCChatInputMenuPanelActionTypeGroupCall,
+    /**
+     *  网页
+     */
+    GJGCChatInputMenuPanelActionTypeWebView,
 };
 
 /**

@@ -44,8 +44,6 @@
     
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource photoLibraryMenuPanelItem]];
     
-    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource groupCallMenuPanelItem]];
-    
     return dataSource;
 }
 
@@ -56,6 +54,8 @@
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource cameraMenuPanelItem]];
     
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource photoLibraryMenuPanelItem]];
+    
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource webViewMenuPanelItem]];
     
     return dataSource;
 }
@@ -89,6 +89,21 @@
              };
 }
 
++ (NSDictionary *)webViewMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"网页",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"聊天键盘-icon-网页",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-网页",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeWebView)
+             
+             };
+}
+
 + (NSDictionary *)myFavoritePostMenuPanelItem
 {
     return @{
@@ -104,20 +119,7 @@
              };
 }
 
-+ (NSDictionary *)groupCallMenuPanelItem
-{
-    return @{
-             
-             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"群主召唤",
-             
-             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"聊天键盘-icon-群主召唤",
-             
-             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-群主召唤-点击",
-             
-             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeGroupCall)
-             
-             };
-}
+
 
 
 @end

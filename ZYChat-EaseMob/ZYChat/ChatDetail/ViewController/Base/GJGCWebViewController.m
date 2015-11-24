@@ -27,17 +27,10 @@
 }
 
 - (void)setUrl:(NSString *)url
-{
+{    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     [self.webVeiw loadRequest:request];
-}
-
-- (void)leftButtonPressed:(UIButton *)sender
-{
-    [super leftButtonPressed:sender];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

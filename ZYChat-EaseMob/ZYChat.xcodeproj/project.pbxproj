@@ -523,22 +523,6 @@
 		365F06BB1B501A5D005161D6 /* 聊天键盘-icon-拍照@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053A1B501A5D005161D6 /* 聊天键盘-icon-拍照@2x.png */; };
 		365F06BC1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053B1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png */; };
 		365F06BD1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053B1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png */; };
-		365F06BE1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053C1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png */; };
-		365F06BF1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053C1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png */; };
-		365F06C01B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053D1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png */; };
-		365F06C11B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053D1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png */; };
-		365F06C21B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053E1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png */; };
-		365F06C31B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053E1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png */; };
-		365F06C41B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053F1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png */; };
-		365F06C51B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F053F1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png */; };
-		365F06C61B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05401B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png */; };
-		365F06C71B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05401B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png */; };
-		365F06C81B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05411B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png */; };
-		365F06C91B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05411B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png */; };
-		365F06CA1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05421B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png */; };
-		365F06CB1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05421B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png */; };
-		365F06CC1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05431B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png */; };
-		365F06CD1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05431B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png */; };
 		365F06CE1B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05441B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png */; };
 		365F06CF1B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05441B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png */; };
 		365F06D01B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F05451B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png */; };
@@ -835,6 +819,8 @@
 		C8E50E6E1C02D8FF00AFA10F /* sqlService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E6C1C02D8FF00AFA10F /* sqlService.m */; };
 		C8E50E721C040A7C00AFA10F /* GJGCGroupMemberListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E711C040A7C00AFA10F /* GJGCGroupMemberListViewController.m */; };
 		C8E50E751C040A9600AFA10F /* GJGCGroupMemberListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E741C040A9600AFA10F /* GJGCGroupMemberListDataManager.m */; };
+		C8E50E8D1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E8B1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png */; };
+		C8E50E8E1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E8C1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -1321,14 +1307,6 @@
 		365F05391B501A5D005161D6 /* 聊天键盘-icon-拍照-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-拍照-点击@3x.png"; sourceTree = "<group>"; };
 		365F053A1B501A5D005161D6 /* 聊天键盘-icon-拍照@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-拍照@2x.png"; sourceTree = "<group>"; };
 		365F053B1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-拍照@3x.png"; sourceTree = "<group>"; };
-		365F053C1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-群主召唤-点击@2x.png"; sourceTree = "<group>"; };
-		365F053D1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-群主召唤-点击@3x.png"; sourceTree = "<group>"; };
-		365F053E1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-群主召唤@2x.png"; sourceTree = "<group>"; };
-		365F053F1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-群主召唤@3x.png"; sourceTree = "<group>"; };
-		365F05401B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择帖子-点击@2x.png"; sourceTree = "<group>"; };
-		365F05411B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择帖子-点击@3x.png"; sourceTree = "<group>"; };
-		365F05421B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择帖子@2x.png"; sourceTree = "<group>"; };
-		365F05431B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择帖子@3x.png"; sourceTree = "<group>"; };
 		365F05441B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择照片-点击@2x.png"; sourceTree = "<group>"; };
 		365F05451B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择照片-点击@3x.png"; sourceTree = "<group>"; };
 		365F05461B501A5D005161D6 /* 聊天键盘-icon-选择照片@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-选择照片@2x.png"; sourceTree = "<group>"; };
@@ -1794,6 +1772,8 @@
 		C8E50E711C040A7C00AFA10F /* GJGCGroupMemberListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupMemberListViewController.m; sourceTree = "<group>"; };
 		C8E50E731C040A9600AFA10F /* GJGCGroupMemberListDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupMemberListDataManager.h; sourceTree = "<group>"; };
 		C8E50E741C040A9600AFA10F /* GJGCGroupMemberListDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupMemberListDataManager.m; sourceTree = "<group>"; };
+		C8E50E8B1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-网页@2x.png"; sourceTree = "<group>"; };
+		C8E50E8C1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-网页@3x.png"; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -2629,14 +2609,8 @@
 				365F05391B501A5D005161D6 /* 聊天键盘-icon-拍照-点击@3x.png */,
 				365F053A1B501A5D005161D6 /* 聊天键盘-icon-拍照@2x.png */,
 				365F053B1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png */,
-				365F053C1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png */,
-				365F053D1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png */,
-				365F053E1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png */,
-				365F053F1B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png */,
-				365F05401B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png */,
-				365F05411B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png */,
-				365F05421B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png */,
-				365F05431B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png */,
+				C8E50E8B1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png */,
+				C8E50E8C1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png */,
 				365F05441B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png */,
 				365F05451B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png */,
 				365F05461B501A5D005161D6 /* 聊天键盘-icon-选择照片@2x.png */,
@@ -4131,6 +4105,24 @@
 				en,
 				Base,
 				"zh-Hans",
+				cs,
+				de,
+				es,
+				eu,
+				fi,
+				fr,
+				it,
+				ja,
+				ko,
+				nl,
+				no,
+				pl,
+				pt,
+				ru,
+				sk,
+				sv,
+				vi,
+				zh_CN,
 			);
 			mainGroup = 365F02D31B5019D0005161D6;
 			productRefGroup = 365F02DD1B5019D0005161D6 /* Products */;
@@ -4169,7 +4161,6 @@
 				C81702E71BFF487200FAE520 /* keyboardButton@3x.png in Resources */,
 				365F05B61B501A5D005161D6 /* 031[阴险]@2x.png in Resources */,
 				365F068C1B501A5D005161D6 /* 诱惑.gif in Resources */,
-				365F06C21B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */,
 				365F05B81B501A5D005161D6 /* 032[尴尬]@2x.png in Resources */,
 				E4FEB48F1C02106800E4A153 /* my_selected@2x.png in Resources */,
 				365F05A21B501A5D005161D6 /* 021[委屈]@2x.png in Resources */,
@@ -4202,8 +4193,6 @@
 				365F05D01B501A5D005161D6 /* 044[惊吓]@2x.png in Resources */,
 				365F06B81B501A5D005161D6 /* 聊天键盘-icon-拍照-点击@3x.png in Resources */,
 				365F06921B501A5D005161D6 /* 跪求@2x.png in Resources */,
-				365F06C61B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png in Resources */,
-				365F06BE1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png in Resources */,
 				365F05C41B501A5D005161D6 /* 038[白眼]@2x.png in Resources */,
 				365F05CA1B501A5D005161D6 /* 041[哈欠]@2x.png in Resources */,
 				365F059C1B501A5D005161D6 /* 018[坏笑]@2x.png in Resources */,
@@ -4234,7 +4223,6 @@
 				365F06BC1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png in Resources */,
 				365F059E1B501A5D005161D6 /* 019[鄙视]@2x.png in Resources */,
 				365F066C1B501A5D005161D6 /* 怕了吧.gif in Resources */,
-				365F06C41B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png in Resources */,
 				365F05AC1B501A5D005161D6 /* 026[调皮]@2x.png in Resources */,
 				E4FEB4811C020EED00E4A153 /* my@3x.png in Resources */,
 				365F05F61B501A5D005161D6 /* 063[强]@2x.png in Resources */,
@@ -4249,7 +4237,6 @@
 				365F06DE1B501A5D005161D6 /* 输入框-灰色@2x.png in Resources */,
 				365F067A1B501A5D005161D6 /* 汗@2x.png in Resources */,
 				365F066A1B501A5D005161D6 /* 害羞@2x.png in Resources */,
-				365F06C01B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png in Resources */,
 				365F06281B501A5D005161D6 /* 092[菜刀]@2x.png in Resources */,
 				365F06841B501A5D005161D6 /* 睡觉.gif in Resources */,
 				365F06821B501A5D005161D6 /* 疑问@2x.png in Resources */,
@@ -4261,7 +4248,6 @@
 				365F065A1B501A5D005161D6 /* 你好@2x.png in Resources */,
 				365F064A1B501A5D005161D6 /* emoji.plist in Resources */,
 				365F06B21B501A5D005161D6 /* 聊天语音-icon-话筒@2x.png in Resources */,
-				365F06C81B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png in Resources */,
 				365F06501B501A5D005161D6 /* 删除@3x.png in Resources */,
 				365F06961B501A5D005161D6 /* 逃跑@2x.png in Resources */,
 				365F05781B501A5D005161D6 /* 001[憨笑]@2x.png in Resources */,
@@ -4282,10 +4268,8 @@
 				365F06941B501A5D005161D6 /* 逃跑.gif in Resources */,
 				C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */,
 				365F061C1B501A5D005161D6 /* 082[酷]@2x.png in Resources */,
-				365F06CC1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */,
 				365F05C21B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				365F064C1B501A5D005161D6 /* emojiName.plist in Resources */,
-				365F06CA1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */,
 				365F06621B501A5D005161D6 /* 同情@2x.png in Resources */,
 				365F06561B501A5D005161D6 /* gifLocal.plist in Resources */,
 				365F06041B501A5D005161D6 /* 070[篮球]@2x.png in Resources */,
@@ -4316,6 +4300,7 @@
 				365F06321B501A5D005161D6 /* 097[飞吻]@2x.png in Resources */,
 				365F05981B501A5D005161D6 /* 016[震惊]@2x111.png in Resources */,
 				365F061A1B501A5D005161D6 /* 081[撇嘴]@2x.png in Resources */,
+				C8E50E8D1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png in Resources */,
 				365F05DA1B501A5D005161D6 /* 049[咖啡]@2x.png in Resources */,
 				365F06A01B501A5D005161D6 /* 聊天-icon-语音1-绿@2x.png in Resources */,
 				E4FEB4801C020EED00E4A153 /* my@2x.png in Resources */,
@@ -4361,6 +4346,7 @@
 				E4FEB48D1C020FA400E4A153 /* my_selected@3x.png in Resources */,
 				365F05F21B501A5D005161D6 /* 061[OK]@2x.png in Resources */,
 				365F05CC1B501A5D005161D6 /* 042[咒骂]@2x.png in Resources */,
+				C8E50E8E1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png in Resources */,
 				365F063C1B501A5D005161D6 /* 102[回头]@2x.png in Resources */,
 				365F06AA1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
 				C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */,
@@ -4393,7 +4379,6 @@
 				365F069B1B501A5D005161D6 /* 大表情-bg-预览@2x.png in Resources */,
 				365F063F1B501A5D005161D6 /* 103[挥手帕]@2x.png in Resources */,
 				365F08621B50B621005161D6 /* GJCUCaptureResourceBundle.bundle in Resources */,
-				365F06C51B501A5D005161D6 /* 聊天键盘-icon-群主召唤@3x.png in Resources */,
 				365F06591B501A5D005161D6 /* 你好.gif in Resources */,
 				365F05E71B501A5D005161D6 /* 055[心碎]@2x.png in Resources */,
 				365F05AD1B501A5D005161D6 /* 026[调皮]@2x.png in Resources */,
@@ -4446,7 +4431,6 @@
 				365F06CF1B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png in Resources */,
 				365F05AB1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
 				365F05AF1B501A5D005161D6 /* 027[敲打]@2x.png in Resources */,
-				365F06BF1B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@2x.png in Resources */,
 				365F069F1B501A5D005161D6 /* 聊天-icon-语音-绿@2x.png in Resources */,
 				365F064B1B501A5D005161D6 /* emoji.plist in Resources */,
 				365F05BD1B501A5D005161D6 /* 034[左哼哼]@2x.png in Resources */,
@@ -4482,7 +4466,6 @@
 				365F05A51B501A5D005161D6 /* 022[睡觉]@2x.png in Resources */,
 				365F06DF1B501A5D005161D6 /* 输入框-灰色@2x.png in Resources */,
 				365F06D11B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png in Resources */,
-				365F06C91B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@3x.png in Resources */,
 				365F06231B501A5D005161D6 /* 085[骷髅头]@2x.png in Resources */,
 				365F05DB1B501A5D005161D6 /* 049[咖啡]@2x.png in Resources */,
 				365F057F1B501A5D005161D6 /* 004[发怒]@2x.png in Resources */,
@@ -4515,8 +4498,6 @@
 				365F069D1B501A5D005161D6 /* 聊天-icon-文字键盘@2x.png in Resources */,
 				365F05C71B501A5D005161D6 /* 039[糗大了]@2x.png in Resources */,
 				365F05E51B501A5D005161D6 /* 054[爱心]@2x.png in Resources */,
-				365F06C71B501A5D005161D6 /* 聊天键盘-icon-选择帖子-点击@2x.png in Resources */,
-				365F06CD1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */,
 				365F05C31B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				E4FEB48B1C020F0600E4A153 /* msg@3x.png in Resources */,
 				365F06731B501A5D005161D6 /* 惊吓@2x.png in Resources */,
@@ -4530,7 +4511,6 @@
 				365F05EF1B501A5D005161D6 /* 059[蛋糕]@2x.png in Resources */,
 				365F065D1B501A5D005161D6 /* 你牛.gif in Resources */,
 				365F05D51B501A5D005161D6 /* 046[奋斗]@2x.png in Resources */,
-				365F06C31B501A5D005161D6 /* 聊天键盘-icon-群主召唤@2x.png in Resources */,
 				365F05BF1B501A5D005161D6 /* 035[嘘]@2x.png in Resources */,
 				365F05B31B501A5D005161D6 /* 029[害羞]@2x.png in Resources */,
 				365F06211B501A5D005161D6 /* 084[折磨]@2x.png in Resources */,
@@ -4565,7 +4545,6 @@
 				365F05A11B501A5D005161D6 /* 020[惊恐]@2x.png in Resources */,
 				365F06BB1B501A5D005161D6 /* 聊天键盘-icon-拍照@2x.png in Resources */,
 				365F068F1B501A5D005161D6 /* 诱惑@2x.png in Resources */,
-				365F06C11B501A5D005161D6 /* 聊天键盘-icon-群主召唤-点击@3x.png in Resources */,
 				365F06391B501A5D005161D6 /* 100[呕火]@2x.png in Resources */,
 				365F06911B501A5D005161D6 /* 跪求.gif in Resources */,
 				365F05CF1B501A5D005161D6 /* 043[可怜]@2x.png in Resources */,
@@ -4578,7 +4557,6 @@
 				365F06071B501A5D005161D6 /* 071[足球]@2x.png in Resources */,
 				365F06631B501A5D005161D6 /* 同情@2x.png in Resources */,
 				365F06A51B501A5D005161D6 /* 聊天-icon-语音及切换键盘-灰@2x.png in Resources */,
-				365F06CB1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */,
 				365F05E11B501A5D005161D6 /* 052[凋谢]@2x.png in Resources */,
 				365F06311B501A5D005161D6 /* 096[NO]@2x.png in Resources */,
 			);
@@ -5251,7 +5229,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5290,7 +5268,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
