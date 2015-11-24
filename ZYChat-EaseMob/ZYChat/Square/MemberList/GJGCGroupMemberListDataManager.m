@@ -46,6 +46,9 @@
 - (void)addMemberList:(NSArray *)list
 {
     self.isReachFinish = YES;
+    if (self.isRefresh) {
+        [self clearData];
+    }
     
     for (NSString *userId in list) {
         
