@@ -99,6 +99,8 @@
     [self stopRefresh];
     [self stopLoadMore];
     
+    [self.listTable reloadData];
+
     //清除加载更多
     if (self.dataManager.totalCount == 0 || self.dataManager.isReachFinish) {
         [self.refreshFooter removeFromSuperview];
@@ -108,11 +110,9 @@
             self.refreshFooter = [[GJGCRefreshFooterView alloc]init];
             self.refreshFooter.delegate = self;
             [self.listTable addSubview:self.refreshFooter];
-            [self.refreshFooter resetFrameWithTableView:self.listTable];
         }
+        [self.refreshFooter resetFrameWithTableView:self.listTable];
     }
-    
-    [self.listTable reloadData];
 }
 
 #pragma mark - refreshHeaderDelegate

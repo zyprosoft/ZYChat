@@ -22,9 +22,7 @@
     
     [self setStrNavTitle:@"广场"];
 
-    [self setRightButtonWithTitle:@"创建群组"];
-    
-    [self.dataManager refresh];
+    [self setRightButtonWithTitle:@"创建群组"];    
 }
 
 - (void)rightButtonPressed:(UIButton *)sender
