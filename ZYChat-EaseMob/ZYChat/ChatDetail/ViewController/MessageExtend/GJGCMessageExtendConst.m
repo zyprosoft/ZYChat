@@ -64,9 +64,6 @@ const NSString  *kGJGCMessageExtendMusicUrl = @"music_url";
               vGJGCMessageExtendContentGIF,
               vGJGCMessageExtendContentMini,
               vGJGCMessageExtendContentWebPage,
-              vGJGCMessageExtendContentUserCard,
-              vGJGCMessageExtendContentMusicShare,
-              vGJGCMessageExtendContentWelcomeMember,
              ];
 }
 
