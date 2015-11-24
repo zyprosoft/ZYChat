@@ -33,7 +33,7 @@
     
     HARegistContentModel *nameItem = [[HARegistContentModel alloc]init];
     nameItem.tagName = @"账   号";
-    nameItem.placeHolder = @"请输入用于登录的手机号";
+    nameItem.placeHolder = @"请输入用于登录的唯一用户名，可以是汉字";
     nameItem.contentType = HARegistContentTypeUserName;
     nameItem.contentHeight = 64.f;
     

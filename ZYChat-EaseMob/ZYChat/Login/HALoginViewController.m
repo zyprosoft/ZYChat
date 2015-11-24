@@ -219,7 +219,7 @@
     [txtUser resignFirstResponder];
     
     if (GJCFStringIsNull(txtUser.text)) {
-        [self showErrorMessage:@"手机号不能为空"];
+        [self showErrorMessage:@"用户名不能为空"];
         return;
     }
     
