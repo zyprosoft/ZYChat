@@ -250,6 +250,7 @@
                 
             }else{
                 chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
+                chatModel.headUrl = @"";
             }
 
             GJGCMessageExtendUserModel *userInfo = [self userInfoFromMessage:conversation.latestMessage];

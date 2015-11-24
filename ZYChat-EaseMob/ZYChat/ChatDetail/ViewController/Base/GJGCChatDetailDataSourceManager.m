@@ -948,8 +948,19 @@
     if (self.taklInfo.talkType == GJGCChatFriendTalkTypeGroup) {
         GJGCMessageExtendGroupModel *groupInfo = [[GJGCMessageExtendGroupModel alloc]init];
         
-        groupInfo.groupName = self.taklInfo.groupInfo.groupName;
-        groupInfo.groupHeadThumb = self.taklInfo.groupInfo.groupHeadThumb;
+        //是否有扩展信息
+        if (self.taklInfo.groupInfo) {
+            
+            groupInfo.groupName = self.taklInfo.groupInfo.groupName;
+            groupInfo.groupHeadThumb = self.taklInfo.groupInfo.groupHeadThumb;
+            
+        }else{
+            
+            groupInfo.groupName = self.taklInfo.toUserName;
+            groupInfo.groupHeadThumb = @"";
+            
+        }
+        
 
         extendInfo.isGroupMessage = YES;
         extendInfo.groupInfo = groupInfo;
