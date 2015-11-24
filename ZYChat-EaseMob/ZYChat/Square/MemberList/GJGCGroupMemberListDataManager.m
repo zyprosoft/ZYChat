@@ -16,11 +16,6 @@
 
 @implementation GJGCGroupMemberListDataManager
 
-- (void)refresh
-{
-    [self refresh];
-}
-
 - (void)loadMore
 {
     
