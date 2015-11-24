@@ -47,6 +47,10 @@
 
 - (void)setupMyInformation
 {
+    if (!self.theUser) {
+        return;
+    }
+    
     //展示群头像信息
     GJGCInformationCellContentModel *contentModel = [[GJGCInformationCellContentModel alloc]init];
     contentModel.baseContentType = GJGCInformationContentTypeGroupHeadInfo;

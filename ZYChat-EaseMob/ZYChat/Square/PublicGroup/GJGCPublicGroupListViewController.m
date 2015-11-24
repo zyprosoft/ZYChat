@@ -47,4 +47,5 @@
     
     [self.navigationController pushViewController:groupInfoVC animated:YES];
 }
+
 @end

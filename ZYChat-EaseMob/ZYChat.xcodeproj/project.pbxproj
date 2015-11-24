@@ -833,6 +833,8 @@
 		C8E50E691C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E681C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m */; };
 		C8E50E6D1C02D8FF00AFA10F /* City.s3db in Resources */ = {isa = PBXBuildFile; fileRef = C8E50E6A1C02D8FF00AFA10F /* City.s3db */; };
 		C8E50E6E1C02D8FF00AFA10F /* sqlService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E6C1C02D8FF00AFA10F /* sqlService.m */; };
+		C8E50E721C040A7C00AFA10F /* GJGCGroupMemberListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E711C040A7C00AFA10F /* GJGCGroupMemberListViewController.m */; };
+		C8E50E751C040A9600AFA10F /* GJGCGroupMemberListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50E741C040A9600AFA10F /* GJGCGroupMemberListDataManager.m */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -1788,6 +1790,10 @@
 		C8E50E6A1C02D8FF00AFA10F /* City.s3db */ = {isa = PBXFileReference; lastKnownFileType = file; path = City.s3db; sourceTree = "<group>"; };
 		C8E50E6B1C02D8FF00AFA10F /* sqlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlService.h; sourceTree = "<group>"; };
 		C8E50E6C1C02D8FF00AFA10F /* sqlService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sqlService.m; sourceTree = "<group>"; };
+		C8E50E701C040A7C00AFA10F /* GJGCGroupMemberListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupMemberListViewController.h; sourceTree = "<group>"; };
+		C8E50E711C040A7C00AFA10F /* GJGCGroupMemberListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupMemberListViewController.m; sourceTree = "<group>"; };
+		C8E50E731C040A9600AFA10F /* GJGCGroupMemberListDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCGroupMemberListDataManager.h; sourceTree = "<group>"; };
+		C8E50E741C040A9600AFA10F /* GJGCGroupMemberListDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCGroupMemberListDataManager.m; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -3123,6 +3129,7 @@
 		C81702871BFF376800FAE520 /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				C8E50E6F1C040A6100AFA10F /* MemberList */,
 				E4FEB3D91C017B1400E4A153 /* GroupCommonUI */,
 				E4FEB3AF1BFF836500E4A153 /* InfoBaseList */,
 				C81702DC1BFF46DD00FAE520 /* PublicGroup */,
@@ -3783,6 +3790,17 @@
 				C8E50E651C02C44E00AFA10F /* WJItemsControlView.m */,
 			);
 			path = WJSegment;
+			sourceTree = "<group>";
+		};
+		C8E50E6F1C040A6100AFA10F /* MemberList */ = {
+			isa = PBXGroup;
+			children = (
+				C8E50E701C040A7C00AFA10F /* GJGCGroupMemberListViewController.h */,
+				C8E50E711C040A7C00AFA10F /* GJGCGroupMemberListViewController.m */,
+				C8E50E731C040A9600AFA10F /* GJGCGroupMemberListDataManager.h */,
+				C8E50E741C040A9600AFA10F /* GJGCGroupMemberListDataManager.m */,
+			);
+			path = MemberList;
 			sourceTree = "<group>";
 		};
 		C8F3B9C81BF0B5050057AF5B /* fmdb */ = {
@@ -4852,6 +4870,8 @@
 				365F03FB1B501A43005161D6 /* GJCFAssetsPickerCommonStyleDescription.m in Sources */,
 				C8DC4A2B1BEC7B3500F2D161 /* JSONHTTPClient.m in Sources */,
 				E4FEB3CB1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */,
+				C8E50E721C040A7C00AFA10F /* GJGCGroupMemberListViewController.m in Sources */,
+				C8E50E751C040A9600AFA10F /* GJGCGroupMemberListDataManager.m in Sources */,
 				E4FEB3B61BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */,
 				365F08631B50B621005161D6 /* GJCUCaptureViewController.m in Sources */,
 				365F04231B501A43005161D6 /* GJCFAudioModel.m in Sources */,

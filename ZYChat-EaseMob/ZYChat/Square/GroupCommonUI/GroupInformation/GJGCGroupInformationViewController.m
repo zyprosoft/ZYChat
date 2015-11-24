@@ -11,6 +11,7 @@
 #import "Base64.h"
 #import "GJGCGroupPersonInformationShowMap.h"
 #import "GJGCChatGroupViewController.h"
+#import "GJGCGroupMemberListViewController.h"
 
 @interface GJGCGroupInformationViewController ()
 
@@ -112,6 +113,12 @@
         [self.dataSourceManager addInformationItem:levelItem];
     }
     
+    /* 群成员 */
+    NSString *memberInfo = [NSString stringWithFormat:@"在线:%ld人 共%ld人",self.currentGroup.groupOnlineOccupantsCount,self.currentGroup.groupOccupantsCount];
+    GJGCInformationCellContentModel *memberItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:memberInfo icon:@"详细地址icon.png" tagName:@"群  成  员"];
+    memberItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomShort;
+    memberItem.isIconShowMap = YES;
+    [self.dataSourceManager addInformationItem:memberItem];
     
     /* 群位置 */
     if (!GJCFStringIsNull(groupInfoExtend.address)) {
@@ -322,6 +329,19 @@
     GJGCChatGroupViewController *groupChat =  [[GJGCChatGroupViewController alloc]initWithTalkInfo:talkModel];
     
     [self.navigationController pushViewController:groupChat animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCInformationCellContentModel *contentModel = (GJGCInformationCellContentModel *)[self.dataSourceManager contentModelAtIndex:indexPath.row];
+    
+    if ([contentModel.tag.string isEqualToString:@"群  成  员"]) {
+        
+        GJGCGroupMemberListViewController *memberListVC = [[GJGCGroupMemberListViewController alloc]init];
+        memberListVC.groupId = self.currentGroupId;
+        
+        [self.navigationController pushViewController:memberListVC animated:YES];
+    }
 }
 
 @end
