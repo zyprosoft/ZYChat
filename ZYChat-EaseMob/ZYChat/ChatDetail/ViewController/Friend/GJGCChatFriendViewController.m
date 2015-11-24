@@ -345,9 +345,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)textMessageCellDidTapOnUrl:(GJGCChatBaseCell *)tapedCell withUrl:(NSString *)url
 {    
-    GJGCWebViewController *webView = [[GJGCWebViewController alloc]init];
+    GJGCWebViewController *webView = [[GJGCWebViewController alloc]initWithUrl:url];
     [self.navigationController pushViewController:webView animated:YES];
-    [webView setUrl:url];
+}
+
+- (void)chatCellDidTapOnWebPage:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+
+    GJGCWebViewController *webView = [[GJGCWebViewController alloc]initWithUrl:contentModel.webPageUrl];
+    [self.navigationController pushViewController:webView animated:YES];
 }
 
 - (void)chatCellDidChooseDeleteMessage:(GJGCChatBaseCell *)tapedCell

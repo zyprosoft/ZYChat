@@ -39,8 +39,13 @@
         
         self.sumaryLabel = [[UILabel alloc]init];
         self.sumaryLabel.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
-        self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.sumaryLabel.textColor = [UIColor whiteColor];
+        self.sumaryLabel.numberOfLines = 0;
         [self.bubbleBackImageView addSubview:self.sumaryLabel];
+        
+        UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
+        tapR.numberOfTapsRequired = 1;
+        [self.bubbleBackImageView addGestureRecognizer:tapR];
     }
     return self;
 }
@@ -55,10 +60,9 @@
 
     CGFloat maxTextContentWidth = GJCFSystemScreenWidth - bubbleToBordMargin - 40 - 3 - 5.5 - 13 - 2*self.contentInnerMargin;
 
-    self.titleLabel.gjcf_width = maxTextContentWidth;
+    self.titleLabel.gjcf_width = maxTextContentWidth - 2*self.contentInnerMargin - self.thumbImageView.gjcf_width;
     self.titleLabel.text = chatModel.webPageTitle;
-    [self.titleLabel sizeToFit];
-    
+    self.titleLabel.gjcf_height = 13.f;
     
     self.thumbImageView.image = [UIImage imageWithData:chatModel.webPageThumbImageData];
     self.thumbImageView.gjcf_left = self.contentBordMargin;
@@ -69,7 +73,8 @@
     
     self.sumaryLabel.gjcf_width = self.titleLabel.gjcf_width;
     self.sumaryLabel.text = chatModel.webPageSumary;
-    [self.sumaryLabel sizeToFit];
+    self.sumaryLabel.gjcf_height = self.thumbImageView.gjcf_height - self.titleLabel.gjcf_height - 4.f;
+
     self.sumaryLabel.gjcf_left = self.titleLabel.gjcf_left;
     self.sumaryLabel.gjcf_top = self.titleLabel.gjcf_bottom + 8.f;
 
@@ -97,6 +102,14 @@
     
     [popMenu setTargetRect:self.bubbleBackImageView.frame inView:self];
     [popMenu setMenuVisible:YES animated:YES];
+}
+
+- (void)tapOnSelf
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnWebPage:)]) {
+        
+        [self.delegate chatCellDidTapOnWebPage:self];
+    }
 }
 
 @end

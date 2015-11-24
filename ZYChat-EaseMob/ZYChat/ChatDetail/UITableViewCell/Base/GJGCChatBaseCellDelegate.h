@@ -147,4 +147,11 @@
  */
 - (void)chatCellDidTapOnDriftBottleCard:(GJGCChatBaseCell *)tappedCell;
 
+/**
+ *  点击了网页消息
+ *
+ *  @param tapedCell 
+ */
+- (void)chatCellDidTapOnWebPage:(GJGCChatBaseCell *)tapedCell;
+
 @end
