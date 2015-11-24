@@ -727,11 +727,6 @@
 		C81702CD1BFF3DC100FAE520 /* BTActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C01BFF3DC100FAE520 /* BTActionSheetViewController.m */; };
 		C81702CE1BFF3DC100FAE520 /* BTDateActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C21BFF3DC100FAE520 /* BTDateActionSheetViewController.m */; };
 		C81702CF1BFF3DC100FAE520 /* BTTimeActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702C41BFF3DC100FAE520 /* BTTimeActionSheetViewController.m */; };
-		C81702D71BFF3F4E00FAE520 /* LeafNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702D21BFF3F4E00FAE520 /* LeafNotification.m */; };
-		C81702D81BFF3F4E00FAE520 /* notification_success.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D31BFF3F4E00FAE520 /* notification_success.png */; };
-		C81702D91BFF3F4E00FAE520 /* notification_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */; };
-		C81702DA1BFF3F4E00FAE520 /* notification_warring.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D51BFF3F4E00FAE520 /* notification_warring.png */; };
-		C81702DB1BFF3F4E00FAE520 /* notification_warring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */; };
 		C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */; };
 		C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */; };
 		C81702E51BFF487200FAE520 /* keyboardButton-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81702E11BFF487200FAE520 /* keyboardButton-点击@3x.png */; };
@@ -1524,12 +1519,6 @@
 		C81702C21BFF3DC100FAE520 /* BTDateActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDateActionSheetViewController.m; sourceTree = "<group>"; };
 		C81702C31BFF3DC100FAE520 /* BTTimeActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTTimeActionSheetViewController.h; sourceTree = "<group>"; };
 		C81702C41BFF3DC100FAE520 /* BTTimeActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTTimeActionSheetViewController.m; sourceTree = "<group>"; };
-		C81702D11BFF3F4E00FAE520 /* LeafNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeafNotification.h; sourceTree = "<group>"; };
-		C81702D21BFF3F4E00FAE520 /* LeafNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeafNotification.m; sourceTree = "<group>"; };
-		C81702D31BFF3F4E00FAE520 /* notification_success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_success.png; sourceTree = "<group>"; };
-		C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_success@2x.png"; sourceTree = "<group>"; };
-		C81702D51BFF3F4E00FAE520 /* notification_warring.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_warring.png; sourceTree = "<group>"; };
-		C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_warring@2x.png"; sourceTree = "<group>"; };
 		C81702DD1BFF470E00FAE520 /* GJGCPublicGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCPublicGroupListViewController.h; sourceTree = "<group>"; };
 		C81702DE1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCPublicGroupListViewController.m; sourceTree = "<group>"; };
 		C81702E01BFF487200FAE520 /* keyboardButton-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardButton-点击@2x.png"; sourceTree = "<group>"; };
@@ -2077,7 +2066,6 @@
 			isa = PBXGroup;
 			children = (
 				E4FEB3D51C00574500E4A153 /* Base64 */,
-				C81702D01BFF3F4E00FAE520 /* LeafNotificationView */,
 				C8D1B1B61BFC747B00201421 /* EaseMob */,
 				C8F3B9C81BF0B5050057AF5B /* fmdb */,
 				C8DC4A6D1BEC8F0D00F2D161 /* GJCFCachePathManager */,
@@ -3228,19 +3216,6 @@
 			path = BTActionSheetViewController;
 			sourceTree = "<group>";
 		};
-		C81702D01BFF3F4E00FAE520 /* LeafNotificationView */ = {
-			isa = PBXGroup;
-			children = (
-				C81702D11BFF3F4E00FAE520 /* LeafNotification.h */,
-				C81702D21BFF3F4E00FAE520 /* LeafNotification.m */,
-				C81702D31BFF3F4E00FAE520 /* notification_success.png */,
-				C81702D41BFF3F4E00FAE520 /* notification_success@2x.png */,
-				C81702D51BFF3F4E00FAE520 /* notification_warring.png */,
-				C81702D61BFF3F4E00FAE520 /* notification_warring@2x.png */,
-			);
-			path = LeafNotificationView;
-			sourceTree = "<group>";
-		};
 		C81702DC1BFF46DD00FAE520 /* PublicGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -4224,14 +4199,12 @@
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
 				365F06641B501A5D005161D6 /* 定.gif in Resources */,
 				365F06141B501A5D005161D6 /* 078[金钱]@2x.png in Resources */,
-				C81702DA1BFF3F4E00FAE520 /* notification_warring.png in Resources */,
 				365F06741B501A5D005161D6 /* 抠鼻.gif in Resources */,
 				C81702EA1BFF48B000FAE520 /* right@2x.png in Resources */,
 				365F05A61B501A5D005161D6 /* 023[困]@2x.png in Resources */,
 				E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
-				C81702D81BFF3F4E00FAE520 /* notification_success.png in Resources */,
 				365F06661B501A5D005161D6 /* 定@2x.png in Resources */,
 				365F06721B501A5D005161D6 /* 惊吓@2x.png in Resources */,
 				365F05F01B501A5D005161D6 /* 060[闪电]@2x.png in Resources */,
@@ -4287,13 +4260,11 @@
 				365F059A1B501A5D005161D6 /* 017[鼓掌]@2x.png in Resources */,
 				365F06A61B501A5D005161D6 /* 聊天-icon-语音及切换键盘1-灰@2x.png in Resources */,
 				365F05881B501A5D005161D6 /* 009[晕]@2x.png in Resources */,
-				C81702DB1BFF3F4E00FAE520 /* notification_warring@2x.png in Resources */,
 				365F05E01B501A5D005161D6 /* 052[凋谢]@2x.png in Resources */,
 				365F06941B501A5D005161D6 /* 逃跑.gif in Resources */,
 				C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */,
 				365F061C1B501A5D005161D6 /* 082[酷]@2x.png in Resources */,
 				365F06CC1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@3x.png in Resources */,
-				C81702D91BFF3F4E00FAE520 /* notification_success@2x.png in Resources */,
 				365F05C21B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				365F064C1B501A5D005161D6 /* emojiName.plist in Resources */,
 				365F06CA1B501A5D005161D6 /* 聊天键盘-icon-选择帖子@2x.png in Resources */,
@@ -4892,7 +4863,6 @@
 				E4FEB4191C017B1400E4A153 /* GJGCInformationMemeberShowCell.m in Sources */,
 				365F05741B501A5D005161D6 /* GJGCIconSeprateButton.m in Sources */,
 				365F05541B501A5D005161D6 /* GJGCChatInputExpandEmojiPanel.m in Sources */,
-				C81702D71BFF3F4E00FAE520 /* LeafNotification.m in Sources */,
 				C8DC4A351BEC7FB300F2D161 /* ZYUserListDataManager.m in Sources */,
 				C8D1B1B01BFC474C00201421 /* GJGCRecentChatDataManager.m in Sources */,
 				E4FEB3BA1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */,
