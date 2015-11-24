@@ -127,7 +127,7 @@
             
         }else{
             
-            BTToast(error.description);
+            [self showErrorMessage:error.description];
         }
         
     } onQueue:nil];
