@@ -311,6 +311,11 @@
         
     }];
     
+    [[GJCFAudioManager shareManager] setCurrentAudioPlayFinishedBlock:^(NSString *audioLocalPath) {
+       
+        [weakSelf nextSongAction];
+        
+    }];
 }
 
 - (void)removeAudioObserver
@@ -320,6 +325,8 @@
 
 - (void)setupPlayInfo:(NSDictionary *)songInfo
 {
+    [[GJCFAudioManager shareManager] stopPlayCurrentAudio];
+    
     NSDictionary *songDict = [songInfo[@"songs"] firstObject][@"album"];
     self.currentSongMp3Url = [songInfo[@"songs"] firstObject][@"mp3Url"];
     
