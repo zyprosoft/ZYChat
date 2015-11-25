@@ -113,10 +113,23 @@
             
             NSURL *hostUrl = [NSURL URLWithString:host];
             
-            UIWebView *webView = [[UIWebView alloc]init];
-            [webView loadRequest:[NSURLRequest requestWithURL:hostUrl]];
+            NSData *hostData = [NSData dataWithContentsOfURL:hostUrl];
             
-            NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+            NSString *htmlString = [[NSString alloc]initWithData:hostData encoding:NSUTF8StringEncoding];
+            
+            NSRange titleRange = [htmlString rangeOfString:@"<title>"];
+            NSRange titleEndRange = [htmlString rangeOfString:@"</title>"];
+            
+            NSString *title = nil;
+            if (titleEndRange.location != NSNotFound && titleRange.location != NSNotFound) {
+                NSInteger startIndex = titleRange.location + titleRange.length;
+                NSInteger titleLength = titleEndRange.location - startIndex;
+                title = [htmlString substringWithRange:NSMakeRange(startIndex,titleLength)];
+            }
+            
+            if (GJCFStringIsNull(title)) {
+                title = @"未知的网页";
+            }
             
             NSDictionary *item = @{
                                    GJGCWebHostCacheName:title,
