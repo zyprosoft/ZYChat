@@ -130,6 +130,10 @@
 
 - (void)playAction
 {
+    if (self.songList.count == 0) {
+        return;
+    }
+    
     self.playButton.selected = !self.playButton.isSelected;
     
     if (self.playButton.isSelected) {
@@ -141,6 +145,10 @@
 
 - (void)preSongAction
 {
+    if (self.songList.count == 0) {
+        return;
+    }
+    
     if (self.currentIndex == 0) {
         [self showErrorMessage:@"已经是第一首了"];
         return;
@@ -156,6 +164,10 @@
 
 - (void)nextSongAction
 {
+    if (self.songList.count == 0) {
+        return;
+    }
+    
     if (self.currentIndex == self.songList.count-1) {
         [self showErrorMessage:@"已经是最后一首了"];
         return;
