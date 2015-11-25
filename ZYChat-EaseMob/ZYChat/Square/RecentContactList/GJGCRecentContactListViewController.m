@@ -124,11 +124,29 @@
             break;
     }
     
-    [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:nil];
+    [self.statusHUD showWithStatusText:@"正在发送..."];
     
-    BTToast(@"已发送");
+    GJCFWeakSelf weakSelf = self;
+    [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:nil prepare:^(EMMessage *message, EMError *error) {
+        
+    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
+        
+        [weakSelf.statusHUD dismiss];
+        
+        if (!error) {
+            
+            BTToast(@"已发送");
+            
+            [weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+        }else{
+            
+            BTToast(@"发送失败");
+        }
+        
+    } onQueue:nil];
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (EMMessage *)sendWebPageWithToUserId:(NSString *)toId
