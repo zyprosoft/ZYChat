@@ -20,5 +20,6 @@
 
 @property (nonatomic,strong)NSString *webUrl;
 
+@property (nonatomic,strong)NSString *songId;
 
 @end

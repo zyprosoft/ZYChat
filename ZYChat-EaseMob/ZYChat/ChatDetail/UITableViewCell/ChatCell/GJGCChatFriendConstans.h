@@ -64,7 +64,11 @@ typedef NS_ENUM(NSUInteger, GJGCChatFriendContentType) {
     /**
      *  网页消息
      */
-    GJGCChatFriendContentTypeWebPage,
+    GJGCChatFriendContentTypeWebPage = 12,
+    /**
+     *  音乐分享
+     */
+    GJGCChatFriendContentTypeMusicShare = 13,
     
 };
 

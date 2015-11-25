@@ -1,14 +1,14 @@
 //
-//  GJGCChatFriendWebPageCell.m
+//  GJGCChatFriendMusicShareCell.m
 //  ZYChat
 //
-//  Created by ZYVincent on 15/11/24.
+//  Created by ZYVincent on 15/11/25.
 //  Copyright (c) 2015年 ZYProSoft. All rights reserved.
 //
 
-#import "GJGCChatFriendWebPageCell.h"
+#import "GJGCChatFriendMusicShareCell.h"
 
-@interface GJGCChatFriendWebPageCell ()
+@interface GJGCChatFriendMusicShareCell ()
 
 @property (nonatomic,strong)UIImageView *thumbImageView;
 
@@ -18,9 +18,13 @@
 
 @property (nonatomic,assign)CGFloat contentInnerMargin;
 
+@property (nonatomic,strong)UIImageView *playStateView;
+
+@property (nonatomic,strong)UIActivityIndicatorView *indicator;
+
 @end
 
-@implementation GJGCChatFriendWebPageCell
+@implementation GJGCChatFriendMusicShareCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,6 +47,19 @@
         self.sumaryLabel.numberOfLines = 0;
         [self.bubbleBackImageView addSubview:self.sumaryLabel];
         
+        self.playStateView = [[UIImageView alloc]init];
+        self.playStateView.gjcf_size = CGSizeMake(30, 30);
+        [self.thumbImageView addSubview:self.playStateView];
+        self.playStateView.gjcf_top = 5.f;
+        self.playStateView.gjcf_right = self.thumbImageView.gjcf_width - 5.f;
+        [self.playStateView setImage:[UIImage imageNamed:@"play"]];
+        
+        self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        self.indicator.gjcf_size = CGSizeMake(11, 11);
+        [self.thumbImageView addSubview:self.indicator];
+        self.indicator.center = self.playStateView.center;
+        self.indicator.hidden = YES;
+        
         UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
         tapR.numberOfTapsRequired = 1;
         [self.bubbleBackImageView addGestureRecognizer:tapR];
@@ -57,14 +74,14 @@
     [super setContentModel:chatModel];
     
     CGFloat bubbleToBordMargin = 56;
-
+    
     CGFloat maxTextContentWidth = GJCFSystemScreenWidth - bubbleToBordMargin - 40 - 3 - 5.5 - 13 - 2*self.contentInnerMargin+5;
-
+    
     self.titleLabel.gjcf_width = maxTextContentWidth - 2*self.contentInnerMargin - self.thumbImageView.gjcf_width;
-    self.titleLabel.text = chatModel.webPageTitle;
+    self.titleLabel.text = chatModel.musicSongName;
     self.titleLabel.gjcf_height = 13.f;
     
-    self.thumbImageView.image = [UIImage imageNamed:@"safari"];
+    self.thumbImageView.image = [UIImage imageNamed:@"music"];
     self.thumbImageView.gjcf_left = self.contentBordMargin;
     self.thumbImageView.gjcf_top = self.contentBordMargin;
     
@@ -77,12 +94,12 @@
         self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
     }
     self.sumaryLabel.gjcf_width = self.titleLabel.gjcf_width;
-    self.sumaryLabel.text = chatModel.webPageSumary;
+    self.sumaryLabel.text = chatModel.musicSongAuthor;
     self.sumaryLabel.gjcf_height = self.thumbImageView.gjcf_height - self.titleLabel.gjcf_height - 4.f;
-
+    
     self.sumaryLabel.gjcf_left = self.titleLabel.gjcf_left;
     self.sumaryLabel.gjcf_top = self.titleLabel.gjcf_bottom + 8.f;
-
+    
     self.bubbleBackImageView.gjcf_height = self.thumbImageView.gjcf_bottom + self.contentBordMargin;
     self.bubbleBackImageView.gjcf_width = self.titleLabel.gjcf_right + self.contentInnerMargin;
     
@@ -111,9 +128,9 @@
 
 - (void)tapOnSelf
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnWebPage:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnMusicShare:)]) {
         
-        [self.delegate chatCellDidTapOnWebPage:self];
+        [self.delegate chatCellDidTapOnMusicShare:self];
     }
 }
 

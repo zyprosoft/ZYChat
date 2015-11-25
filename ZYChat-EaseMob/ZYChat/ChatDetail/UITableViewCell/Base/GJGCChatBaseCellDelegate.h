@@ -154,4 +154,11 @@
  */
 - (void)chatCellDidTapOnWebPage:(GJGCChatBaseCell *)tapedCell;
 
+/**
+ *  点击了音乐消息
+ *
+ *  @param tapedCell
+ */
+- (void)chatCellDidTapOnMusicShare:(GJGCChatBaseCell *)tapedCell;
+
 @end

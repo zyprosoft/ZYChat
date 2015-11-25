@@ -10,4 +10,6 @@
 
 @interface GJGCMusicPlayViewController : GJGCBaseViewController
 
+- (instancetype)initWithSongId:(NSString *)songId;
+
 @end

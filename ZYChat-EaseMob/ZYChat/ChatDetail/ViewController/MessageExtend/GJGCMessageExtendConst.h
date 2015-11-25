@@ -57,6 +57,9 @@ extern const NSString  *kGJGCMessageExtendExchangeGifPackageVersion;
 
 //音乐分享扩展所使用到得Key
 extern const NSString  *kGJGCMessageExtendMusicUrl;
+extern const NSString  *kGJGCMessageExtendMusicSongAuthor;
+extern const NSString  *kGJGCMessageExtendMusicSongId;
+
 
 
 @interface GJGCMessageExtendConst : NSObject

@@ -11,6 +11,7 @@
 #import "ZYDataCenter.h"
 #import "UIImage+BlurredFrame.h"
 #import "UIImage+ImageEffects.h"
+#import "GJGCRecentContactListViewController.h"
 
 @interface GJGCMusicPlayViewController ()<UISearchBarDelegate>
 
@@ -38,18 +39,35 @@
 
 @property (nonatomic,strong)NSString *currentSongMp3Url;
 
+@property (nonatomic,strong)NSString *currentSongAuthor;
+
 @property (nonatomic,strong)UIActivityIndicatorView *downloadIndicator;
+
+@property (nonatomic,strong)UIButton *forwardButton;
 
 @end
 
 @implementation GJGCMusicPlayViewController
+
+- (instancetype)initWithSongId:(NSString *)songId
+{
+    if (self = [super init]) {
+        
+        self.songList = [[NSMutableArray alloc]initWithObjects:songId, nil];
+        self.currentIndex = 0;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
-    self.songList = [[NSMutableArray alloc]init];
+    
+    if (!self.songList) {
+        self.songList = [[NSMutableArray alloc]init];
+    }
     
     [self setupSearchTitleView];
     
@@ -126,6 +144,46 @@
     [self.nextButton addTarget:self action:@selector(nextSongAction) forControlEvents:UIControlEventTouchUpInside];
     self.nextButton.gjcf_centerY = self.playButton.gjcf_centerY;
     self.nextButton.gjcf_left= self.playButton.gjcf_right + 30.f;
+    
+    self.forwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.forwardButton.gjcf_width = 40.f;
+    self.forwardButton.gjcf_height = 20.f;
+    [self.forwardButton setTitleColor:GJCFQuickHexColor(@"31c27c") forState:UIControlStateNormal];
+    [self.forwardButton setTitle:@"转发" forState:UIControlStateNormal];
+    self.forwardButton.gjcf_right = GJCFSystemScreenWidth - 40.f;
+    self.forwardButton.gjcf_top = 30.f;
+    [self.forwardButton addTarget:self action:@selector(forwardAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.forwardButton];
+    
+    if (self.songList.count > 0) {
+        [self getSongDetailInfoWithSongId:self.songList[0]];
+    }
+}
+
+- (void)forwardAction
+{
+    if (self.songList.count == 0) {
+        return;
+    }
+    
+    GJGCRecentChatForwardContentModel *forwardContentModel = [[GJGCRecentChatForwardContentModel alloc]init];
+    forwardContentModel.title = self.nameLabel.text;
+    if (GJCFStringIsNull(self.currentSongAuthor)) {
+        self.currentSongAuthor = @"佚名";
+    }
+    forwardContentModel.sumary = self.currentSongAuthor;
+    forwardContentModel.webUrl = self.currentSongMp3Url;
+    forwardContentModel.songId = self.songList[self.currentIndex];
+    forwardContentModel.contentType = GJGCChatFriendContentTypeMusicShare;
+    
+    GJGCRecentContactListViewController *recentList = [[GJGCRecentContactListViewController alloc]initWithForwardContent:forwardContentModel];
+    
+    UINavigationController *recentNav = [[UINavigationController alloc]initWithRootViewController:recentList];
+    
+    UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+    [recentNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController presentViewController:recentNav animated:YES completion:nil];
 }
 
 - (void)playAction
@@ -341,6 +399,7 @@
     
     NSDictionary *songDict = [songInfo[@"songs"] firstObject][@"album"];
     self.currentSongMp3Url = [songInfo[@"songs"] firstObject][@"mp3Url"];
+    self.currentSongAuthor = [songDict[@"artists"]firstObject][@"name"];
     
     NSString *songName = [songInfo[@"songs"] firstObject][@"name"];
     NSString *songId = [songInfo[@"songs"] firstObject][@"id"];

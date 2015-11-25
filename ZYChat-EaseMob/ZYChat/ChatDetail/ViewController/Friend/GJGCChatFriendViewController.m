@@ -359,6 +359,15 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     [self.navigationController pushViewController:webView animated:YES];
 }
 
+- (void)chatCellDidTapOnMusicShare:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
+
+    GJGCMusicPlayViewController *musicVC = [[GJGCMusicPlayViewController alloc]initWithSongId:contentModel.musicSongId];
+    [self.navigationController pushViewController:musicVC animated:YES];
+}
+
 - (void)chatCellDidChooseDeleteMessage:(GJGCChatBaseCell *)tapedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];

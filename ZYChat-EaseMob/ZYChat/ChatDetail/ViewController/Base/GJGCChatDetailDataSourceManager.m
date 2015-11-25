@@ -11,6 +11,8 @@
 #import "GJGCGIFLoadManager.h"
 #import "EMMessage.h"
 #import "Base64.h"
+#import "GJGCMessageExtendContentGIFModel.h"
+#import "GJGCMessageExtendMusicShareModel.h"
 
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
 
@@ -765,9 +767,13 @@
                             chatContentModel.gifLocalId = gifContent.emojiCode;
                         }
                             break;
-                        case GJGCChatFriendContentTypeMini:
+                        case GJGCChatFriendContentTypeMusicShare:
                         {
-                            
+                            GJGCMessageExtendMusicShareModel  *musicContent = (GJGCMessageExtendMusicShareModel *)extendModel.messageContent;
+                            chatContentModel.musicSongId = musicContent.songId;
+                            chatContentModel.musicSongName = musicContent.title;
+                            chatContentModel.musicSongUrl = musicContent.songUrl;
+                            chatContentModel.musicSongAuthor = musicContent.author;
                         }
                             break;
                         case GJGCChatFriendContentTypeWebPage:

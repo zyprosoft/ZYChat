@@ -139,6 +139,16 @@
 
 @property (nonatomic,strong)NSString *webPageUrl;
 
+#pragma mark - 扩展音乐分享消息
+
+@property (nonatomic,strong)NSString *musicSongName;
+
+@property (nonatomic,strong)NSString *musicSongAuthor;
+
+@property (nonatomic,strong)NSString *musicSongUrl;
+
+@property (nonatomic,strong)NSString *musicSongId;
+
 
 
 + (GJGCChatFriendContentModel *)timeSubModel;

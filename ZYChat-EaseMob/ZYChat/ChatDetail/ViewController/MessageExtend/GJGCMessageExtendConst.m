@@ -55,6 +55,8 @@ const NSString  *kGJGCMessageExtendExchangeGifPackageVersion = @"package_version
 
 //音乐分享消息
 const NSString  *kGJGCMessageExtendMusicUrl = @"music_url";
+const NSString  *kGJGCMessageExtendMusicSongAuthor = @"song_author";
+const NSString  *kGJGCMessageExtendMusicSongId = @"song_id";
 
 @implementation GJGCMessageExtendConst
 
@@ -64,6 +66,7 @@ const NSString  *kGJGCMessageExtendMusicUrl = @"music_url";
               vGJGCMessageExtendContentGIF,
               vGJGCMessageExtendContentMini,
               vGJGCMessageExtendContentWebPage,
+              vGJGCMessageExtendContentMusicShare,
              ];
 }
 
@@ -79,6 +82,8 @@ const NSString  *kGJGCMessageExtendMusicUrl = @"music_url";
     return @{
              vGJGCMessageExtendContentGIF    :@"GJGCMessageExtendContentGIFModel",
              vGJGCMessageExtendContentWebPage:@"GJGCMessageExtendContentWebPageModel",
+             vGJGCMessageExtendContentMusicShare:@"GJGCMessageExtendMusicShareModel",
+
              };
 }
 

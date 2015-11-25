@@ -947,6 +947,16 @@
 		E4FEB48D1C020FA400E4A153 /* my_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */; };
 		E4FEB48F1C02106800E4A153 /* my_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB48E1C02106800E4A153 /* my_selected@2x.png */; };
 		E4FEB4911C02248800E4A153 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4901C02248800E4A153 /* icon@2x.png */; };
+		E4FEB4931C0606FB00E4A153 /* safari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4921C0606FB00E4A153 /* safari@2x.png */; };
+		E4FEB4961C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */; };
+		E4FEB4971C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */; };
+		E4FEB4991C060B3900E4A153 /* music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4981C060B3900E4A153 /* music@2x.png */; };
+		E4FEB49D1C060E4900E4A153 /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49A1C060E4900E4A153 /* pause@2x.png */; };
+		E4FEB49E1C060E4900E4A153 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49B1C060E4900E4A153 /* play@2x.png */; };
+		E4FEB49F1C060E4900E4A153 /* playing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49C1C060E4900E4A153 /* playing@2x.png */; };
+		E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4A01C060E5800E4A153 /* music@2x.png */; };
+		E4FEB4A41C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */; };
+		E4FEB4A51C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1983,6 +1993,16 @@
 		E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_selected@3x.png"; sourceTree = "<group>"; };
 		E4FEB48E1C02106800E4A153 /* my_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_selected@2x.png"; sourceTree = "<group>"; };
 		E4FEB4901C02248800E4A153 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		E4FEB4921C0606FB00E4A153 /* safari@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "safari@2x.png"; sourceTree = "<group>"; };
+		E4FEB4941C06088A00E4A153 /* GJGCChatFriendMusicShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendMusicShareCell.h; sourceTree = "<group>"; };
+		E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendMusicShareCell.m; sourceTree = "<group>"; };
+		E4FEB4981C060B3900E4A153 /* music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music@2x.png"; sourceTree = "<group>"; };
+		E4FEB49A1C060E4900E4A153 /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		E4FEB49B1C060E4900E4A153 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
+		E4FEB49C1C060E4900E4A153 /* playing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playing@2x.png"; sourceTree = "<group>"; };
+		E4FEB4A01C060E5800E4A153 /* music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music@2x.png"; sourceTree = "<group>"; };
+		E4FEB4A21C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendMusicShareModel.h; sourceTree = "<group>"; };
+		E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendMusicShareModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2925,6 +2945,8 @@
 				365F073A1B50B137005161D6 /* GJGCChatPostContentModel.m */,
 				C8E50F4B1C0460A000AFA10F /* GJGCChatFriendWebPageCell.h */,
 				C8E50F4C1C0460A000AFA10F /* GJGCChatFriendWebPageCell.m */,
+				E4FEB4941C06088A00E4A153 /* GJGCChatFriendMusicShareCell.h */,
+				E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -3121,6 +3143,11 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB4A01C060E5800E4A153 /* music@2x.png */,
+				E4FEB49A1C060E4900E4A153 /* pause@2x.png */,
+				E4FEB49B1C060E4900E4A153 /* play@2x.png */,
+				E4FEB49C1C060E4900E4A153 /* playing@2x.png */,
+				E4FEB4921C0606FB00E4A153 /* safari@2x.png */,
 				E4FEB4901C02248800E4A153 /* icon@2x.png */,
 				E4FEB48E1C02106800E4A153 /* my_selected@2x.png */,
 				E4FEB48C1C020FA400E4A153 /* my_selected@3x.png */,
@@ -3878,6 +3905,7 @@
 		C8E50F521C054C3200AFA10F /* MusicShare */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEB4981C060B3900E4A153 /* music@2x.png */,
 				C8E50F821C05998E00AFA10F /* player_slider_playback_thumb@2x.png */,
 				C8E50F7E1C05960100AFA10F /* poster_bg_small.jpg */,
 				C8E50F7F1C05960100AFA10F /* poster_bg.jpg */,
@@ -3936,6 +3964,8 @@
 				C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */,
 				E4FEB43F1C01A35100E4A153 /* GJGCMessageExtendGroupModel.h */,
 				E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */,
+				E4FEB4A21C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.h */,
+				E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */,
 			);
 			path = MessageExtend;
 			sourceTree = "<group>";
@@ -4328,6 +4358,7 @@
 				365F069A1B501A5D005161D6 /* 大表情-bg-预览@2x.png in Resources */,
 				E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
+				E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */,
 				E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */,
 				E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */,
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
@@ -4340,6 +4371,7 @@
 				365F05A61B501A5D005161D6 /* 023[困]@2x.png in Resources */,
 				E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
+				E4FEB49E1C060E4900E4A153 /* play@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
 				C8E50F5F1C055FE600AFA10F /* player_btn_next_normal@2x.png in Resources */,
 				365F06661B501A5D005161D6 /* 定@2x.png in Resources */,
@@ -4401,6 +4433,7 @@
 				C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */,
 				365F061C1B501A5D005161D6 /* 082[酷]@2x.png in Resources */,
 				C8E50F601C055FE600AFA10F /* player_btn_pause_highlight@2x.png in Resources */,
+				E4FEB49D1C060E4900E4A153 /* pause@2x.png in Resources */,
 				365F05C21B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				365F064C1B501A5D005161D6 /* emojiName.plist in Resources */,
 				365F06621B501A5D005161D6 /* 同情@2x.png in Resources */,
@@ -4420,6 +4453,7 @@
 				365F05801B501A5D005161D6 /* 005[微笑]@2x.png in Resources */,
 				C8D1B2211BFC747B00201421 /* EaseMob.bundle in Resources */,
 				365F05821B501A5D005161D6 /* 006[流泪]@2x.png in Resources */,
+				E4FEB4991C060B3900E4A153 /* music@2x.png in Resources */,
 				365F08BA1B50E292005161D6 /* 好友头像占位-bg-列表@2x.png in Resources */,
 				365F06B01B501A5D005161D6 /* 聊天语音-icon-取消@2x.png in Resources */,
 				E4FEB4851C020EED00E4A153 /* square_selected@3x.png in Resources */,
@@ -4457,10 +4491,12 @@
 				365F06441B501A5D005161D6 /* 106[左太极]@2x.png in Resources */,
 				365F06221B501A5D005161D6 /* 085[骷髅头]@2x.png in Resources */,
 				365F06481B501A5D005161D6 /* 108[打太极]@2x.png in Resources */,
+				E4FEB4931C0606FB00E4A153 /* safari@2x.png in Resources */,
 				C8DC4A061BEC7AAB00F2D161 /* ssl.cer in Resources */,
 				365F06AE1B501A5D005161D6 /* 聊天-icon-选择表情@3x.png in Resources */,
 				365F06241B501A5D005161D6 /* 086[再见]@2x.png in Resources */,
 				365F06681B501A5D005161D6 /* 害羞.gif in Resources */,
+				E4FEB49F1C060E4900E4A153 /* playing@2x.png in Resources */,
 				365F060E1B501A5D005161D6 /* 075[啤酒]@2x.png in Resources */,
 				365F06A21B501A5D005161D6 /* 聊天-icon-语音2-绿@2x.png in Resources */,
 				365F06521B501A5D005161D6 /* gifCode.plist in Resources */,
@@ -4757,6 +4793,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4FEB4181C017B1400E4A153 /* GJGCInformationMemberShowItem.m in Sources */,
+				E4FEB4961C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */,
 				365F042F1B501A43005161D6 /* GJCFAudioRecordSettings.m in Sources */,
 				E4FEB4161C017B1400E4A153 /* GJGCInformationGroupShowItem.m in Sources */,
 				365F043F1B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
@@ -4773,6 +4810,7 @@
 				365F04511B501A43005161D6 /* GJCFStringUitil.m in Sources */,
 				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
 				365F043B1B501A43005161D6 /* GJCFCoreTextParagraphStyle.m in Sources */,
+				E4FEB4A41C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */,
 				365F08441B50B138005161D6 /* GJGCChatGroupViewController.m in Sources */,
 				365F07D01B50B138005161D6 /* GJGCChatBaseCell.m in Sources */,
 				365F041B1B501A43005161D6 /* GJCFPhotosViewController.m in Sources */,
@@ -5147,6 +5185,7 @@
 				365F04641B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
 				365F04401B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F03F41B501A43005161D6 /* GJCFUploadFileModel.m in Sources */,
+				E4FEB4A51C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */,
 				E4FEB3C41BFF852D00E4A153 /* GJGCInfoBaseListBaseCell.m in Sources */,
 				365F03F81B501A43005161D6 /* FLAnimatedImageView.m in Sources */,
 				365F04281B501A43005161D6 /* GJCFFileDownloadTask+GJCFAudioDownload.m in Sources */,
@@ -5190,6 +5229,7 @@
 				365F08311B50B138005161D6 /* GJGCChatDetailDataSourceManager.m in Sources */,
 				365F08331B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
 				E4FEB3B31BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */,
+				E4FEB4971C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */,
 				365F04061B501A43005161D6 /* GJCFAlbums.m in Sources */,
 				E4FEB3AB1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */,
 				365F04181B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,

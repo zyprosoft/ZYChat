@@ -38,6 +38,8 @@
 
              @"GJGCChatFriendWebPageCell": @"GJGCChatFriendWebPageCellIdentifier",
 
+             @"GJGCChatFriendMusicShareCell": @"GJGCChatFriendMusicShareCellIdentifier",
+
              };
     
 }
@@ -69,6 +71,8 @@
              @(GJGCChatFriendContentTypeDriftBottle) : @"GJGCChatFriendDriftBottleCell",
              
              @(GJGCChatFriendContentTypeWebPage) : @"GJGCChatFriendWebPageCell",
+
+             @(GJGCChatFriendContentTypeMusicShare) : @"GJGCChatFriendMusicShareCell",
 
              };
 }
