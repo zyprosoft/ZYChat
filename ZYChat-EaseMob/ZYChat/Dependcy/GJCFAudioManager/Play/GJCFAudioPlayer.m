@@ -73,11 +73,32 @@
         self.audioPlayer = nil;
     }
     
-    self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:self.currentPlayAudioFile.localStorePath] error:nil];
+    NSError *playerError = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:self.currentPlayAudioFile.localStorePath] error:&playerError];
+    if (playerError) {
+        _isPlaying = NO;
+        NSError *faildError = [NSError errorWithDomain:@"gjcf.AudioManager.com" code:-234 userInfo:@{@"msg": @"GJCFAuidoPlayer播放失败"}];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayer:didOccusError:)]) {
+            [self.delegate audioPlayer:self didOccusError:faildError];
+        }
+        return;
+    }
+    
     self.audioPlayer.delegate = self;
     self.audioPlayer.meteringEnabled = YES;//允许显示波形
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    BOOL isPrepare = [self.audioPlayer prepareToPlay];
+    if (!isPrepare) {
+        
+        NSError *faildError = [NSError errorWithDomain:@"gjcf.AudioManager.com" code:-235 userInfo:@{@"msg": @"GJCFAuidoPlayer准备播放失败"}];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayer:didOccusError:)]) {
+            [self.delegate audioPlayer:self didOccusError:faildError];
+        }
+        return;
+    }
+    
     _isPlaying = [self.audioPlayer play];
     /* 获取当前播放文件得时间总长度 */
     self.currentPlayAudioDuration = [self getLocalWavFileDuration:self.currentPlayAudioFile.localStorePath];
@@ -266,6 +287,7 @@
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
 {
+    NSLog(@"AVAudioPlayer error:%@",error);
     if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayer:didOccusError:)]) {
         [self.delegate audioPlayer:self didOccusError:error];
     }

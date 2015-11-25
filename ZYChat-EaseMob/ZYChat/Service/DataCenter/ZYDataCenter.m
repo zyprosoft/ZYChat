@@ -35,6 +35,7 @@
     aTask.faildBlock = faild;
     aTask.taskType = ZYNetworkTaskTypeJsonRequest;
     aTask.requestMethod = condition.requestMethod;
+    aTask.getParams = condition.getParams;
     
     NSLog(@"request url:%@",aTask.requestUrl);
     
@@ -52,6 +53,7 @@
     aTask.host = condition.thirdServerHost;
     aTask.interface = condition.thirdServerInterface;
     aTask.postParams = condition.postParams;
+    aTask.getParams = condition.getParams;
     aTask.successBlock = success;
     aTask.faildBlock = faild;
     aTask.taskType = ZYNetworkTaskTypeJsonRequest;

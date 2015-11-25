@@ -41,6 +41,19 @@
     return timeString;
 }
 
+- (NSString *)cacheFileName
+{
+    if (!GJCFStringIsNull(self.specialCacheFileName)) {
+        return self.specialCacheFileName;
+    }
+    
+    if (GJCFStringIsNull(self.remotePath)) {
+        return GJCFStringCurrentTimeStamp;
+    }else{
+        return [self.remotePath stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    }
+}
+
 /* 删除临时编码文件 */
 - (void)deleteTempEncodeFile
 {

@@ -55,7 +55,12 @@ static NSString *  GJCFAudioFileRemoteLocalWavFileShipList = @"GJCFAudioFileRemo
         return;
     }
     
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@",GJCFStringCurrentTimeStamp,audioFile.extensionName];
+    NSString *fileName = nil;
+    if ([audioFile.cacheFileName hasSuffix:audioFile.extensionName]) {
+        fileName = audioFile.cacheFileName;
+    }else{
+       fileName = [NSString stringWithFormat:@"%@.%@",audioFile.cacheFileName,audioFile.extensionName];
+    }
 
     audioFile.fileName = fileName;
     
@@ -71,7 +76,7 @@ static NSString *  GJCFAudioFileRemoteLocalWavFileShipList = @"GJCFAudioFileRemo
         return;
     }
     
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@",GJCFStringCurrentTimeStamp,audioFile.tempEncodeFileExtensionName];
+    NSString *fileName = [NSString stringWithFormat:@"%@.%@",audioFile.cacheFileName,audioFile.tempEncodeFileExtensionName];
 
     audioFile.tempEncodeFileName = fileName;
     

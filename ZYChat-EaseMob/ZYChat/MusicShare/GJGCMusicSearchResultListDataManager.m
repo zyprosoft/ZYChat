@@ -34,21 +34,31 @@
        
         NSArray *songs = [response[@"result"] objectForKey:@"songs"];
         
-        for (NSDictionary *song in songs) {
+        NSMutableArray *songList = [NSMutableArray array];
+        
+        for (NSInteger index = 0; index < songs.count; index++) {
+            
+            NSDictionary *song = [songs objectAtIndex:index];
             
             NSDictionary *artist = [song[@"artists"]firstObject];
             
             NSString *authorName = artist[@"name"];
             NSString *songName = song[@"name"];
             NSInteger timeDuration = [song[@"duration"] longLongValue]/1000/60;
+            
             NSString *duration = [NSString stringWithFormat:@"%ld",(long)timeDuration];
             
             NSString *simpleTitle = [NSString stringWithFormat:@"歌曲:%@    歌手:%@   时长: %@ 分钟",songName,authorName,duration];
+            
+            [songList addObject:song[@"id"]];
             
             BTActionSheetBaseContentModel *itemModel = [[BTActionSheetBaseContentModel alloc]init];
             itemModel.simpleText = simpleTitle;
             itemModel.userInfo = @{
                                    @"data":song[@"id"],
+                                   @"name":songName,
+                                   @"list":songList,
+                                   @"index":@(index),
                                    };
             
             [self addContentModel:itemModel];

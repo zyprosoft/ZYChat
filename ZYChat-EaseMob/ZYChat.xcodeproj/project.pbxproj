@@ -840,6 +840,11 @@
 		C8E50F691C05632100AFA10F /* 聊天键盘-icon-音乐@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E50F681C05632100AFA10F /* 聊天键盘-icon-音乐@2x.png */; };
 		C8E50F6C1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50F6B1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m */; };
 		C8E50F6F1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50F6E1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.m */; };
+		C8E50F741C05921800AFA10F /* UIImage+BlurredFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50F711C05921800AFA10F /* UIImage+BlurredFrame.m */; };
+		C8E50F751C05921800AFA10F /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E50F731C05921800AFA10F /* UIImage+ImageEffects.m */; };
+		C8E50F801C05960100AFA10F /* poster_bg_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C8E50F7E1C05960100AFA10F /* poster_bg_small.jpg */; };
+		C8E50F811C05960100AFA10F /* poster_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C8E50F7F1C05960100AFA10F /* poster_bg.jpg */; };
+		C8E50F831C05998E00AFA10F /* player_slider_playback_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E50F821C05998E00AFA10F /* player_slider_playback_thumb@2x.png */; };
 		C8F3B9B81BF0A7E80057AF5B /* ZYDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */; };
 		C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9BA1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m */; };
 		C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F3B9C01BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m */; };
@@ -1821,6 +1826,13 @@
 		C8E50F6B1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicSearchResultListViewController.m; sourceTree = "<group>"; };
 		C8E50F6D1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMusicSearchResultListDataManager.h; sourceTree = "<group>"; };
 		C8E50F6E1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicSearchResultListDataManager.m; sourceTree = "<group>"; };
+		C8E50F701C05921800AFA10F /* UIImage+BlurredFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BlurredFrame.h"; sourceTree = "<group>"; };
+		C8E50F711C05921800AFA10F /* UIImage+BlurredFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BlurredFrame.m"; sourceTree = "<group>"; };
+		C8E50F721C05921800AFA10F /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		C8E50F731C05921800AFA10F /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		C8E50F7E1C05960100AFA10F /* poster_bg_small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = poster_bg_small.jpg; sourceTree = "<group>"; };
+		C8E50F7F1C05960100AFA10F /* poster_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = poster_bg.jpg; sourceTree = "<group>"; };
+		C8E50F821C05998E00AFA10F /* player_slider_playback_thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_slider_playback_thumb@2x.png"; sourceTree = "<group>"; };
 		C8F3B9B61BF0A7E80057AF5B /* ZYDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseManager.h; sourceTree = "<group>"; };
 		C8F3B9B71BF0A7E80057AF5B /* ZYDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDatabaseManager.m; sourceTree = "<group>"; };
 		C8F3B9B91BF0A8170057AF5B /* ZYDatabaseCRUDCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDatabaseCRUDCondition.h; sourceTree = "<group>"; };
@@ -3866,6 +3878,13 @@
 		C8E50F521C054C3200AFA10F /* MusicShare */ = {
 			isa = PBXGroup;
 			children = (
+				C8E50F821C05998E00AFA10F /* player_slider_playback_thumb@2x.png */,
+				C8E50F7E1C05960100AFA10F /* poster_bg_small.jpg */,
+				C8E50F7F1C05960100AFA10F /* poster_bg.jpg */,
+				C8E50F701C05921800AFA10F /* UIImage+BlurredFrame.h */,
+				C8E50F711C05921800AFA10F /* UIImage+BlurredFrame.m */,
+				C8E50F721C05921800AFA10F /* UIImage+ImageEffects.h */,
+				C8E50F731C05921800AFA10F /* UIImage+ImageEffects.m */,
 				C8E50F561C055FE600AFA10F /* player_btn_next_highlight@2x.png */,
 				C8E50F571C055FE600AFA10F /* player_btn_next_normal@2x.png */,
 				C8E50F581C055FE600AFA10F /* player_btn_pause_highlight@2x.png */,
@@ -4433,6 +4452,7 @@
 				C8E50F5E1C055FE600AFA10F /* player_btn_next_highlight@2x.png in Resources */,
 				E4FEB47F1C020EED00E4A153 /* msg_selected@3x.png in Resources */,
 				365F068E1B501A5D005161D6 /* 诱惑@2x.png in Resources */,
+				C8E50F811C05960100AFA10F /* poster_bg.jpg in Resources */,
 				365F05D61B501A5D005161D6 /* 047[猪头]@2x.png in Resources */,
 				365F06441B501A5D005161D6 /* 106[左太极]@2x.png in Resources */,
 				365F06221B501A5D005161D6 /* 085[骷髅头]@2x.png in Resources */,
@@ -4450,6 +4470,7 @@
 				365F06061B501A5D005161D6 /* 071[足球]@2x.png in Resources */,
 				C8E50F611C055FE600AFA10F /* player_btn_pause_normal@2x.png in Resources */,
 				365F05FE1B501A5D005161D6 /* 067[握手]@2x.png in Resources */,
+				C8E50F831C05998E00AFA10F /* player_slider_playback_thumb@2x.png in Resources */,
 				C81702E51BFF487200FAE520 /* keyboardButton-点击@3x.png in Resources */,
 				365F062A1B501A5D005161D6 /* 093[拳头]@2x.png in Resources */,
 				365F05EC1B501A5D005161D6 /* 058[月亮]@2x.png in Resources */,
@@ -4470,6 +4491,7 @@
 				E4FEB47E1C020EED00E4A153 /* msg_selected@2x.png in Resources */,
 				365F05EA1B501A5D005161D6 /* 057[太阳]@2x.png in Resources */,
 				365F06361B501A5D005161D6 /* 099[发抖]@2x.png in Resources */,
+				C8E50F801C05960100AFA10F /* poster_bg_small.jpg in Resources */,
 				365F05D21B501A5D005161D6 /* 045[难过]@2x.png in Resources */,
 				365F08AE1B50E094005161D6 /* 聊天对话框-BG-绿色@2x.png in Resources */,
 				365F05AE1B501A5D005161D6 /* 027[敲打]@2x.png in Resources */,
@@ -4742,6 +4764,7 @@
 				C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */,
 				C8E50F511C04713200AFA10F /* UIImage+Resize.m in Sources */,
 				C8E50E5F1C02C25F00AFA10F /* MJRefreshHeaderView.m in Sources */,
+				C8E50F751C05921800AFA10F /* UIImage+ImageEffects.m in Sources */,
 				C8E50E5C1C02C25F00AFA10F /* MJRefreshBaseView.m in Sources */,
 				C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */,
 				C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */,
@@ -4972,6 +4995,7 @@
 				365F03FB1B501A43005161D6 /* GJCFAssetsPickerCommonStyleDescription.m in Sources */,
 				C8DC4A2B1BEC7B3500F2D161 /* JSONHTTPClient.m in Sources */,
 				E4FEB3CB1C00489F00E4A153 /* GJGCInfoUserRoleContentCell.m in Sources */,
+				C8E50F741C05921800AFA10F /* UIImage+BlurredFrame.m in Sources */,
 				C8E50E721C040A7C00AFA10F /* GJGCGroupMemberListViewController.m in Sources */,
 				C8E50E751C040A9600AFA10F /* GJGCGroupMemberListDataManager.m in Sources */,
 				E4FEB3B61BFF84D100E4A153 /* GJGCInfoBaseListConst.m in Sources */,

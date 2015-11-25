@@ -20,11 +20,16 @@
     }
     
     /* 设定缓存路径 */
-    if (!audioFile.tempEncodeFilePath) {
+    NSString *cachePath = nil;
+    if (!audioFile.tempEncodeFilePath && audioFile.isNeedConvertEncodeToSave) {
         [GJCFAudioFileUitil setupAudioFileTempEncodeFilePath:audioFile];
+        cachePath = audioFile.tempEncodeFilePath;
+    }else{
+        [GJCFAudioFileUitil setupAudioFileLocalStorePath:audioFile];
+        cachePath = audioFile.localStorePath;
     }
     
-    GJCFFileDownloadTask *task = [GJCFFileDownloadTask taskWithDownloadUrl:audioFile.remotePath withCachePath:audioFile.tempEncodeFilePath withObserver:observer getTaskIdentifer:taskIdentifier];
+    GJCFFileDownloadTask *task = [GJCFFileDownloadTask taskWithDownloadUrl:audioFile.remotePath withCachePath:cachePath withObserver:observer getTaskIdentifer:taskIdentifier];
     task.userInfo = @{@"audioFile": audioFile};
     
     

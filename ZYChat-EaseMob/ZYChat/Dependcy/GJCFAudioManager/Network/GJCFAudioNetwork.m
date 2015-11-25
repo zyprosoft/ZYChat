@@ -219,11 +219,20 @@
     NSLog(@"GJCFAudioNetwork task:%@ begin dowload .... ",taskIdentifier);
 }
 
-- (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withFinishDownloadPlayCheck:(BOOL)finishPlay withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier
+- (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withConvertSetting:(BOOL)isNeedConvert withSpecialCacheFileName:(NSString *)cacheFileName withFinishDownloadPlayCheck:(BOOL)finishPlay withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier
 {
     GJCFAudioModel *audioFile = [[GJCFAudioModel alloc]init];
+    
+    NSString *fileName = [[remoteAudioUrl componentsSeparatedByString:@"/"]lastObject];
+    NSString *extensionName = [[fileName componentsSeparatedByString:@"."]lastObject];
+    audioFile.extensionName = extensionName;
+    if (GJCFStringIsNull(cacheFileName)) {
+        cacheFileName = fileName;
+    }
+
+    audioFile.specialCacheFileName = [NSString stringWithFormat:@"%@.%@",cacheFileName,audioFile.extensionName];
     audioFile.remotePath = remoteAudioUrl;
-    audioFile.isNeedConvertEncodeToSave = YES;
+    audioFile.isNeedConvertEncodeToSave = isNeedConvert;
     audioFile.shouldPlayWhileFinishDownload = finishPlay;
     audioFile.isDeleteWhileFinishConvertToLocalFormate = YES;
     *fileUniqueIdentifier = audioFile.uniqueIdentifier;
@@ -233,7 +242,7 @@
 
 - (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier
 {
-    [self downloadAudioFileWithUrl:remoteAudioUrl withFinishDownloadPlayCheck:NO withFileUniqueIdentifier:fileUniqueIdentifier];
+    [self downloadAudioFileWithUrl:remoteAudioUrl withConvertSetting:YES withSpecialCacheFileName:@"" withFinishDownloadPlayCheck:NO withFileUniqueIdentifier:fileUniqueIdentifier];
 }
 
 @end

@@ -83,6 +83,12 @@
 /* 该音频文件是否已经上传了 */
 @property (nonatomic,assign)BOOL isBeenUploaded;
 
+/* 缓存文件名字 */
+@property (nonatomic,readonly)NSString *cacheFileName;
+
+/* 指定不从链接中生成缓存文件名，按照这个指定的文件名来缓存 */
+@property (nonatomic,strong)NSString *specialCacheFileName;
+
 /* 删除临时编码文件 */
 - (void)deleteTempEncodeFile;
 

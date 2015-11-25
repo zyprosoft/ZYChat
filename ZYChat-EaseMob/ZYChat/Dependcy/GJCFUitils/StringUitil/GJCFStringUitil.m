@@ -236,6 +236,10 @@
         return nil;
     }
     
+    if ([object isKindOfClass:[NSNumber class]]) {
+        object = [NSString stringWithFormat:@"%@",object];
+    }
+    
     NSString *string = (NSString*)object;
     NSString *encodedValue = (__bridge NSString*)CFURLCreateStringByAddingPercentEscapes(nil,
                                                                                          (CFStringRef)string,

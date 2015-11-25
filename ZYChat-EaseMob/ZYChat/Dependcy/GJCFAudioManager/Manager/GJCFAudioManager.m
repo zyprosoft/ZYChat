@@ -325,7 +325,7 @@
     }
     
     /* 检测本地是否已经有对应的wav文件 */
-    NSString *localWavPath = [GJCFAudioFileUitil localWavPathForRemoteUrl:remoteAudioUrl];
+    NSString *localWavPath = [[GJCFCachePathManager shareManager] mainAudioCacheFilePathForUrl:remoteAudioUrl];
     NSData *fileData = [NSData dataWithContentsOfFile:localWavPath];
     
     /* 确保有路径并且有数据 */
@@ -346,7 +346,65 @@
     }
     
     NSString *fileIdentifier = nil;
-    [self.audioNetwork downloadAudioFileWithUrl:remoteAudioUrl withFinishDownloadPlayCheck:YES withFileUniqueIdentifier:&fileIdentifier];
+    [self.audioNetwork downloadAudioFileWithUrl:remoteAudioUrl withConvertSetting:YES withSpecialCacheFileName:@"" withFinishDownloadPlayCheck:YES withFileUniqueIdentifier:&fileIdentifier];
+    [self.downloadAudioFileUniqueIdentifiers addObject:fileIdentifier];
+}
+
+- (void)playRemoteMusicByUrl:(NSString *)remoteAudioUrl
+{
+    [self playRemoteMusicByUrl:remoteAudioUrl withCacheFileName:nil];
+}
+
+- (void)playRemoteMusicByUrl:(NSString *)remoteAudioUrl withCacheFileName:(NSString *)fileName
+{
+    if (!remoteAudioUrl) {
+        return;
+    }
+    
+    if (!GJCFStringIsNull(fileName)) {
+        
+        /* 确保有路径并且有数据 */
+        if ([[GJCFCachePathManager shareManager] mainAudioCacheFileIsExistForUrl:fileName]) {
+            
+            NSString *localWavPath = [[GJCFCachePathManager shareManager] mainAudioCacheFilePathForUrl:fileName];
+            
+            GJCFAudioModel *existAudio = [[GJCFAudioModel alloc]init];
+            existAudio.localStorePath = localWavPath;
+            
+            NSLog(@"GJCFAudioManager 播放已经下载过的音乐文件:%@",existAudio.localStorePath);
+            [self playAudioFile:existAudio];
+            
+            /* 开始播放远程文件的观察调用 */
+            if (self.startPlayRemoteBlock) {
+                self.startPlayRemoteBlock(remoteAudioUrl,localWavPath);
+            }
+            
+            return;
+        }
+        
+    }
+    
+    /* 确保有路径并且有数据 */
+    if ([[GJCFCachePathManager shareManager] mainAudioCacheFileIsExistForUrl:remoteAudioUrl]) {
+        
+        NSString *localWavPath = [[GJCFCachePathManager shareManager] mainAudioCacheFilePathForUrl:remoteAudioUrl];
+        
+        GJCFAudioModel *existAudio = [[GJCFAudioModel alloc]init];
+        existAudio.localStorePath = localWavPath;
+        
+        NSLog(@"GJCFAudioManager 播放已经下载过的音乐文件:%@",existAudio.localStorePath);
+        [self playAudioFile:existAudio];
+        
+        /* 开始播放远程文件的观察调用 */
+        if (self.startPlayRemoteBlock) {
+            self.startPlayRemoteBlock(remoteAudioUrl,localWavPath);
+        }
+        
+        return;
+    }
+    
+    NSString *fileIdentifier = nil;
+    [self.audioNetwork downloadAudioFileWithUrl:remoteAudioUrl withConvertSetting:NO withSpecialCacheFileName:fileName withFinishDownloadPlayCheck:YES withFileUniqueIdentifier:&fileIdentifier];
     [self.downloadAudioFileUniqueIdentifiers addObject:fileIdentifier];
 }
 
@@ -441,7 +499,7 @@
 
     /* 先去下载这个音频文件到本地 */
     NSString *fileIdentifier = nil;
-    [self.audioNetwork downloadAudioFileWithUrl:remoteUrl withFinishDownloadPlayCheck:NO withFileUniqueIdentifier:&fileIdentifier];
+    [self.audioNetwork downloadAudioFileWithUrl:remoteUrl withConvertSetting:YES withSpecialCacheFileName:@"" withFinishDownloadPlayCheck:NO withFileUniqueIdentifier:&fileIdentifier];
     [self.downloadAudioFileUniqueIdentifiers addObject:fileIdentifier];
 }
 

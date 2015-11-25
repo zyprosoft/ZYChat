@@ -100,6 +100,12 @@ typedef void (^GJCFAudioManagerUploadCompletionBlock) (NSString *audioLocalPath,
 /* 通过一个远程音频文件地址播放音频 */
 - (void)playRemoteAudioFileByUrl:(NSString *)remoteAudioUrl;
 
+/* 通过一个远程音乐文件地址播放音频 */
+- (void)playRemoteMusicByUrl:(NSString *)remoteAudioUrl;
+
+/* 通过一个远程音乐文件地址播放音频 并且指定缓存文件名 */
+- (void)playRemoteMusicByUrl:(NSString *)remoteAudioUrl withCacheFileName:(NSString *)fileName;
+
 /* 获取指定本地路径音频文件的时长 */
 - (NSTimeInterval)getDurationForLocalWavPath:(NSString *)localAudioFilePath;
 

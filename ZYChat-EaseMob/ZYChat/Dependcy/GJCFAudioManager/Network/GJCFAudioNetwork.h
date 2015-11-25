@@ -25,7 +25,7 @@
 - (void)downloadAudioFile:(GJCFAudioModel *)audioFile;
 
 /* 下载完是否立即播放的参数判断 */
-- (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withFinishDownloadPlayCheck:(BOOL)finishPlay withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier;
+- (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withConvertSetting:(BOOL)isNeedConvert withSpecialCacheFileName:(NSString *)cacheFileName withFinishDownloadPlayCheck:(BOOL)finishPlay withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier;
 
 /* 下载指定地址的音频文件 */
 - (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier;
