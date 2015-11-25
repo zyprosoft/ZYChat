@@ -48,6 +48,10 @@
     self.webView.gjcf_width = GJCFSystemScreenWidth;
     [self.view addSubview:self.webView];
     
+    if (![self.theUrl hasPrefix:@"https://"] && ![self.theUrl hasPrefix:@"http://"]) {
+        self.theUrl = [NSString stringWithFormat:@"http://%@",self.theUrl];
+    }
+    
     if (self.theUrl) {
         
         [self setUrl:self.theUrl];
