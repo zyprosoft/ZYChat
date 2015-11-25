@@ -9,7 +9,7 @@
 #import "GJGCWebViewController.h"
 #import "GJGCRecentContactListViewController.h"
 
-@interface GJGCWebViewController ()<UIWebViewDelegate>
+@interface GJGCWebViewController ()
 
 @property (nonatomic,strong)UIWebView *webView;
 
@@ -42,7 +42,6 @@
     [self setRightButtonWithTitle:@"转发"];
     
     self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
-    self.webView.delegate = self;
     self.webView.gjcf_height = GJCFSystemScreenHeight - self.contentOriginY;
     self.webView.gjcf_width = GJCFSystemScreenWidth;
     [self.view addSubview:self.webView];

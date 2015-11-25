@@ -74,6 +74,17 @@
     return 75.f;
 }
 
+- (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCRecentChatModel *chatModel = [self contentModelAtIndexPath:indexPath];
+    
+    [[EaseMob sharedInstance].chatManager removeConversationByChatter:chatModel.toId deleteMessages:NO append2Chat:NO];
+    
+    [self.sourceArray removeObject:chatModel];
+
+    [self.delegate dataManagerRequireRefresh:self requireDeletePaths:@[indexPath]];
+}
+
 - (void)loadRecentConversations
 {
     if ([[ZYUserCenter shareCenter] isLogin]) {

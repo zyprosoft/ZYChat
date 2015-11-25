@@ -130,6 +130,25 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (editingStyle) {
+        case UITableViewCellEditingStyleDelete:
+        {
+            [self.dataManager deleteConversationAtIndexPath:indexPath];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
 #pragma mark - dispatch缓冲刷新会话列表
 
 - (void)conversationListUpdate
@@ -150,6 +169,15 @@
     dispatch_async(dispatch_get_main_queue(), ^{
        
         dispatch_source_merge_data(self.updateListSource, 1);
+        
+    });
+}
+
+- (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager requireDeletePaths:(NSArray *)paths
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self.listTable deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationBottom];
         
     });
 }

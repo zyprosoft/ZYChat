@@ -1446,8 +1446,8 @@
 		365F08821B50BD79005161D6 /* GJGCImageResizeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCImageResizeHelper.m; sourceTree = "<group>"; };
 		365F08891B50C228005161D6 /* GJGCCommonFontColorStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCommonFontColorStyle.h; sourceTree = "<group>"; };
 		365F088A1B50C228005161D6 /* GJGCCommonFontColorStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCommonFontColorStyle.m; sourceTree = "<group>"; };
-		365F088D1B50D0EF005161D6 /* GJGCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCWebViewController.h; sourceTree = "<group>"; };
-		365F088E1B50D0EF005161D6 /* GJGCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCWebViewController.m; sourceTree = "<group>"; };
+		365F088D1B50D0EF005161D6 /* GJGCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJGCWebViewController.h; path = ../ChatDetail/ViewController/Base/GJGCWebViewController.h; sourceTree = "<group>"; };
+		365F088E1B50D0EF005161D6 /* GJGCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GJGCWebViewController.m; path = ../ChatDetail/ViewController/Base/GJGCWebViewController.m; sourceTree = "<group>"; };
 		365F08931B50D37A005161D6 /* GJGCRecentChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCRecentChatViewController.h; sourceTree = "<group>"; };
 		365F08941B50D37A005161D6 /* GJGCRecentChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCRecentChatViewController.m; sourceTree = "<group>"; };
 		365F08971B50D45A005161D6 /* GJGCRecentChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCRecentChatCell.h; sourceTree = "<group>"; };
@@ -2023,6 +2023,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				C8E50F521C054C3200AFA10F /* MusicShare */,
 				C8E50F381C044AF600AFA10F /* WebView */,
 				C8E50E321C02B65600AFA10F /* WallPaper */,
 				E4FEB46C1C0206F000E4A153 /* MainTab */,
@@ -2976,8 +2977,6 @@
 				365F077F1B50B138005161D6 /* GJGCChatFriendTalkModel.m */,
 				365F08671B50B680005161D6 /* GJGCBaseViewController.h */,
 				365F08681B50B680005161D6 /* GJGCBaseViewController.m */,
-				365F088D1B50D0EF005161D6 /* GJGCWebViewController.h */,
-				365F088E1B50D0EF005161D6 /* GJGCWebViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3806,6 +3805,8 @@
 		C8E50F381C044AF600AFA10F /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				365F088D1B50D0EF005161D6 /* GJGCWebViewController.h */,
+				365F088E1B50D0EF005161D6 /* GJGCWebViewController.m */,
 				C8E50F3C1C044B2700AFA10F /* GJGCWebHostListViewController.h */,
 				C8E50F3D1C044B2700AFA10F /* GJGCWebHostListViewController.m */,
 			);
@@ -3832,6 +3833,13 @@
 				C8E50F501C04713200AFA10F /* UIImage+Resize.m */,
 			);
 			path = ImageResize;
+			sourceTree = "<group>";
+		};
+		C8E50F521C054C3200AFA10F /* MusicShare */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MusicShare;
 			sourceTree = "<group>";
 		};
 		C8F3B9C81BF0B5050057AF5B /* fmdb */ = {

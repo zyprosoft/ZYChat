@@ -15,6 +15,8 @@
 
 - (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager;
 
+- (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager requireDeletePaths:(NSArray *)paths;
+
 - (void)dataManager:(GJGCRecentChatDataManager *)dataManager requireUpdateTitleViewState:(GJGCRecentChatConnectState)connectState;
 
 - (BOOL)dataManagerRequireKnownViewIsShowing:(GJGCRecentChatDataManager *)dataManager;
@@ -30,6 +32,8 @@
 - (GJGCRecentChatModel *)contentModelAtIndexPath:(NSIndexPath *)indexPath;
 
 - (CGFloat)contentHeightAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)loadRecentConversations;
 
