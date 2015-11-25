@@ -94,6 +94,9 @@ typedef void (^GJCFAudioManagerUploadCompletionBlock) (NSString *audioLocalPath,
 /* 播放一个音频文件 */
 - (void)playAudioFile:(GJCFAudioModel *)audioFile;
 
+/* 指定进度开始播放 */
+- (void)playCurrentAudioAtProgress:(CGFloat)progress;
+
 /* 播放当前录制的文件 */
 - (void)playCurrentRecodFile;
 

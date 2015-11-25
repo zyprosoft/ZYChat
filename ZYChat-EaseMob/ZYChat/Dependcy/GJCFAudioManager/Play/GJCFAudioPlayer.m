@@ -139,6 +139,15 @@
     [self createPlayer];
 }
 
+- (void)playAtDuration:(NSTimeInterval)duration
+{
+    if (!self.audioPlayer) {
+        return;
+    }
+    
+    [self.audioPlayer playAtTime:duration];
+}
+
 - (GJCFAudioModel *)getCurrentPlayingAudioFile
 {
     return self.currentPlayAudioFile;

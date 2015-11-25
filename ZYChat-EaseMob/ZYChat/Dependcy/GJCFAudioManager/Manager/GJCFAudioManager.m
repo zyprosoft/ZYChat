@@ -294,6 +294,11 @@
     [self playAudioFile:existAudio];
 }
 
+- (void)playCurrentAudioAtProgress:(CGFloat)progress
+{
+    
+}
+
 - (void)playAudioFile:(GJCFAudioModel *)audioFile
 {
     if (!audioFile) {

@@ -21,6 +21,8 @@
 
 - (void)playAudioFile:(GJCFAudioModel *)audioFile;
 
+- (void)playAtDuration:(NSTimeInterval)duration;
+
 - (void)play;
 
 - (void)stop;
