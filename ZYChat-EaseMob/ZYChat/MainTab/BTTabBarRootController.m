@@ -62,12 +62,16 @@
 
 - (void)hiddenTabBar
 {
-    self.customTabBar.hidden = YES;
+    [UIView animateWithDuration:0.26 animations:^{
+        self.customTabBar.alpha = 0.f;
+    }];
 }
 
 - (void)showTabBar
 {
-    self.customTabBar.hidden = NO;
+    [UIView animateWithDuration:0.26 animations:^{
+        self.customTabBar.alpha = 1.f;
+    }];
 }
 
 - (NSArray *)recentConversations

@@ -24,6 +24,7 @@
 #import "GJGCWebViewController.h"
 #import "GJCFAssetsPickerViewController.h"
 #import "GJGCWebHostListViewController.h"
+#import "GJGCMusicPlayViewController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -720,6 +721,12 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         {
             GJGCWebHostListViewController *hostList = [[GJGCWebHostListViewController alloc]init];
             [self.navigationController pushViewController:hostList animated:YES];
+        }
+            break;
+        case GJGCChatInputMenuPanelActionTypeMusicShare:
+        {
+            GJGCMusicPlayViewController *musicPlayer = [[GJGCMusicPlayViewController alloc]init];
+            [self.navigationController pushViewController:musicPlayer animated:YES];
         }
             break;
         default:

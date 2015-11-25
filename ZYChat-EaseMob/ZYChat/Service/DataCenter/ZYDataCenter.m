@@ -43,6 +43,29 @@
     return aTask.taskIdentifier;
 }
 
+- (NSString *)thirdServerRequestWithCondition:(ZYDataCenterRequestCondition*)condition
+                             withSuccessBlock:(ZYNetWorkManagerTaskDidSuccessBlock)success
+                               withFaildBlock:(ZYNetWorkManagerTaskDidFaildBlock)faild
+{
+    ZYNetWorkTask *aTask = [[ZYNetWorkTask alloc]init];
+    aTask.interface = [ZYDataCenterInterface urlWithRequestType:condition.requestType];
+    aTask.host = condition.thirdServerHost;
+    aTask.interface = condition.thirdServerInterface;
+    aTask.postParams = condition.postParams;
+    aTask.successBlock = success;
+    aTask.faildBlock = faild;
+    aTask.taskType = ZYNetworkTaskTypeJsonRequest;
+    aTask.requestMethod = condition.requestMethod;
+    aTask.headValues = condition.headerValues;
+    aTask.isThirdPartyRequest = condition.isThirdPartRequest;
+    
+    NSLog(@"third server request url:%@",aTask.requestUrl);
+    
+    [[ZYNetWorkManager shareManager]addTask:aTask];
+    
+    return aTask.taskIdentifier;
+}
+
 - (void)cancelRequest:(NSString *)requestIdentifier
 {
     [[ZYNetWorkManager shareManager]cancelTaskByIdentifier:requestIdentifier];

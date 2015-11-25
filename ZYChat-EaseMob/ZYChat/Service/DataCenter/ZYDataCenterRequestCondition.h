@@ -20,6 +20,14 @@
 
 @property (nonatomic,strong)NSDictionary *postParams;
 
+@property (nonatomic,strong)NSString *thirdServerHost;
+
+@property (nonatomic,strong)NSString *thirdServerInterface;
+
+@property (nonatomic,strong)NSDictionary *headerValues;
+
+@property (nonatomic,assign)BOOL isThirdPartRequest;
+
 - (void)addGetParams:(NSDictionary *)params;
 
 - (void)addPostParams:(NSDictionary *)params;

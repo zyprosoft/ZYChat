@@ -57,6 +57,8 @@
     
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource webViewMenuPanelItem]];
     
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource musicShareMenuPanelItem]];
+
     return dataSource;
 }
 
@@ -100,6 +102,21 @@
              GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-网页",
              
              GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeWebView)
+             
+             };
+}
+
++ (NSDictionary *)musicShareMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"音乐",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"聊天键盘-icon-音乐",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-音乐",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeMusicShare)
              
              };
 }

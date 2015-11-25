@@ -123,6 +123,11 @@ typedef void (^ZYNetWorkManagerTaskProgressBlock) (ZYNetWorkTask *task,CGFloat p
 //一组任务的标示
 @property (nonatomic,strong)NSString *groupTaskIdentifier;
 
+/**
+ *  是否第三方请求任务
+ */
+@property (nonatomic,assign)BOOL isThirdPartyRequest;
+
 + (NSString *)taskTypeString:(ZYNetworkTaskType)type;
 
 - (NSComparisonResult)compare:(ZYNetWorkTask *)task;

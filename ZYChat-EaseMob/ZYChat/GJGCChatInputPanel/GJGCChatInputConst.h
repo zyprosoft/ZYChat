@@ -58,6 +58,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputMenuPanelActionType) {
      *  网页
      */
     GJGCChatInputMenuPanelActionTypeWebView,
+    /**
+     *  音乐分享
+     */
+    GJGCChatInputMenuPanelActionTypeMusicShare,
 };
 
 /**

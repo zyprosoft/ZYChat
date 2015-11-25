@@ -41,6 +41,8 @@
     [self setStrNavTitle:@"网页浏览"];
     [self setRightButtonWithTitle:@"转发"];
     
+    self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+    
     self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
     self.webView.gjcf_height = GJCFSystemScreenHeight - self.contentOriginY;
     self.webView.gjcf_width = GJCFSystemScreenWidth;

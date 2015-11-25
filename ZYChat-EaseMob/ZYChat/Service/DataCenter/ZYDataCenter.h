@@ -25,6 +25,10 @@ typedef void (^ZYServiceManagerActionSuccessBlock) (NSString *result);
                     withSuccessBlock:(ZYNetWorkManagerTaskDidSuccessBlock)success
                       withFaildBlock:(ZYNetWorkManagerTaskDidFaildBlock)faild;
 
+- (NSString *)thirdServerRequestWithCondition:(ZYDataCenterRequestCondition*)condition
+                  withSuccessBlock:(ZYNetWorkManagerTaskDidSuccessBlock)success
+                    withFaildBlock:(ZYNetWorkManagerTaskDidFaildBlock)faild;
+
 - (void)cancelRequest:(NSString *)requestIdentifier;
 
 @end

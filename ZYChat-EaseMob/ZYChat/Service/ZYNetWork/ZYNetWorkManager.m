@@ -265,6 +265,15 @@ static dispatch_queue_t ZYNetworkManagerOperationQueue = nil;
             NSLog(@"url request :%@ postParams:%@",urlRequest.description,task.postParams);
         }
         
+        //加header
+        if (task.headValues) {
+            [task.headValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+               
+                [urlRequest addValue:obj forHTTPHeaderField:key];
+                
+            }];
+        }
+        
         AFHTTPRequestOperation *request = [[AFHTTPRequestOperation alloc]initWithRequest:urlRequest];
         if (task.requestMethod == ZYNetworkRequestMethodPOST) {
             request.securityPolicy = [self customSecurityPolicy];
@@ -278,17 +287,25 @@ static dispatch_queue_t ZYNetworkManagerOperationQueue = nil;
                 
                 NSLog(@"url :%@ request json:%@",urlRequest.URL.absoluteString,jsonObject);
                 
-                BOOL status = [[jsonObject objectForKey:@"status"]boolValue];
-                
-                if (status) {
+                if (task.isThirdPartyRequest) {
                     
-                    [self successWithTask:task response:[jsonObject objectForKey:@"data"]];
-                    
+                    [self successWithTask:task response:jsonObject];
+
                 }else{
+                   
+                    BOOL status = [[jsonObject objectForKey:@"status"]boolValue];
                     
-                    NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.ZYChat" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":[jsonObject objectForKey:@"message"]}];
+                    if (status) {
+                        
+                        [self successWithTask:task response:[jsonObject objectForKey:@"data"]];
+                        
+                    }else{
+                        
+                        NSError *commError = [NSError errorWithDomain:@"com.zyprosoft.ZYChat" code:ZYNetworkInnerErrorServiceError userInfo:@{@"errMsg":[jsonObject objectForKey:@"message"]}];
+                        
+                        [self faildWithTask:task error:commError];
+                    }
                     
-                    [self faildWithTask:task error:commError];
                 }
                 
             }
