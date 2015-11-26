@@ -62,6 +62,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputMenuPanelActionType) {
      *  音乐分享
      */
     GJGCChatInputMenuPanelActionTypeMusicShare,
+    /**
+     *  App排行榜
+     */
+    GJGCChatInputMenuPanelActionTypeAppStore,
 };
 
 /**

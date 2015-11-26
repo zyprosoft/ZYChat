@@ -59,6 +59,8 @@
     
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource musicShareMenuPanelItem]];
 
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource appStoreMenuPanelItem]];
+
     return dataSource;
 }
 
@@ -117,6 +119,21 @@
              GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-音乐",
              
              GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeMusicShare)
+             
+             };
+}
+
++ (NSDictionary *)appStoreMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"排行榜",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"聊天键盘-icon-商店",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-商店",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeAppStore)
              
              };
 }

@@ -62,7 +62,8 @@
     [self.timeLabel sizeToFit];
     self.timeLabel.gjcf_centerY = self.titleLabel.gjcf_centerY;
     self.timeLabel.gjcf_right = GJCFSystemScreenWidth - 10.f;
-    
+    self.titleLabel.gjcf_width = self.timeLabel.gjcf_left - 5.f - self.headView.gjcf_right - 5.f;
+
     self.bottomLine.gjcf_bottom = self.headView.gjcf_bottom + self.headView.gjcf_top;
 }
 

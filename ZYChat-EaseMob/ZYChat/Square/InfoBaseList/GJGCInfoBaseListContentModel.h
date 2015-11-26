@@ -43,4 +43,8 @@
 
 @property (nonatomic,assign)EMConversation *conversation;
 
+#pragma mark - App Store信息
+
+@property (nonatomic,strong)NSString *appStoreLink;
+
 @end

@@ -12,8 +12,6 @@
 
 @interface GJGCInfoBaseListViewController ()
 
-@property (nonatomic,strong)UITableView *listTable;
-
 @property (nonatomic,strong)GJGCRefreshHeaderView *refreshHeader;
 
 @property (nonatomic,strong)GJGCRefreshFooterView *refreshFooter;
@@ -166,6 +164,16 @@
 - (void)stopLoadMore
 {
     [self.refreshFooter stopLoadingForScrollView:self.listTable];
+}
+
+- (void)startRefresh
+{
+    [self.refreshHeader startLoadingForScrollView:self.listTable];
+}
+
+- (void)startLoadMore
+{
+    [self.refreshFooter startLoadingForScrollView:self.listTable];
 }
 
 @end

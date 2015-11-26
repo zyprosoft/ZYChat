@@ -18,8 +18,14 @@
     UITableViewDelegate
     >
 
+@property (nonatomic,strong)UITableView *listTable;
+
 @property (nonatomic,strong)GJGCInfoBaseListDataManager *dataManager;
 
 - (void)initDataManager;
+
+- (void)startRefresh;
+
+- (void)startLoadMore;
 
 @end
