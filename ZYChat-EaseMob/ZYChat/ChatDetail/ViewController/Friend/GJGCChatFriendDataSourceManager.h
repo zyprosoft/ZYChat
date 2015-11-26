@@ -12,4 +12,5 @@
 
 @property (nonatomic,readonly)BOOL isMyFriend;
 
+
 @end

@@ -368,6 +368,13 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     [self.navigationController pushViewController:musicVC animated:YES];
 }
 
+- (void)chatCellDidTapOnMusicSharePlayButton:(GJGCChatBaseCell *)tapedCell
+{
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+
+    [self.dataSourceManager tapMusicPlayAtIndexPath:tapIndexPath];
+}
+
 - (void)chatCellDidChooseDeleteMessage:(GJGCChatBaseCell *)tapedCell
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];

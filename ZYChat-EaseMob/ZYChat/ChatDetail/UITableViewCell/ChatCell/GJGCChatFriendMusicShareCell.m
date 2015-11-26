@@ -56,6 +56,12 @@
         UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
         tapR.numberOfTapsRequired = 1;
         [self.bubbleBackImageView addGestureRecognizer:tapR];
+        
+        
+        UITapGestureRecognizer *tapPlay = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnPlay)];
+        tapPlay.numberOfTapsRequired = 1;
+        [self.thumbImageView addGestureRecognizer:tapPlay];
+        
     }
     return self;
 }
@@ -74,7 +80,10 @@
     self.titleLabel.text = chatModel.musicSongName;
     self.titleLabel.gjcf_height = 13.f;
     
-    self.thumbImageView.image = [UIImage imageNamed:@"play"];
+    
+    //是否正在播放音乐
+    UIImage *iconImage = chatModel.isMusicPlaying? [UIImage imageNamed:@"pause"]:[UIImage imageNamed:@"play"];
+    self.thumbImageView.image = iconImage;
     self.thumbImageView.gjcf_left = self.contentBordMargin;
     self.thumbImageView.gjcf_top = self.contentBordMargin;
     
@@ -109,7 +118,7 @@
     if (popMenu.isMenuVisible) {
         return;
     }
-    
+
     UIMenuItem *item2 = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteMessage:)];
     NSArray *menuItems = @[item2];
     [popMenu setMenuItems:menuItems];
@@ -124,6 +133,14 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnMusicShare:)]) {
         
         [self.delegate chatCellDidTapOnMusicShare:self];
+    }
+}
+
+- (void)tapOnPlay
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnMusicSharePlayButton:)]) {
+        
+        [self.delegate chatCellDidTapOnMusicSharePlayButton:self];
     }
 }
 

@@ -21,7 +21,6 @@
 
 @property (nonatomic,strong)GJGCRecentChatTitleView *titleView;
 
-@property (nonatomic,strong)dispatch_source_t updateListSource;
 
 @end
 
@@ -30,14 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //缓冲更新队列
-    self.updateListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
-    dispatch_source_set_event_handler(self.updateListSource, ^{
-       
-        [self conversationListUpdate];
-        
-    });
-    dispatch_resume(self.updateListSource);
+
     
     self.dataManager = [[GJGCRecentChatDataManager alloc]init];
     self.dataManager.delegate = self;
@@ -166,11 +158,7 @@
 
 - (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        dispatch_source_merge_data(self.updateListSource, 1);
-        
-    });
+    [self conversationListUpdate];
 }
 
 - (void)dataManagerRequireRefresh:(GJGCRecentChatDataManager *)dataManager requireDeletePaths:(NSArray *)paths

@@ -1212,4 +1212,15 @@
              };
 }
 
+#pragma mark 音乐播放
+
+- (void)tapMusicPlayAtIndexPath:(NSIndexPath *)indexPath
+{
+    GJGCChatFriendContentModel *chatModel = (GJGCChatFriendContentModel *)[self.chatListArray objectAtIndex:indexPath.row];
+    chatModel.isMusicPlaying = !chatModel.isMusicPlaying;
+    
+    
+    [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:indexPath.row];
+}
+
 @end

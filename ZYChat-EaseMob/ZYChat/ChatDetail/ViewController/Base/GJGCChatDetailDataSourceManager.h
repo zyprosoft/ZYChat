@@ -235,4 +235,12 @@
  */
 - (NSDictionary *)easeMessageStateRleations;
 
+/**
+ *  点击音乐播放按钮
+ *
+ *  @param indexPath 
+ */
+- (void)tapMusicPlayAtIndexPath:(NSIndexPath *)indexPath;
+
+
 @end

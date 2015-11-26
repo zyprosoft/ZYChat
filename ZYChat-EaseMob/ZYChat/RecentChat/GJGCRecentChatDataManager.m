@@ -22,6 +22,8 @@
 
 @property (nonatomic,strong)dispatch_queue_t recentChatDataManagerQueue;
 
+@property (nonatomic,strong)dispatch_source_t updateListSource;
+
 @end
 
 @implementation GJGCRecentChatDataManager
@@ -33,6 +35,15 @@
         if (!self.recentChatDataManagerQueue) {
             self.recentChatDataManagerQueue = dispatch_queue_create("gjgc_recent_chat_queue", DISPATCH_QUEUE_SERIAL);
         }
+        
+        //缓冲更新队列
+        self.updateListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+        dispatch_source_set_event_handler(self.updateListSource, ^{
+            
+            [self conversationListUpdate];
+            
+        });
+        dispatch_resume(self.updateListSource);
         
         self.sourceArray = [[NSMutableArray alloc]init];
         
@@ -309,6 +320,15 @@
         [self.sourceArray addObject:chatModel];
     }
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        dispatch_source_merge_data(self.updateListSource, 1);
+        
+    });
+}
+
+- (void)conversationListUpdate
+{
     [self.delegate dataManagerRequireRefresh:self];
 }
 

@@ -166,6 +166,6 @@
  *
  *  @param tapedCell
  */
-- (void)chatCellDidTapOnMusicShare:(GJGCChatBaseCell *)tapedCell changeToPlayState:(BOOL)isPlay;
+- (void)chatCellDidTapOnMusicSharePlayButton:(GJGCChatBaseCell *)tapedCell;
 
 @end

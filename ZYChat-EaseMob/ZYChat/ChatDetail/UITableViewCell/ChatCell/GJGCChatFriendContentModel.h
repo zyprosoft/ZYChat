@@ -149,6 +149,8 @@
 
 @property (nonatomic,strong)NSString *musicSongId;
 
+@property (nonatomic,assign)BOOL     isMusicPlaying;
+
 
 
 + (GJGCChatFriendContentModel *)timeSubModel;
