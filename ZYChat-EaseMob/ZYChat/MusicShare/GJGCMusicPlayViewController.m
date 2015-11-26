@@ -197,9 +197,9 @@
     self.playButton.selected = !self.playButton.isSelected;
     
     if (self.playButton.isSelected) {
-        [[GJCFAudioManager shareManager] pausePlayCurrentAudio];
-    }else{
         [[GJCFAudioManager shareManager] startPlayFromLastStopTimestamp];
+    }else{
+        [[GJCFAudioManager shareManager] stopPlayCurrentAudio];
     }
 }
 
@@ -358,6 +358,7 @@
       
         [weakSelf.downloadIndicator stopAnimating];
         weakSelf.downloadIndicator.hidden = YES;
+        weakSelf.playButton.selected = YES;
         
     }];
     

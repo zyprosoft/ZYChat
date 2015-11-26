@@ -165,12 +165,14 @@
         }
         return;
     }
-    [self.audioPlayer play];
-    _isPlaying = YES;
+    _isPlaying = [self.audioPlayer play];
     
-    if (self.progressTimer) {
-        [self.progressTimer fire];
+    if (!self.progressTimer) {
+        /* 播放进度 */
+        self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(updatePlayingProgress:) userInfo:nil repeats:YES];
     }
+    [self.progressTimer fire];
+
 }
 
 - (void)stop
@@ -186,6 +188,7 @@
     
     if (self.progressTimer) {
         [self.progressTimer invalidate];
+        self.progressTimer = nil;
     }
 }
 
@@ -224,6 +227,7 @@
     
     if (self.progressTimer) {
         [self.progressTimer invalidate];
+        self.progressTimer = nil;
     }
     _isPlaying = NO;
 }
