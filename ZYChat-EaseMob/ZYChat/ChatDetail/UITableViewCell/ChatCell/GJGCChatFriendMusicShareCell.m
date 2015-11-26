@@ -18,8 +18,6 @@
 
 @property (nonatomic,assign)CGFloat contentInnerMargin;
 
-@property (nonatomic,strong)UIImageView *playStateView;
-
 @property (nonatomic,strong)UIActivityIndicatorView *indicator;
 
 @end
@@ -34,6 +32,7 @@
         
         self.thumbImageView = [[UIImageView alloc]init];
         self.thumbImageView.gjcf_size = (CGSize){55,55};
+        self.thumbImageView.userInteractionEnabled = YES;
         [self.bubbleBackImageView addSubview:self.thumbImageView];
         
         self.titleLabel = [[UILabel alloc]init];
@@ -47,17 +46,11 @@
         self.sumaryLabel.numberOfLines = 0;
         [self.bubbleBackImageView addSubview:self.sumaryLabel];
         
-        self.playStateView = [[UIImageView alloc]init];
-        self.playStateView.gjcf_size = CGSizeMake(30, 30);
-        [self.thumbImageView addSubview:self.playStateView];
-        self.playStateView.gjcf_top = 5.f;
-        self.playStateView.gjcf_right = self.thumbImageView.gjcf_width - 5.f;
-        [self.playStateView setImage:[UIImage imageNamed:@"play"]];
-        
         self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         self.indicator.gjcf_size = CGSizeMake(11, 11);
         [self.thumbImageView addSubview:self.indicator];
-        self.indicator.center = self.playStateView.center;
+        self.indicator.gjcf_centerX = self.thumbImageView.gjcf_width/2;
+        self.indicator.gjcf_centerY = self.thumbImageView.gjcf_height/2;
         self.indicator.hidden = YES;
         
         UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
@@ -81,12 +74,12 @@
     self.titleLabel.text = chatModel.musicSongName;
     self.titleLabel.gjcf_height = 13.f;
     
-    self.thumbImageView.image = [UIImage imageNamed:@"music"];
+    self.thumbImageView.image = [UIImage imageNamed:@"play"];
     self.thumbImageView.gjcf_left = self.contentBordMargin;
     self.thumbImageView.gjcf_top = self.contentBordMargin;
     
     self.titleLabel.gjcf_left = self.thumbImageView.gjcf_right + self.contentBordMargin-5;
-    self.titleLabel.gjcf_top = self.contentBordMargin;
+    self.titleLabel.gjcf_top = self.thumbImageView.gjcf_top + 7.f;
     
     if (chatModel.isFromSelf) {
         self.sumaryLabel.textColor = [UIColor whiteColor];
@@ -98,7 +91,7 @@
     self.sumaryLabel.gjcf_height = self.thumbImageView.gjcf_height - self.titleLabel.gjcf_height - 4.f;
     
     self.sumaryLabel.gjcf_left = self.titleLabel.gjcf_left;
-    self.sumaryLabel.gjcf_top = self.titleLabel.gjcf_bottom + 8.f;
+    self.sumaryLabel.gjcf_top = self.titleLabel.gjcf_bottom + 3.f;
     
     self.bubbleBackImageView.gjcf_height = self.thumbImageView.gjcf_bottom + self.contentBordMargin;
     self.bubbleBackImageView.gjcf_width = self.titleLabel.gjcf_right + self.contentInnerMargin;

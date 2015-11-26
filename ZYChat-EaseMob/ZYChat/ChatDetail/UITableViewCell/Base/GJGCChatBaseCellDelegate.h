@@ -161,4 +161,11 @@
  */
 - (void)chatCellDidTapOnMusicShare:(GJGCChatBaseCell *)tapedCell;
 
+/**
+ *  点击了音乐播放按钮消息
+ *
+ *  @param tapedCell
+ */
+- (void)chatCellDidTapOnMusicShare:(GJGCChatBaseCell *)tapedCell changeToPlayState:(BOOL)isPlay;
+
 @end

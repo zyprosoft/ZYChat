@@ -155,6 +155,8 @@
     [self.forwardButton addTarget:self action:@selector(forwardAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.forwardButton];
     
+    [self audioSetupObserver];
+    
     if (self.songList.count > 0) {
         [self getSongDetailInfoWithSongId:self.songList[0]];
     }
@@ -242,20 +244,7 @@
 - (void)dealloc
 {
     [[GJCFAudioManager shareManager] stopPlayCurrentAudio];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self audioSetupObserver];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self removeAudioObserver];
+     [self removeAudioObserver];
 }
 
 - (void)slideValueChanged:(UISlider *)theSlider

@@ -69,7 +69,7 @@
     self.thumbImageView.gjcf_top = self.contentBordMargin;
     
     self.titleLabel.gjcf_left = self.thumbImageView.gjcf_right + self.contentBordMargin-5;
-    self.titleLabel.gjcf_top = self.contentBordMargin;
+    self.titleLabel.gjcf_top = self.thumbImageView.gjcf_top + 6.f;
     
     if (chatModel.isFromSelf) {
         self.sumaryLabel.textColor = [UIColor whiteColor];

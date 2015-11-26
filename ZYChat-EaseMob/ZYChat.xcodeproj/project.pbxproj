@@ -723,6 +723,9 @@
 		C81702F41BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F31BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m */; };
 		C81702F71BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */; };
 		C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */; };
+		C81DC6AC1C06AFF700348326 /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81DC6A91C06AFF700348326 /* pause@2x.png */; };
+		C81DC6AD1C06AFF700348326 /* play_loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81DC6AA1C06AFF700348326 /* play_loading@2x.png */; };
+		C81DC6AE1C06AFF700348326 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C81DC6AB1C06AFF700348326 /* play@2x.png */; };
 		C84B41F31BEC9CB900BB5798 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F21BEC9CB900BB5798 /* AssetsLibrary.framework */; };
 		C84B41F51BEC9CBE00BB5798 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F41BEC9CBE00BB5798 /* AudioToolbox.framework */; };
 		C84B41F71BEC9CC200BB5798 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B41F61BEC9CC200BB5798 /* AVFoundation.framework */; };
@@ -951,9 +954,6 @@
 		E4FEB4961C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */; };
 		E4FEB4971C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */; };
 		E4FEB4991C060B3900E4A153 /* music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4981C060B3900E4A153 /* music@2x.png */; };
-		E4FEB49D1C060E4900E4A153 /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49A1C060E4900E4A153 /* pause@2x.png */; };
-		E4FEB49E1C060E4900E4A153 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49B1C060E4900E4A153 /* play@2x.png */; };
-		E4FEB49F1C060E4900E4A153 /* playing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB49C1C060E4900E4A153 /* playing@2x.png */; };
 		E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FEB4A01C060E5800E4A153 /* music@2x.png */; };
 		E4FEB4A41C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */; };
 		E4FEB4A51C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */; };
@@ -1551,6 +1551,9 @@
 		C81702F61BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupLabelsSheetDataManager.m; sourceTree = "<group>"; };
 		C81702F81BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupLabelsSheetViewController.h; sourceTree = "<group>"; };
 		C81702F91BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupLabelsSheetViewController.m; sourceTree = "<group>"; };
+		C81DC6A91C06AFF700348326 /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		C81DC6AA1C06AFF700348326 /* play_loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_loading@2x.png"; sourceTree = "<group>"; };
+		C81DC6AB1C06AFF700348326 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		C84B41F21BEC9CB900BB5798 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C84B41F41BEC9CBE00BB5798 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C84B41F61BEC9CC200BB5798 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1997,9 +2000,6 @@
 		E4FEB4941C06088A00E4A153 /* GJGCChatFriendMusicShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendMusicShareCell.h; sourceTree = "<group>"; };
 		E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendMusicShareCell.m; sourceTree = "<group>"; };
 		E4FEB4981C060B3900E4A153 /* music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music@2x.png"; sourceTree = "<group>"; };
-		E4FEB49A1C060E4900E4A153 /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
-		E4FEB49B1C060E4900E4A153 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
-		E4FEB49C1C060E4900E4A153 /* playing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playing@2x.png"; sourceTree = "<group>"; };
 		E4FEB4A01C060E5800E4A153 /* music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music@2x.png"; sourceTree = "<group>"; };
 		E4FEB4A21C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendMusicShareModel.h; sourceTree = "<group>"; };
 		E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendMusicShareModel.m; sourceTree = "<group>"; };
@@ -3143,10 +3143,10 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C81DC6A91C06AFF700348326 /* pause@2x.png */,
+				C81DC6AA1C06AFF700348326 /* play_loading@2x.png */,
+				C81DC6AB1C06AFF700348326 /* play@2x.png */,
 				E4FEB4A01C060E5800E4A153 /* music@2x.png */,
-				E4FEB49A1C060E4900E4A153 /* pause@2x.png */,
-				E4FEB49B1C060E4900E4A153 /* play@2x.png */,
-				E4FEB49C1C060E4900E4A153 /* playing@2x.png */,
 				E4FEB4921C0606FB00E4A153 /* safari@2x.png */,
 				E4FEB4901C02248800E4A153 /* icon@2x.png */,
 				E4FEB48E1C02106800E4A153 /* my_selected@2x.png */,
@@ -4306,6 +4306,7 @@
 				365F058A1B501A5D005161D6 /* 010[傲慢]@2x.png in Resources */,
 				365F08B61B50E292005161D6 /* 好友头像占位-bg-2行列表@2x.png in Resources */,
 				365F05E61B501A5D005161D6 /* 055[心碎]@2x.png in Resources */,
+				C81DC6AE1C06AFF700348326 /* play@2x.png in Resources */,
 				365F065C1B501A5D005161D6 /* 你牛.gif in Resources */,
 				365F06781B501A5D005161D6 /* 汗.gif in Resources */,
 				365F05C81B501A5D005161D6 /* 040[美味]@2x.png in Resources */,
@@ -4337,6 +4338,7 @@
 				365F05901B501A5D005161D6 /* 013[亲亲]@2x.png in Resources */,
 				365F06101B501A5D005161D6 /* 076[便便]@2x.png in Resources */,
 				365F05EE1B501A5D005161D6 /* 059[蛋糕]@2x.png in Resources */,
+				C81DC6AD1C06AFF700348326 /* play_loading@2x.png in Resources */,
 				365F06401B501A5D005161D6 /* 104[激动]@2x.png in Resources */,
 				C8E50F651C055FE600AFA10F /* player_btn_pre_normal@2x.png in Resources */,
 				365F05F41B501A5D005161D6 /* 062[勾引]@2x.png in Resources */,
@@ -4361,6 +4363,7 @@
 				E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */,
 				E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */,
 				E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */,
+				C81DC6AC1C06AFF700348326 /* pause@2x.png in Resources */,
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
 				C8E50F631C055FE600AFA10F /* player_btn_play_normal@2x.png in Resources */,
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
@@ -4371,7 +4374,6 @@
 				365F05A61B501A5D005161D6 /* 023[困]@2x.png in Resources */,
 				E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
-				E4FEB49E1C060E4900E4A153 /* play@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
 				C8E50F5F1C055FE600AFA10F /* player_btn_next_normal@2x.png in Resources */,
 				365F06661B501A5D005161D6 /* 定@2x.png in Resources */,
@@ -4433,7 +4435,6 @@
 				C81702E61BFF487200FAE520 /* keyboardButton@2x.png in Resources */,
 				365F061C1B501A5D005161D6 /* 082[酷]@2x.png in Resources */,
 				C8E50F601C055FE600AFA10F /* player_btn_pause_highlight@2x.png in Resources */,
-				E4FEB49D1C060E4900E4A153 /* pause@2x.png in Resources */,
 				365F05C21B501A5D005161D6 /* 037[得意]@2x.png in Resources */,
 				365F064C1B501A5D005161D6 /* emojiName.plist in Resources */,
 				365F06621B501A5D005161D6 /* 同情@2x.png in Resources */,
@@ -4496,7 +4497,6 @@
 				365F06AE1B501A5D005161D6 /* 聊天-icon-选择表情@3x.png in Resources */,
 				365F06241B501A5D005161D6 /* 086[再见]@2x.png in Resources */,
 				365F06681B501A5D005161D6 /* 害羞.gif in Resources */,
-				E4FEB49F1C060E4900E4A153 /* playing@2x.png in Resources */,
 				365F060E1B501A5D005161D6 /* 075[啤酒]@2x.png in Resources */,
 				365F06A21B501A5D005161D6 /* 聊天-icon-语音2-绿@2x.png in Resources */,
 				365F06521B501A5D005161D6 /* gifCode.plist in Resources */,
