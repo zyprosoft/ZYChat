@@ -342,7 +342,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"呼叫",@"复制",nil];
     action.tag = GJGCActionSheetCallPhoneNumberTag;
     objc_setAssociatedObject(action, &GJGCActionSheetAssociateKey, phoneNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [action showInView:self.view];
+    [action showInView:self.view];    
 }
 
 - (void)textMessageCellDidTapOnUrl:(GJGCChatBaseCell *)tapedCell withUrl:(NSString *)url

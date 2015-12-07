@@ -328,6 +328,7 @@
     
     [self.downloadIndicator startAnimating];
     self.downloadIndicator.hidden = NO;
+    
     GJCFWeakSelf weakSelf = self;
     [[ZYDataCenter shareCenter]thirdServerRequestWithCondition:condition withSuccessBlock:^(ZYNetWorkTask *task, NSDictionary *response) {
         

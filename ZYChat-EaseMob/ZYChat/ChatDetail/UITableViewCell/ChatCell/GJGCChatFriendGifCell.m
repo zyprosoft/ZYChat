@@ -112,7 +112,14 @@
 {
     if (!self.gifImgView.isAnimating) {
         
-        [self.gifImgView startAnimating];
+        /* NSDefaultRunLoopMode默认空闲时间设置内容,
+         *
+         NSDefaultRunLoopMode：默认，空闲状态
+         UITrackingRunLoopMode：ScrollView滑动时
+         UIInitializationRunLoopMode：启动时
+         NSRunLoopCommonModes：Mode集合 Timer计时会被scrollView的滑动影响的问题可以通过将timer添加到NSRunLoopCommonModes来解决
+         */
+        [self.gifImgView performSelector:@selector(startAnimating) withObject:nil afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
         
     }
 }
@@ -137,7 +144,14 @@
     
     FLAnimatedImage *gifImage = [FLAnimatedImage animatedImageWithGIFData:fileData];
     
-    self.gifImgView.animatedImage = gifImage;
+    /* NSDefaultRunLoopMode默认空闲时间设置内容,
+     *
+     NSDefaultRunLoopMode：默认，空闲状态
+     UITrackingRunLoopMode：ScrollView滑动时
+     UIInitializationRunLoopMode：启动时
+     NSRunLoopCommonModes：Mode集合 Timer计时会被scrollView的滑动影响的问题可以通过将timer添加到NSRunLoopCommonModes来解决
+     */
+    [self.gifImgView performSelector:@selector(setAnimatedImage:) withObject:gifImage afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
 }
 
 - (void)faildDownloadGifFile
