@@ -129,7 +129,8 @@
     textViewFrame.size.height = self.frame.size.height - 2*kTextInsetX;
     
     //http://stackoverflow.com/questions/18826199/uitextview-contentsize-changes-and-nslayoutmanager-in-ios7/19113421#19113421
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    CGFloat systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if ( systemVersion >= 7.0 && systemVersion < 9.0) {
         
         NSTextStorage* textStorage = [[NSTextStorage alloc] initWithString:@""];
         NSLayoutManager* layoutManager = [NSLayoutManager new];
