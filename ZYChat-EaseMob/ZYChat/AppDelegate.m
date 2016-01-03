@@ -66,6 +66,8 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
     }
     
+    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];
+    
     return YES;
 }
 
