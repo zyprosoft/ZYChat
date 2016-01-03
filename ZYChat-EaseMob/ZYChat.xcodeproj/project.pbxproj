@@ -4282,6 +4282,7 @@
 				TargetAttributes = {
 					365F02DB1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = QA7LB7LLDU;
 					};
 					365F02EE1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -5446,8 +5447,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hu tao (ZCHH929E72)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hu tao (ZCHH929E72)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",
@@ -5473,7 +5475,9 @@
 					"$(inherited)/**",
 					"$(PROJECT_DIR)/**",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zyprosft.ZYChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8b907ff0-ddf0-4c8c-a93d-2b3d8c306723";
 				TARGETED_DEVICE_FAMILY = 1;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};
@@ -5485,8 +5489,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hu tao (ZCHH929E72)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hu tao (ZCHH929E72)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",
@@ -5509,7 +5514,9 @@
 					"$(PROJECT_DIR)/ZYChat/Dependcy/EaseMobSDK/EaseMobSDK/lib",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/**";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zyprosft.ZYChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8b907ff0-ddf0-4c8c-a93d-2b3d8c306723";
 				TARGETED_DEVICE_FAMILY = 1;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};

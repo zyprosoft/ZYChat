@@ -85,6 +85,9 @@
     
     /* 设置加载完后第一条消息和最后一条消息 */
     [self resetFirstAndLastMsgId];
+    
+    self.isFinishFirstHistoryLoad = YES;
+    self.isFinishLoadAllHistoryMsg = NO;
 
 }
 

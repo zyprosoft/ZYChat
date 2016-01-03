@@ -12,6 +12,7 @@
 #import "GJGCPublicGroupListViewController.h"
 #import "HALoginViewController.h"
 #import "BTTabBarRootController.h"
+#import "EaseMob.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -30,7 +31,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     //注册环信
-    [[EaseMob sharedInstance]registerSDKWithAppKey:EaseMobAppKey apnsCertName:nil];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:EaseMobAppKey  apnsCertName:@"zychat_apns"];
     
     HALoginViewController *loginVC = [[HALoginViewController alloc]init];
     loginVC.title = @"iOS码农之家";
@@ -46,6 +47,24 @@
     
     //观察登录结果
     [GJCFNotificationCenter addObserver:self selector:@selector(observeLoginStatus:) name:ZYUserCenterLoginEaseMobSuccessNoti object:nil];
+    
+    //iOS8 注册APNS
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    else{
+        
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeSound |
+        UIRemoteNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
     
     return YES;
 }
@@ -94,6 +113,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+// 将得到的deviceToken传给SDK
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+// 注册deviceToken失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    NSLog(@"error -- %@",error);
 }
 
 @end

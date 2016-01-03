@@ -96,6 +96,7 @@
     [self resetFirstAndLastMsgId];
     
     self.isFinishFirstHistoryLoad = YES;
+    self.isFinishLoadAllHistoryMsg = NO;
 }
 
 #pragma mark - 删除消息
