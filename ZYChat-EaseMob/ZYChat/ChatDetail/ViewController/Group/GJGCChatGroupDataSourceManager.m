@@ -93,7 +93,10 @@
 
 - (void)pushAddMoreMsg:(NSArray *)array
 {
-    //添加消息数组
+    /* 分发到UI层，添加一组消息 */
+    for (EMMessage *aMessage in array) {
+        [self addEaseMessage:aMessage];
+    }
     
     /* 重排时间顺序 */
     [self resortAllChatContentBySendTime];
