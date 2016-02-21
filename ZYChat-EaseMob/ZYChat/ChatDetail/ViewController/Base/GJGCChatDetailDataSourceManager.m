@@ -823,6 +823,11 @@
             break;
         case eMessageBodyType_Video:
         {
+            chatContentModel.contentType = GJGCChatFriendContentTypeLimitVideo;
+            
+            EMVideoMessageBody *voiceMessageBody = (EMVideoMessageBody *)messageBody;
+            
+            chatContentModel.videoUrl = [NSURL fileURLWithPath:voiceMessageBody.localPath];
             
         }
             break;
@@ -967,6 +972,11 @@
             sendMessage = [self sendImageMessage:messageContent];
         }
             break;
+        case GJGCChatFriendContentTypeLimitVideo:
+        {
+            sendMessage = [self sendVideoMessage:messageContent];
+        }
+            break;
         default:
             break;
     }
@@ -1101,6 +1111,17 @@
     NSString *filePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePath:messageContent.imageLocalCachePath];
     EMChatImage *imgChat = [[EMChatImage alloc] initWithUIImage:[UIImage imageWithContentsOfFile:filePath] displayName:@"[图片]"];
     EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithChatObject:imgChat];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];
+    
+    return message;
+}
+
+- (EMMessage *)sendVideoMessage:(GJGCChatFriendContentModel *)messageContent
+{
+    EMChatVideo *imgChat = [[EMChatVideo alloc] initWithFile:[messageContent.videoUrl relativePath]  displayName:@"[短视频]"];
+    EMVideoMessageBody *body = [[EMVideoMessageBody alloc] initWithChatObject:imgChat];
     
     // 生成message
     EMMessage *message = [[EMMessage alloc] initWithReceiver:messageContent.toId bodies:@[body]];

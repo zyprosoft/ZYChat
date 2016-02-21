@@ -85,6 +85,13 @@
 - (void)imageMessageCellDidTap:(GJGCChatBaseCell *)tapedCell;
 
 /**
+ *  点击了图片消息cell
+ *
+ *  @param tapedCell
+ */
+- (void)videoMessageCellDidTap:(GJGCChatBaseCell *)tapedCell;
+
+/**
  *  点击了电话的cell
  *
  *  @param tapedCell

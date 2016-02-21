@@ -40,6 +40,8 @@
 
              @"GJGCChatFriendMusicShareCell": @"GJGCChatFriendMusicShareCellIdentifier",
 
+             @"GJGCChatFriendVideoCell": @"GJGCChatFriendVideoCellIdentifier",
+
              };
     
 }
@@ -73,6 +75,8 @@
              @(GJGCChatFriendContentTypeWebPage) : @"GJGCChatFriendWebPageCell",
 
              @(GJGCChatFriendContentTypeMusicShare) : @"GJGCChatFriendMusicShareCell",
+
+             @(GJGCChatFriendContentTypeLimitVideo) : @"GJGCChatFriendVideoCell",
 
              };
 }

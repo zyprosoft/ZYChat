@@ -66,6 +66,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputMenuPanelActionType) {
      *  App排行榜
      */
     GJGCChatInputMenuPanelActionTypeAppStore,
+    /**
+     *  短视频
+     */
+    GJGCChatInputMenuPanelActionTypeLimitVideo,
 };
 
 /**

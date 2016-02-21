@@ -151,6 +151,11 @@
 
 @property (nonatomic,assign)BOOL     isMusicPlaying;
 
+#pragma mark - 短视频消息
+
+@property (nonatomic,strong)NSURL *videoUrl;
+
+@property (nonatomic,assign)BOOL isPlayingVideo;
 
 
 + (GJGCChatFriendContentModel *)timeSubModel;

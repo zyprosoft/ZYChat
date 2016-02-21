@@ -61,6 +61,8 @@
 
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource appStoreMenuPanelItem]];
 
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource videoRecordMenuPanelItem]];
+
     return dataSource;
 }
 
@@ -134,6 +136,21 @@
              GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-商店",
              
              GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeAppStore)
+             
+             };
+}
+
++ (NSDictionary *)videoRecordMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"短视频",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"聊天键盘-icon-短视频",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"聊天键盘-icon-短视频",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeLimitVideo)
              
              };
 }

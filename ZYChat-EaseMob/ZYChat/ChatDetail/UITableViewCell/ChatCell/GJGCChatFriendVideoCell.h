@@ -1,14 +1,14 @@
 //
-//  GJGCChatFriendImageMessageCell.h
+//  GJGCChatFriendVideoCell.h
 //  ZYChat
 //
-//  Created by ZYVincent QQ:1003081775 on 14-11-5.
-//  Copyright (c) 2014年 ZYProSoft. All rights reserved.
+//  Created by ZYVincent on 16/2/21.
+//  Copyright © 2016年 ZYProSoft. All rights reserved.
 //
 
 #import "GJGCChatFriendBaseCell.h"
 
-@interface GJGCChatFriendImageMessageCell : GJGCChatFriendBaseCell
+@interface GJGCChatFriendVideoCell : GJGCChatFriendBaseCell
 
 @property (nonatomic,copy)NSString *imgUrl;
 
@@ -30,6 +30,8 @@
 
 - (void)successDownloadWithImageData:(NSData *)imageData;
 
-- (void)tapOnContentImageView;
+- (void)stopAction;
+
+- (void)playAction;
 
 @end

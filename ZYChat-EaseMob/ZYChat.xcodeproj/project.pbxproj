@@ -871,6 +871,15 @@
 		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
+		E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */; };
+		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
+		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
+		E4F9302C1C79FF110038278A /* ShutterButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */; };
+		E4F9302E1C79FF180038278A /* ShutterButtonStop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F9302D1C79FF180038278A /* ShutterButtonStop@2x.png */; };
+		E4F930311C79FF4B0038278A /* GJGCVideoRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930301C79FF4B0038278A /* GJGCVideoRecordViewController.m */; };
+		E4F930351C7A001D0038278A /* ZFProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930341C7A001D0038278A /* ZFProgressView.m */; };
+		E4F930371C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930361C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png */; };
+		E4F9303A1C7A0B850038278A /* GJGCChatFriendVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */; };
 		E4FEB3A61BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3A71BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3AA1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */; };
@@ -1898,6 +1907,19 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		E4F930231C79FCEF0038278A /* TTMAVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMAVCaptureManager.h; sourceTree = "<group>"; };
+		E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMAVCaptureManager.m; sourceTree = "<group>"; };
+		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
+		E4F930291C79FF0A0038278A /* outer2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer2@2x.png"; sourceTree = "<group>"; };
+		E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShutterButton1@2x.png"; sourceTree = "<group>"; };
+		E4F9302D1C79FF180038278A /* ShutterButtonStop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShutterButtonStop@2x.png"; sourceTree = "<group>"; };
+		E4F9302F1C79FF4B0038278A /* GJGCVideoRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCVideoRecordViewController.h; sourceTree = "<group>"; };
+		E4F930301C79FF4B0038278A /* GJGCVideoRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCVideoRecordViewController.m; sourceTree = "<group>"; };
+		E4F930331C7A001D0038278A /* ZFProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFProgressView.h; sourceTree = "<group>"; };
+		E4F930341C7A001D0038278A /* ZFProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFProgressView.m; sourceTree = "<group>"; };
+		E4F930361C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-短视频@2x.png"; sourceTree = "<group>"; };
+		E4F930381C7A0B850038278A /* GJGCChatFriendVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendVideoCell.h; sourceTree = "<group>"; };
+		E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendVideoCell.m; sourceTree = "<group>"; };
 		E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetDataManager.h; sourceTree = "<group>"; };
 		E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupTypeSheetDataManager.m; sourceTree = "<group>"; };
 		E4FEB3A81BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetViewController.h; sourceTree = "<group>"; };
@@ -2150,6 +2172,8 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E4F930321C7A001D0038278A /* ZFProgressView */,
+				E4F930221C79FCEF0038278A /* AVCaptureManager */,
 				C8E50F4E1C04713200AFA10F /* ImageResize */,
 				E4FEB3D51C00574500E4A153 /* Base64 */,
 				C8D1B1B61BFC747B00201421 /* EaseMob */,
@@ -2712,6 +2736,7 @@
 				C8E50E8B1C043C0E00AFA10F /* 聊天键盘-icon-网页@2x.png */,
 				C8E50E8C1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png */,
 				C8E50F681C05632100AFA10F /* 聊天键盘-icon-音乐@2x.png */,
+				E4F930361C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png */,
 				C81DC6B61C06EDC100348326 /* 聊天键盘-icon-商店@2x.png */,
 				365F05441B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png */,
 				365F05451B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png */,
@@ -2966,6 +2991,8 @@
 				C8E50F4C1C0460A000AFA10F /* GJGCChatFriendWebPageCell.m */,
 				E4FEB4941C06088A00E4A153 /* GJGCChatFriendMusicShareCell.h */,
 				E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */,
+				E4F930381C7A0B850038278A /* GJGCChatFriendVideoCell.h */,
+				E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -3035,6 +3062,7 @@
 		365F076D1B50B138005161D6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E4F930261C79FEC20038278A /* Video */,
 				C8F6F9221BFEC62F00978081 /* MessageExtend */,
 				365F07791B50B138005161D6 /* Base */,
 				365F07801B50B138005161D6 /* DriftBottle */,
@@ -3162,6 +3190,10 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4F9302D1C79FF180038278A /* ShutterButtonStop@2x.png */,
+				E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */,
+				E4F930291C79FF0A0038278A /* outer2@2x.png */,
+				E4F930271C79FF040038278A /* outer1@2x.png */,
 				C81DC6A91C06AFF700348326 /* pause@2x.png */,
 				C81DC6AA1C06AFF700348326 /* play_loading@2x.png */,
 				C81DC6AB1C06AFF700348326 /* play@2x.png */,
@@ -4042,6 +4074,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E4F930221C79FCEF0038278A /* AVCaptureManager */ = {
+			isa = PBXGroup;
+			children = (
+				E4F930231C79FCEF0038278A /* TTMAVCaptureManager.h */,
+				E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */,
+			);
+			path = AVCaptureManager;
+			sourceTree = "<group>";
+		};
+		E4F930261C79FEC20038278A /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				E4F9302F1C79FF4B0038278A /* GJGCVideoRecordViewController.h */,
+				E4F930301C79FF4B0038278A /* GJGCVideoRecordViewController.m */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		E4F930321C7A001D0038278A /* ZFProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				E4F930331C7A001D0038278A /* ZFProgressView.h */,
+				E4F930341C7A001D0038278A /* ZFProgressView.m */,
+			);
+			path = ZFProgressView;
+			sourceTree = "<group>";
+		};
 		E4FEB3AF1BFF836500E4A153 /* InfoBaseList */ = {
 			isa = PBXGroup;
 			children = (
@@ -4371,6 +4430,7 @@
 				365F05BA1B501A5D005161D6 /* 033[右哼哼]@2x.png in Resources */,
 				365F05FA1B501A5D005161D6 /* 065[胜利]@2x.png in Resources */,
 				E4FEB4831C020EED00E4A153 /* square@2x.png in Resources */,
+				E4F9302E1C79FF180038278A /* ShutterButtonStop@2x.png in Resources */,
 				E4FEB4461C01CC3800E4A153 /* title-icon-群资料@3x.png in Resources */,
 				365F05901B501A5D005161D6 /* 013[亲亲]@2x.png in Resources */,
 				365F06101B501A5D005161D6 /* 076[便便]@2x.png in Resources */,
@@ -4431,6 +4491,7 @@
 				365F06D81B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@3x.png in Resources */,
 				365F060A1B501A5D005161D6 /* 073[米饭]@2x.png in Resources */,
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
+				E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */,
 				365F057C1B501A5D005161D6 /* 003[大哭]@2x.png in Resources */,
 				E4FEB4841C020EED00E4A153 /* square_selected@2x.png in Resources */,
 				C8E50E5B1C02C25F00AFA10F /* MJRefresh.bundle in Resources */,
@@ -4491,12 +4552,14 @@
 				365F05801B501A5D005161D6 /* 005[微笑]@2x.png in Resources */,
 				C8D1B2211BFC747B00201421 /* EaseMob.bundle in Resources */,
 				365F05821B501A5D005161D6 /* 006[流泪]@2x.png in Resources */,
+				E4F930281C79FF040038278A /* outer1@2x.png in Resources */,
 				E4FEB4991C060B3900E4A153 /* music@2x.png in Resources */,
 				365F08BA1B50E292005161D6 /* 好友头像占位-bg-列表@2x.png in Resources */,
 				365F06B01B501A5D005161D6 /* 聊天语音-icon-取消@2x.png in Resources */,
 				E4FEB4851C020EED00E4A153 /* square_selected@3x.png in Resources */,
 				365F06981B501A5D005161D6 /* 大表情-bg-预览-居中@2x.png in Resources */,
 				365F08611B50B621005161D6 /* GJCUCaptureResourceBundle.bundle in Resources */,
+				E4F9302C1C79FF110038278A /* ShutterButton1@2x.png in Resources */,
 				365F057E1B501A5D005161D6 /* 004[发怒]@2x.png in Resources */,
 				365F067E1B501A5D005161D6 /* 泪别@2x.png in Resources */,
 				C8E50F401C04505D00AFA10F /* SVWebViewController.bundle in Resources */,
@@ -4518,6 +4581,7 @@
 				365F06901B501A5D005161D6 /* 跪求.gif in Resources */,
 				365F06601B501A5D005161D6 /* 同情.gif in Resources */,
 				365F06A81B501A5D005161D6 /* 聊天-icon-语音及切换键盘2-灰@2x.png in Resources */,
+				E4F930371C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png in Resources */,
 				365F05E21B501A5D005161D6 /* 053[蜡烛]@2x.png in Resources */,
 				365F05941B501A5D005161D6 /* 015[抠鼻]@2x.png in Resources */,
 				365F05A81B501A5D005161D6 /* 024[衰]@2x.png in Resources */,
@@ -4857,6 +4921,7 @@
 				365F07FA1B50B138005161D6 /* GJGCChatGroupOperationNotiCell.m in Sources */,
 				365F04111B501A43005161D6 /* GJCFAssetsView.m in Sources */,
 				C81DC6BA1C06EFBB00348326 /* GJGCAppWallParamsModel.m in Sources */,
+				E4F930351C7A001D0038278A /* ZFProgressView.m in Sources */,
 				365F07EA1B50B138005161D6 /* GJGCChatFriendMemberWelcomeCell.m in Sources */,
 				365F08421B50B138005161D6 /* GJGCChatGroupDataSourceManager.m in Sources */,
 				365F07D61B50B138005161D6 /* GJGCChatFriendAcceptGroupCallCell.m in Sources */,
@@ -4884,6 +4949,7 @@
 				C8DC4A261BEC7B3500F2D161 /* JSONModelArray.m in Sources */,
 				E4FEB41C1C017B1400E4A153 /* GJGCInformationTextAndIconCell.m in Sources */,
 				365F08521B50B138005161D6 /* GJGCChatSystemNotiDataManager.m in Sources */,
+				E4F9303A1C7A0B850038278A /* GJGCChatFriendVideoCell.m in Sources */,
 				E4FEB4121C017B1400E4A153 /* GJGCInformationCellStyle.m in Sources */,
 				C8DC4A5A1BEC816D00F2D161 /* SDWebImageDecoder.m in Sources */,
 				C81702C71BFF3DC100FAE520 /* BTActionSheetConst.m in Sources */,
@@ -5041,6 +5107,7 @@
 				365F04291B501A43005161D6 /* GJCFFileUploadTask+GJCFAudioUpload.m in Sources */,
 				C8E50E441C02B84200AFA10F /* shopModel.m in Sources */,
 				C8DC4A5D1BEC816D00F2D161 /* SDWebImageManager.m in Sources */,
+				E4F930311C79FF4B0038278A /* GJGCVideoRecordViewController.m in Sources */,
 				365F055C1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSource.m in Sources */,
 				365F04571B501A43005161D6 /* GJCUAsyncImageView.m in Sources */,
 				E4FEB4361C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m in Sources */,
@@ -5117,6 +5184,7 @@
 				C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */,
 				365F056E1B501A5D005161D6 /* GJGCChatInputPanelStyle.m in Sources */,
 				C8DC4A601BEC816D00F2D161 /* UIImage+GIF.m in Sources */,
+				E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */,
 				365F042D1B501A43005161D6 /* GJCFAudioRecord.m in Sources */,
 				C8E50F6C1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m in Sources */,
 				365F07DA1B50B138005161D6 /* GJGCChatFriendBaseCell.m in Sources */,

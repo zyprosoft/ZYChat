@@ -69,6 +69,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatFriendContentType) {
      *  音乐分享
      */
     GJGCChatFriendContentTypeMusicShare = 13,
+    /**
+     *  短视频
+     */
+    GJGCChatFriendContentTypeLimitVideo = 14,
     
 };
 

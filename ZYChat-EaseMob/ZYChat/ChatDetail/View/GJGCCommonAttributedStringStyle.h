@@ -1,6 +1,6 @@
 //
 //  GJGCCommonAttributedStringStyle.h
-//  GJGroupChat
+//  ZYChat
 //  公共样式
 //  Created by ZYVincent QQ:1003081775 on 14/11/25.
 //  Copyright (c) 2014年 ZYV. All rights reserved.
