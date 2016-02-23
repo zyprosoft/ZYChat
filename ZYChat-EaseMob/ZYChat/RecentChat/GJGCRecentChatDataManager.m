@@ -246,9 +246,11 @@
     }
     
     //重新载入一次会话列表
-    if (self.sourceArray.count > 0) {
-        [self.sourceArray removeAllObjects];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.sourceArray.count > 0) {
+            [self.sourceArray removeAllObjects];
+        }
+    });
     
     //按最后一条消息排序
     NSArray *sortConversationList = [conversationList sortedArrayUsingComparator:^NSComparisonResult(EMConversation *obj1, EMConversation *obj2) {
