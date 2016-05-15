@@ -68,6 +68,7 @@
     self.dataSourceManager = nil;
     [GJCFNotificationCenter removeObserver:self];
     
+
     [[GJCFFileDownloadManager shareDownloadManager] clearTaskBlockForObserver:self];
     
 }
