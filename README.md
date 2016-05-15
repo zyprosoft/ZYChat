@@ -16,8 +16,8 @@
 
 ### 项目新增功能
 
-![n_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/n_show.png "n_show")  
-
+## 1. 直接在聊天界面播放音乐
+## 2. 粒子效果展示
 
 ##项目核心模块注释
 
