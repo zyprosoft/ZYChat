@@ -162,6 +162,14 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[GJCFAudioManager shareManager]stopPlayCurrentAudio];
+    [[GJCFAudioManager shareManager]clearAllCurrentObserverBlocks];
+}
+
 - (void)forwardAction
 {
     if (self.songList.count == 0) {

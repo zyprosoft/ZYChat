@@ -296,6 +296,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
     if ([taskType isEqualToString:@"music"]) {
         
+        NSLog(@"download music progess :%f",progress);
     }
 }
 
@@ -566,7 +567,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:rowIndex.row];
     
     GJCFFileDownloadTask *task = [GJCFFileDownloadTask taskWithDownloadUrl:contentModel.musicSongUrl withCachePath:contentModel.audioModel.localStorePath withObserver:self getTaskIdentifer:nil];
-    task.userInfo = @{@"type":@"muisc"};
+    task.userInfo = @{@"type":@"music"};
     
     [self addDownloadTask:task];
 }
