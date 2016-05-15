@@ -9,6 +9,7 @@
 #import "GJGCMessageExtendModel.h"
 #import "GJGCGIFLoadManager.h"
 #import "GJGCMessageExtendMusicShareModel.h"
+#import "GJGCMessageExtendSendFlowerModel.h"
 
 @implementation GJGCMessageExtendModel
 
@@ -104,7 +105,7 @@
              @(GJGCChatFriendContentTypeMini):vGJGCMessageExtendContentMini,
              @(GJGCChatFriendContentTypeWebPage):vGJGCMessageExtendContentWebPage,
              @(GJGCChatFriendContentTypeMusicShare):vGJGCMessageExtendContentMusicShare,
-
+             @(GJGCChatFriendContentTypeSendFlower):vGJGCMessageExtendContentSendFlower,
              };
 }
 
@@ -115,6 +116,7 @@
              vGJGCMessageExtendContentMini:@(GJGCChatFriendContentTypeMini),
              vGJGCMessageExtendContentWebPage:@(GJGCChatFriendContentTypeWebPage),
              vGJGCMessageExtendContentMusicShare:@(GJGCChatFriendContentTypeMusicShare),
+             vGJGCMessageExtendContentSendFlower:@(GJGCChatFriendContentTypeSendFlower),
 
              };
 }
@@ -181,6 +183,18 @@
             }
         }
             break;
+        case GJGCChatFriendContentTypeSendFlower:
+        {
+            GJGCMessageExtendSendFlowerModel *webContent = (GJGCMessageExtendSendFlowerModel *)self.messageContent;
+            
+            resultString = [[GJGCMessageExtendConst extendContentSupportTypes] containsObject:self.contentType]? webContent.displayText:webContent.notSupportDisplayText;
+            if (self.isSupportDisplay) {
+                resultString = [NSString stringWithFormat:@"[鲜花:%@]",resultString];
+            }else{
+                resultString = [NSString stringWithFormat:@"%@",resultString];
+            }
+        }
+        break;
         default:
             break;
     }

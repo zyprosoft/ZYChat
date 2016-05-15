@@ -157,6 +157,10 @@
 
 @property (nonatomic,assign)BOOL isPlayingVideo;
 
+#pragma mark - 鲜花消息
+
+@property (nonatomic,strong)NSString *flowerTitle;
+
 
 + (GJGCChatFriendContentModel *)timeSubModel;
 

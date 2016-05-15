@@ -46,6 +46,8 @@ const NSString  *vGJGCMessageExtendContentWebPage = @"web_page";
 const NSString  *vGJGCMessageExtendContentUserCard = @"user_card";
 const NSString  *vGJGCMessageExtendContentWelcomeMember = @"welcome_member";
 const NSString  *vGJGCMessageExtendContentMusicShare = @"music_share";
+const NSString  *vGJGCMessageExtendContentSendFlower = @"send_flower";
+
 const NSString  *vGJGCMessageExtendProtocolExchange = @"protocol_exchange";
 
 //Gif消息扩展所用到得Key
@@ -67,6 +69,7 @@ const NSString  *kGJGCMessageExtendMusicSongId = @"song_id";
               vGJGCMessageExtendContentMini,
               vGJGCMessageExtendContentWebPage,
               vGJGCMessageExtendContentMusicShare,
+              vGJGCMessageExtendContentSendFlower,
              ];
 }
 
@@ -83,7 +86,7 @@ const NSString  *kGJGCMessageExtendMusicSongId = @"song_id";
              vGJGCMessageExtendContentGIF    :@"GJGCMessageExtendContentGIFModel",
              vGJGCMessageExtendContentWebPage:@"GJGCMessageExtendContentWebPageModel",
              vGJGCMessageExtendContentMusicShare:@"GJGCMessageExtendMusicShareModel",
-
+             vGJGCMessageExtendContentSendFlower:@"GJGCMessageExtendSendFlowerModel",
              };
 }
 

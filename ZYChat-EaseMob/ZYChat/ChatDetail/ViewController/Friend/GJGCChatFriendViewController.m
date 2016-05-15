@@ -29,6 +29,7 @@
 #import "GJGCVideoRecordViewController.h"
 #import "GJGCChatFriendVideoCell.h"
 #import "GJGCChatFriendMusicShareCell.h"
+#import "GJGCRecentContactListViewController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -867,7 +868,18 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             break;
         case GJGCChatInputMenuPanelActionTypeFlower:
         {
-            [self playParticleEffectWithImageName:@"flower"];
+            GJGCRecentChatForwardContentModel *forwardContentModel = [[GJGCRecentChatForwardContentModel alloc]init];
+            forwardContentModel.title = @"赠送鲜花";
+            forwardContentModel.contentType = GJGCChatFriendContentTypeSendFlower;
+            
+            GJGCRecentContactListViewController *recentList = [[GJGCRecentContactListViewController alloc]initWithForwardContent:forwardContentModel];
+            
+            UINavigationController *recentNav = [[UINavigationController alloc]initWithRootViewController:recentList];
+            
+            UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+            [recentNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+            
+            [self.navigationController presentViewController:recentNav animated:YES completion:nil];
         }
             break;
         default:

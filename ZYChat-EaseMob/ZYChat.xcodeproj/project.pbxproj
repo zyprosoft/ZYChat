@@ -874,6 +874,8 @@
 		E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */; };
 		E485DEEC1CE8A077004DB104 /* flower_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEEB1CE8A077004DB104 /* flower_item@2x.png */; };
 		E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEED1CE8A153004DB104 /* flower@2x.png */; };
+		E485DEF41CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */; };
+		E485DEF71CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */; };
 		E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
@@ -1914,6 +1916,10 @@
 		E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		E485DEEB1CE8A077004DB104 /* flower_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower_item@2x.png"; sourceTree = "<group>"; };
 		E485DEED1CE8A153004DB104 /* flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower@2x.png"; sourceTree = "<group>"; };
+		E485DEF21CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendSendFlowerModel.h; sourceTree = "<group>"; };
+		E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendSendFlowerModel.m; sourceTree = "<group>"; };
+		E485DEF51CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendSendFlowerCell.h; sourceTree = "<group>"; };
+		E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendSendFlowerCell.m; sourceTree = "<group>"; };
 		E4F930231C79FCEF0038278A /* TTMAVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMAVCaptureManager.h; sourceTree = "<group>"; };
 		E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMAVCaptureManager.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
@@ -3001,6 +3007,8 @@
 				E4FEB4951C06088A00E4A153 /* GJGCChatFriendMusicShareCell.m */,
 				E4F930381C7A0B850038278A /* GJGCChatFriendVideoCell.h */,
 				E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */,
+				E485DEF51CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.h */,
+				E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -4044,6 +4052,8 @@
 				E4FEB4401C01A35100E4A153 /* GJGCMessageExtendGroupModel.m */,
 				E4FEB4A21C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.h */,
 				E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */,
+				E485DEF21CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.h */,
+				E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */,
 			);
 			path = MessageExtend;
 			sourceTree = "<group>";
@@ -4922,6 +4932,7 @@
 				E4FEB4161C017B1400E4A153 /* GJGCInformationGroupShowItem.m in Sources */,
 				365F043F1B501A43005161D6 /* GJCFCoreTextCommonDefine.m in Sources */,
 				365F040B1B501A43005161D6 /* GJCFAssetsPickerCell.m in Sources */,
+				E485DEF41CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m in Sources */,
 				C81702AD1BFF3D1D00FAE520 /* GJGCCreateGroupViewController.m in Sources */,
 				C8E50F511C04713200AFA10F /* UIImage+Resize.m in Sources */,
 				C8E50E5F1C02C25F00AFA10F /* MJRefreshHeaderView.m in Sources */,
@@ -5207,6 +5218,7 @@
 				365F056E1B501A5D005161D6 /* GJGCChatInputPanelStyle.m in Sources */,
 				C8DC4A601BEC816D00F2D161 /* UIImage+GIF.m in Sources */,
 				E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */,
+				E485DEF71CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m in Sources */,
 				365F042D1B501A43005161D6 /* GJCFAudioRecord.m in Sources */,
 				C8E50F6C1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m in Sources */,
 				365F07DA1B50B138005161D6 /* GJGCChatFriendBaseCell.m in Sources */,

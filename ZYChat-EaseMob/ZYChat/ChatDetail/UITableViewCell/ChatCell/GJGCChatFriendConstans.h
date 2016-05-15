@@ -73,7 +73,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatFriendContentType) {
      *  短视频
      */
     GJGCChatFriendContentTypeLimitVideo = 14,
-    
+    /**
+     *  送鲜花
+     */
+    GJGCChatFriendContentTypeSendFlower = 15,
 };
 
 #define GJGCContentTypeToString(contentType) [GJGCChatFriendConstans contentTypeToString:contentType]

@@ -47,6 +47,7 @@ extern const NSString  *vGJGCMessageExtendContentUserCard;
 extern const NSString  *vGJGCMessageExtendContentWelcomeMember;
 extern const NSString  *vGJGCMessageExtendContentMusicShare;
 extern const NSString  *vGJGCMessageExtendProtocolExchange;
+extern const NSString  *vGJGCMessageExtendContentSendFlower;
 
 //Gif消息扩展所用到得Key
 extern const NSString  *kGJGCMessageExtendGifEmojiCode;

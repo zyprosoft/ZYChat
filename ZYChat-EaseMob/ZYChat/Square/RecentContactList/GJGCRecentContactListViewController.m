@@ -13,6 +13,8 @@
 #import "Base64.h"
 #import "UIImage+Resize.h"
 #import "GJGCMessageExtendMusicShareModel.h"
+#import "GJGCMessageExtendSendFlowerModel.h"
+#import "GJGCChatDetailDataSourceManager.h"
 
 @interface GJGCRecentContactListViewController ()<UIAlertViewDelegate>
 
@@ -94,6 +96,11 @@
             displayText = @"[音乐]请更新代码以支持此类型消息显示";
         }
             break;
+        case GJGCChatFriendContentTypeSendFlower:
+        {
+            displayText = @"[鲜花]请更新代码以支持此类型消息显示";
+        }
+           break;
         default:
             break;
     }
@@ -166,6 +173,20 @@
 
         }
             break;
+        case GJGCChatFriendContentTypeSendFlower:
+        {
+            extendInfo.isExtendMessageContent = YES;
+            
+            GJGCMessageExtendSendFlowerModel *flowerModel = [[GJGCMessageExtendSendFlowerModel alloc]init];
+            flowerModel.title = self.theContent.title;
+            flowerModel.displayText = self.theContent.title;
+            
+            extendInfo.chatFriendContentType = self.theContent.contentType;
+            extendInfo.messageContent = flowerModel;
+            
+            sendMessage.ext = [extendInfo contentDictionary];
+        }
+            break;
         default:
             break;
     }
@@ -183,6 +204,9 @@
             
             BTToast(@"已发送");
             
+            //抛通知
+            GJCFNotificationPostObj(GJGCChatForwardMessageDidSendNoti,sendMessage);
+            
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
             
         }else{
@@ -191,7 +215,6 @@
         }
         
     } onQueue:nil];
-    
     
 }
 

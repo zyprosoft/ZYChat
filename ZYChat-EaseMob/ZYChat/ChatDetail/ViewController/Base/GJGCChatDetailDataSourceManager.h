@@ -20,6 +20,8 @@
 #import "GJGCChatFriendContentModel.h"
 #import "GJGCChatFriendTalkModel.h"
 
+extern NSString * GJGCChatForwardMessageDidSendNoti;
+
 @class GJGCChatDetailDataSourceManager;
 
 @protocol GJGCChatDetailDataSourceManagerDelegate <NSObject>

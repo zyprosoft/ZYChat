@@ -78,6 +78,8 @@
 
              @(GJGCChatFriendContentTypeLimitVideo) : @"GJGCChatFriendVideoCell",
 
+             @(GJGCChatFriendContentTypeSendFlower) : @"GJGCChatFriendSendFlowerCell",
+
              };
 }
 

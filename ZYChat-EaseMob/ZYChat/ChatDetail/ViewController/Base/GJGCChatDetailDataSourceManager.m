@@ -13,6 +13,9 @@
 #import "Base64.h"
 #import "GJGCMessageExtendContentGIFModel.h"
 #import "GJGCMessageExtendMusicShareModel.h"
+#import "GJGCMessageExtendSendFlowerModel.h"
+
+NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNoti";
 
 @interface GJGCChatDetailDataSourceManager ()<IEMChatProgressDelegate,EMChatManagerDelegate>
 
@@ -36,6 +39,9 @@
         
         //注册监听
         [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:_messageSenderQueue];
+        
+        //观察转发消息
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeForwardSendMessage:) name:GJGCChatForwardMessageDidSendNoti object:nil];
         
         //清除会话的未读数
         [self.taklInfo.conversation markAllMessagesAsRead:YES];
@@ -789,6 +795,13 @@
                             
                         }
                             break;
+                        case GJGCChatFriendContentTypeSendFlower:
+                        {
+                            GJGCMessageExtendSendFlowerModel *flowerContent = (GJGCMessageExtendSendFlowerModel *)extendModel.messageContent;
+                            chatContentModel.flowerTitle = flowerContent.title;
+                            
+                        }
+                            break;
                         default:
                             break;
                     }
@@ -1083,8 +1096,9 @@
         
         [weakSelf updateMessageState:message state:status];
         
-    } onQueue:_messageSenderQueue];
         
+    } onQueue:_messageSenderQueue];
+    
     return resultMessage;
 }
 
@@ -1176,11 +1190,18 @@
     }
 }
 
+- (void)observeForwardSendMessage:(NSNotification *)noti
+{
+    EMMessage *message = noti.object;
+    
+    [self didReceiveMessage:message];
+}
+
 #pragma mark - 接收消息回调
 
 - (void)didReceiveMessage:(EMMessage *)message
 {
-    if ([message.from isEqualToString:self.taklInfo.toId]) {
+    if ([message.conversationChatter isEqualToString:self.taklInfo.toId]) {
         
         GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
         
