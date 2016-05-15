@@ -871,6 +871,7 @@
 		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
+		E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */; };
 		E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
@@ -1907,6 +1908,8 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		E485DEE41CE89A82004DB104 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
+		E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		E4F930231C79FCEF0038278A /* TTMAVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMAVCaptureManager.h; sourceTree = "<group>"; };
 		E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMAVCaptureManager.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
@@ -2172,6 +2175,7 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E485DEE01CE89782004DB104 /* AudioWave */,
 				E4F930321C7A001D0038278A /* ZFProgressView */,
 				E4F930221C79FCEF0038278A /* AVCaptureManager */,
 				C8E50F4E1C04713200AFA10F /* ImageResize */,
@@ -4074,6 +4078,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E485DEE01CE89782004DB104 /* AudioWave */ = {
+			isa = PBXGroup;
+			children = (
+				E485DEE41CE89A82004DB104 /* SCSiriWaveformView.h */,
+				E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */,
+			);
+			path = AudioWave;
+			sourceTree = "<group>";
+		};
 		E4F930221C79FCEF0038278A /* AVCaptureManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -4998,6 +5011,7 @@
 				365F08831B50BD79005161D6 /* GJGCImageResizeHelper.m in Sources */,
 				C8F6F92B1BFEC87000978081 /* GJGCMessageExtendConst.m in Sources */,
 				C8E50F551C05549F00AFA10F /* GJGCMusicPlayViewController.m in Sources */,
+				E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */,
 				365F05661B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,
 				365F03ED1B501A43005161D6 /* GJCFFileDownloadTask.m in Sources */,
 				365F05721B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,

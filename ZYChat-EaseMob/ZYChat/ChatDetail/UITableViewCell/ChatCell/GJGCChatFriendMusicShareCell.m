@@ -7,6 +7,7 @@
 //
 
 #import "GJGCChatFriendMusicShareCell.h"
+#import "SCSiriWaveformView.h"
 
 @interface GJGCChatFriendMusicShareCell ()
 
@@ -20,6 +21,8 @@
 
 @property (nonatomic,strong)UIActivityIndicatorView *downloadIndicator;
 
+@property (nonatomic,strong)SCSiriWaveformView *waver;
+
 @end
 
 @implementation GJGCChatFriendMusicShareCell
@@ -29,6 +32,13 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         self.contentInnerMargin = 11.f;
+        
+        self.waver = [[SCSiriWaveformView alloc] initWithFrame:CGRectZero];
+        self.waver.backgroundColor = [UIColor clearColor];
+        self.waver.phaseShift = 1.0;
+        self.waver.density = 3;
+        self.waver.hidden = YES;
+        [self.bubbleBackImageView addSubview:self.waver];
         
         self.thumbImageView = [[UIImageView alloc]init];
         self.thumbImageView.gjcf_size = (CGSize){55,55};
@@ -98,16 +108,21 @@
     
     self.bubbleBackImageView.gjcf_height = self.thumbImageView.gjcf_bottom + self.contentBordMargin;
     self.bubbleBackImageView.gjcf_width = self.titleLabel.gjcf_right + self.contentInnerMargin;
+    self.waver.gjcf_width = self.bubbleBackImageView.gjcf_width;
+    self.waver.gjcf_height = self.bubbleBackImageView.gjcf_height;
     
     [self adjustContent];
     
     if (self.isFromSelf) {
         self.sumaryLabel.textColor = [UIColor whiteColor];
         self.downloadIndicator.gjcf_right = self.bubbleBackImageView.gjcf_left - 15;
+        self.waver.waveColor = [UIColor whiteColor];
     }else{
         self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
         self.downloadIndicator.gjcf_left = self.bubbleBackImageView.gjcf_right + 15;
+        self.waver.waveColor = [GJGCCommonFontColorStyle mainThemeColor];
     }
+    self.waver.hidden = !chatModel.isPlayingAudio;
     self.titleLabel.textColor = self.sumaryLabel.textColor;
     self.downloadIndicator.gjcf_centerY = self.bubbleBackImageView.gjcf_centerY;
 
@@ -157,6 +172,7 @@
 
 - (void)playAudioAction
 {
+    self.waver.hidden = NO;
     [self.downloadIndicator stopAnimating];
     self.downloadIndicator.hidden = YES;
     self.thumbImageView.image = [UIImage imageNamed:@"pause"];
@@ -164,6 +180,7 @@
 
 - (void)faildDownloadAction
 {
+    self.waver.hidden = YES;
     self.thumbImageView.image = [UIImage imageNamed:@"play"];
     [self.downloadIndicator stopAnimating];
     self.downloadIndicator.hidden = YES;
@@ -173,6 +190,11 @@
 {
     [self faildDownloadAction];
     
+}
+
+- (void)updateMeter:(CGFloat)meter
+{
+    [self.waver updateWithLevel:meter];
 }
 
 @end

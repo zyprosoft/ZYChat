@@ -14,4 +14,6 @@
 
 - (void)playAudioAction;
 
+- (void)updateMeter:(CGFloat)meter;
+
 @end

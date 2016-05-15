@@ -252,7 +252,21 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 }
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didUpdateSoundMouter:(CGFloat)soundMouter
 {
+    /* 操作过快屏蔽 */
+    if (!self.playingAudioMsgId) {
+        return;
+    }
     
+    NSInteger playingIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:self.playingAudioMsgId];
+    
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:playingIndex];
+    
+    if (contentModel.contentType == GJGCChatFriendContentTypeMusicShare) {
+        
+        GJGCChatFriendMusicShareCell *cell = (GJGCChatFriendMusicShareCell *)[self.chatListTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:playingIndex inSection:0]];
+        
+        [cell updateMeter:soundMouter];
+    }
 }
 
 #pragma mark - 文件下载处理
