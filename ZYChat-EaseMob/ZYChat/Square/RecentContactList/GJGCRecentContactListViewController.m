@@ -205,7 +205,7 @@
             BTToast(@"已发送");
             
             //抛通知
-            GJCFNotificationPostObj(GJGCChatForwardMessageDidSendNoti,sendMessage);
+            GJCFNotificationPostObj(GJGCChatForwardMessageDidSendNoti,message);
             
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
             

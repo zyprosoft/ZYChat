@@ -76,4 +76,32 @@
     }    
 }
 
+#pragma mark - 长按事件继承
+
+- (void)goToShowLongPressMenu:(UILongPressGestureRecognizer *)sender
+{
+    [super goToShowLongPressMenu:sender];
+    
+    UIMenuController *popMenu = [UIMenuController sharedMenuController];
+    if (popMenu.isMenuVisible) {
+        return;
+    }
+    
+    UIMenuItem *item2 = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteMessage:)];
+    NSArray *menuItems = @[item2];
+    [popMenu setMenuItems:menuItems];
+    [popMenu setArrowDirection:UIMenuControllerArrowDown];
+    
+    [popMenu setTargetRect:self.bubbleBackImageView.frame inView:self];
+    [popMenu setMenuVisible:YES animated:YES];
+}
+
+- (void)tapOnSelf
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatCellDidTapOnWebPage:)]) {
+        
+        [self.delegate chatCellDidTapOnWebPage:self];
+    }
+}
+
 @end

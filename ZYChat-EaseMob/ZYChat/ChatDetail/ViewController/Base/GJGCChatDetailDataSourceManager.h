@@ -60,7 +60,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 @property (nonatomic,weak)id<GJGCChatDetailDataSourceManagerDelegate> delegate;
 
-@property (nonatomic,strong)NSString *title;
+@property (nonatomic,copy)NSString *title;
 
 @property (nonatomic,strong)NSMutableArray *chatListArray;
 

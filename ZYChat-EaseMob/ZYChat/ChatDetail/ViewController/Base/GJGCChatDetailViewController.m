@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong)GJGCParticleEffectLayer *effectLayer;
 
+@property (nonatomic,assign)BOOL isPlayingEffects;
+
 @property (nonatomic,strong)dispatch_source_t highSpeedReloadFlushSource;
 
 @end
@@ -111,7 +113,7 @@
     self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
     
     CGFloat originY = GJCFSystemNavigationBarHeight + GJCFSystemOriginYDelta;
-    
+        
     /* 对话列表 */
     self.chatListTable = [[UITableView alloc]init];
     self.chatListTable.dataSource = self;
@@ -689,7 +691,7 @@
 - (void)dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)chatContent
 {
     if (chatContent.contentType == GJGCChatFriendContentTypeSendFlower) {
-        [self playParticleEffectWithImageName:@"flower"];
+        [self performSelector:@selector(playParticleEffectWithImageName:) withObject:@"flower" afterDelay:1.f];
     }
 }
 
@@ -909,7 +911,7 @@
 
 - (void)playParticleEffectWithImageName:(NSString *)imageName
 {
-    if (GJCFStringIsNull(imageName)) {
+    if (GJCFStringIsNull(imageName) || self.isPlayingEffects) {
         return;
     }
     
@@ -921,6 +923,8 @@
     self.effectLayer = [[GJGCParticleEffectLayer alloc]initWithImageName:imageName];
     self.effectLayer.delayHideTime = 2;
     [self.view.layer insertSublayer:self.effectLayer below:self.inputPanel.layer];
+    
+    self.isPlayingEffects = YES;
     
     [self didBeginPlayPartilceEffectWithImageName:imageName];
     
@@ -937,6 +941,8 @@
     [self.effectLayer removeFromSuperlayer];
     
     [self didFinishPlayParticleEffectImageWithName:imageName];
+    
+    self.isPlayingEffects = NO;
 }
 
 - (void)didFinishPlayParticleEffectImageWithName:(NSString *)imageName
