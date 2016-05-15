@@ -10,4 +10,8 @@
 
 @interface GJGCChatFriendMusicShareCell : GJGCChatFriendBaseCell
 
+- (void)startDownloadAction;
+
+- (void)playAudioAction;
+
 @end

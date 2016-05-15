@@ -28,6 +28,7 @@
 #import "GJGCAppWallViewController.h"
 #import "GJGCVideoRecordViewController.h"
 #import "GJGCChatFriendVideoCell.h"
+#import "GJGCChatFriendMusicShareCell.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -104,9 +105,12 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 {
     [super viewDidDisappear:animated];
     
-    if (self.audioPlayer.isPlaying) {
-        [self stopPlayCurrentAudio];
+    if (!self.presentingViewController && !self.presentedViewController) {
+        if (self.audioPlayer.isPlaying) {
+            [self stopPlayCurrentAudio];
+        }
     }
+    
     [self.inputPanel removeKeyboardObserve];
 }
 
@@ -261,7 +265,10 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     NSString *taskType = userInfo[@"type"];
     
-    NSString *msgId = userInfo[@"msgId"];
+    if ([taskType isEqualToString:@"music"]) {
+        
+        [self startPlayCurrentAudio];
+    }
     
 }
 
@@ -269,11 +276,29 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 {
     [super downloadFileWithTask:task progress:progress];
     
+    NSDictionary *userInfo = task.userInfo;
+    
+    NSString *taskType = userInfo[@"type"];
+        
+    if ([taskType isEqualToString:@"music"]) {
+        
+    }
 }
 
 - (void)faildDownloadFileWithTask:(GJCFFileDownloadTask *)task
 {
     [super faildDownloadFileWithTask:task];
+    
+    NSDictionary *userInfo = task.userInfo;
+    
+    NSString *taskType = userInfo[@"type"];
+    
+    NSString *msgId = userInfo[@"msgId"];
+    
+    if ([taskType isEqualToString:@"music"]) {
+        
+        
+    }
 }
 
 #pragma mark - GJGCChatBaseCellDelegate
@@ -381,9 +406,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)chatCellDidTapOnMusicSharePlayButton:(GJGCChatBaseCell *)tapedCell
 {
-    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
-
-    [self.dataSourceManager tapMusicPlayAtIndexPath:tapIndexPath];
+    [self audioMessageCellDidTap:tapedCell];
 }
 
 - (void)chatCellDidChooseDeleteMessage:(GJGCChatBaseCell *)tapedCell
@@ -524,6 +547,16 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 }
 
+- (void)downloadAndPlayMusicAtRowIndex:(NSIndexPath *)rowIndex
+{
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:rowIndex.row];
+    
+    GJCFFileDownloadTask *task = [GJCFFileDownloadTask taskWithDownloadUrl:contentModel.musicSongUrl withCachePath:contentModel.audioModel.localStorePath withObserver:self getTaskIdentifer:nil];
+    task.userInfo = @{@"type":@"muisc"};
+    
+    [self addDownloadTask:task];
+}
+
 - (void)startPlayCurrentAudio
 {
     /* 操作过快屏蔽 */
@@ -546,8 +579,23 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         self.isLastPlayedMyAudio = contentModel.isFromSelf;
         [self.dataSourceManager updateContentModelValuesNotEffectRowHeight:contentModel atIndex:playingIndex];
         
-        GJGCChatFriendAudioMessageCell *playingCell = (GJGCChatFriendAudioMessageCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
-        [playingCell playAudioAction];
+        //音乐和语音区分
+        switch (contentModel.contentType) {
+            case GJGCChatFriendContentTypeAudio:
+            {
+                GJGCChatFriendAudioMessageCell *playingCell = (GJGCChatFriendAudioMessageCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
+                [playingCell playAudioAction];
+            }
+            break;
+            case GJGCChatFriendContentTypeMusicShare:
+            {
+                GJGCChatFriendMusicShareCell *playingCell = (GJGCChatFriendMusicShareCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
+                [playingCell playAudioAction];
+            }
+            break;
+            default:
+            break;
+        }
         
         return;
         
@@ -558,11 +606,27 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     friendContentModel.isDownloading = YES;
     [self.dataSourceManager updateContentModelValuesNotEffectRowHeight:friendContentModel atIndex:playingIndex];
     
-    GJGCChatFriendAudioMessageCell *playingCell = (GJGCChatFriendAudioMessageCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
-    [playingCell startDownloadAction];
-    
-    [self downloadAndPlayAudioAtRowIndex:playingIndexPath];
-    
+    //分情况，音乐或者语音播放
+    switch (friendContentModel.contentType) {
+        case GJGCChatFriendContentTypeAudio:
+        {
+            GJGCChatFriendAudioMessageCell *playingCell = (GJGCChatFriendAudioMessageCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
+            [playingCell startDownloadAction];
+            
+            [self downloadAndPlayAudioAtRowIndex:playingIndexPath];
+        }
+        break;
+        case GJGCChatFriendContentTypeMusicShare:
+        {
+            GJGCChatFriendMusicShareCell *playingCell = (GJGCChatFriendMusicShareCell *)[self.chatListTable cellForRowAtIndexPath:playingIndexPath];
+            [playingCell startDownloadAction];
+            
+            [self downloadAndPlayMusicAtRowIndex:playingIndexPath];
+        }
+        break;
+        default:
+        break;
+    }
 }
 
 - (void)stopPlayCurrentAudio

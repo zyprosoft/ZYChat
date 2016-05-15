@@ -18,7 +18,7 @@
 
 @property (nonatomic,assign)CGFloat contentInnerMargin;
 
-@property (nonatomic,strong)UIActivityIndicatorView *indicator;
+@property (nonatomic,strong)UIActivityIndicatorView *downloadIndicator;
 
 @end
 
@@ -46,12 +46,11 @@
         self.sumaryLabel.numberOfLines = 0;
         [self.bubbleBackImageView addSubview:self.sumaryLabel];
         
-        self.indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        self.indicator.gjcf_size = CGSizeMake(11, 11);
-        [self.thumbImageView addSubview:self.indicator];
-        self.indicator.gjcf_centerX = self.thumbImageView.gjcf_width/2;
-        self.indicator.gjcf_centerY = self.thumbImageView.gjcf_height/2;
-        self.indicator.hidden = YES;
+        self.downloadIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.downloadIndicator.gjcf_size = CGSizeMake(10, 10);
+        self.downloadIndicator.gjcf_centerY = self.bubbleBackImageView.gjcf_height/2;
+        [self.contentView addSubview:self.downloadIndicator];
+        self.downloadIndicator.hidden = YES;
         
         UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
         tapR.numberOfTapsRequired = 1;
@@ -82,7 +81,7 @@
     
     
     //是否正在播放音乐
-    UIImage *iconImage = chatModel.isMusicPlaying? [UIImage imageNamed:@"pause"]:[UIImage imageNamed:@"play"];
+    UIImage *iconImage = chatModel.isPlayingAudio? [UIImage imageNamed:@"pause"]:[UIImage imageNamed:@"play"];
     self.thumbImageView.image = iconImage;
     self.thumbImageView.gjcf_left = self.contentBordMargin;
     self.thumbImageView.gjcf_top = self.contentBordMargin;
@@ -90,11 +89,6 @@
     self.titleLabel.gjcf_left = self.thumbImageView.gjcf_right + self.contentBordMargin-5;
     self.titleLabel.gjcf_top = self.thumbImageView.gjcf_top + 7.f;
     
-    if (chatModel.isFromSelf) {
-        self.sumaryLabel.textColor = [UIColor whiteColor];
-    }else{
-        self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
-    }
     self.sumaryLabel.gjcf_width = self.titleLabel.gjcf_width;
     self.sumaryLabel.text = chatModel.musicSongAuthor;
     self.sumaryLabel.gjcf_height = self.thumbImageView.gjcf_height - self.titleLabel.gjcf_height - 4.f;
@@ -106,6 +100,17 @@
     self.bubbleBackImageView.gjcf_width = self.titleLabel.gjcf_right + self.contentInnerMargin;
     
     [self adjustContent];
+    
+    if (self.isFromSelf) {
+        self.sumaryLabel.textColor = [UIColor whiteColor];
+        self.downloadIndicator.gjcf_right = self.bubbleBackImageView.gjcf_left - 15;
+    }else{
+        self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.downloadIndicator.gjcf_left = self.bubbleBackImageView.gjcf_right + 15;
+    }
+    self.titleLabel.textColor = self.sumaryLabel.textColor;
+    self.downloadIndicator.gjcf_centerY = self.bubbleBackImageView.gjcf_centerY;
+
 }
 
 #pragma mark - 长按事件继承
@@ -142,6 +147,32 @@
         
         [self.delegate chatCellDidTapOnMusicSharePlayButton:self];
     }
+}
+
+- (void)startDownloadAction
+{
+    self.downloadIndicator.hidden = NO;
+    [self.downloadIndicator startAnimating];
+}
+
+- (void)playAudioAction
+{
+    [self.downloadIndicator stopAnimating];
+    self.downloadIndicator.hidden = YES;
+    self.thumbImageView.image = [UIImage imageNamed:@"pause"];
+}
+
+- (void)faildDownloadAction
+{
+    self.thumbImageView.image = [UIImage imageNamed:@"play"];
+    [self.downloadIndicator stopAnimating];
+    self.downloadIndicator.hidden = YES;
+}
+
+- (void)finishPlayAudioAction
+{
+    [self faildDownloadAction];
+    
 }
 
 @end

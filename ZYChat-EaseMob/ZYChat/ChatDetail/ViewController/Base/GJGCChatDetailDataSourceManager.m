@@ -770,6 +770,9 @@
                         case GJGCChatFriendContentTypeMusicShare:
                         {
                             GJGCMessageExtendMusicShareModel  *musicContent = (GJGCMessageExtendMusicShareModel *)extendModel.messageContent;
+                            chatContentModel.audioModel.remotePath = musicContent.songUrl;
+                            chatContentModel.audioModel.localStorePath = [[GJCFCachePathManager shareManager]mainAudioCacheFilePathForUrl:musicContent.songId];
+                            chatContentModel.audioModel.isNeedConvertEncodeToSave = NO;
                             chatContentModel.musicSongId = musicContent.songId;
                             chatContentModel.musicSongName = musicContent.title;
                             chatContentModel.musicSongUrl = musicContent.songUrl;
@@ -1231,17 +1234,6 @@
              @(eMessageDeliveryState_Pending):@(GJGCChatFriendSendMessageStatusSending),
              @(eMessageDeliveryState_Failure):@(GJGCChatFriendSendMessageStatusFaild),
              };
-}
-
-#pragma mark 音乐播放
-
-- (void)tapMusicPlayAtIndexPath:(NSIndexPath *)indexPath
-{
-    GJGCChatFriendContentModel *chatModel = (GJGCChatFriendContentModel *)[self.chatListArray objectAtIndex:indexPath.row];
-    chatModel.isMusicPlaying = !chatModel.isMusicPlaying;
-    
-    
-    [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:indexPath.row];
 }
 
 @end

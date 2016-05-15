@@ -236,6 +236,7 @@
     if (self.sourceArray.count == 0 && conversations.count == 0) {
         return;
     }
+    
     [self updateConversationList:conversations];
 }
 
