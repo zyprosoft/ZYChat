@@ -49,7 +49,7 @@
 
 - (void)LoginUserWithMobile:(NSString *)mobile withPassword:(NSString *)password withSuccess:(ZYUserCenterRequestSuccessBlock)success withFaild:(ZYUserCenterRequestFaildBlock)faild
 {
-    [self loginEaseMobWithMobile:mobile password:password];
+    [self loginEaseMobWithMobile:mobile password:password withSuccess:success withFaild:faild];
 }
 
 
@@ -153,7 +153,7 @@
     }
     
     NSString *password = [self getUserPassword:self.innerLoginUser.userId];
-    [self loginEaseMobWithMobile:self.innerLoginUser.mobile password:password];
+    [self loginEaseMobWithMobile:self.innerLoginUser.mobile password:password withSuccess:nil withFaild:nil];
 }
 
 - (void)setupUserExtendInfo
@@ -170,7 +170,7 @@
     return self.innerExtendUserInfo;
 }
 
-- (void)loginEaseMobWithMobile:(NSString *)mobile password:(NSString *)password
+- (void)loginEaseMobWithMobile:(NSString *)mobile password:(NSString *)password withSuccess:(ZYUserCenterRequestSuccessBlock)success withFaild:(ZYUserCenterRequestFaildBlock)faild
 {
     GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(2)});
    
@@ -197,11 +197,18 @@
             
             NSLog(@"登录环信成功");
             
+            if (success) {
+                success(@"登录环信成功");
+            }
+            
         }else{
             
             NSLog(@"登录环信失败");
         GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
 
+            if (faild) {
+                faild([NSError errorWithDomain:@"com.zychat.error" code:-1999 userInfo:@{@"errMsg":@"登录环信失败"}]);
+            }
         }
         
     } onQueue:nil];

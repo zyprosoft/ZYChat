@@ -108,7 +108,7 @@
     
     self.bubbleBackImageView.gjcf_height = self.thumbImageView.gjcf_bottom + self.contentBordMargin;
     self.bubbleBackImageView.gjcf_width = self.titleLabel.gjcf_right + self.contentInnerMargin;
-    self.waver.gjcf_width = self.bubbleBackImageView.gjcf_width;
+    self.waver.gjcf_width = self.bubbleBackImageView.gjcf_width-5.f;
     self.waver.gjcf_height = self.bubbleBackImageView.gjcf_height;
     
     [self adjustContent];
@@ -117,10 +117,13 @@
         self.sumaryLabel.textColor = [UIColor whiteColor];
         self.downloadIndicator.gjcf_right = self.bubbleBackImageView.gjcf_left - 15;
         self.waver.waveColor = [UIColor whiteColor];
+        self.waver.gjcf_left = 0.f;
+        
     }else{
         self.sumaryLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
         self.downloadIndicator.gjcf_left = self.bubbleBackImageView.gjcf_right + 15;
         self.waver.waveColor = [GJGCCommonFontColorStyle mainThemeColor];
+        self.waver.gjcf_right = self.bubbleBackImageView.gjcf_width;
     }
     self.waver.hidden = !chatModel.isPlayingAudio;
     self.titleLabel.textColor = self.sumaryLabel.textColor;
