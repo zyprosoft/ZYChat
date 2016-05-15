@@ -872,6 +872,8 @@
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
 		E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */; };
+		E485DEEC1CE8A077004DB104 /* flower_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEEB1CE8A077004DB104 /* flower_item@2x.png */; };
+		E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEED1CE8A153004DB104 /* flower@2x.png */; };
 		E4F930251C79FCEF0038278A /* TTMAVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
@@ -1910,6 +1912,8 @@
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
 		E485DEE41CE89A82004DB104 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
+		E485DEEB1CE8A077004DB104 /* flower_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower_item@2x.png"; sourceTree = "<group>"; };
+		E485DEED1CE8A153004DB104 /* flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower@2x.png"; sourceTree = "<group>"; };
 		E4F930231C79FCEF0038278A /* TTMAVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMAVCaptureManager.h; sourceTree = "<group>"; };
 		E4F930241C79FCEF0038278A /* TTMAVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMAVCaptureManager.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
@@ -3194,6 +3198,8 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E485DEED1CE8A153004DB104 /* flower@2x.png */,
+				E485DEEB1CE8A077004DB104 /* flower_item@2x.png */,
 				E4F9302D1C79FF180038278A /* ShutterButtonStop@2x.png */,
 				E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */,
 				E4F930291C79FF0A0038278A /* outer2@2x.png */,
@@ -4518,6 +4524,7 @@
 				365F05BE1B501A5D005161D6 /* 035[嘘]@2x.png in Resources */,
 				365F06AC1B501A5D005161D6 /* 聊天-icon-选择表情@2x.png in Resources */,
 				365F05B21B501A5D005161D6 /* 029[害羞]@2x.png in Resources */,
+				E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */,
 				C8E50F621C055FE600AFA10F /* player_btn_play_highlight@2x.png in Resources */,
 				365F058C1B501A5D005161D6 /* 011[色]@2x.png in Resources */,
 				365F06B41B501A5D005161D6 /* 聊天语音-icon-音量@2x.png in Resources */,
@@ -4652,6 +4659,7 @@
 				365F08BC1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */,
 				E4FEB4631C01EA3200E4A153 /* owl-login-arm-left@2x.png in Resources */,
 				365F06081B501A5D005161D6 /* 072[乒乓]@2x.png in Resources */,
+				E485DEEC1CE8A077004DB104 /* flower_item@2x.png in Resources */,
 				365F05D81B501A5D005161D6 /* 048[炸弹]@2x.png in Resources */,
 				365F02E71B5019D0005161D6 /* Images.xcassets in Resources */,
 				365F06D61B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@2x.png in Resources */,
