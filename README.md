@@ -14,6 +14,11 @@
 
 ![c_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/c_show.png "c_show")  
 
+### 项目新增功能
+
+![n_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/n_show.png "n_show")  
+
+
 ##项目核心模块注释
 
 # ChatDetail  具体聊天

@@ -864,6 +864,11 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             [self.navigationController presentViewController:videoRecord animated:YES completion:nil];
         }
             break;
+        case GJGCChatInputMenuPanelActionTypeFlower:
+        {
+            [self playParticleEffectWithImageName:@"flower"];
+        }
+            break;
         default:
             break;
     }

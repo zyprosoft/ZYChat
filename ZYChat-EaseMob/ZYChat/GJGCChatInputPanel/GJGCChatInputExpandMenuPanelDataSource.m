@@ -59,9 +59,7 @@
     
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource musicShareMenuPanelItem]];
 
-    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource appStoreMenuPanelItem]];
-
-    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource videoRecordMenuPanelItem]];
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource flowerMenuPanelItem]];
 
     return dataSource;
 }
@@ -170,6 +168,20 @@
              };
 }
 
++ (NSDictionary *)flowerMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"送花",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeFlower)
+             
+             };
+}
 
 
 

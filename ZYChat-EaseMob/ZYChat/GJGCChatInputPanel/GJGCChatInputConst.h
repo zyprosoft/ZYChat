@@ -70,6 +70,10 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputMenuPanelActionType) {
      *  短视频
      */
     GJGCChatInputMenuPanelActionTypeLimitVideo,
+    /**
+     *  短视频
+     */
+    GJGCChatInputMenuPanelActionTypeFlower,
 };
 
 /**
