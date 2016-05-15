@@ -50,6 +50,8 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 - (void)dataSourceManagerRequireAutoPlayNextAudioAtIndex:(NSInteger)index;
 
+- (void)dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)chatContent;
+
 @end
 
 @interface GJGCChatDetailDataSourceManager : NSObject

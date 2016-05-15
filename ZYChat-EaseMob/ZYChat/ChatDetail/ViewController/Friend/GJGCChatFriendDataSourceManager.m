@@ -65,7 +65,7 @@
         //置为已读
         [self.taklInfo.conversation markMessageWithId:aMessage.messageId asRead:YES];
     }
-
+    
     return chatContentModel;
 }
 

@@ -312,6 +312,10 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     
     [self.chatListArray addObject:contentModel];
     
+    if ([contentModel.class isSubclassOfClass:[GJGCChatFriendContentModel class]]) {
+        [self.delegate dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)contentModel];
+    }
+
     return heightNew;
 }
 

@@ -686,6 +686,13 @@
 
 #pragma mark - dataSouceManager Delegate
 
+- (void)dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)chatContent
+{
+    if (chatContent.contentType == GJGCChatFriendContentTypeSendFlower) {
+        [self playParticleEffectWithImageName:@"flower"];
+    }
+}
+
 - (void)dataSourceManagerRequireTriggleLoadMore:(GJGCChatDetailDataSourceManager *)dataManager
 {
     NSLog(@"聊天详情要求开始加载更多历史消息");
