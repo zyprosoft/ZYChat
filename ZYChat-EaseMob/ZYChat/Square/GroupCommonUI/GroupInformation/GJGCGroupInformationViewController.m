@@ -56,24 +56,26 @@
     [self.statusHUD showWithStatusText:@"正在获取..."];
     
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:self.currentGroupId completion:^(EMGroup *group, EMError *error) {
-        
-        NSLog(@"groupInfo:%@",group.debugDescription);
-        
-        [weakSelf.statusHUD dismiss];
-        
-        if (!error) {
-            [weakSelf createInformationListWith:group];
-        }
-        
-    } onQueue:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [[EMClient sharedClient].groupManager fetchGroupInfo:weakSelf.currentGroupId includeMembersList:YES error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"groupInfo:%@",group.debugDescription);
+            
+            [weakSelf.statusHUD dismiss];
+            
+            if (!error) {
+                [weakSelf createInformationListWith:group];
+            }
+        });
+    });
 }
 
 - (void)createInformationListWith:(EMGroup *)group
 {
     self.currentGroup = group;
     
-    NSData *extendData = [group.groupSubject base64DecodedData];
+    NSData *extendData = [group.subject base64DecodedData];
     NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
     GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
@@ -115,7 +117,7 @@
     }
     
     /* 群成员 */
-    NSString *memberInfo = [NSString stringWithFormat:@"在线:%ld人 共%ld人",self.currentGroup.groupOnlineOccupantsCount,self.currentGroup.groupOccupantsCount];
+    NSString *memberInfo = [NSString stringWithFormat:@"共%ld人",self.currentGroup.occupantsCount];
     GJGCInformationCellContentModel *memberItem = [GJGCGroupPersonInformationShowMap itemWithTextAndIcon:memberInfo icon:@"详细地址icon.png" tagName:@"群  成  员"];
     memberItem.seprateStyle = GJGCInformationSeprateLineStyleTopNoneBottomShort;
     memberItem.isIconShowMap = YES;
@@ -170,7 +172,7 @@
     self.informationListTable.showsHorizontalScrollIndicator = NO;
     self.informationListTable.showsVerticalScrollIndicator = NO;
     
-    NSArray *myGroupList = [[EaseMob sharedInstance].chatManager groupList];
+    NSArray *myGroupList = [[EMClient sharedClient].groupManager getAllGroups];
     
     BOOL isMyGroup = NO;
     for (EMGroup *existGroup in myGroupList) {
@@ -278,39 +280,44 @@
     [self.statusHUD showWithStatusText:@"正在申请..."];
     
     if (self.currentGroup.isPublic) {
-        
-        [[EaseMob sharedInstance].chatManager asyncJoinPublicGroup:self.currentGroupId completion:^(EMGroup *group, EMError *error) {
-            
-            [self.statusHUD dismiss];
-            if (!error) {
-                BTToast(@"加入成功");
-                
-                [self setupGroupIsMember];
-            }
-            
-        } onQueue:nil];
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            EMError *error = nil;
+            [[EMClient sharedClient].groupManager joinPublicGroup:self.currentGroupId error:&error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.statusHUD dismiss];
+                if (!error) {
+                    BTToast(@"加入成功");
+                    
+                    [self setupGroupIsMember];
+                }
+            });
+        });
     }else{
-        
-        [[EaseMob sharedInstance].chatManager asyncApplyJoinPublicGroup:self.currentGroup.groupId withGroupname:self.currentGroup.groupSubject message:@"想要加入" completion:^(EMGroup *group, EMError *error) {
-            
-        } onQueue:nil];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            EMError *error = nil;
+            [[EMClient sharedClient].groupManager applyJoinPublicGroup:self.currentGroup.groupId message:@"想要加入" error:&error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+            });
+        });
     }
 }
 
 - (void)exitGroupAction
 {
     [self.statusHUD showWithStatusText:@"正在退出..."];
-    [[EaseMob sharedInstance].chatManager  asyncLeaveGroup:self.currentGroupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-        
-        if (!error) {
-            
-            BTToast(@"退出成功");
-            
-            [self setupGroupNotMember];
-        }
-        
-    } onQueue:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        EMError *error = nil;
+        [[EMClient sharedClient].groupManager leaveGroup:self.currentGroupId error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!error) {
+                
+                BTToast(@"退出成功");
+                
+                [self setupGroupNotMember];
+            }
+        });
+    });
 }
 
 - (void)beginChatAction
@@ -325,7 +332,7 @@
     //如果有会话记录才插入这样一条会话，不然就什么都不做
     if ([GJGCRecentChatDataManager isConversationHasBeenExist:talkModel.toId]) {
         
-        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talkModel.toUserName conversationType:eConversationTypeGroupChat];
+        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:talkModel.toUserName type:EMConversationTypeGroupChat createIfNotExist:YES];
         talkModel.conversation = conversation;
         
     }

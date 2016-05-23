@@ -115,22 +115,23 @@
     [self.statusHUD showWithStatusText:@"正在注册..."];
     
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:userNameItem.content password:passwordItem.content withCompletion:^(NSString *username, NSString *password, EMError *error) {
-        
-        [weakSelf.statusHUD dismiss];
-        
-        if (!error) {
-           
-            BTToast(@"注册成功");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        EMError *error = [[EMClient sharedClient] registerWithUsername:userNameItem.content password:passwordItem.content];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.statusHUD dismiss];
             
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-            
-        }else{
-            
-            [self showErrorMessage:error.description];
-        }
-        
-    } onQueue:nil];
+            if (!error) {
+                
+                BTToast(@"注册成功");
+                
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                
+            }else{
+                
+                [self showErrorMessage:error.description];
+            }
+        });
+    });
 }
 
 @end

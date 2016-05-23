@@ -36,7 +36,7 @@
     
     self.titleView = [[GJGCRecentChatTitleView alloc]init];
     self.navigationItem.titleView = self.titleView;
-    GJGCRecentChatConnectState result = [[EaseMob sharedInstance].chatManager isConnected]? GJGCRecentChatConnectStateSuccess:GJGCRecentChatConnectStateFaild;
+    GJGCRecentChatConnectState result = [[EMClient sharedClient] isConnected]? GJGCRecentChatConnectStateSuccess:GJGCRecentChatConnectStateFaild;
     self.titleView.connectState = result;
     
     self.listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GJCFSystemScreenWidth, GJCFSystemScreenHeight - self.tabBarController.tabBar.gjcf_height - self.contentOriginY) style:UITableViewStylePlain];

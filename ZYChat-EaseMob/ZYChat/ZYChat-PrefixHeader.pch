@@ -14,7 +14,7 @@
 
 #ifdef __OBJC__
 
-#import "EaseMob.h"
+#import "EMSDK.h"
 
 #import "BTToast.h"
 

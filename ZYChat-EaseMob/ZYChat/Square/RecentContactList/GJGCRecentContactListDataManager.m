@@ -26,7 +26,7 @@
         GJGCInfoBaseListContentModel *contentModel = [[GJGCInfoBaseListContentModel alloc]init];
         contentModel.title = chatModel.name.string;
         contentModel.headUrl = chatModel.headUrl;
-        contentModel.chatter = chatModel.conversation.chatter;
+        contentModel.chatter = chatModel.conversation.conversationId;
         contentModel.conversation = chatModel.conversation;
         
         [self addContentModel:contentModel];

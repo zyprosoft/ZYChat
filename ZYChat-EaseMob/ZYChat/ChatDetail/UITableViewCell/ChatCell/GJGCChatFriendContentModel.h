@@ -10,6 +10,7 @@
 #import "GJGCChatFriendConstans.h"
 #import "GJCFAudioModel.h"
 #import "GJGCMessageExtendModel.h"
+#import "EMMessageBody.h"
 
 @interface GJGCChatFriendContentModel : GJGCChatContentBaseModel
 
@@ -127,7 +128,7 @@
 
 @property (nonatomic,assign)long long easeMessageTime;
 
-@property (nonatomic,strong)id<IEMMessageBody> messageBody;
+@property (nonatomic,strong)EMMessageBody *messageBody;
 
 #pragma mark - 扩展网页消息
 

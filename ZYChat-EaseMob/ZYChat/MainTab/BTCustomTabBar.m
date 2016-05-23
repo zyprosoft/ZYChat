@@ -47,7 +47,7 @@
         self.topSeprateLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
         [self addSubview:self.topSeprateLine];
         
-        [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
         
         [self refreshUnReadCount];
         
@@ -61,7 +61,7 @@
 
 - (void)dealloc
 {
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [[EMClient sharedClient].chatManager removeDelegate:self];
     [GJCFNotificationCenter removeObserver:self];
 }
 
@@ -145,7 +145,7 @@
 
 - (void)refreshUnReadCount
 {
-    NSUInteger count = [[EaseMob sharedInstance].chatManager loadTotalUnreadMessagesCountFromDatabase];
+    NSUInteger count = [self unreadCount];
     
     if (count > 99) {
         count = 99;
@@ -161,6 +161,15 @@
         
         self.redTipLabel.hidden = YES;
     }
+}
+
+- (NSUInteger)unreadCount {
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSInteger unreadCount = 0;
+    for (EMConversation *conversation in conversations) {
+        unreadCount += conversation.unreadMessagesCount;
+    }
+    return unreadCount;
 }
 
 @end

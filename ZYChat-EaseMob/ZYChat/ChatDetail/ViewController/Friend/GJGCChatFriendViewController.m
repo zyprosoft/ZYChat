@@ -43,7 +43,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             UINavigationControllerDelegate,
                                             GJCFAssetsPickerViewControllerDelegate,
                                             GJCUCaptureViewControllerDelegate,
-                                            IEMChatProgressDelegate,
                                             GJGCVideoRecordViewControllerDelegate
                                           >
 
@@ -372,7 +371,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             
             [imageUrls addObject:imageMessageBody];
 
-            if ([imageMessageBody.uuid isEqualToString:tappedImageMessageBody.uuid]) {
+            // TODO: check uuid
+            if ([imageMessageBody.thumbnailRemotePath isEqualToString:tappedImageMessageBody.thumbnailRemotePath]) {
                 
                 currentImageIndex = imageUrls.count - 1;
                 
@@ -462,7 +462,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
-    EMMessage *theMessage = [contentModel.messageBody message];
+    EMMessage *theMessage = [self.taklInfo.conversation loadMessageWithId:contentModel.localMsgId];
     
     GJGCMessageExtendModel *messageExtendModey = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
     
@@ -550,17 +550,13 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
     }
     
-    id<IEMMessageBody> messageBody = contentModel.messageBody;
-    
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchMessage:[messageBody message]  progress:self completion:^(EMMessage *aMessage, EMError *error) {
-        
+    EMMessage *message = [self.taklInfo.conversation loadMessageWithId:contentModel.localMsgId];
+    [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:message progress:nil completion:^(EMMessage *message, EMError *error) {
         BOOL isSuccess = error? NO:YES;
         
-        [weakSelf downloadFileCompletionForMessage:[messageBody message] successState:isSuccess];
-        
-    } onQueue:nil];
-
+        [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+    }];
 }
 
 - (void)downloadAndPlayMusicAtRowIndex:(NSIndexPath *)rowIndex
@@ -688,21 +684,23 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         return;
     }
     
+    EMMessage *message = [self.taklInfo.conversation loadMessageWithId:contentModel.localMsgId];
+    
     //短视频截图
     if (imageContentModel.contentType == GJGCChatFriendContentTypeLimitVideo) {
         
         EMVideoMessageBody *imageMessageBody = (EMVideoMessageBody *)imageContentModel.messageBody;
         
-        if (imageMessageBody.thumbnailDownloadStatus > EMAttachmentDownloadSuccessed) {
+        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
-            [[EaseMob sharedInstance].chatManager asyncFetchMessage:imageMessageBody.message progress:self completion:^(EMMessage *aMessage, EMError *error) {
+            [[[EMClient sharedClient] chatManager] asyncDownloadMessageThumbnail:message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
                 
                 BOOL isSuccess = error? NO:YES;
                 
                 [weakSelf downloadFileCompletionForMessage:aMessage successState:isSuccess];
                 
-            } onQueue:nil];
+            }];
         }
     }
     
@@ -715,16 +713,16 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
         EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)imageContentModel.messageBody;
         
-        if (imageMessageBody.thumbnailDownloadStatus > EMAttachmentDownloadSuccessed) {
+        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
-            [[EaseMob sharedInstance].chatManager asyncFetchMessage:imageMessageBody.message progress:self completion:^(EMMessage *aMessage, EMError *error) {
+            [[[EMClient sharedClient] chatManager] asyncDownloadMessageThumbnail:message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
                 
                 BOOL isSuccess = error? NO:YES;
                 
                 [weakSelf downloadFileCompletionForMessage:aMessage successState:isSuccess];
                 
-            } onQueue:nil];
+            }];
         }
     }
 }
@@ -1348,11 +1346,11 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 #pragma mark - 附件下载策略回调
 
-- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(id<IEMMessageBody>)messageBody
+- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(EMMessageBody *)messageBody
 {
     NSString *msgId = message.messageId;
     
-    if ([messageBody messageBodyType] ==  eMessageBodyType_Image) {
+    if ([messageBody type] ==  EMMessageBodyTypeImage) {
         
         NSInteger resultIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:msgId];
         
@@ -1375,7 +1373,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)downloadFileCompletionForMessage:(EMMessage *)message successState:(BOOL)isSuccess
 {
-    id<IEMFileMessageBody> messageBody = [message.messageBodies firstObject];
+    EMFileMessageBody *messageBody = (EMFileMessageBody *)message.body;
     
     NSString *msgId = message.messageId;
 
@@ -1409,8 +1407,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSInteger rowIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:msgId];
 
     //下载成功处理
-    switch ([messageBody messageBodyType]) {
-        case eMessageBodyType_Image:
+    switch (message.body.type) {
+        case EMMessageBodyTypeImage:
         {
             EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)messageBody;
         
@@ -1428,7 +1426,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             }
         }
             break;
-        case eMessageBodyType_Voice:
+        case EMMessageBodyTypeVoice:
         {
             EMVoiceMessageBody *voiceMessageBody = (EMVoiceMessageBody *)messageBody;
             
@@ -1469,7 +1467,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             }
         }
             break;
-        case eMessageBodyType_Video:
+        case EMMessageBodyTypeVideo:
         {
             EMVideoMessageBody *voiceMessageBody = (EMVideoMessageBody *)messageBody;
             

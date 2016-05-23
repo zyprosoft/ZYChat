@@ -100,11 +100,11 @@
     
     EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody *)chatContentModel.messageBody;
     
-    [self resetStateWithPrepareSize:videoMessageBody.size];
+    [self resetStateWithPrepareSize:videoMessageBody.thumbnailSize];
     
-    if (chatContentModel.isFromSelf || videoMessageBody.thumbnailDownloadStatus == EMAttachmentDownloadSuccessed) {
+    if (chatContentModel.isFromSelf || videoMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
         
-        self.contentSize = videoMessageBody.size;
+        self.contentSize = videoMessageBody.thumbnailSize;
         self.contentImageView.gjcf_size = self.contentSize;
         self.contentImageView.image = GJCFQuickImageByFilePath(videoMessageBody.thumbnailLocalPath);
         

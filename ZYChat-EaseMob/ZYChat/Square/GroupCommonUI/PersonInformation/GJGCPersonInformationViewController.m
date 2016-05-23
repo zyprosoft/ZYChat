@@ -138,8 +138,8 @@
     
     //如果有会话记录才插入这样一条会话，不然就什么都不做
     if ([GJGCRecentChatDataManager isConversationHasBeenExist:talk.toId]) {
-        
-        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:talk.toUserName conversationType:eConversationTypeChat];
+        // TODO: check type
+        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:talk.toUserName type:EMConversationTypeGroupChat createIfNotExist:YES];
         talk.conversation = conversation;
         
     }

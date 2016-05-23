@@ -136,7 +136,7 @@
     for (EMImageMessageBody *messageBody in imageMessageBodys) {
         
         GJCUImageBrowserModel *aImageModel = [[GJCUImageBrowserModel alloc]init];
-        aImageModel.filePath = messageBody.image.localPath;
+        aImageModel.filePath = messageBody.localPath;
         if (!GJCFStringIsNull(messageBody.remotePath)) {
             aImageModel.imageUrl = messageBody.remotePath;
         }
