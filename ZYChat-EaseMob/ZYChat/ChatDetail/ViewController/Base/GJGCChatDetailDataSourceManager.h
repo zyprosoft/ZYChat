@@ -140,7 +140,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  *
  *  @return 
  */
-- (NSNumber *)addChatContentModel:(GJGCChatContentBaseModel *)contentModel;
+- (void)addChatContentModel:(GJGCChatContentBaseModel *)contentModel;
 
 - (void)removeChatContentModelAtIndex:(NSInteger)index;
 

@@ -291,11 +291,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
 }
 
-- (NSNumber *)addChatContentModel:(GJGCChatContentBaseModel *)contentModel
+- (void)addChatContentModel:(GJGCChatContentBaseModel *)contentModel
 {
     contentModel.contentSourceIndex = self.chatListArray.count;
-    
-    NSNumber *heightNew = [NSNumber numberWithFloat:contentModel.contentHeight];
     
     if (contentModel.contentHeight == 0) {
         
@@ -316,8 +314,6 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     if ([contentModel.class isSubclassOfClass:[GJGCChatFriendContentModel class]]) {
         [self.delegate dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)contentModel];
     }
-
-    return heightNew;
 }
 
 - (void)removeChatContentModelAtIndex:(NSInteger)index
