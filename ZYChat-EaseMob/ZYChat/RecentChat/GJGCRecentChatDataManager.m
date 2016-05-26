@@ -311,9 +311,11 @@
                 chatModel.unReadCount = conversation.unreadMessagesCount;
                 chatModel.isGroupChat = NO;
                 
-                chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
-                chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-                [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                if (conversation.latestMessage) {
+                    chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
+                    chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+                    [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                }
             }
             
             chatModel.conversation = conversation;

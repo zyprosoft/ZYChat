@@ -410,33 +410,30 @@
 
 #pragma mark - 属性设置
 - (void)setContentAttributedString:(NSAttributedString *)contentAttributedString
-{
-    if (![contentAttributedString.class isSubclassOfClass:[NSAttributedString class]] || contentAttributedString.string.length == 0) {
-        return;
-    }
-    
-    if (!contentAttributedString) {
-        return;
-    }
-    if ([_contentAttributedString isEqualToAttributedString:contentAttributedString]) {
-        return;
-    }
-    _contentAttributedString = nil;
-    _contentAttributedString = [contentAttributedString copy];
+{    
+    if (contentAttributedString && [contentAttributedString.class isSubclassOfClass:[NSAttributedString class]] && contentAttributedString.string.length > 0) {
+        if ([_contentAttributedString isEqualToAttributedString:contentAttributedString]) {
+            return;
+        }
+        _contentAttributedString = nil;
+        _contentAttributedString = [contentAttributedString copy];
 
-    /* 检测有没有图片 */
-    for (NSString *imageTag in self.innerImageTagArray) {
-        
-        [self.contentAttributedString enumerateAttributesInRange:NSMakeRange(0, self.contentAttributedString.string.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+        /* 检测有没有图片 */
+        for (NSString *imageTag in self.innerImageTagArray) {
             
-            if ([attrs.allKeys containsObject:imageTag]) {
+            [self.contentAttributedString enumerateAttributesInRange:NSMakeRange(0, self.contentAttributedString.string.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
                 
-                self.isNeedSetupLine = YES;
+                if ([attrs.allKeys containsObject:imageTag]) {
+                    
+                    self.isNeedSetupLine = YES;
+                    
+                    *stop = YES;
+                }
                 
-                *stop = YES;
-            }
-            
-        }];
+            }];
+        }
+    } else {
+        _contentAttributedString = nil;
     }
     
     self.isNeedUpdateCTFrame = YES;
