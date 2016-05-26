@@ -320,11 +320,6 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     GJGCChatFriendContentModel *deleteContentModel = [self.chatListArray objectAtIndex:index];
     isDelete = [self.talkInfo.conversation deleteMessageWithId:deleteContentModel.localMsgId];
     
-    //消息删没了，把会话也删掉
-    if (![self.talkInfo.conversation latestMessage]) {
-        [[EMClient sharedClient].chatManager deleteConversation:self.talkInfo.toId deleteMessages:YES];
-    }
-    
     NSMutableArray *willDeletePaths = [NSMutableArray array];
     
     if (isDelete) {
