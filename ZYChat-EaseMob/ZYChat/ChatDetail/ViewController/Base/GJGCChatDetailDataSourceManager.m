@@ -251,11 +251,6 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return @(contentModel.contentHeight);
 }
 
-- (void)updateAudioFinishRead:(NSString *)localMsgId
-{
-    
-}
-
 - (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
 {
     
@@ -279,15 +274,6 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (void)updateContentModelValuesNotEffectRowHeight:(GJGCChatContentBaseModel *)contentModel atIndex:(NSInteger)index
 {
-    if ([contentModel.class isSubclassOfClass:[GJGCChatFriendContentModel class]]) {
-        
-        GJGCChatFriendContentModel *friendChatModel = (GJGCChatFriendContentModel *)contentModel;
-        
-        if (friendChatModel.contentType == GJGCChatFriendContentTypeAudio && friendChatModel.isPlayingAudio) {
-            
-            [self updateAudioFinishRead:friendChatModel.localMsgId];
-        }
-    }
     [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
 }
 

@@ -109,11 +109,6 @@
     }
 }
 
-- (void)updateAudioFinishRead:(NSString *)localMsgId
-{
-    
-}
-
 #pragma mark - 更新数据库中消息得高度
 
 - (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel

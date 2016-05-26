@@ -128,9 +128,4 @@
 //    [[GJGCFriendMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) contentSize:contentModel.contentSize withToId:self.talkInfo.toId withLocalMsgId:contentModel.localMsgId];
 }
 
-- (void)updateAudioFinishRead:(NSString *)localMsgId
-{
-//    [[GJGCFriendMsgDBAPI share] updateAudioMsgFinishRead:[localMsgId longLongValue] toId:self.talkInfo.toId];
-}
-
 @end

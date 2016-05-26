@@ -104,13 +104,6 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 - (CGFloat)rowHeightAtIndex:(NSInteger)index;
 
 /**
- *  更新语音播放状态为已读,子类需要实现
- *
- *  @param localMsgId
- */
-- (void)updateAudioFinishRead:(NSString *)localMsgId;
-
-/**
  *  更新数据源对象，并且会影响数据源高度
  *
  *  @param contentModel
