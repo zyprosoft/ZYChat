@@ -38,7 +38,7 @@
 
 - (void)initDataManager
 {
-    self.dataSourceManager = [[GJGCChatSystemNotiDataManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    self.dataSourceManager = [[GJGCChatSystemNotiDataManager alloc]initWithTalk:self.talkInfo withDelegate:self];
 }
 
 #pragma mark - chatInputPanel Delegte

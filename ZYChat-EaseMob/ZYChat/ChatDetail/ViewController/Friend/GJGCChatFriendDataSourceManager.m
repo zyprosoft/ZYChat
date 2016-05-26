@@ -52,7 +52,7 @@
     chatContentModel.localMsgId = aMessage.messageId;
     chatContentModel.faildReason = @"";
     chatContentModel.faildType = 0;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
     chatContentModel.contentHeight = 0.f;
     chatContentModel.contentSize = CGSizeZero;
 
@@ -63,7 +63,7 @@
         [self addChatContentModel:chatContentModel];
         
         //置为已读
-        [self.taklInfo.conversation markMessageAsReadWithId:aMessage.messageId];
+        [self.talkInfo.conversation markMessageAsReadWithId:aMessage.messageId];
     }
     
     return chatContentModel;
@@ -74,14 +74,14 @@
 - (void)readLastMessagesFromDB
 {
     //如果会话不存在
-    if (!self.taklInfo.conversation) {
+    if (!self.talkInfo.conversation) {
         self.isFinishFirstHistoryLoad = YES;
         self.isFinishLoadAllHistoryMsg = YES;
         return;
     }
     
     //读取最近的20条消息
-    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesFromId:nil limit:20 direction:EMMessageSearchDirectionUp];
+    NSArray *messages = [self.talkInfo.conversation loadMoreMessagesFromId:nil limit:20 direction:EMMessageSearchDirectionUp];
     
     for (EMMessage *theMessage in messages) {
         
@@ -125,12 +125,12 @@
 
 - (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
 {
-//    [[GJGCFriendMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) contentSize:contentModel.contentSize withToId:self.taklInfo.toId withLocalMsgId:contentModel.localMsgId];
+//    [[GJGCFriendMsgDBAPI share] updateMsgContentHeight:@(contentModel.contentHeight) contentSize:contentModel.contentSize withToId:self.talkInfo.toId withLocalMsgId:contentModel.localMsgId];
 }
 
 - (void)updateAudioFinishRead:(NSString *)localMsgId
 {
-//    [[GJGCFriendMsgDBAPI share] updateAudioMsgFinishRead:[localMsgId longLongValue] toId:self.taklInfo.toId];
+//    [[GJGCFriendMsgDBAPI share] updateAudioMsgFinishRead:[localMsgId longLongValue] toId:self.talkInfo.toId];
 }
 
 @end

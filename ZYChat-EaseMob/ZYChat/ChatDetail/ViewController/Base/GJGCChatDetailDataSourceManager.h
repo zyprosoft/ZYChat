@@ -66,7 +66,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 @property (nonatomic,strong)NSMutableArray *timeShowSubArray;
 
-@property (nonatomic,readonly)GJGCChatFriendTalkModel *taklInfo;
+@property (nonatomic,readonly)GJGCChatFriendTalkModel *talkInfo;
 
 @property (nonatomic,assign)BOOL isFinishFirstHistoryLoad;
 

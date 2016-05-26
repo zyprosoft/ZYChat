@@ -31,8 +31,8 @@
     /* 格式化消息 */
     GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
     chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.toId = self.talkInfo.toId;
+    chatContentModel.toUserName = self.talkInfo.toUserName;
     chatContentModel.isFromSelf = [aMessage.from isEqualToString:[ZYUserCenter shareCenter].currentLoginUser.mobile]? YES:NO;
     chatContentModel.sendStatus = [[self easeMessageStateRleations][@(aMessage.status)]integerValue];
     chatContentModel.sendTime = (NSInteger)(aMessage.timestamp/1000);
@@ -43,7 +43,7 @@
     chatContentModel.senderName = [GJGCChatFriendCellStyle formateGroupChatSenderName:extendModel.userInfo.nickName];
     chatContentModel.faildReason = @"";
     chatContentModel.faildType = 0;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
     chatContentModel.contentHeight = 0.f;
     chatContentModel.contentSize = CGSizeZero;
 
@@ -54,7 +54,7 @@
         [self addChatContentModel:chatContentModel];
         
         //置为已读
-        [self.taklInfo.conversation markMessageAsReadWithId:aMessage.messageId];
+        [self.talkInfo.conversation markMessageAsReadWithId:aMessage.messageId];
     }
 
     return chatContentModel;
@@ -65,14 +65,14 @@
 - (void)readLastMessagesFromDB
 {
     //如果会话不存在
-    if (!self.taklInfo.conversation) {
+    if (!self.talkInfo.conversation) {
         self.isFinishFirstHistoryLoad = YES;
         self.isFinishLoadAllHistoryMsg = YES;
         return;
     }
     
    //读取最近20条消息
-    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesFromId:nil limit:20 direction:EMMessageSearchDirectionUp];
+    NSArray *messages = [self.talkInfo.conversation loadMoreMessagesFromId:nil limit:20 direction:EMMessageSearchDirectionUp];
     
     for (EMMessage *theMessage in messages) {
         

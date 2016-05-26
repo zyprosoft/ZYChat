@@ -30,7 +30,7 @@
 {
     if (self = [super init]) {
         
-        _taklInfo = talkModel;
+        _talkInfo = talkModel;
         
         self.highSpeedReloadFlushSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
         dispatch_source_set_event_handler(self.highSpeedReloadFlushSource, ^{
@@ -743,8 +743,8 @@
             if (lastFirstMsgIndex >= 0 && lastFirstMsgIndex < self.dataSourceManager.totalCount) {
                 
                 // 判定上面是否还有更多新拉取的消息，普通聊天，第一条消息索引是1，助手消息第一条消息索引是0 说明上面没有更多数据了,这个应该在原来的位置就行了
-                BOOL isNormalFriendChat = lastFirstMsgIndex != 1 && self.dataSourceManager.taklInfo.talkType != GJGCChatFriendTalkSystemAssist;
-                BOOL isSystemAssistChat = lastFirstMsgIndex != 0 && self.dataSourceManager.taklInfo.talkType == GJGCChatFriendTalkSystemAssist;
+                BOOL isNormalFriendChat = lastFirstMsgIndex != 1 && self.dataSourceManager.talkInfo.talkType != GJGCChatFriendTalkSystemAssist;
+                BOOL isSystemAssistChat = lastFirstMsgIndex != 0 && self.dataSourceManager.talkInfo.talkType == GJGCChatFriendTalkSystemAssist;
                 
                 if (isNormalFriendChat || isSystemAssistChat) {
                     

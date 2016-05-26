@@ -32,7 +32,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 {
     if (self = [super init]) {
         
-        _taklInfo = talk;
+        _talkInfo = talk;
         
         _uniqueIdentifier = [NSString stringWithFormat:@"GJGCChatDetailDataSourceManager_%@",GJCFStringCurrentTimeStamp];
         
@@ -42,7 +42,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
         [GJCFNotificationCenter addObserver:self selector:@selector(observeForwardSendMessage:) name:GJGCChatForwardMessageDidSendNoti object:nil];
         
         //清除会话的未读数
-        [self.taklInfo.conversation markAllMessagesAsRead];
+        [self.talkInfo.conversation markAllMessagesAsRead];
         
         //最短消息间隔500毫秒
         self.lastSendMsgTime = 0;
@@ -336,11 +336,11 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 {
     BOOL isDelete = YES;//数据库完成删除动作
     GJGCChatFriendContentModel *deleteContentModel = [self.chatListArray objectAtIndex:index];
-    isDelete = [self.taklInfo.conversation deleteMessageWithId:deleteContentModel.localMsgId];
+    isDelete = [self.talkInfo.conversation deleteMessageWithId:deleteContentModel.localMsgId];
     
     //消息删没了，把会话也删掉
-    if (![self.taklInfo.conversation latestMessage]) {
-        [[EMClient sharedClient].chatManager deleteConversation:self.taklInfo.toId deleteMessages:YES];
+    if (![self.talkInfo.conversation latestMessage]) {
+        [[EMClient sharedClient].chatManager deleteConversation:self.talkInfo.toId deleteMessages:YES];
     }
     
     NSMutableArray *willDeletePaths = [NSMutableArray array];
@@ -385,7 +385,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (void)trigglePullHistoryMsgForEarly
 {
-    NSLog(@"聊天详情触发拉取更早历史消息 talkType:%@ toId:%@",GJGCTalkTypeString(self.taklInfo.talkType),self.taklInfo.toId);
+    NSLog(@"聊天详情触发拉取更早历史消息 talkType:%@ toId:%@",GJGCTalkTypeString(self.talkInfo.talkType),self.talkInfo.toId);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
@@ -404,7 +404,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             }
             
             //环信精确到毫秒所以要*1000
-            NSArray *localHistroyMsgArray = [self.taklInfo.conversation loadMoreMessagesFromId:lastMsgContent.localMsgId limit:20 direction:EMMessageSearchDirectionUp];
+            NSArray *localHistroyMsgArray = [self.talkInfo.conversation loadMoreMessagesFromId:lastMsgContent.localMsgId limit:20 direction:EMMessageSearchDirectionUp];
             
             if (localHistroyMsgArray && localHistroyMsgArray.count > 0 ) {
                 
@@ -911,7 +911,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 - (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent
 {
     GJCFWeakSelf weakSelf = self;
-    EMMessage *message = [self.taklInfo.conversation loadMessageWithId:messageContent.localMsgId];
+    EMMessage *message = [self.talkInfo.conversation loadMessageWithId:messageContent.localMsgId];
     dispatch_async(_messageSenderQueue, ^{
         [[EMClient sharedClient].chatManager asyncResendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
             GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
@@ -953,9 +953,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 - (EMMessage *)sendMessageContent:(GJGCChatFriendContentModel *)messageContent
 {
     //如果当前会话信息不存在，创建一个
-    if (!self.taklInfo.conversation) {
+    if (!self.talkInfo.conversation) {
         EMConversationType conversationType;
-        switch (self.taklInfo.talkType) {
+        switch (self.talkInfo.talkType) {
             case GJGCChatFriendTalkTypePrivate:
                 conversationType = EMConversationTypeChat;
                 break;
@@ -965,7 +965,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             default:
                 break;
         }
-        self.taklInfo.conversation = [[EMClient sharedClient].chatManager getConversation:messageContent.toId type:conversationType createIfNotExist:YES];
+        self.talkInfo.conversation = [[EMClient sharedClient].chatManager getConversation:messageContent.toId type:conversationType createIfNotExist:YES];
     }
     
     EMMessage *sendMessage = nil;
@@ -1001,18 +1001,18 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     sendMessage.ext = [extendInfo contentDictionary];
     
     //添加群组扩展信息
-    if (self.taklInfo.talkType == GJGCChatFriendTalkTypeGroup) {
+    if (self.talkInfo.talkType == GJGCChatFriendTalkTypeGroup) {
         GJGCMessageExtendGroupModel *groupInfo = [[GJGCMessageExtendGroupModel alloc]init];
         
         //是否有扩展信息
-        if (self.taklInfo.groupInfo) {
+        if (self.talkInfo.groupInfo) {
             
-            groupInfo.groupName = self.taklInfo.groupInfo.groupName;
-            groupInfo.groupHeadThumb = self.taklInfo.groupInfo.groupHeadThumb;
+            groupInfo.groupName = self.talkInfo.groupInfo.groupName;
+            groupInfo.groupHeadThumb = self.talkInfo.groupInfo.groupHeadThumb;
             
         }else{
             
-            groupInfo.groupName = self.taklInfo.toUserName;
+            groupInfo.groupName = self.talkInfo.toUserName;
             groupInfo.groupHeadThumb = @"";
             
         }
@@ -1192,7 +1192,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (void)didReceiveMessage:(EMMessage *)message
 {
-    if ([message.conversationId isEqualToString:self.taklInfo.toId]) {
+    if ([message.conversationId isEqualToString:self.talkInfo.toId]) {
         
         GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
         
@@ -1227,9 +1227,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 
                 contentModel.sendStatus = GJGCChatFriendSendMessageStatusFaild;
                 
-                EMMessage *message = [self.taklInfo.conversation loadMessageWithId:contentModel.localMsgId];
+                EMMessage *message = [self.talkInfo.conversation loadMessageWithId:contentModel.localMsgId];
                 message.status = EMMessageStatusFailed;
-                [self.taklInfo.conversation updateMessage:message];
+                [self.talkInfo.conversation updateMessage:message];
                 
                 [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
             }

@@ -38,12 +38,12 @@
 
 - (void)initDataManager
 {
-    self.dataSourceManager = [[GJGCChatGroupDataSourceManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    self.dataSourceManager = [[GJGCChatGroupDataSourceManager alloc]initWithTalk:self.talkInfo withDelegate:self];
 }
 
 - (void)rightButtonPressed:(id)sender
 {
-    GJGCGroupInformationViewController *groupInformation = [[GJGCGroupInformationViewController alloc]initWithGroupId:self.taklInfo.toId];
+    GJGCGroupInformationViewController *groupInformation = [[GJGCGroupInformationViewController alloc]initWithGroupId:self.talkInfo.toId];
     [self.navigationController pushViewController:groupInformation animated:YES];
 
     /* 收起输入键盘 */
