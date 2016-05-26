@@ -88,7 +88,7 @@
 - (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath
 {
     GJGCRecentChatModel *chatModel = [self contentModelAtIndexPath:indexPath];
-    [[EMClient sharedClient].chatManager deleteConversation:chatModel.toId deleteMessages:NO];
+    [[EMClient sharedClient].chatManager deleteConversation:chatModel.toId deleteMessages:YES];
     
     [self.sourceArray removeObject:chatModel];
 
