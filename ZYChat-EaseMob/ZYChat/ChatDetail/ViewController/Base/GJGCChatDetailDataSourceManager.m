@@ -362,11 +362,11 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             }
             
             //环信精确到毫秒所以要*1000
-            NSArray *localHistroyMsgArray = [self.talkInfo.conversation loadMoreMessagesFromId:lastMsgContent.localMsgId limit:20 direction:EMMessageSearchDirectionUp];
+            NSArray *localHistoryMsgArray = [self.talkInfo.conversation loadMoreMessagesFromId:lastMsgContent.localMsgId limit:20 direction:EMMessageSearchDirectionUp];
             
-            if (localHistroyMsgArray && localHistroyMsgArray.count > 0 ) {
+            if (localHistoryMsgArray && localHistoryMsgArray.count > 0 ) {
                 
-                [self pushAddMoreMsg:localHistroyMsgArray];
+                [self pushAddMoreMsg:localHistoryMsgArray];
                 
             }else{
                 
