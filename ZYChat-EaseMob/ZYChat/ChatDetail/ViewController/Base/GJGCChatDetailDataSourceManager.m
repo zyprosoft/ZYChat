@@ -316,31 +316,12 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (NSArray *)deleteMessageAtIndex:(NSInteger)index
 {
-    BOOL isDelete = YES;//数据库完成删除动作
     GJGCChatFriendContentModel *deleteContentModel = [self.chatListArray objectAtIndex:index];
-    isDelete = [self.talkInfo.conversation deleteMessageWithId:deleteContentModel.localMsgId];
+    BOOL isDelete = [self.talkInfo.conversation deleteMessageWithId:deleteContentModel.localMsgId];
     
     NSMutableArray *willDeletePaths = [NSMutableArray array];
     
     if (isDelete) {
-        
-        /* 更新最近联系人列表得最后一条消息 */
-        if (index == self.totalCount - 1 && self.chatContentTotalCount > 1) {
-            
-            GJGCChatFriendContentModel *lastContentAfterDelete = nil;
-            lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index-1];
-            if (lastContentAfterDelete.isTimeSubModel) {
-                
-                if (self.chatContentTotalCount - 1 >= 1) {
-                    
-                    lastContentAfterDelete = (GJGCChatFriendContentModel *)[self contentModelAtIndex:index - 2];
-                    
-                }
-                
-            }
-            
-        }
-        
         NSString *willDeleteTimeSubIdentifier = [self updateMsgContentTimeStringAtDeleteIndex:index];
         
         [self removeChatContentModelAtIndex:index];
