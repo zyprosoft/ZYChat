@@ -871,7 +871,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return YES;
 }
 
-- (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent
+- (void)reSendMessage:(GJGCChatFriendContentModel *)messageContent
 {
     GJCFWeakSelf weakSelf = self;
     EMMessage *message = [self.talkInfo.conversation loadMessageWithId:messageContent.localMsgId];

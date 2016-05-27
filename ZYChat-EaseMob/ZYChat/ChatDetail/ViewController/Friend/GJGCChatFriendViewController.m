@@ -452,8 +452,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
-    
-    [self.dataSourceManager reSendMesssage:contentModel];
+
+    [self.dataSourceManager reSendMessage:contentModel];
 }
 
 - (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell

@@ -223,7 +223,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  *
  *  @param theMessage 重发的消息
  */
-- (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (void)reSendMessage:(GJGCChatFriendContentModel *)messageContent;
 
 /**
  *  消息状态对应关系
