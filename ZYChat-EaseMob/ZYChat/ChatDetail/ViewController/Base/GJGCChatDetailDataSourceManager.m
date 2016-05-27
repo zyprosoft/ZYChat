@@ -535,15 +535,15 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (void)updateTheNewMsgTimeString:(GJGCChatContentBaseModel *)contentModel
 {
-    NSTimeInterval lastSubTimeInteval;
+    NSTimeInterval lastSubTimeInterval;
      GJGCChatFriendContentModel *lastTimeSubModel = [self.timeShowSubArray lastObject];
     if (self.timeShowSubArray.count > 0) {
-        lastSubTimeInteval = lastTimeSubModel.sendTime;
+        lastSubTimeInterval = lastTimeSubModel.sendTime;
     }else{
-        lastSubTimeInteval = 0;
+        lastSubTimeInterval = 0;
     }
     
-    NSString *timeString = [GJGCChatSystemNotiCellStyle timeAgoStringByLastMsgTime:contentModel.sendTime lastMsgTime:lastSubTimeInteval];
+    NSString *timeString = [GJGCChatSystemNotiCellStyle timeAgoStringByLastMsgTime:contentModel.sendTime lastMsgTime:lastSubTimeInterval];
     
     if (timeString) {
         
@@ -1154,9 +1154,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 {
     if ([message.conversationId isEqualToString:self.talkInfo.toId]) {
         
-        GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
+        GJGCChatContentBaseModel *contentModel = [self addEaseMessage:message];
         
-        [self updateTheNewMsgTimeString:contenModel];
+        [self updateTheNewMsgTimeString:contentModel];
         
         dispatch_source_merge_data(_refreshListSource, 1);
     }
