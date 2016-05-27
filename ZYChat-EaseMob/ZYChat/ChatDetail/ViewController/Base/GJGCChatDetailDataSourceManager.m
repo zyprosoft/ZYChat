@@ -1120,10 +1120,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     }
     
     if (findContent && findIndex !=NSNotFound) {
-        
         findContent.sendStatus = status;
-        [self.chatListArray replaceObjectAtIndex:findIndex withObject:findContent];
-        
         [self.delegate dataSourceManagerRequireUpdateListTable:self reloadAtIndex:findIndex];
     }
 }
