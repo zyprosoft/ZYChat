@@ -80,7 +80,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 /**
  *  上一条消息的时间
  */
-@property (nonatomic,assign)long long lastSendMsgTime;
+@property (nonatomic,assign) NSTimeInterval lastSendMsgTime;
 
 /**
  *  当前第一条消息得msgId
