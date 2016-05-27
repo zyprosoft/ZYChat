@@ -935,22 +935,22 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     switch (messageContent.contentType) {
         case GJGCChatFriendContentTypeText:
         {
-            sendMessage = [self sendTextMessage:messageContent];
+            sendMessage = [self buildTextMessage:messageContent];
         }
             break;
         case GJGCChatFriendContentTypeAudio:
         {
-            sendMessage = [self sendAudioMessage:messageContent];
+            sendMessage = [self buildAudioMessage:messageContent];
         }
             break;
         case GJGCChatFriendContentTypeImage:
         {
-            sendMessage = [self sendImageMessage:messageContent];
+            sendMessage = [self buildImageMessage:messageContent];
         }
             break;
         case GJGCChatFriendContentTypeLimitVideo:
         {
-            sendMessage = [self sendVideoMessage:messageContent];
+            sendMessage = [self buildVideoMessage:messageContent];
         }
             break;
         default:
@@ -998,7 +998,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             gifContent.notSupportDisplayText = [NSString stringWithFormat:@"[GIF:%@]请更新你的源代码以支持此表情显示",gifContent.displayText];
             
             messageContent.originTextMessage = gifContent.notSupportDisplayText;
-            sendMessage = [self sendTextMessage:messageContent];
+            sendMessage = [self buildTextMessage:messageContent];
             
             extendInfo.messageContent = gifContent;
             extendInfo.chatFriendContentType = messageContent.contentType;
@@ -1059,7 +1059,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return sendMessage;
 }
 
-- (EMMessage *)sendTextMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)buildTextMessage:(GJGCChatFriendContentModel *)messageContent
 {
     EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:messageContent.originTextMessage];
     NSString *from = [[EMClient sharedClient] currentUsername];
@@ -1068,7 +1068,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return aMessage;
 }
 
-- (EMMessage *)sendAudioMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)buildAudioMessage:(GJGCChatFriendContentModel *)messageContent
 {
     EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithLocalPath:messageContent.audioModel.localStorePath displayName:@"[语音]"];
     body.duration = messageContent.audioModel.duration;
@@ -1078,7 +1078,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return message;
 }
 
-- (EMMessage *)sendImageMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)buildImageMessage:(GJGCChatFriendContentModel *)messageContent
 {
     NSString *filePath = [[GJCFCachePathManager shareManager]mainImageCacheFilePath:messageContent.imageLocalCachePath];
     
@@ -1090,7 +1090,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return message;
 }
 
-- (EMMessage *)sendVideoMessage:(GJGCChatFriendContentModel *)messageContent
+- (EMMessage *)buildVideoMessage:(GJGCChatFriendContentModel *)messageContent
 {
     EMVideoMessageBody *body = [[EMVideoMessageBody alloc] initWithLocalPath:[messageContent.videoUrl relativePath] displayName:@"[短视频]"];
     NSString *from = [[EMClient sharedClient] currentUsername];
