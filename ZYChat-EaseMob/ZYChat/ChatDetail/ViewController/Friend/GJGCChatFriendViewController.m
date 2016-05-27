@@ -917,8 +917,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendTextMessage:(NSString *)text
@@ -945,7 +945,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    BOOL isSuccess = [self.dataSourceManager sendMesssage:chatContentModel];
+    BOOL isSuccess = [self.dataSourceManager sendMessage:chatContentModel];
     
     //速度太快，达到间隔限制
     if (!isSuccess) {
@@ -972,8 +972,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 #pragma mark - Video RecordDelegate
@@ -995,8 +995,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 #pragma mark - GJCUCaptureDelegate
@@ -1238,8 +1238,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
         /* 从talkInfo中绑定更多信息给待发送内容 */
         [self setSendChatContentModelWithTalkInfo:chatContentModel];
-        
-        [self.dataSourceManager sendMesssage:chatContentModel];
+
+        [self.dataSourceManager sendMessage:chatContentModel];
     }
 }
 

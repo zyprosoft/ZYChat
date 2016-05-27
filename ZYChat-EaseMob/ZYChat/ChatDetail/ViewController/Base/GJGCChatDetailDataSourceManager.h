@@ -216,7 +216,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  *
  *  result YES成功 NO:时间间隔限制
  */
-- (BOOL)sendMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (BOOL)sendMessage:(GJGCChatFriendContentModel *)messageContent;
 
 /**
  *  重发一条消息

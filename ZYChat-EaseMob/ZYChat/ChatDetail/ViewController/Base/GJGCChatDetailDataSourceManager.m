@@ -832,7 +832,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     return type;
 }
 
-- (BOOL)sendMesssage:(GJGCChatFriendContentModel *)messageContent
+- (BOOL)sendMessage:(GJGCChatFriendContentModel *)messageContent
 {
     /*
      * 只有文本和gif这类消息会产生速度检测，
@@ -851,11 +851,11 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     }
     
     messageContent.sendStatus = GJGCChatFriendSendMessageStatusSending;
-    EMMessage *mesage = [self sendMessageContent:messageContent];
-    messageContent.messageBody = mesage.body;
-    messageContent.localMsgId = mesage.messageId;
-    messageContent.easeMessageTime = mesage.timestamp;
-    messageContent.sendTime = (NSInteger)(mesage.timestamp/1000);
+    EMMessage *message = [self sendMessageContent:messageContent];
+    messageContent.messageBody = message.body;
+    messageContent.localMsgId = message.messageId;
+    messageContent.easeMessageTime = message.timestamp;
+    messageContent.sendTime = (NSInteger)(message.timestamp/1000);
     [messageContent setupUserInfoByExtendUserContent:[[ZYUserCenter shareCenter]extendUserInfo]];
 
     //收到消息
