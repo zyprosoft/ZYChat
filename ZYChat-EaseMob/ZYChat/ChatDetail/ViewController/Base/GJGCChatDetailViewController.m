@@ -20,7 +20,7 @@
 
 @property (nonatomic,assign)BOOL isPlayingEffects;
 
-@property (nonatomic,strong)dispatch_source_t highSpeedReloadFlushSource;
+@property (nonatomic,strong)dispatch_source_t highSpeedStatusReloadFlushSource;
 
 @end
 
@@ -32,12 +32,12 @@
         
         _talkInfo = talkModel;
         
-        self.highSpeedReloadFlushSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
-        dispatch_source_set_event_handler(self.highSpeedReloadFlushSource, ^{
-            NSInteger index = dispatch_source_get_data(self.highSpeedReloadFlushSource);
-            [self highSpeedUpdateFlushWithIndex:index];
+        self.highSpeedStatusReloadFlushSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+        dispatch_source_set_event_handler(self.highSpeedStatusReloadFlushSource, ^{
+            NSInteger index = dispatch_source_get_data(self.highSpeedStatusReloadFlushSource);
+            [self highSpeedUpdateStatusFlushWithIndex:index];
         });
-        dispatch_resume(self.highSpeedReloadFlushSource);
+        dispatch_resume(self.highSpeedStatusReloadFlushSource);
         
         [self initDataManager];
         
@@ -804,14 +804,14 @@
        
         if (index >= 0 && index < self.dataSourceManager.totalCount) {
             
-            dispatch_source_merge_data(self.highSpeedReloadFlushSource, index);
+            dispatch_source_merge_data(self.highSpeedStatusReloadFlushSource, index);
             
         }
         
     });
 }
 
-- (void)highSpeedUpdateFlushWithIndex:(NSInteger)index
+- (void)highSpeedUpdateStatusFlushWithIndex:(NSInteger)index
 {
     if (index >= 0 && index < self.dataSourceManager.totalCount) {
         
