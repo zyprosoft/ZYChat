@@ -100,13 +100,26 @@
     
     EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)chatContentModel.messageBody;
     
-    [self resetStateWithPrepareSize:imageMessageBody.thumbnailSize];
+    UIImage *thumbnailImage = nil;
+    UIImage *originalImage = nil;
+    NSData *imageData = [NSData dataWithContentsOfFile:imageMessageBody.localPath];
+    if (imageData.length) {
+        originalImage = [UIImage imageWithData:imageData];
+    }
     
-    if (chatContentModel.isFromSelf || imageMessageBody.thumbnailDownloadStatus == EMAttachmentDownloadSuccessed) {
+    if ([imageMessageBody.thumbnailLocalPath length] > 0) {
+        thumbnailImage = [UIImage imageWithContentsOfFile:imageMessageBody.thumbnailLocalPath];
+    } else {
+        thumbnailImage = [self scaleImage:originalImage toScale:0.2];
+    }
+    
+    [self resetStateWithPrepareSize:thumbnailImage.size];
+    
+    if (chatContentModel.isFromSelf || imageMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
         
-        self.contentSize = imageMessageBody.thumbnailSize;
+        self.contentSize = thumbnailImage.size;
         self.contentImageView.gjcf_size = self.contentSize;
-        self.contentImageView.image = GJCFQuickImageByFilePath(imageMessageBody.thumbnailImage.localPath);
+        self.contentImageView.image = thumbnailImage;
         
     }
     
@@ -229,6 +242,14 @@
         return YES;
     }
     return NO; //隐藏系统默认的菜单项
+}
+
+- (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize {
+    UIGraphicsBeginImageContext(CGSizeMake(image.size.width * scaleSize, image.size.height * scaleSize));
+    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height * scaleSize)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
 }
 
 

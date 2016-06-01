@@ -1,1 +1,0 @@
-../../../EaseMobSDKFull/EaseMobSDKFull/include/ChatService/EMChatManager/types/EMGroupStyleSetting.h

@@ -47,7 +47,7 @@
         
         self.sourceArray = [[NSMutableArray alloc]init];
         
-        [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:self.recentChatDataManagerQueue];
+        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:self.recentChatDataManagerQueue];
         
         [GJCFNotificationCenter addObserver:self selector:@selector(observeLoginSuccess:) name:ZYUserCenterLoginEaseMobSuccessNoti object:nil];
 
@@ -57,7 +57,7 @@
 
 - (void)dealloc
 {
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [[EMClient sharedClient].chatManager removeDelegate:self];
     
     [GJCFNotificationCenter removeObserver:self];
 }
@@ -88,8 +88,7 @@
 - (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath
 {
     GJGCRecentChatModel *chatModel = [self contentModelAtIndexPath:indexPath];
-    
-    [[EaseMob sharedInstance].chatManager removeConversationByChatter:chatModel.toId deleteMessages:NO append2Chat:NO];
+    [[EMClient sharedClient].chatManager deleteConversation:chatModel.toId deleteMessages:YES];
     
     [self.sourceArray removeObject:chatModel];
 
@@ -100,8 +99,8 @@
 {
     if ([[ZYUserCenter shareCenter] isLogin]) {
         
-       [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
-        
+       [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
+        [self didUnreadMessagesCountChanged];
     }
 }
 
@@ -123,18 +122,17 @@
 
 - (NSString *)displayContentFromMessageBody:(EMMessage *)theMessage
 {
-    NSArray *bodies = theMessage.messageBodies;
     
-    id<IEMMessageBody> messageBody = [bodies firstObject];
+    EMMessageBody *messageBody = theMessage.body;
     
-    MessageBodyType bodyType = [messageBody messageBodyType];
+    EMMessageBodyType bodyType = messageBody.type;
     
     NSString *resultString = nil;
     switch (bodyType) {
-        case eMessageBodyType_Text:
+        case EMMessageBodyTypeText:
         {
             //根据扩展消息结构体进一步解析
-            GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:[messageBody message].ext];
+            GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
             
             //普通文本消息
             if (!extendModel.isExtendMessageContent || !extendModel) {
@@ -151,14 +149,14 @@
             
         }
             break;
-        case eMessageBodyType_Voice:
+        case EMMessageBodyTypeVoice:
         {
             EMVoiceMessageBody *voiceBody = (EMVoiceMessageBody *)messageBody;
             
             resultString = voiceBody.displayName;
         }
             break;
-        case eMessageBodyType_Image:
+        case EMMessageBodyTypeImage:
         {
             EMImageMessageBody *voiceBody = (EMImageMessageBody *)messageBody;
             
@@ -232,7 +230,7 @@
 
 - (void)didUnreadMessagesCountChanged
 {
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
     if (self.sourceArray.count == 0 && conversations.count == 0) {
         return;
     }
@@ -265,9 +263,9 @@
         for (EMConversation *conversation in sortConversationList) {
             
             GJGCRecentChatModel *chatModel = [[GJGCRecentChatModel alloc]init];
-            chatModel.toId = conversation.chatter;
+            chatModel.toId = conversation.conversationId;
             
-            if (conversation.conversationType == eConversationTypeGroupChat) {
+            if (conversation.type == EMConversationTypeGroupChat) {
                 
                 EMMessage *lastMessage = conversation.latestMessage;
                 
@@ -279,7 +277,7 @@
                     chatModel.groupInfo = groupInfo;
                     
                 }else{
-                    chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
+                    chatModel.name = [GJGCRecentChatStyle formateName:conversation.conversationId];
                     chatModel.headUrl = @"";
                 }
                 
@@ -293,7 +291,7 @@
                 chatModel.unReadCount = conversation.unreadMessagesCount;
             }
             
-            if (conversation.conversationType == eConversationTypeChat) {
+            if (conversation.type == EMConversationTypeChat) {
                 
                 //对方的最近一条消息
                 EMMessage *lastMessage = conversation.latestMessageFromOthers;
@@ -306,16 +304,18 @@
                     
                 }else{
                     
-                    chatModel.name = [GJGCRecentChatStyle formateName:conversation.chatter];
+                    chatModel.name = [GJGCRecentChatStyle formateName:conversation.conversationId];
                     chatModel.headUrl = @"";
                 }
                 
                 chatModel.unReadCount = conversation.unreadMessagesCount;
                 chatModel.isGroupChat = NO;
                 
-                chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
-                chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-                [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                if (conversation.latestMessage) {
+                    chatModel.content = [self displayContentFromMessageBody:conversation.latestMessage];
+                    chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
+                    [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                }
             }
             
             chatModel.conversation = conversation;
@@ -343,9 +343,9 @@
 
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
-    if (connectionState == eEMConnectionDisconnected) {
+    if (connectionState == EMConnectionDisconnected) {
         
-        if (![[EaseMob sharedInstance].chatManager isLoggedIn]) {
+        if (![[EMClient sharedClient] isLoggedIn]) {
             
             [[ZYUserCenter shareCenter] autoLogin];
         }
@@ -358,9 +358,9 @@
 {
     NSInteger findIndex = NSNotFound;
     
-    for (EMConversation *conversation in [[EaseMob sharedInstance].chatManager conversations]) {
+    for (EMConversation *conversation in [[EMClient sharedClient].chatManager getAllConversations]) {
         
-        if ([conversation.chatter isEqualToString:chatter]) {
+        if ([conversation.conversationId isEqualToString:chatter]) {
             
             findIndex = 1;
             break;

@@ -43,7 +43,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             UINavigationControllerDelegate,
                                             GJCFAssetsPickerViewControllerDelegate,
                                             GJCUCaptureViewControllerDelegate,
-                                            IEMChatProgressDelegate,
                                             GJGCVideoRecordViewControllerDelegate
                                           >
 
@@ -81,7 +80,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 //    [self.inputPanel setLastMessageDraft:messageDraft];
     
     /* 陌生人不可发语音 */
-    if (self.dataSourceManager.taklInfo.talkType == GJGCChatFriendTalkTypePrivate) {
+    if (self.dataSourceManager.talkInfo.talkType == GJGCChatFriendTalkTypePrivate) {
         
         if ([(GJGCChatFriendDataSourceManager *)self.dataSourceManager isMyFriend] == NO) {
             
@@ -123,7 +122,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)rightButtonPressed:(id)sender
 {
-//    GJGCPersonInformationViewController *personInformation = [[GJGCPersonInformationViewController alloc]initWithUserId:[self.taklInfo.toId longLongValue] reportType:GJGCReportTypePerson];
+//    GJGCPersonInformationViewController *personInformation = [[GJGCPersonInformationViewController alloc]initWithUserId:[self.talkInfo.toId longLongValue] reportType:GJGCReportTypePerson];
 //    [[GJGCUIStackManager share]pushViewController:personInformation animated:YES];
 //    
     /* 收起输入键盘 */
@@ -143,8 +142,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)initDataManager
 {
-    NSLog(@"self.talkInfo.toId:%@",self.taklInfo.toId);
-    self.dataSourceManager = [[GJGCChatFriendDataSourceManager alloc]initWithTalk:self.taklInfo withDelegate:self];
+    NSLog(@"self.talkInfo.toId:%@",self.talkInfo.toId);
+    self.dataSourceManager = [[GJGCChatFriendDataSourceManager alloc]initWithTalk:self.talkInfo withDelegate:self];
     
 }
 
@@ -372,7 +371,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             
             [imageUrls addObject:imageMessageBody];
 
-            if ([imageMessageBody.uuid isEqualToString:tappedImageMessageBody.uuid]) {
+            // TODO: check uuid
+            if ([imageMessageBody.thumbnailRemotePath isEqualToString:tappedImageMessageBody.thumbnailRemotePath]) {
                 
                 currentImageIndex = imageUrls.count - 1;
                 
@@ -452,8 +452,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 {
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
-    
-    [self.dataSourceManager reSendMesssage:contentModel];
+
+    [self.dataSourceManager reSendMessage:contentModel];
 }
 
 - (void)chatCellDidTapOnHeadView:(GJGCChatBaseCell *)tapedCell
@@ -462,7 +462,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     GJGCChatFriendContentModel  *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
-    EMMessage *theMessage = [contentModel.messageBody message];
+    EMMessage *theMessage = [self.talkInfo.conversation loadMessageWithId:contentModel.localMsgId];
     
     GJGCMessageExtendModel *messageExtendModey = [[GJGCMessageExtendModel alloc]initWithDictionary:theMessage.ext];
     
@@ -550,17 +550,13 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
     }
     
-    id<IEMMessageBody> messageBody = contentModel.messageBody;
-    
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchMessage:[messageBody message]  progress:self completion:^(EMMessage *aMessage, EMError *error) {
-        
+    EMMessage *message = [self.talkInfo.conversation loadMessageWithId:contentModel.localMsgId];
+    [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:message progress:nil completion:^(EMMessage *message, EMError *error) {
         BOOL isSuccess = error? NO:YES;
         
-        [weakSelf downloadFileCompletionForMessage:[messageBody message] successState:isSuccess];
-        
-    } onQueue:nil];
-
+        [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+    }];
 }
 
 - (void)downloadAndPlayMusicAtRowIndex:(NSIndexPath *)rowIndex
@@ -688,21 +684,23 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         return;
     }
     
+    EMMessage *message = [self.talkInfo.conversation loadMessageWithId:contentModel.localMsgId];
+    
     //短视频截图
     if (imageContentModel.contentType == GJGCChatFriendContentTypeLimitVideo) {
         
         EMVideoMessageBody *imageMessageBody = (EMVideoMessageBody *)imageContentModel.messageBody;
         
-        if (imageMessageBody.thumbnailDownloadStatus > EMAttachmentDownloadSuccessed) {
+        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
-            [[EaseMob sharedInstance].chatManager asyncFetchMessage:imageMessageBody.message progress:self completion:^(EMMessage *aMessage, EMError *error) {
+            [[[EMClient sharedClient] chatManager] asyncDownloadMessageThumbnail:message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
                 
                 BOOL isSuccess = error? NO:YES;
                 
                 [weakSelf downloadFileCompletionForMessage:aMessage successState:isSuccess];
                 
-            } onQueue:nil];
+            }];
         }
     }
     
@@ -715,16 +713,16 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
         EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)imageContentModel.messageBody;
         
-        if (imageMessageBody.thumbnailDownloadStatus > EMAttachmentDownloadSuccessed) {
+        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
-            [[EaseMob sharedInstance].chatManager asyncFetchMessage:imageMessageBody.message progress:self completion:^(EMMessage *aMessage, EMError *error) {
+            [[[EMClient sharedClient] chatManager] asyncDownloadMessageThumbnail:message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
                 
                 BOOL isSuccess = error? NO:YES;
                 
                 [weakSelf downloadFileCompletionForMessage:aMessage successState:isSuccess];
                 
-            } onQueue:nil];
+            }];
         }
     }
 }
@@ -775,7 +773,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 - (GJGCChatInputExpandMenuPanelConfigModel *)chatInputPanelRequiredCurrentConfigData:(GJGCChatInputPanel *)panel
 {
     GJGCChatInputExpandMenuPanelConfigModel *configModel = [[GJGCChatInputExpandMenuPanelConfigModel alloc]init];
-    configModel.talkType = self.taklInfo.talkType;
+    configModel.talkType = self.talkInfo.talkType;
     
     return configModel;
 }
@@ -907,20 +905,20 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.contentType = GJGCChatFriendContentTypeAudio;
     chatContentModel.audioModel = audioFile;
     chatContentModel.audioDuration = [GJGCChatFriendCellStyle formateAudioDuration:GJCFStringFromInt(audioFile.duration)];
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.toId = self.talkInfo.toId;
+    chatContentModel.toUserName = self.talkInfo.toUserName;
     chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString([NSDate date])];
     chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
     chatContentModel.isFromSelf = YES;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
     chatContentModel.headUrl = @"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=38ecb37c54fbb2fb347e50167a7a0c92/d01373f082025aafc50dc5eafaedab64034f1ad7.jpg";
     NSDate *sendTime = GJCFDateFromStringByFormat(@"2015-7-15 08:22:11", @"Y-M-d HH:mm:ss");
     chatContentModel.sendTime = [sendTime timeIntervalSince1970];
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel sendTextMessage:(NSString *)text
@@ -937,17 +935,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.originTextMessage = text;
     chatContentModel.emojiInfoArray = [parseTextDict objectForKey:@"imageInfo"];
     chatContentModel.phoneNumberArray = [parseTextDict objectForKey:@"phone"];
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.toId = self.talkInfo.toId;
+    chatContentModel.toUserName = self.talkInfo.toUserName;
     chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString([NSDate date])];
     chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
     chatContentModel.isFromSelf = YES;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
     
-    BOOL isSuccess = [self.dataSourceManager sendMesssage:chatContentModel];
+    BOOL isSuccess = [self.dataSourceManager sendMessage:chatContentModel];
     
     //速度太快，达到间隔限制
     if (!isSuccess) {
@@ -965,17 +963,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
     chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
     chatContentModel.contentType = GJGCChatFriendContentTypeGif;
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.toId = self.talkInfo.toId;
+    chatContentModel.toUserName = self.talkInfo.toUserName;
     chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSending;
     chatContentModel.isFromSelf = YES;
     chatContentModel.gifLocalId = gifCode;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
 
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 #pragma mark - Video RecordDelegate
@@ -988,17 +986,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
     chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
     chatContentModel.contentType = GJGCChatFriendContentTypeLimitVideo;
-    chatContentModel.toId = self.taklInfo.toId;
-    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.toId = self.talkInfo.toId;
+    chatContentModel.toUserName = self.talkInfo.toUserName;
     chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSending;
     chatContentModel.isFromSelf = YES;
     chatContentModel.videoUrl = recordPath;
-    chatContentModel.talkType = self.taklInfo.talkType;
+    chatContentModel.talkType = self.talkInfo.talkType;
     
     /* 从talkInfo中绑定更多信息给待发送内容 */
     [self setSendChatContentModelWithTalkInfo:chatContentModel];
-    
-    [self.dataSourceManager sendMesssage:chatContentModel];
+
+    [self.dataSourceManager sendMessage:chatContentModel];
 }
 
 #pragma mark - GJCUCaptureDelegate
@@ -1233,15 +1231,15 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         chatContentModel.originImageHeight = originHeight;
         chatContentModel.imageLocalCachePath = originPath;
         chatContentModel.thumbImageCachePath = thumbPath;
-        chatContentModel.toId = self.taklInfo.toId;
-        chatContentModel.toUserName = self.taklInfo.toUserName;
+        chatContentModel.toId = self.talkInfo.toId;
+        chatContentModel.toUserName = self.talkInfo.toUserName;
         chatContentModel.isFromSelf = YES;
-        chatContentModel.talkType = self.taklInfo.talkType;
+        chatContentModel.talkType = self.talkInfo.talkType;
         
         /* 从talkInfo中绑定更多信息给待发送内容 */
         [self setSendChatContentModelWithTalkInfo:chatContentModel];
-        
-        [self.dataSourceManager sendMesssage:chatContentModel];
+
+        [self.dataSourceManager sendMessage:chatContentModel];
     }
 }
 
@@ -1348,11 +1346,11 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 #pragma mark - 附件下载策略回调
 
-- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(id<IEMMessageBody>)messageBody
+- (void)setProgress:(float)progress forMessage:(EMMessage *)message forMessageBody:(EMMessageBody *)messageBody
 {
     NSString *msgId = message.messageId;
     
-    if ([messageBody messageBodyType] ==  eMessageBodyType_Image) {
+    if ([messageBody type] ==  EMMessageBodyTypeImage) {
         
         NSInteger resultIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:msgId];
         
@@ -1375,7 +1373,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)downloadFileCompletionForMessage:(EMMessage *)message successState:(BOOL)isSuccess
 {
-    id<IEMFileMessageBody> messageBody = [message.messageBodies firstObject];
+    EMFileMessageBody *messageBody = (EMFileMessageBody *)message.body;
     
     NSString *msgId = message.messageId;
 
@@ -1409,8 +1407,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSInteger rowIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:msgId];
 
     //下载成功处理
-    switch ([messageBody messageBodyType]) {
-        case eMessageBodyType_Image:
+    switch (message.body.type) {
+        case EMMessageBodyTypeImage:
         {
             EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)messageBody;
         
@@ -1428,7 +1426,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             }
         }
             break;
-        case eMessageBodyType_Voice:
+        case EMMessageBodyTypeVoice:
         {
             EMVoiceMessageBody *voiceMessageBody = (EMVoiceMessageBody *)messageBody;
             
@@ -1469,7 +1467,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             }
         }
             break;
-        case eMessageBodyType_Video:
+        case EMMessageBodyTypeVideo:
         {
             EMVideoMessageBody *voiceMessageBody = (EMVideoMessageBody *)messageBody;
             

@@ -1,19 +1,10 @@
 PODS:
-  - EaseMobSDKFull (2.2.1)
+  - HyphenateSDK (3.1.2)
 
 DEPENDENCIES:
-  - EaseMobSDKFull (from `https://github.com/easemob/sdk-ios-cocoapods-integration.git`)
-
-EXTERNAL SOURCES:
-  EaseMobSDKFull:
-    :git: https://github.com/easemob/sdk-ios-cocoapods-integration.git
-
-CHECKOUT OPTIONS:
-  EaseMobSDKFull:
-    :commit: c4a63a69518d396309e8d6c267f2756cac3877ee
-    :git: https://github.com/easemob/sdk-ios-cocoapods-integration.git
+  - HyphenateSDK (~> 3.1.2)
 
 SPEC CHECKSUMS:
-  EaseMobSDKFull: 4a18d6ad47b4ccca564833963511bddd151e1654
+  HyphenateSDK: 456df796ffa73d8cd495eb33680e12273120f2a6
 
 COCOAPODS: 0.39.0

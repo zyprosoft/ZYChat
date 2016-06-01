@@ -5,7 +5,7 @@ platform :ios, '6.0'
 
 target 'ZYChat' do
 
-pod 'EaseMobSDKFull', :git => 'https://github.com/easemob/sdk-ios-cocoapods-integration.git'
+pod 'HyphenateSDK', '~> 3.1.2'
 
 end
 

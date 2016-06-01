@@ -31,7 +31,7 @@
 
 @property (nonatomic,strong)UITableView *chatListTable;
 
-@property (nonatomic,readonly)GJGCChatFriendTalkModel *taklInfo;
+@property (nonatomic,readonly)GJGCChatFriendTalkModel *talkInfo;
 
 - (instancetype)initWithTalkInfo:(GJGCChatFriendTalkModel *)talkModel;
 

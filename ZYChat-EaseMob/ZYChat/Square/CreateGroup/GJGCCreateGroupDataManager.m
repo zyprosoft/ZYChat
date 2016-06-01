@@ -264,7 +264,7 @@
     NSString *errMsg = @"";
     BOOL isValidateParams = YES;
     
-    EMGroupStyleSetting *groupSetting = [[EMGroupStyleSetting alloc]init];
+    EMGroupOptions *groupSetting = [[EMGroupOptions alloc]init];
     
     GJGCGroupInfoExtendModel *groupExtendInfo = [[GJGCGroupInfoExtendModel alloc]init];
     
@@ -290,7 +290,8 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupSetting.groupStyle = [contentModel.groupStyle integerValue];
+                // TODO: check
+                groupSetting.style = [contentModel.groupStyle integerValue];
             }
         }
         
@@ -302,7 +303,7 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupSetting.groupMaxUsersCount = [contentModel.content integerValue];
+                groupSetting.maxUsersCount = [contentModel.content integerValue];
             }
         }
         
@@ -364,7 +365,7 @@
     }
     
     //等级
-    groupExtendInfo.level = [GJGCCreateGroupConst levelForGroupMemberCount:groupSetting.groupMaxUsersCount];
+    groupExtendInfo.level = [GJGCCreateGroupConst levelForGroupMemberCount:groupSetting.maxUsersCount];
     
     //添加时间
     NSString *dateString = GJCFDateToString([NSDate date]);
@@ -375,18 +376,16 @@
     NSString *extendString = [extendData base64Encoding];
     
     //向环信创建群组
-    [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil initialWelcomeMessage:nil styleSetting:groupSetting completion:^(EMGroup *group, EMError *error) {
+    NSError *error = nil;
+    [[EMClient sharedClient].groupManager createGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil message:nil setting:groupSetting error:&error];
+    if (!error) {
         
-        if (!error) {
-            
-            [self.delegate dataManagerDidCreateGroupSuccess:self];
-            
-        }else{
-            
-            BTToast(error.description);
-        }
+        [self.delegate dataManagerDidCreateGroupSuccess:self];
         
-    } onQueue:nil];
+    }else{
+        
+        BTToast(error.description);
+    }
 }
 
 @end

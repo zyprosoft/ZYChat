@@ -1,1 +1,0 @@
-../../../EaseMobSDKFull/EaseMobSDKFull/include/Utility/EMDeviceManager/delegates/internal/EMDeviceManagerDelegateBase.h

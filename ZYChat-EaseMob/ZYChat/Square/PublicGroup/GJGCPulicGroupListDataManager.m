@@ -30,14 +30,16 @@
 - (void)requestListData
 {
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchPublicGroupsFromServerWithCursor:self.loadMoreCursor pageSize:20 andCompletion:^(EMCursorResult *result, EMError *error) {
-        
-        if (!error) {
-            
-            [weakSelf addGroupList:result];
-        }
-        
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        EMError *error = nil;
+        EMCursorResult *result = [[EMClient sharedClient].groupManager getPublicGroupsFromServerWithCursor:self.loadMoreCursor pageSize:20 error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!error) {
+                
+                [weakSelf addGroupList:result];
+            }
+        });
+    });
 }
 
 - (void)addGroupList:(EMCursorResult *)result
@@ -58,7 +60,7 @@
         
         contentModel.groupId = group.groupId;
         
-        NSData *extendData = [group.groupSubject base64DecodedData];
+        NSData *extendData = [group.subject base64DecodedData];
         NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
         
         GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];

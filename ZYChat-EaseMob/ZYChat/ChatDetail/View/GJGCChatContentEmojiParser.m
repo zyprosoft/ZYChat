@@ -238,14 +238,7 @@
         
     }
     
-    BOOL needRenderCache = YES;
-    if (phoneNumberArray.count > 0 || linkArray.count > 0) {
-        needRenderCache = NO;
-    }else{
-        if (imageInfos.count > 7) {
-            needRenderCache = YES;
-        }
-    }
+    BOOL needRenderCache = phoneNumberArray.count == 0 && linkArray.count == 0;
     NSDictionary *resultDict = @{@"contentString":contentAttributedString,@"imageInfo":imageInfos,@"phone":phoneNumberArray,@"url":linkArray,@"needRenderCache":@(needRenderCache)};
     
     return resultDict;

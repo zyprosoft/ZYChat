@@ -66,7 +66,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 @property (nonatomic,strong)NSMutableArray *timeShowSubArray;
 
-@property (nonatomic,readonly)GJGCChatFriendTalkModel *taklInfo;
+@property (nonatomic,readonly)GJGCChatFriendTalkModel *talkInfo;
 
 @property (nonatomic,assign)BOOL isFinishFirstHistoryLoad;
 
@@ -80,7 +80,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 /**
  *  上一条消息的时间
  */
-@property (nonatomic,assign)long long lastSendMsgTime;
+@property (nonatomic,assign) NSTimeInterval lastSendMsgTime;
 
 /**
  *  当前第一条消息得msgId
@@ -102,13 +102,6 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 - (NSArray *)heightForContentModel:(GJGCChatContentBaseModel *)contentModel;
 
 - (CGFloat)rowHeightAtIndex:(NSInteger)index;
-
-/**
- *  更新语音播放状态为已读,子类需要实现
- *
- *  @param localMsgId
- */
-- (void)updateAudioFinishRead:(NSString *)localMsgId;
 
 /**
  *  更新数据源对象，并且会影响数据源高度
@@ -140,7 +133,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  *
  *  @return 
  */
-- (NSNumber *)addChatContentModel:(GJGCChatContentBaseModel *)contentModel;
+- (void)addChatContentModel:(GJGCChatContentBaseModel *)contentModel;
 
 - (void)removeChatContentModelAtIndex:(NSInteger)index;
 
@@ -223,14 +216,14 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  *
  *  result YES成功 NO:时间间隔限制
  */
-- (BOOL)sendMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (BOOL)sendMessage:(GJGCChatFriendContentModel *)messageContent;
 
 /**
  *  重发一条消息
  *
  *  @param theMessage 重发的消息
  */
-- (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent;
+- (void)reSendMessage:(GJGCChatFriendContentModel *)messageContent;
 
 /**
  *  消息状态对应关系
