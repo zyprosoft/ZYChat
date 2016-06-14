@@ -3,8 +3,6 @@ platform :ios, '6.0'
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
-#source ‘https://git.oschina.net/akuandev/Specs.git‘
-
 target 'ZYChat' do
 
 #pod 'EaseMobSDKFull', :git => 'https://github.com/easemob/sdk-ios-cocoapods-integration.git'
