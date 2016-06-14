@@ -291,15 +291,24 @@
         
         [[EMClient sharedClient].groupManager asyncJoinPublicGroup:self.currentGroupId success:^(EMGroup *aGroup) {
             
-            [self.statusHUD dismiss];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.statusHUD dismiss];
+                
+                [self setupGroupIsMember];
+                
+            });
             
             BTToast(@"加入成功");
-
-            [self setupGroupIsMember];
-
+            
         } failure:^(EMError *aError) {
             
-            [self.statusHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.statusHUD dismiss];
+
+            });
             
             BTToast(@"加入失败");
             
@@ -309,13 +318,21 @@
         
         [[EMClient sharedClient].groupManager asyncApplyJoinPublicGroup:self.currentGroupId message:@"想要加入" success:^(EMGroup *aGroup) {
             
-            [self.statusHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.statusHUD dismiss];
 
+            });
+            
             BTToast(@"申请成功");
 
         } failure:^(EMError *aError) {
             
-            [self.statusHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.statusHUD dismiss];
+
+            });
             
             BTToast(@"申请失败");
             
@@ -329,16 +346,25 @@
     [self.statusHUD showWithStatusText:@"正在退出..."];
     [[EMClient sharedClient].groupManager asyncLeaveGroup:self.currentGroupId success:^(EMGroup *aGroup) {
         
-        [self.statusHUD dismiss];
-
-        BTToast(@"退出成功");
+        dispatch_async(dispatch_get_main_queue(), ^{
+          
+            [self.statusHUD dismiss];
+            
+            [self setupGroupNotMember];
+            
+        });
         
-        [self setupGroupNotMember];
+        BTToast(@"退出成功");
+
         
     } failure:^(EMError *aError) {
         
         
-        [self.statusHUD dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.statusHUD dismiss];
+
+        });
         
         BTToast(@"退出失败");
         
