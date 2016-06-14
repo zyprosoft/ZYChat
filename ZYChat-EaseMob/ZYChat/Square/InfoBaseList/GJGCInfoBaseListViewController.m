@@ -96,23 +96,28 @@
 
 - (void)dataManagerRequireRefresh:(GJGCInfoBaseListDataManager *)dataManager
 {
-    [self stopRefresh];
-    [self stopLoadMore];
-    
-    [self.listTable reloadData];
-
-    //清除加载更多
-    if (self.dataManager.totalCount == 0 || self.dataManager.isReachFinish) {
-        [self.refreshFooter removeFromSuperview];
-        self.refreshFooter = nil;
-    }else{
-        if (!self.refreshFooter) {
-            self.refreshFooter = [[GJGCRefreshFooterView alloc]init];
-            self.refreshFooter.delegate = self;
-            [self.listTable addSubview:self.refreshFooter];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self stopRefresh];
+        [self stopLoadMore];
+        
+        [self.listTable reloadData];
+        
+        //清除加载更多
+        if (self.dataManager.totalCount == 0 || self.dataManager.isReachFinish) {
+            [self.refreshFooter removeFromSuperview];
+            self.refreshFooter = nil;
+        }else{
+            if (!self.refreshFooter) {
+                self.refreshFooter = [[GJGCRefreshFooterView alloc]init];
+                self.refreshFooter.delegate = self;
+                [self.listTable addSubview:self.refreshFooter];
+            }
+            [self.refreshFooter resetFrameWithTableView:self.listTable];
         }
-        [self.refreshFooter resetFrameWithTableView:self.listTable];
-    }
+        
+    });
+
 }
 
 #pragma mark - refreshHeaderDelegate

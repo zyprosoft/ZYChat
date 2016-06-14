@@ -34,7 +34,7 @@
     chatContentModel.toId = self.taklInfo.toId;
     chatContentModel.toUserName = self.taklInfo.toUserName;
     chatContentModel.isFromSelf = [aMessage.from isEqualToString:[ZYUserCenter shareCenter].currentLoginUser.mobile]? YES:NO;
-    chatContentModel.sendStatus = [[self easeMessageStateRleations][@(aMessage.deliveryState)]integerValue];
+    chatContentModel.sendStatus = [[self easeMessageStateRleations][@(aMessage.status)]integerValue];
     chatContentModel.sendTime = (NSInteger)(aMessage.timestamp/1000);
     chatContentModel.localMsgId = aMessage.messageId;
     chatContentModel.senderId = aMessage.from;
@@ -54,7 +54,7 @@
         [self addChatContentModel:chatContentModel];
         
         //置为已读
-        [self.taklInfo.conversation markMessageWithId:aMessage.messageId asRead:YES];
+        [self.taklInfo.conversation markMessageAsReadWithId:aMessage.messageId];
     }
 
     return chatContentModel;
@@ -71,9 +71,9 @@
         return;
     }
     
-   //读取最近20条消息
+    //读取最近20条消息
     long long beforeTime = [[NSDate date]timeIntervalSince1970]*1000;
-    NSArray *messages = [self.taklInfo.conversation loadNumbersOfMessages:20 before:beforeTime];
+    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesContain:nil before:beforeTime limit:20 from:nil direction:EMMessageSearchDirectionUp];
     
     for (EMMessage *theMessage in messages) {
         

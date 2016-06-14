@@ -8,7 +8,6 @@
 
 #import "ZYUserCenter.h"
 #import "ZYFriendServiceManager.h"
-#import "EaseMob.h"
 #import "ZYDatabaseManager.h"
 
 #define kZYUserCenterLoginUserDir     @"LoginUserDir"
@@ -174,44 +173,48 @@
 {
     GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(2)});
    
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:mobile password:password completion:^(NSDictionary *loginInfo, EMError *error) {
-        
-        if (!error) {
-        GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(1)});
+    [[EMClient sharedClient] asyncLoginWithUsername:mobile password:password success:^{
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSLog(@"loginUser:%@",loginInfo);
-            
-            if (!self.innerLoginUser) {
-                self.innerLoginUser = [[ZYUserModel alloc]init];
-                self.innerLoginUser.name = mobile;
-                NSString *timeString = GJCFStringCurrentTimeStamp;
-                self.innerLoginUser.nickname = [NSString stringWithFormat:@"至尊宝%@",[timeString substringFromIndex:timeString.length-4]];
-                self.innerLoginUser.headThumb = @"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg";
-                self.innerLoginUser.sex = @"0";
-            }
-            self.innerLoginUser.userId = [loginInfo objectForKey:@"username"];
-            self.innerLoginUser.mobile = self.innerLoginUser.userId;
-            
-            [self saveUserPassword:mobile password:password];
-            [self saveCurrentLoginUser];
-            
-            NSLog(@"登录环信成功");
-            
-            if (success) {
-                success(@"登录环信成功");
-            }
-            
-        }else{
-            
-            NSLog(@"登录环信失败");
-        GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
+            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(1)});
 
-            if (faild) {
-                faild([NSError errorWithDomain:@"com.zychat.error" code:-1999 userInfo:@{@"errMsg":@"登录环信失败"}]);
-            }
+        });
+        
+        if (!self.innerLoginUser) {
+            self.innerLoginUser = [[ZYUserModel alloc]init];
+            self.innerLoginUser.name = mobile;
+            NSString *timeString = GJCFStringCurrentTimeStamp;
+            self.innerLoginUser.nickname = [NSString stringWithFormat:@"至尊宝%@",[timeString substringFromIndex:timeString.length-4]];
+            self.innerLoginUser.headThumb = @"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg";
+            self.innerLoginUser.sex = @"0";
+        }
+        self.innerLoginUser.userId = mobile;
+        self.innerLoginUser.mobile = self.innerLoginUser.userId;
+        
+        [self saveUserPassword:mobile password:password];
+        [self saveCurrentLoginUser];
+        
+        NSLog(@"登录环信成功");
+        
+        if (success) {
+            success(@"登录环信成功");
         }
         
-    } onQueue:nil];
+    } failure:^(EMError *aError) {
+        
+        NSLog(@"登录环信失败");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            GJCFNotificationPostObj(ZYUserCenterLoginEaseMobSuccessNoti,@{@"state":@(0)});
+            
+        });
+        
+        if (faild) {
+            faild([NSError errorWithDomain:@"com.zychat.error" code:-1999 userInfo:@{@"errMsg":@"登录环信失败"}]);
+        }
+        
+    }];
 }
 
 @end

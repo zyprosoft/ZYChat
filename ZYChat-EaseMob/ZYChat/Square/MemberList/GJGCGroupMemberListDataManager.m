@@ -24,18 +24,15 @@
 - (void)requestListData
 {
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncFetchOccupantList:self.groupId completion:^(NSArray *occupantsList, EMError *error) {
+    [[EMClient sharedClient].groupManager asyncFetchGroupInfo:self.groupId includeMembersList:YES success:^(EMGroup *aGroup) {
         
-        if (!error) {
-         
-            [weakSelf addMemberList:occupantsList];
+        [weakSelf addMemberList:aGroup.occupants];
 
-        }else{
-            
-            BTToast(@"群成员列表获取失败");
-        }
+    } failure:^(EMError *aError) {
         
-    } onQueue:nil];
+        BTToast(@"群成员列表获取失败");
+
+    }];
 }
 
 - (void)addMemberList:(NSArray *)list

@@ -202,6 +202,11 @@
         return;
     }
     
+    if (GJCFStringIsNull(self.currentSongMp3Url)) {
+        BTToast(@"没有音乐播放地址");
+        return;
+    }
+    
     self.playButton.selected = !self.playButton.isSelected;
     
     if (self.playButton.isSelected) {
@@ -399,6 +404,12 @@
     NSDictionary *songDict = [songInfo[@"songs"] firstObject][@"album"];
     self.currentSongMp3Url = [songInfo[@"songs"] firstObject][@"mp3Url"];
     self.currentSongAuthor = [songDict[@"artists"]firstObject][@"name"];
+    if (GJCFStringIsNull(self.currentSongMp3Url)) {
+        BTToast(@"没有音乐播放地址");
+        [self.downloadIndicator stopAnimating];
+        self.downloadIndicator.hidden = YES;
+        return;
+    }
     
     NSString *songName = [songInfo[@"songs"] firstObject][@"name"];
     NSString *songId = [songInfo[@"songs"] firstObject][@"id"];

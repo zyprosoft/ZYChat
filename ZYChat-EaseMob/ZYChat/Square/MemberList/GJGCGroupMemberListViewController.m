@@ -51,9 +51,9 @@
     talkModel.toUserName = contentModel.title;
     
     //如果有会话记录才插入这样一条会话，不然就什么都不做
-    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talkModel.toId]) {
+    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talkModel.conversation.conversationId]) {
         
-        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:contentModel.title conversationType:eConversationTypeChat];
+        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:talkModel.conversation.conversationId type:EMConversationTypeChat createIfNotExist:NO];
         talkModel.conversation = conversation;
         
     }

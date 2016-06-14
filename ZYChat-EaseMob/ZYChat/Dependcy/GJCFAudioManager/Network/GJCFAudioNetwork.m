@@ -221,6 +221,10 @@
 
 - (void)downloadAudioFileWithUrl:(NSString *)remoteAudioUrl withConvertSetting:(BOOL)isNeedConvert withSpecialCacheFileName:(NSString *)cacheFileName withFinishDownloadPlayCheck:(BOOL)finishPlay withFileUniqueIdentifier:(NSString **)fileUniqueIdentifier
 {
+    if (GJCFStringIsNull(remoteAudioUrl)) {
+        return;
+    }
+    
     GJCFAudioModel *audioFile = [[GJCFAudioModel alloc]init];
     
     NSString *fileName = [[remoteAudioUrl componentsSeparatedByString:@"/"]lastObject];

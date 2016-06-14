@@ -12,7 +12,10 @@
 
 + (NSArray *)menuBarItems
 {
-    return @[[GJGCChatInputExpandEmojiPanelMenuBarDataSource simpleEmojiItem],[GJGCChatInputExpandEmojiPanelMenuBarDataSource gifEmojiItem]];
+    return @[[GJGCChatInputExpandEmojiPanelMenuBarDataSource simpleEmojiItem],[GJGCChatInputExpandEmojiPanelMenuBarDataSource gifEmojiItem],
+//        [GJGCChatInputExpandEmojiPanelMenuBarDataSource myFavoriteEmojiItem],
+//        [GJGCChatInputExpandEmojiPanelMenuBarDataSource findFunGifEmojiItem]
+             ];
 }
 
 + (NSArray *)commentBarItems
@@ -38,6 +41,32 @@
     GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem *item = [[GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem alloc]init];
     
     item.emojiType = GJGCChatInputExpandEmojiTypeGIF;
+    item.emojiListFilePath = GJCFMainBundlePath(@"gifEmoji.plist");
+    item.faceEmojiIconName = @"抠鼻";
+    item.isNeedShowSendButton = NO;
+    item.isNeedShowRightSideLine = YES;
+    
+    return item;
+}
+
++ (GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem *)myFavoriteEmojiItem
+{
+    GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem *item = [[GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem alloc]init];
+    
+    item.emojiType = GJGCChatInputExpandEmojiTypeMyFavorit;
+    item.emojiListFilePath = GJCFMainBundlePath(@"gifEmoji.plist");
+    item.faceEmojiIconName = @"抠鼻";
+    item.isNeedShowSendButton = NO;
+    item.isNeedShowRightSideLine = YES;
+    
+    return item;
+}
+
++ (GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem *)findFunGifEmojiItem
+{
+    GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem *item = [[GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem alloc]init];
+    
+    item.emojiType = GJGCChatInputExpandEmojiTypeFindFunGif;
     item.emojiListFilePath = GJCFMainBundlePath(@"gifEmoji.plist");
     item.faceEmojiIconName = @"抠鼻";
     item.isNeedShowSendButton = NO;

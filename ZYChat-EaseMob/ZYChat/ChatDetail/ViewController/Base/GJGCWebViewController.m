@@ -46,6 +46,7 @@
     self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
     self.webView.gjcf_height = GJCFSystemScreenHeight - self.contentOriginY;
     self.webView.gjcf_width = GJCFSystemScreenWidth;
+    [self.webView.scrollView setDecelerationRate:UIScrollViewDecelerationRateNormal];
     [self.view addSubview:self.webView];
     
     if (![self.theUrl hasPrefix:@"https://"] && ![self.theUrl hasPrefix:@"http://"]) {

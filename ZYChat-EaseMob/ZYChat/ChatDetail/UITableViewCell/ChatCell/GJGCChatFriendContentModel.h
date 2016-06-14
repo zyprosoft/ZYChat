@@ -127,7 +127,7 @@
 
 @property (nonatomic,assign)long long easeMessageTime;
 
-@property (nonatomic,strong)id<IEMMessageBody> messageBody;
+@property (nonatomic,strong)EMMessage *message;
 
 #pragma mark - 扩展网页消息
 

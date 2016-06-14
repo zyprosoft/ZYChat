@@ -1,0 +1,1 @@
+../../../HyphenateSDK/HyphenateSDK/include/EMSDK.h

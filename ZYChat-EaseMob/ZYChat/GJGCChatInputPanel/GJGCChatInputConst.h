@@ -110,6 +110,14 @@ typedef NS_ENUM(NSUInteger, GJGCChatInputExpandEmojiType) {
      *  GIF表情
      */
     GJGCChatInputExpandEmojiTypeGIF = 1,
+    /**
+     *  收藏的表情
+     */
+    GJGCChatInputExpandEmojiTypeMyFavorit = 2,
+    /**
+     *  去网络添加搞笑表情
+     */
+    GJGCChatInputExpandEmojiTypeFindFunGif = 3,
 };
 
 extern NSString *const GJGCChatInputTextViewRecordSoundMeterNoti;

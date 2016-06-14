@@ -197,6 +197,16 @@
             [self loadGifEmojisWithListPath:item.emojiListFilePath];
         }
             break;
+        case GJGCChatInputExpandEmojiTypeMyFavorit:
+        {
+            
+        }
+            break;
+        case GJGCChatInputExpandEmojiTypeFindFunGif:
+        {
+            
+        }
+            break;
         default:
             break;
     }

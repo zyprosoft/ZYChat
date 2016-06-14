@@ -105,7 +105,7 @@
             break;
     }
     
-    EMMessage *sendMessage = [self sendWebPageWithToUserId:contentModel.conversation.chatter withNotDisplayText:displayText];
+    EMMessage *sendMessage = [self sendWebPageWithToUserId:contentModel.conversation.conversationId withNotDisplayText:displayText];
     
     //添加用户扩展信息
     GJGCMessageExtendModel *extendInfo = [[GJGCMessageExtendModel alloc]init];
@@ -113,7 +113,7 @@
     extendInfo.isExtendMessageContent = NO;
     
     //添加群组扩展信息
-    if (contentModel.conversation.conversationType == eConversationTypeGroupChat) {
+    if (contentModel.conversation.type == EMConversationTypeGroupChat) {
         
         GJGCMessageExtendGroupModel *groupInfo = [[GJGCMessageExtendGroupModel alloc]init];
         
@@ -126,12 +126,12 @@
     }
 
     //设置消息类型
-    switch (contentModel.conversation.conversationType) {
-        case eConversationTypeChat:
-            sendMessage.messageType = eMessageTypeChat;
+    switch (contentModel.conversation.type) {
+        case EMConversationTypeChat:
+            sendMessage.chatType = EMChatTypeChat;
             break;
-        case eConversationTypeGroupChat:
-            sendMessage.messageType = eMessageTypeGroupChat;
+        case EMConversationTypeGroupChat:
+            sendMessage.chatType = EMChatTypeGroupChat;
             break;
         default:
             break;
@@ -194,9 +194,9 @@
     [self.statusHUD showWithStatusText:@"正在发送..."];
     
     GJCFWeakSelf weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncSendMessage:sendMessage progress:nil prepare:^(EMMessage *message, EMError *error) {
+    [[EMClient sharedClient].chatManager asyncSendMessage:sendMessage progress:^(int progress) {
         
-    } onQueue:nil completion:^(EMMessage *message, EMError *error) {
+    } completion:^(EMMessage *message, EMError *error) {
         
         [weakSelf.statusHUD dismiss];
         
@@ -214,16 +214,15 @@
             BTToast(@"发送失败");
         }
         
-    } onQueue:nil];
+    }];
     
 }
 
 - (EMMessage *)sendWebPageWithToUserId:(NSString *)toId withNotDisplayText:(NSString *)displayText
 {
     NSString *notSupportDisplayText = displayText;
-    EMChatText *chatText = [[EMChatText alloc]initWithText:notSupportDisplayText];
-    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithChatObject:chatText];
-    EMMessage *aMessage = [[EMMessage alloc]initWithReceiver:toId bodies:@[messageBody]];
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithText:notSupportDisplayText];
+    EMMessage *aMessage = [[EMMessage alloc]initWithConversationID:toId from:[EMClient sharedClient].currentUsername to:toId body:messageBody ext:nil];
     
     return aMessage;
 }

@@ -264,7 +264,7 @@
     NSString *errMsg = @"";
     BOOL isValidateParams = YES;
     
-    EMGroupStyleSetting *groupSetting = [[EMGroupStyleSetting alloc]init];
+    EMGroupOptions *groupSetting = [[EMGroupOptions alloc]init];
     
     GJGCGroupInfoExtendModel *groupExtendInfo = [[GJGCGroupInfoExtendModel alloc]init];
     
@@ -290,7 +290,7 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupSetting.groupStyle = [contentModel.groupStyle integerValue];
+                groupSetting.style = [contentModel.groupStyle intValue];
             }
         }
         
@@ -302,7 +302,7 @@
                 isValidateParams = NO;
                 break;
             }else{
-                groupSetting.groupMaxUsersCount = [contentModel.content integerValue];
+                groupSetting.maxUsersCount = [contentModel.content integerValue];
             }
         }
         
@@ -364,7 +364,7 @@
     }
     
     //等级
-    groupExtendInfo.level = [GJGCCreateGroupConst levelForGroupMemberCount:groupSetting.groupMaxUsersCount];
+    groupExtendInfo.level = [GJGCCreateGroupConst levelForGroupMemberCount:groupSetting.maxUsersCount];
     
     //添加时间
     NSString *dateString = GJCFDateToString([NSDate date]);
@@ -372,21 +372,18 @@
     
     //使用群简介来丰富群信息
     NSData *extendData = [NSKeyedArchiver archivedDataWithRootObject:[groupExtendInfo toDictionary]];
-    NSString *extendString = [extendData base64Encoding];
+    NSString *extendString = [extendData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    //向环信创建群组
-    [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil initialWelcomeMessage:nil styleSetting:groupSetting completion:^(EMGroup *group, EMError *error) {
+    [[EMClient sharedClient].groupManager asyncCreateGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil message:nil setting:groupSetting success:^(EMGroup *aGroup) {
         
-        if (!error) {
-            
-            [self.delegate dataManagerDidCreateGroupSuccess:self];
-            
-        }else{
-            
-            BTToast(error.description);
-        }
+        [self.delegate dataManagerDidCreateGroupSuccess:self];
+
+    } failure:^(EMError *aError) {
         
-    } onQueue:nil];
+        BTToast(aError.description);
+
+    }];
+    
 }
 
 @end

@@ -28,22 +28,20 @@
 - (NSArray *)labelsArray
 {
     return @[
-             @(eGroupStyle_PublicOpenJoin),
-             @(eGroupStyle_PublicJoinNeedApproval),
-             @(eGroupStyle_PrivateMemberCanInvite),
-             @(eGroupStyle_PrivateOnlyOwnerInvite),
-             @(eGroupStyle_PublicAnonymous),
+             @(EMGroupStylePublicOpenJoin),
+             @(EMGroupStylePublicJoinNeedApproval),
+             @(EMGroupStylePrivateMemberCanInvite),
+             @(EMGroupStylePrivateOnlyOwnerInvite),
              ];
 }
 
 - (NSDictionary *)relationDict
 {
     return @{
-             @(eGroupStyle_PublicOpenJoin) : @"公共群组，任何人可加入",
-             @(eGroupStyle_PublicJoinNeedApproval) : @"公共群组，需管理员同意可加入",
-             @(eGroupStyle_PrivateMemberCanInvite) : @"私有群组，成员可邀请新成员",
-             @(eGroupStyle_PrivateOnlyOwnerInvite) : @"私有群组，只有群主可以邀请新成员",
-             @(eGroupStyle_PublicAnonymous) : @"公开匿名群组，任何人可加入",
+             @(EMGroupStylePublicOpenJoin) : @"公共群组，任何人可加入",
+             @(EMGroupStylePublicJoinNeedApproval) : @"公共群组，需管理员同意可加入",
+             @(EMGroupStylePrivateMemberCanInvite) : @"私有群组，成员可邀请新成员",
+             @(EMGroupStylePrivateOnlyOwnerInvite) : @"私有群组，只有群主可以邀请新成员",
              };
 }
 

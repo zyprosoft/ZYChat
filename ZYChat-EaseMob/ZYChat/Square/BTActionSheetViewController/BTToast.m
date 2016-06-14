@@ -41,30 +41,35 @@
 
 + (void)showToast:(NSString *)title
 {
-    if ([[[UIApplication sharedApplication] keyWindow] viewWithTag:kBTToastViewTag]) {
-        [[[[UIApplication sharedApplication] keyWindow] viewWithTag:kBTToastViewTag] removeFromSuperview];
-    }
-    
-    UIView *toastView = [BTToast toastWithTitle:title];
-    
-    [[[UIApplication sharedApplication] keyWindow]addSubview:toastView];
-    toastView.gjcf_centerX = [[UIApplication sharedApplication] keyWindow].gjcf_width/2;
-    toastView.gjcf_top = GJCFSystemScreenHeight - 120 - toastView.gjcf_height;
-    toastView.alpha = 0.f;
-    
-    [UIView animateWithDuration:0.26 animations:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         
-        toastView.alpha = 1.f;
+        if ([[[UIApplication sharedApplication] keyWindow] viewWithTag:kBTToastViewTag]) {
+            [[[[UIApplication sharedApplication] keyWindow] viewWithTag:kBTToastViewTag] removeFromSuperview];
+        }
         
-    } completion:^(BOOL finished) {
+        UIView *toastView = [BTToast toastWithTitle:title];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[[UIApplication sharedApplication] keyWindow]addSubview:toastView];
+        toastView.gjcf_centerX = [[UIApplication sharedApplication] keyWindow].gjcf_width/2;
+        toastView.gjcf_top = GJCFSystemScreenHeight - 120 - toastView.gjcf_height;
+        toastView.alpha = 0.f;
         
-           [BTToast makeToastHiddenAndRemove];
+        [UIView animateWithDuration:0.26 animations:^{
             
-        });
+            toastView.alpha = 1.f;
+            
+        } completion:^(BOOL finished) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [BTToast makeToastHiddenAndRemove];
+                
+            });
+            
+        }];
         
-    }];
+    });
+
 }
 
 + (void)showToastError:(NSError *)error

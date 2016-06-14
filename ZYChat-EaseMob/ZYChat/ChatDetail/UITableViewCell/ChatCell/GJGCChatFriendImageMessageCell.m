@@ -98,15 +98,15 @@
     GJGCChatFriendContentModel *chatContentModel = (GJGCChatFriendContentModel *)contentModel;
     self.isFromSelf = chatContentModel.isFromSelf;
     
-    EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)chatContentModel.messageBody;
+    EMImageMessageBody *imageMessageBody = (EMImageMessageBody *)chatContentModel.message.body;
     
     [self resetStateWithPrepareSize:imageMessageBody.thumbnailSize];
     
-    if (chatContentModel.isFromSelf || imageMessageBody.thumbnailDownloadStatus == EMAttachmentDownloadSuccessed) {
+    if (chatContentModel.isFromSelf || imageMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
         
         self.contentSize = imageMessageBody.thumbnailSize;
         self.contentImageView.gjcf_size = self.contentSize;
-        self.contentImageView.image = GJCFQuickImageByFilePath(imageMessageBody.thumbnailImage.localPath);
+        self.contentImageView.image = GJCFQuickImageByFilePath(imageMessageBody.thumbnailLocalPath);
         
     }
     

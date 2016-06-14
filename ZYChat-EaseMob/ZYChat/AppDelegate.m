@@ -12,7 +12,6 @@
 #import "GJGCPublicGroupListViewController.h"
 #import "HALoginViewController.h"
 #import "BTTabBarRootController.h"
-#import "EaseMob.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -31,7 +30,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     //注册环信
-    [[EaseMob sharedInstance] registerSDKWithAppKey:EaseMobAppKey  apnsCertName:@"zychat_apns"];
+    EMOptions *options = [EMOptions optionsWithAppkey:EaseMobAppKey];
+    options.apnsCertName = @"zychat_apns";
+    [[EMClient sharedClient] initializeSDKWithOptions:options];
+    [[EMClient sharedClient] dataMigrationTo3];
     
     HALoginViewController *loginVC = [[HALoginViewController alloc]init];
     loginVC.title = @"iOS码农之家";
@@ -119,12 +121,13 @@
 
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    
+    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+
 }
 
 // 注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
     NSLog(@"error -- %@",error);
 }
 
