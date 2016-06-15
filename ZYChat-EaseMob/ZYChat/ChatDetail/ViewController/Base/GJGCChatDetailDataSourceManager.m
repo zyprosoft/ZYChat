@@ -855,6 +855,12 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 msgModel.body = voiceMessageBody;
             }
             
+            NSString *nLocalPath = voiceMessageBody.localPath;
+            if (![voiceMessageBody.localPath.lastPathComponent hasSuffix:@"mp4"]) {
+                nLocalPath = [voiceMessageBody.localPath stringByAppendingPathExtension:@"mp4"];
+                [GJCFFileManager moveItemAtURL:[NSURL fileURLWithPath:voiceMessageBody.localPath] toURL:[NSURL fileURLWithPath:nLocalPath] error:nil];
+                voiceMessageBody.localPath = nLocalPath;
+            }
             chatContentModel.videoUrl = [NSURL fileURLWithPath:voiceMessageBody.localPath];
             
         }

@@ -212,29 +212,27 @@
 
 - (void)stopAction
 {
-    
+//    [self pause];
 }
 
 - (void)playAction
 {
-    
+//    [self resume];
 }
 
 - (void)pause
 {
-    self.contentImageView.hidden = NO;
-    self.player.view.hidden = YES;
-    [self.player pauseContent];
+//    [self.player pauseContent];
 }
 
 - (void)resume
 {
     self.contentImageView.hidden = YES;
     self.player.view.hidden = NO;
-    if (self.player.streamURL==nil) {
+    if (!self.player.isPlayingVideo && self.videoUrl) {
         [self.player  loadVideoWithStreamURL:self.videoUrl];
     }else{
-        [self.player playContent];
+//        [self.player playContent];
     }
 }
 

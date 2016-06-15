@@ -695,7 +695,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         
         EMVideoMessageBody *imageMessageBody = (EMVideoMessageBody *)imageContentModel.message.body;
         
-        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
+        if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed || imageMessageBody.downloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
             [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:imageContentModel.message progress:^(int progress) {
@@ -709,6 +709,12 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                 
             } completion:^(EMMessage *message, EMError *error) {
                 
+                NSString *nLocalPath = imageMessageBody.localPath;
+                if (![imageMessageBody.localPath.lastPathComponent hasSuffix:@"mp4"]) {
+                    nLocalPath = [imageMessageBody.localPath stringByAppendingPathExtension:@"mp4"];
+                    [GJCFFileManager moveItemAtURL:[NSURL fileURLWithPath:imageMessageBody.localPath] toURL:[NSURL fileURLWithPath:nLocalPath] error:nil];
+                    imageMessageBody.localPath = nLocalPath;
+                }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     BOOL isSuccess = error? NO:YES;
@@ -733,8 +739,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         if (imageMessageBody.thumbnailDownloadStatus > EMDownloadStatusSuccessed) {
             
             GJCFWeakSelf weakSelf = self;
-            [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:imageContentModel.message progress:^(int progress) {
-                
+            [[EMClient sharedClient].chatManager asyncDownloadMessageThumbnail:imageContentModel.message progress:^(int progress) {
+                    
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self setProgress:progress forMessage:imageContentModel.message forMessageBody:imageContentModel.message.body];
@@ -1578,26 +1584,22 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                 
                 contentModel.videoUrl = [NSURL fileURLWithPath:voiceMessageBody.localPath];
                 
-                NSLog(@"videoModel:%@",contentModel.audioModel);
+                NSLog(@"videoModel:%@",contentModel.videoUrl);
                 
-                /* 如果是当前正点击播放的cell */
-                if ([msgId isEqualToString:self.playingAudioMsgId]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:0];
+                
+                contentModel.isPlayingVideo = YES;
+                
+                [self.dataSourceManager updateContentModelValuesNotEffectRowHeight:contentModel atIndex:rowIndex];
+                
+                if ([[self.chatListTable indexPathsForVisibleRows] containsObject:indexPath]) {
                     
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:0];
+                    GJGCChatFriendVideoCell *playingCell = (GJGCChatFriendVideoCell *)[self.chatListTable cellForRowAtIndexPath:indexPath];
                     
-                    contentModel.isPlayingVideo = YES;
-                    
-                    [self.dataSourceManager updateContentModelValuesNotEffectRowHeight:contentModel atIndex:rowIndex];
-                    
-                    if ([[self.chatListTable indexPathsForVisibleRows] containsObject:indexPath]) {
+                    if ([playingCell isKindOfClass:[GJGCChatFriendVideoCell class]]) {
                         
-                        GJGCChatFriendVideoCell *playingCell = (GJGCChatFriendVideoCell *)[self.chatListTable cellForRowAtIndexPath:indexPath];
+                        [playingCell playAction];
                         
-                        if ([playingCell isKindOfClass:[GJGCChatFriendVideoCell class]]) {
-                            
-                            [playingCell playAction];
-                            
-                        }
                     }
                 }
             }
