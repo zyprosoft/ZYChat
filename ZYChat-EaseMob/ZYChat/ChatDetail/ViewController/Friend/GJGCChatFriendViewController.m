@@ -714,6 +714,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                     nLocalPath = [imageMessageBody.localPath stringByAppendingPathExtension:@"mp4"];
                     [GJCFFileManager moveItemAtURL:[NSURL fileURLWithPath:imageMessageBody.localPath] toURL:[NSURL fileURLWithPath:nLocalPath] error:nil];
                     imageMessageBody.localPath = nLocalPath;
+                    [self.taklInfo.conversation updateMessage:message];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     

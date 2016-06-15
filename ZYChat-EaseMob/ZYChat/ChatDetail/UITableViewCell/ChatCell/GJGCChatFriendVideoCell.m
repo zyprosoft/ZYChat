@@ -217,7 +217,7 @@
 
 - (void)playAction
 {
-//    [self resume];
+    [self resume];
 }
 
 - (void)pause
