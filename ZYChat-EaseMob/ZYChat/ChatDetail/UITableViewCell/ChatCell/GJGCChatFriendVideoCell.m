@@ -40,6 +40,12 @@
         self.progressView.hidden = YES;
         [self.contentImageView addSubview:self.progressView];
         
+        self.player = [[VKVideoPlayer alloc] init];
+        self.player.view.frame = self.contentImageView.frame;
+        self.player.playerControlsEnabled = NO;
+        self.player.view.playerControlsAutoHideTime = @(0.01);
+        [self.bubbleBackImageView addSubview:self.player.view];
+        self.player.view.hidden =YES;
     }
     return self;
 }
@@ -97,7 +103,8 @@
     
     GJGCChatFriendContentModel *chatContentModel = (GJGCChatFriendContentModel *)contentModel;
     self.isFromSelf = chatContentModel.isFromSelf;
-    
+    self.videoUrl = chatContentModel.videoUrl;
+
     EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody *)chatContentModel.message.body;
     
     [self resetStateWithPrepareSize:videoMessageBody.thumbnailSize];
@@ -125,6 +132,7 @@
         
         self.contentImageView.gjcf_right = self.bubbleBackImageView.gjcf_width - 6;
     }
+    self.player.view.frame = self.contentImageView.frame;
 }
 
 - (void)goToShowLongPressMenu:(UILongPressGestureRecognizer *)sender
@@ -210,6 +218,24 @@
 - (void)playAction
 {
     
+}
+
+- (void)pause
+{
+    self.contentImageView.hidden = NO;
+    self.player.view.hidden = YES;
+    [self.player pauseContent];
+}
+
+- (void)resume
+{
+    self.contentImageView.hidden = YES;
+    self.player.view.hidden = NO;
+    if (self.player.streamURL==nil) {
+        [self.player  loadVideoWithStreamURL:self.videoUrl];
+    }else{
+        [self.player playContent];
+    }
 }
 
 @end

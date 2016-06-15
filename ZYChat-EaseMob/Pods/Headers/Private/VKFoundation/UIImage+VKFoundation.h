@@ -1,0 +1,1 @@
+../../../VKFoundation/Classes/ios/UIImage+VKFoundation.h

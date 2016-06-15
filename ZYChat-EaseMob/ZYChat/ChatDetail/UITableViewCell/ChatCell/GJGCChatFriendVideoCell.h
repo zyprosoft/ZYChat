@@ -7,10 +7,13 @@
 //
 
 #import "GJGCChatFriendBaseCell.h"
+#import "VKVideoPlayer.h"
 
 @interface GJGCChatFriendVideoCell : GJGCChatFriendBaseCell
 
 @property (nonatomic,copy)NSString *imgUrl;
+
+@property (nonatomic,copy)NSURL *videoUrl;
 
 @property (nonatomic,strong)UIImageView *contentImageView;
 
@@ -19,6 +22,8 @@
 @property (nonatomic,strong)GJCUProgressView *progressView;
 
 @property (nonatomic,assign)CGFloat downloadProgress;
+
+@property (nonatomic,strong)VKVideoPlayer *player;
 
 - (void)resetState;
 

@@ -1,0 +1,1 @@
+../../../VKVideoPlayer/Classes/ios/VKVideoPlayerSettingsManager.h

@@ -9,6 +9,8 @@ target 'ZYChat' do
 
 pod 'HyphenateSDK', '~> 3.1.2'
 
+pod 'VKVideoPlayer', '~> 0.1.1'
+
 end
 
 target 'ZYChatTests' do
