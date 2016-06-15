@@ -1,1 +1,0 @@
-../../../HyphenateSDK/HyphenateSDK/include/EMGroupManagerDelegate.h

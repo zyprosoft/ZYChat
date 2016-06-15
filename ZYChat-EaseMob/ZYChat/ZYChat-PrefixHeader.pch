@@ -14,7 +14,7 @@
 
 #ifdef __OBJC__
 
-#import <HyphenateSDK/EMSDK.h>
+#import <HyphenateFullSDK/EMSDKFull.h>
 
 #import "BTToast.h"
 
