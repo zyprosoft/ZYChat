@@ -26,11 +26,13 @@
 #import "GJGCWebHostListViewController.h"
 #import "GJGCMusicPlayViewController.h"
 #import "GJGCAppWallViewController.h"
-#import "GJGCVideoRecordViewController.h"
+#import "GJGCVideoPlayerViewController.h"
 #import "GJGCChatFriendVideoCell.h"
 #import "GJGCChatFriendMusicShareCell.h"
 #import "GJGCRecentContactListViewController.h"
 #import "WechatShortVideoController.h"
+#import "GJGCVideoPlayerViewController.h"
+#import "AppDelegate.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -44,7 +46,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             UINavigationControllerDelegate,
                                             GJCFAssetsPickerViewControllerDelegate,
                                             GJCUCaptureViewControllerDelegate,
-                                            GJGCVideoRecordViewControllerDelegate,
+                                            GJGCVideoPlayerViewControllerDelegate,
                                             WechatShortVideoDelegate
                                           >
 
@@ -344,9 +346,12 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)videoMessageCellDidTap:(GJGCChatBaseCell *)tapedCell
 {
-    GJGCChatFriendVideoCell *videoCell = (GJGCChatFriendVideoCell *)tapedCell;
-    
-    [videoCell playAction];
+    NSIndexPath *tappIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tappIndexPath.row];
+    GJGCVideoPlayerViewController *player = [[GJGCVideoPlayerViewController alloc]initWithDelegate:self withVideoUrl:contentModel.videoUrl];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:player];
+    [nav.navigationBar setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], nav.navigationBar.gjcf_size) forBarMetrics:UIBarMetricsDefault];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)imageMessageCellDidTap:(GJGCChatBaseCell *)tapedCell
@@ -1084,7 +1089,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 #pragma mark - Video RecordDelegate
 
-- (void)videoRecordViewController:(GJGCVideoRecordViewController *)recordVC didFinishRecordWithResult:(NSURL *)recordPath
+- (void)videoRecordViewController:(GJGCVideoPlayerViewController *)recordVC didFinishRecordWithResult:(NSURL *)recordPath
 {
     [recordVC dismissViewControllerAnimated:YES completion:nil];
 

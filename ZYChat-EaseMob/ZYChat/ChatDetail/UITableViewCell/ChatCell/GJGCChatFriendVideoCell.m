@@ -25,9 +25,7 @@
         self.contentImageView.image = GJCFImageStrecth([UIImage imageNamed:@"IM聊天页-占位图-BG.png"], 2, 2);
         self.contentImageView.gjcf_size = (CGSize){160,160};
         self.contentImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnContentImageView)];
-        tapR.numberOfTapsRequired = 1;
-        [self.bubbleBackImageView addGestureRecognizer:tapR];
+        
         [self.bubbleBackImageView addSubview:self.contentImageView];
         
         self.blankImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"IM聊天页-占位图"]];
@@ -46,6 +44,10 @@
         self.player.view.playerControlsAutoHideTime = @(0.01);
         [self.bubbleBackImageView addSubview:self.player.view];
         self.player.view.hidden =YES;
+        
+        UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnContentImageView)];
+        tapR.numberOfTapsRequired = 1;
+        [self.bubbleBackImageView addGestureRecognizer:tapR];
     }
     return self;
 }
