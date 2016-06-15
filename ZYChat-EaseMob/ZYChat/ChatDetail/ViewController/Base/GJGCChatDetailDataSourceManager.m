@@ -19,8 +19,6 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 @interface GJGCChatDetailDataSourceManager ()<EMChatManagerDelegate>
 
-@property (nonatomic,strong)dispatch_queue_t messageSenderQueue;
-
 @property (nonatomic,strong)dispatch_source_t refreshListSource;
 
 @end
@@ -36,9 +34,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
         _uniqueIdentifier = [NSString stringWithFormat:@"GJGCChatDetailDataSourceManager_%@",GJCFStringCurrentTimeStamp];
         
         self.delegate = aDelegate;
-        
+        self.taskQueue = dispatch_queue_create("GJGCChatDetailBaseTaskQueue", DISPATCH_QUEUE_SERIAL);
         //注册监听
-        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:_messageSenderQueue];
+        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
         
         //观察转发消息
         [GJCFNotificationCenter addObserver:self selector:@selector(observeForwardSendMessage:) name:GJGCChatForwardMessageDidSendNoti object:nil];
@@ -51,6 +49,8 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
         self.sendTimeLimit = 500;
         
         [self initState];
+        
+        [self readLastMessagesFromDB];
         
     }
     return self;
@@ -118,13 +118,9 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 
 - (void)initState
 {
-    if (!self.messageSenderQueue) {
-        self.messageSenderQueue = dispatch_queue_create("_gjgc_message_sender_queue", DISPATCH_QUEUE_SERIAL);
-    }
-    
     //缓冲刷新
     if (!self.refreshListSource) {
-        self.refreshListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, _messageSenderQueue);
+        self.refreshListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
         dispatch_source_set_event_handler(_refreshListSource, ^{
            
             [self dispatchOptimzeRefresh];
@@ -737,7 +733,8 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             EMImageMessageBody *imageBody = (EMImageMessageBody *)messageBody;
             if (imageBody.thumbnailLocalPath && CGSizeEqualToSize(CGSizeZero, imageBody.thumbnailSize)) {
                 UIImage *thumb = [UIImage imageWithContentsOfFile:imageBody.thumbnailLocalPath];
-                CGFloat maxScale = thumb.size.width/GJCFSystemScreenWidth > 0.6? 0.6:thumb.size.width/GJCFSystemScreenWidth;
+                CGSize size = thumb.size;
+                CGFloat maxScale = size.width * size.height > 200 * 200 ? sqrt((200 * 200) / (size.width * size.height)):1.0;
                 CGFloat thumbWidth = thumb.size.width*maxScale;
                 CGFloat thumbHeight = thumb.size.height*maxScale;
                 imageBody.thumbnailSize = CGSizeMake(thumbWidth, thumbHeight);
@@ -848,6 +845,15 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             chatContentModel.contentType = GJGCChatFriendContentTypeLimitVideo;
             
             EMVideoMessageBody *voiceMessageBody = (EMVideoMessageBody *)messageBody;
+            if (voiceMessageBody.thumbnailLocalPath && CGSizeEqualToSize(CGSizeZero, voiceMessageBody.thumbnailSize)) {
+                UIImage *thumb = [UIImage imageWithContentsOfFile:voiceMessageBody.thumbnailLocalPath];
+                CGSize size = thumb.size;
+                CGFloat maxScale = size.width * size.height > 200 * 200 ? sqrt((200 * 200) / (size.width * size.height)):1.0;
+                CGFloat thumbWidth = thumb.size.width*maxScale;
+                CGFloat thumbHeight = thumb.size.height*maxScale;
+                voiceMessageBody.thumbnailSize = CGSizeMake(thumbWidth, thumbHeight);
+                msgModel.body = voiceMessageBody;
+            }
             
             chatContentModel.videoUrl = [NSURL fileURLWithPath:voiceMessageBody.localPath];
             
@@ -1077,6 +1083,8 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     sendMessage.status = EMMessageStatusDelivering;
     [[EMClient sharedClient].chatManager asyncSendMessage:sendMessage progress:^(int progress) {
         
+        NSLog(@"progress:%d",progress);
+        
     } completion:^(EMMessage *message, EMError *error) {
       
         GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
@@ -1147,6 +1155,14 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 - (EMMessage *)sendVideoMessage:(GJGCChatFriendContentModel *)messageContent
 {
     EMVideoMessageBody *messageBody = [[EMVideoMessageBody alloc] initWithLocalPath:messageContent.videoUrl.relativePath displayName:@"[短视频]"];
+    if (messageBody.thumbnailLocalPath) {
+        UIImage *thumb = [UIImage imageWithContentsOfFile:messageBody.thumbnailLocalPath];
+        CGSize size = thumb.size;
+        CGFloat maxScale = size.width * size.height > 200 * 200 ? sqrt((200 * 200) / (size.width * size.height)):1.0;
+        CGFloat thumbWidth = thumb.size.width*maxScale;
+        CGFloat thumbHeight = thumb.size.height*maxScale;
+        messageBody.thumbnailSize = CGSizeMake(thumbWidth, thumbHeight);
+    }
     
     return [self buildMessageWithBody:messageBody];
 }
@@ -1201,20 +1217,23 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 {
     EMMessage *message = noti.object;
     
-    [self didReceiveMessage:message];
+    [self didReceiveMessages:@[message]];
 }
 
 #pragma mark - 接收消息回调
 
-- (void)didReceiveMessage:(EMMessage *)message
+- (void)didReceiveMessages:(NSArray *)aMessages
 {
-    if ([message.conversationId isEqualToString:self.taklInfo.conversation.conversationId]) {
+    for (EMMessage *message in aMessages) {
         
-        GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
-        
-        [self updateTheNewMsgTimeString:contenModel];
-        
-        dispatch_source_merge_data(_refreshListSource, 1);
+        if ([message.conversationId isEqualToString:self.taklInfo.conversation.conversationId]) {
+            
+            GJGCChatContentBaseModel *contenModel = [self addEaseMessage:message];
+            
+            [self updateTheNewMsgTimeString:contenModel];
+            
+            dispatch_source_merge_data(_refreshListSource, 1);
+        }
     }
 }
 

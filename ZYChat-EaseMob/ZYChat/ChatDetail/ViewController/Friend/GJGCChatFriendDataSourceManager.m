@@ -30,8 +30,6 @@
         
         _isMyFriend = YES;
         
-        [self readLastMessagesFromDB];
-        
     }
     return self;
 }
@@ -82,8 +80,7 @@
     
     //读取最近的20条消息
     long long beforeTime = [[NSDate date]timeIntervalSince1970]*1000;
-    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesContain:nil before:beforeTime limit:20 from:nil direction:EMMessageSearchDirectionUp];
-
+    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesContain:nil before:beforeTime limit:10 from:nil direction:EMMessageSearchDirectionUp];
     
     for (EMMessage *theMessage in messages) {
         

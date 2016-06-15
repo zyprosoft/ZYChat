@@ -61,6 +61,8 @@
 
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource flowerMenuPanelItem]];
 
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource videoRecordMenuPanelItem]];
+
     return dataSource;
 }
 

@@ -1,400 +1,1352 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		7440549096C1016986EB94CFE27D2612 /* Pods-ZYChat-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E3D3C839BCCFADFAF914D7681AB12D /* Pods-ZYChat-dummy.m */; };
-		FA2D5971B45A05681FB0F162CE4DE50F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXFileReference section */
-		0AB3B70D4281A9E40951C609255D3145 /* libcurl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcurl.a; path = HyphenateSDK/lib/3rdparty/libcurl.a; sourceTree = "<group>"; };
-		13E396175CB2054B16F4ECB2F05DE867 /* EMTextMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMTextMessageBody.h; path = HyphenateSDK/include/EMTextMessageBody.h; sourceTree = "<group>"; };
-		19DC31954E7D70F33512D8846A95E550 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroomManagerDelegate.h; path = HyphenateSDK/include/EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
-		28F861CCC25F1D53C2DAA7642F52612E /* EMErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMErrorCode.h; path = HyphenateSDK/include/EMErrorCode.h; sourceTree = "<group>"; };
-		35184B65FE0D8B42179417AB2C93C122 /* libHyphenateSDK_arm64.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateSDK_arm64.a; path = HyphenateSDK/lib/libHyphenateSDK_arm64.a; sourceTree = "<group>"; };
-		3761C2B241FB86D5E362BABCCA331AB1 /* EMOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMOptions.h; path = HyphenateSDK/include/EMOptions.h; sourceTree = "<group>"; };
-		3BBA40A2EE94F34B02A220F48A6055EB /* EMGroupManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupManagerDelegate.h; path = HyphenateSDK/include/EMGroupManagerDelegate.h; sourceTree = "<group>"; };
-		3DAB5C81ED60CDDF087289EE90610EC4 /* EMFileMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMFileMessageBody.h; path = HyphenateSDK/include/EMFileMessageBody.h; sourceTree = "<group>"; };
-		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		40BE174B2FF91A94347EFF0CF606C6AF /* EMOptions+PrivateDeploy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMOptions+PrivateDeploy.h"; path = "HyphenateSDK/include/EMOptions+PrivateDeploy.h"; sourceTree = "<group>"; };
-		4270F40E907BC18BEA1376D9CC099BC3 /* libHyphenateSDK_x86_64.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateSDK_x86_64.a; path = HyphenateSDK/lib/libHyphenateSDK_x86_64.a; sourceTree = "<group>"; };
-		438F56B9ABD0FA9FF29768AD93DED96A /* EMContactManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMContactManagerDelegate.h; path = HyphenateSDK/include/EMContactManagerDelegate.h; sourceTree = "<group>"; };
-		4394A927C4E2B38AD2C780F05580D89B /* Pods-ZYChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZYChat.release.xcconfig"; sourceTree = "<group>"; };
-		4A8BA11E10A837A8AF78A5144AD23042 /* EMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMConversation.h; path = HyphenateSDK/include/EMConversation.h; sourceTree = "<group>"; };
-		5BC0A812542873E7B533735E68E53BF1 /* Pods-ZYChat-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZYChat-acknowledgements.markdown"; sourceTree = "<group>"; };
-		5C1031D7D38437CA2B9356194EFD9068 /* EMGroup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroup.h; path = HyphenateSDK/include/EMGroup.h; sourceTree = "<group>"; };
-		608D2B697276F11180518AB655DF2932 /* IEMChatroomManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatroomManager.h; path = HyphenateSDK/include/IEMChatroomManager.h; sourceTree = "<group>"; };
-		64D6AC7D01992608FAA937E195A94B62 /* EMClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClient.h; path = HyphenateSDK/include/EMClient.h; sourceTree = "<group>"; };
-		6789E9057A1970B79C8C770E681AEF35 /* OpenGLView20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenGLView20.h; path = HyphenateSDK/include/OpenGLView20.h; sourceTree = "<group>"; };
-		682E1247315F949113FC2C6DD5C6C757 /* EMError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMError.h; path = HyphenateSDK/include/EMError.h; sourceTree = "<group>"; };
-		6F4550E88103272D372E5D8EDDAEF9DD /* EMCallLocalView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallLocalView.h; path = HyphenateSDK/include/EMCallLocalView.h; sourceTree = "<group>"; };
-		718AFD47D4CC36EF5986133EEFF8F5F6 /* IEMCallManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMCallManager.h; path = HyphenateSDK/include/IEMCallManager.h; sourceTree = "<group>"; };
-		74AA4F6DBAF21A3E3D784B90B476FAB1 /* EMLocationMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMLocationMessageBody.h; path = HyphenateSDK/include/EMLocationMessageBody.h; sourceTree = "<group>"; };
-		750F485B1270B66A7603EFBBF81E6371 /* EMClientDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClientDelegate.h; path = HyphenateSDK/include/EMClientDelegate.h; sourceTree = "<group>"; };
-		765AF47CEFE56B8C3AF4A3A30DD07147 /* EMImageMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMImageMessageBody.h; path = HyphenateSDK/include/EMImageMessageBody.h; sourceTree = "<group>"; };
-		871C43C798C1CDE1E28A286BD85271FA /* EMClient+Call.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMClient+Call.h"; path = "HyphenateSDK/include/EMClient+Call.h"; sourceTree = "<group>"; };
-		8913A95119EE5237804C9EDE3123C9CF /* libPods-ZYChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZYChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DB1AC14DC944C88F8EBD24D79C35EE6 /* EMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessage.h; path = HyphenateSDK/include/EMMessage.h; sourceTree = "<group>"; };
-		8F45A4A45B2EB2108B1C129F1027B69F /* IEMChatManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatManager.h; path = HyphenateSDK/include/IEMChatManager.h; sourceTree = "<group>"; };
-		8F8EAB92D32215BE105CA2845EB33D2A /* Pods-ZYChat-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZYChat-acknowledgements.plist"; sourceTree = "<group>"; };
-		9700C0919FA90905C3C4E685068B44BB /* IEMGroupManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMGroupManager.h; path = HyphenateSDK/include/IEMGroupManager.h; sourceTree = "<group>"; };
-		9DB66F199CC03E80184FC7DCB885CBC5 /* libHyphenateSDK_armv7.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateSDK_armv7.a; path = HyphenateSDK/lib/libHyphenateSDK_armv7.a; sourceTree = "<group>"; };
-		A1616A22C24F81BDC0F592368A110C3D /* EMSDKFull.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDKFull.h; path = HyphenateSDK/include/EMSDKFull.h; sourceTree = "<group>"; };
-		A414E93B2BC3D139398227CADADF2773 /* libcrypto.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcrypto.a; path = HyphenateSDK/lib/3rdparty/libcrypto.a; sourceTree = "<group>"; };
-		A49512F07D79463293A0CE057F23B92E /* Pods-ZYChat-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZYChat-resources.sh"; sourceTree = "<group>"; };
-		A4C96BA56EA33D46162687F6495B4C26 /* EMGroupOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupOptions.h; path = HyphenateSDK/include/EMGroupOptions.h; sourceTree = "<group>"; };
-		AE085FA85E88A92CBEA8F486290703A7 /* Pods-ZYChat-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZYChat-frameworks.sh"; sourceTree = "<group>"; };
-		AE954D3DB2CBEF516AC44F296AC737AD /* libHyphenateSDK_armv7s.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateSDK_armv7s.a; path = HyphenateSDK/lib/libHyphenateSDK_armv7s.a; sourceTree = "<group>"; };
-		AF7D935F635E24C0901F91417AD5E809 /* EMCallSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallSession.h; path = HyphenateSDK/include/EMCallSession.h; sourceTree = "<group>"; };
-		B1F0C65F314271A3E931BD6CF4EAEF25 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallManagerDelegate.h; path = HyphenateSDK/include/EMCallManagerDelegate.h; sourceTree = "<group>"; };
-		B95BA61443F8CAB97B35B5DD1CBC0E6D /* EMSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDK.h; path = HyphenateSDK/include/EMSDK.h; sourceTree = "<group>"; };
-		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BB8AC888C3AF64DA1B4A5236C7C41254 /* EMVoiceMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVoiceMessageBody.h; path = HyphenateSDK/include/EMVoiceMessageBody.h; sourceTree = "<group>"; };
-		BFD19AD6CBCF66FBABE6EF47F7DF45B4 /* EMCursorResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCursorResult.h; path = HyphenateSDK/include/EMCursorResult.h; sourceTree = "<group>"; };
-		C3FD53D7D9E2AD2FBF453C8A0D3089E8 /* EMMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessageBody.h; path = HyphenateSDK/include/EMMessageBody.h; sourceTree = "<group>"; };
-		C58118EAD08695724D16CCAD516B182B /* Pods-ZYChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZYChat.debug.xcconfig"; sourceTree = "<group>"; };
-		C7C60A388D464EFE7BBC01CA02AD33D4 /* EMPushOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMPushOptions.h; path = HyphenateSDK/include/EMPushOptions.h; sourceTree = "<group>"; };
-		CB06D7359E596FC9C87B90E6341A26BB /* libHyphenateSDK_i386.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateSDK_i386.a; path = HyphenateSDK/lib/libHyphenateSDK_i386.a; sourceTree = "<group>"; };
-		CFBB9A6C0C4D92733C9A33E7A2ED8537 /* EMChatroom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroom.h; path = HyphenateSDK/include/EMChatroom.h; sourceTree = "<group>"; };
-		D4E21CB2F881700003E944D2FE2547F3 /* EMCmdMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCmdMessageBody.h; path = HyphenateSDK/include/EMCmdMessageBody.h; sourceTree = "<group>"; };
-		DD8FEAD52A26E8CCFB96A77E6B7DA212 /* EMVideoMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVideoMessageBody.h; path = HyphenateSDK/include/EMVideoMessageBody.h; sourceTree = "<group>"; };
-		E245691CE9B0D838F05D8BDB932E9F1F /* IEMContactManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMContactManager.h; path = HyphenateSDK/include/IEMContactManager.h; sourceTree = "<group>"; };
-		E2E3D3C839BCCFADFAF914D7681AB12D /* Pods-ZYChat-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZYChat-dummy.m"; sourceTree = "<group>"; };
-		EC4F459DD847849D8C6EB0CAF7817F77 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatManagerDelegate.h; path = HyphenateSDK/include/EMChatManagerDelegate.h; sourceTree = "<group>"; };
-		FA05439F397C113B21D0650798BB31E5 /* libssl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libssl.a; path = HyphenateSDK/lib/3rdparty/libssl.a; sourceTree = "<group>"; };
-		FD7935D6C3644B1D05911EAC8B656A61 /* EMCallRemoteView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallRemoteView.h; path = HyphenateSDK/include/EMCallRemoteView.h; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		7F6FB80B5D856F29DC181AF8754EE80F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FA2D5971B45A05681FB0F162CE4DE50F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		48FB2EA31AC7214D723A15576471754D /* Pods-ZYChat */ = {
-			isa = PBXGroup;
-			children = (
-				5BC0A812542873E7B533735E68E53BF1 /* Pods-ZYChat-acknowledgements.markdown */,
-				8F8EAB92D32215BE105CA2845EB33D2A /* Pods-ZYChat-acknowledgements.plist */,
-				E2E3D3C839BCCFADFAF914D7681AB12D /* Pods-ZYChat-dummy.m */,
-				AE085FA85E88A92CBEA8F486290703A7 /* Pods-ZYChat-frameworks.sh */,
-				A49512F07D79463293A0CE057F23B92E /* Pods-ZYChat-resources.sh */,
-				C58118EAD08695724D16CCAD516B182B /* Pods-ZYChat.debug.xcconfig */,
-				4394A927C4E2B38AD2C780F05580D89B /* Pods-ZYChat.release.xcconfig */,
-			);
-			name = "Pods-ZYChat";
-			path = "Target Support Files/Pods-ZYChat";
-			sourceTree = "<group>";
-		};
-		587DFE611C7A4BFCFA75C2F8E887173B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A414E93B2BC3D139398227CADADF2773 /* libcrypto.a */,
-				0AB3B70D4281A9E40951C609255D3145 /* libcurl.a */,
-				35184B65FE0D8B42179417AB2C93C122 /* libHyphenateSDK_arm64.a */,
-				9DB66F199CC03E80184FC7DCB885CBC5 /* libHyphenateSDK_armv7.a */,
-				AE954D3DB2CBEF516AC44F296AC737AD /* libHyphenateSDK_armv7s.a */,
-				CB06D7359E596FC9C87B90E6341A26BB /* libHyphenateSDK_i386.a */,
-				4270F40E907BC18BEA1376D9CC099BC3 /* libHyphenateSDK_x86_64.a */,
-				FA05439F397C113B21D0650798BB31E5 /* libssl.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				E57EC69954288DE72CB2690121E5BDEA /* Pods */,
-				C758B212AC825C37A6F1A284058D4D21 /* Products */,
-				84CD61EC0A4617B71226BA5A91DD71B2 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		84CD61EC0A4617B71226BA5A91DD71B2 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				48FB2EA31AC7214D723A15576471754D /* Pods-ZYChat */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		C758B212AC825C37A6F1A284058D4D21 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8913A95119EE5237804C9EDE3123C9CF /* libPods-ZYChat.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E57EC69954288DE72CB2690121E5BDEA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EF2FA2AB887CD4823C62E0E773BD80DB /* HyphenateSDK */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		EF2FA2AB887CD4823C62E0E773BD80DB /* HyphenateSDK */ = {
-			isa = PBXGroup;
-			children = (
-				6F4550E88103272D372E5D8EDDAEF9DD /* EMCallLocalView.h */,
-				B1F0C65F314271A3E931BD6CF4EAEF25 /* EMCallManagerDelegate.h */,
-				FD7935D6C3644B1D05911EAC8B656A61 /* EMCallRemoteView.h */,
-				AF7D935F635E24C0901F91417AD5E809 /* EMCallSession.h */,
-				EC4F459DD847849D8C6EB0CAF7817F77 /* EMChatManagerDelegate.h */,
-				CFBB9A6C0C4D92733C9A33E7A2ED8537 /* EMChatroom.h */,
-				19DC31954E7D70F33512D8846A95E550 /* EMChatroomManagerDelegate.h */,
-				64D6AC7D01992608FAA937E195A94B62 /* EMClient.h */,
-				871C43C798C1CDE1E28A286BD85271FA /* EMClient+Call.h */,
-				750F485B1270B66A7603EFBBF81E6371 /* EMClientDelegate.h */,
-				D4E21CB2F881700003E944D2FE2547F3 /* EMCmdMessageBody.h */,
-				438F56B9ABD0FA9FF29768AD93DED96A /* EMContactManagerDelegate.h */,
-				4A8BA11E10A837A8AF78A5144AD23042 /* EMConversation.h */,
-				BFD19AD6CBCF66FBABE6EF47F7DF45B4 /* EMCursorResult.h */,
-				682E1247315F949113FC2C6DD5C6C757 /* EMError.h */,
-				28F861CCC25F1D53C2DAA7642F52612E /* EMErrorCode.h */,
-				3DAB5C81ED60CDDF087289EE90610EC4 /* EMFileMessageBody.h */,
-				5C1031D7D38437CA2B9356194EFD9068 /* EMGroup.h */,
-				3BBA40A2EE94F34B02A220F48A6055EB /* EMGroupManagerDelegate.h */,
-				A4C96BA56EA33D46162687F6495B4C26 /* EMGroupOptions.h */,
-				765AF47CEFE56B8C3AF4A3A30DD07147 /* EMImageMessageBody.h */,
-				74AA4F6DBAF21A3E3D784B90B476FAB1 /* EMLocationMessageBody.h */,
-				8DB1AC14DC944C88F8EBD24D79C35EE6 /* EMMessage.h */,
-				C3FD53D7D9E2AD2FBF453C8A0D3089E8 /* EMMessageBody.h */,
-				3761C2B241FB86D5E362BABCCA331AB1 /* EMOptions.h */,
-				40BE174B2FF91A94347EFF0CF606C6AF /* EMOptions+PrivateDeploy.h */,
-				C7C60A388D464EFE7BBC01CA02AD33D4 /* EMPushOptions.h */,
-				B95BA61443F8CAB97B35B5DD1CBC0E6D /* EMSDK.h */,
-				A1616A22C24F81BDC0F592368A110C3D /* EMSDKFull.h */,
-				13E396175CB2054B16F4ECB2F05DE867 /* EMTextMessageBody.h */,
-				DD8FEAD52A26E8CCFB96A77E6B7DA212 /* EMVideoMessageBody.h */,
-				BB8AC888C3AF64DA1B4A5236C7C41254 /* EMVoiceMessageBody.h */,
-				718AFD47D4CC36EF5986133EEFF8F5F6 /* IEMCallManager.h */,
-				8F45A4A45B2EB2108B1C129F1027B69F /* IEMChatManager.h */,
-				608D2B697276F11180518AB655DF2932 /* IEMChatroomManager.h */,
-				E245691CE9B0D838F05D8BDB932E9F1F /* IEMContactManager.h */,
-				9700C0919FA90905C3C4E685068B44BB /* IEMGroupManager.h */,
-				6789E9057A1970B79C8C770E681AEF35 /* OpenGLView20.h */,
-				587DFE611C7A4BFCFA75C2F8E887173B /* Frameworks */,
-			);
-			path = HyphenateSDK;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		CBC235066DFA4003BBB07EC440FF39FF /* Pods-ZYChat */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B85975B4B936B0F9B13310C575F637BC /* Build configuration list for PBXNativeTarget "Pods-ZYChat" */;
-			buildPhases = (
-				5758E49E7110B365042340CBB8D087D9 /* Sources */,
-				7F6FB80B5D856F29DC181AF8754EE80F /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-ZYChat";
-			productName = "Pods-ZYChat";
-			productReference = 8913A95119EE5237804C9EDE3123C9CF /* libPods-ZYChat.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
-			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = C758B212AC825C37A6F1A284058D4D21 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				CBC235066DFA4003BBB07EC440FF39FF /* Pods-ZYChat */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		5758E49E7110B365042340CBB8D087D9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7440549096C1016986EB94CFE27D2612 /* Pods-ZYChat-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin XCBuildConfiguration section */
-		38465659D412E78FF18FA15AA90696DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C58118EAD08695724D16CCAD516B182B /* Pods-ZYChat.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		5BBE5EF07DD24912FAED9E45D7D7F561 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4394A927C4E2B38AD2C780F05580D89B /* Pods-ZYChat.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		6569F07DC21AD8B72752685013E3D9D8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		A14E2444F162A20E3776820E0ADFFB52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6569F07DC21AD8B72752685013E3D9D8 /* Debug */,
-				A14E2444F162A20E3776820E0ADFFB52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B85975B4B936B0F9B13310C575F637BC /* Build configuration list for PBXNativeTarget "Pods-ZYChat" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				38465659D412E78FF18FA15AA90696DA /* Debug */,
-				5BBE5EF07DD24912FAED9E45D7D7F561 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>052A17875CB827423D627183396CEB60</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>RELEASE=1</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>0AB3B70D4281A9E40951C609255D3145</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libcurl.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/3rdparty/libcurl.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>13E396175CB2054B16F4ECB2F05DE867</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMTextMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMTextMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>19DC31954E7D70F33512D8846A95E550</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMChatroomManagerDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMChatroomManagerDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28F861CCC25F1D53C2DAA7642F52612E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMErrorCode.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMErrorCode.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>B37F0F91F85060E28F1DAAB522DC7EC1</string>
+				<string>052A17875CB827423D627183396CEB60</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>35184B65FE0D8B42179417AB2C93C122</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libHyphenateSDK_arm64.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/libHyphenateSDK_arm64.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3761C2B241FB86D5E362BABCCA331AB1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMOptions.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMOptions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3BBA40A2EE94F34B02A220F48A6055EB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMGroupManagerDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMGroupManagerDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3DAB5C81ED60CDDF087289EE90610EC4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMFileMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMFileMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3E4E89230EF59BC255123B67864ACF77</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>40BE174B2FF91A94347EFF0CF606C6AF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMOptions+PrivateDeploy.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMOptions+PrivateDeploy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4270F40E907BC18BEA1376D9CC099BC3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libHyphenateSDK_x86_64.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/libHyphenateSDK_x86_64.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>438F56B9ABD0FA9FF29768AD93DED96A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMContactManagerDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMContactManagerDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4394A927C4E2B38AD2C780F05580D89B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-ZYChat.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>48FB2EA31AC7214D723A15576471754D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>5BC0A812542873E7B533735E68E53BF1</string>
+				<string>8F8EAB92D32215BE105CA2845EB33D2A</string>
+				<string>E2E3D3C839BCCFADFAF914D7681AB12D</string>
+				<string>AE085FA85E88A92CBEA8F486290703A7</string>
+				<string>A49512F07D79463293A0CE057F23B92E</string>
+				<string>C58118EAD08695724D16CCAD516B182B</string>
+				<string>4394A927C4E2B38AD2C780F05580D89B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-ZYChat</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-ZYChat</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4A8BA11E10A837A8AF78A5144AD23042</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMConversation.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMConversation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5758E49E7110B365042340CBB8D087D9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7440549096C1016986EB94CFE27D2612</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>587DFE611C7A4BFCFA75C2F8E887173B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A414E93B2BC3D139398227CADADF2773</string>
+				<string>0AB3B70D4281A9E40951C609255D3145</string>
+				<string>35184B65FE0D8B42179417AB2C93C122</string>
+				<string>9DB66F199CC03E80184FC7DCB885CBC5</string>
+				<string>AE954D3DB2CBEF516AC44F296AC737AD</string>
+				<string>CB06D7359E596FC9C87B90E6341A26BB</string>
+				<string>4270F40E907BC18BEA1376D9CC099BC3</string>
+				<string>FA05439F397C113B21D0650798BB31E5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5BC0A812542873E7B533735E68E53BF1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-ZYChat-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C1031D7D38437CA2B9356194EFD9068</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMGroup.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMGroup.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>608D2B697276F11180518AB655DF2932</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>IEMChatroomManager.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/IEMChatroomManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>64D6AC7D01992608FAA937E195A94B62</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMClient.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMClient.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6789E9057A1970B79C8C770E681AEF35</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>OpenGLView20.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/OpenGLView20.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>682E1247315F949113FC2C6DD5C6C757</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMError.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F4550E88103272D372E5D8EDDAEF9DD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCallLocalView.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCallLocalView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>718AFD47D4CC36EF5986133EEFF8F5F6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>IEMCallManager.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/IEMCallManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7440549096C1016986EB94CFE27D2612</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E2E3D3C839BCCFADFAF914D7681AB12D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>74AA4F6DBAF21A3E3D784B90B476FAB1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMLocationMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMLocationMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>750F485B1270B66A7603EFBBF81E6371</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMClientDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMClientDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>765AF47CEFE56B8C3AF4A3A30DD07147</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMImageMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMImageMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
+				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
+				<string>E57EC69954288DE72CB2690121E5BDEA</string>
+				<string>C758B212AC825C37A6F1A284058D4D21</string>
+				<string>84CD61EC0A4617B71226BA5A91DD71B2</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7F6FB80B5D856F29DC181AF8754EE80F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>FA2D5971B45A05681FB0F162CE4DE50F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>84CD61EC0A4617B71226BA5A91DD71B2</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>48FB2EA31AC7214D723A15576471754D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>871C43C798C1CDE1E28A286BD85271FA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMClient+Call.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMClient+Call.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8913A95119EE5237804C9EDE3123C9CF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libPods-ZYChat.a</string>
+			<key>path</key>
+			<string>libPods-ZYChat.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>8DB1AC14DC944C88F8EBD24D79C35EE6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMMessage.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMMessage.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8F45A4A45B2EB2108B1C129F1027B69F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>IEMChatManager.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/IEMChatManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8F8EAB92D32215BE105CA2845EB33D2A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-ZYChat-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9700C0919FA90905C3C4E685068B44BB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>IEMGroupManager.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/IEMGroupManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9A0990D6F5D5B08664E464C72DA2E768</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>4394A927C4E2B38AD2C780F05580D89B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>9DB66F199CC03E80184FC7DCB885CBC5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libHyphenateSDK_armv7.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/libHyphenateSDK_armv7.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A1616A22C24F81BDC0F592368A110C3D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMSDKFull.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMSDKFull.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A414E93B2BC3D139398227CADADF2773</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libcrypto.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/3rdparty/libcrypto.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A49512F07D79463293A0CE057F23B92E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-ZYChat-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A4C96BA56EA33D46162687F6495B4C26</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMGroupOptions.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMGroupOptions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AE085FA85E88A92CBEA8F486290703A7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-ZYChat-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AE954D3DB2CBEF516AC44F296AC737AD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libHyphenateSDK_armv7s.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/libHyphenateSDK_armv7s.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AF7D935F635E24C0901F91417AD5E809</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCallSession.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCallSession.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B1F0C65F314271A3E931BD6CF4EAEF25</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCallManagerDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCallManagerDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B37F0F91F85060E28F1DAAB522DC7EC1</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>B85975B4B936B0F9B13310C575F637BC</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F9FC748110E767FBA52B5E7C0D42058D</string>
+				<string>9A0990D6F5D5B08664E464C72DA2E768</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>B95BA61443F8CAB97B35B5DD1CBC0E6D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMSDK.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMSDK.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>BB8AC888C3AF64DA1B4A5236C7C41254</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMVoiceMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMVoiceMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BC3CA7F9E30CC8F7E2DD044DD34432FC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BF6342C8B29F4CEEA088EFF7AB4DE362</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BF6342C8B29F4CEEA088EFF7AB4DE362</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3E4E89230EF59BC255123B67864ACF77</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BFD19AD6CBCF66FBABE6EF47F7DF45B4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCursorResult.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCursorResult.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C3FD53D7D9E2AD2FBF453C8A0D3089E8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C58118EAD08695724D16CCAD516B182B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-ZYChat.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C758B212AC825C37A6F1A284058D4D21</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8913A95119EE5237804C9EDE3123C9CF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C7C60A388D464EFE7BBC01CA02AD33D4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMPushOptions.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMPushOptions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CB06D7359E596FC9C87B90E6341A26BB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libHyphenateSDK_i386.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/libHyphenateSDK_i386.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CBC235066DFA4003BBB07EC440FF39FF</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>B85975B4B936B0F9B13310C575F637BC</string>
+			<key>buildPhases</key>
+			<array>
+				<string>5758E49E7110B365042340CBB8D087D9</string>
+				<string>7F6FB80B5D856F29DC181AF8754EE80F</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-ZYChat</string>
+			<key>productName</key>
+			<string>Pods-ZYChat</string>
+			<key>productReference</key>
+			<string>8913A95119EE5237804C9EDE3123C9CF</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>CFBB9A6C0C4D92733C9A33E7A2ED8537</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMChatroom.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMChatroom.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D41D8CD98F00B204E9800998ECF8427E</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7DB346D0F39D3F0E887471402A8071AB</string>
+			<key>productRefGroup</key>
+			<string>C758B212AC825C37A6F1A284058D4D21</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>CBC235066DFA4003BBB07EC440FF39FF</string>
+			</array>
+		</dict>
+		<key>D4E21CB2F881700003E944D2FE2547F3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCmdMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCmdMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DD8FEAD52A26E8CCFB96A77E6B7DA212</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMVideoMessageBody.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMVideoMessageBody.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E245691CE9B0D838F05D8BDB932E9F1F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>IEMContactManager.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/IEMContactManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E2E3D3C839BCCFADFAF914D7681AB12D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-ZYChat-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E57EC69954288DE72CB2690121E5BDEA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>EF2FA2AB887CD4823C62E0E773BD80DB</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EC4F459DD847849D8C6EB0CAF7817F77</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMChatManagerDelegate.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMChatManagerDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EF2FA2AB887CD4823C62E0E773BD80DB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6F4550E88103272D372E5D8EDDAEF9DD</string>
+				<string>B1F0C65F314271A3E931BD6CF4EAEF25</string>
+				<string>FD7935D6C3644B1D05911EAC8B656A61</string>
+				<string>AF7D935F635E24C0901F91417AD5E809</string>
+				<string>EC4F459DD847849D8C6EB0CAF7817F77</string>
+				<string>CFBB9A6C0C4D92733C9A33E7A2ED8537</string>
+				<string>19DC31954E7D70F33512D8846A95E550</string>
+				<string>64D6AC7D01992608FAA937E195A94B62</string>
+				<string>871C43C798C1CDE1E28A286BD85271FA</string>
+				<string>750F485B1270B66A7603EFBBF81E6371</string>
+				<string>D4E21CB2F881700003E944D2FE2547F3</string>
+				<string>438F56B9ABD0FA9FF29768AD93DED96A</string>
+				<string>4A8BA11E10A837A8AF78A5144AD23042</string>
+				<string>BFD19AD6CBCF66FBABE6EF47F7DF45B4</string>
+				<string>682E1247315F949113FC2C6DD5C6C757</string>
+				<string>28F861CCC25F1D53C2DAA7642F52612E</string>
+				<string>3DAB5C81ED60CDDF087289EE90610EC4</string>
+				<string>5C1031D7D38437CA2B9356194EFD9068</string>
+				<string>3BBA40A2EE94F34B02A220F48A6055EB</string>
+				<string>A4C96BA56EA33D46162687F6495B4C26</string>
+				<string>765AF47CEFE56B8C3AF4A3A30DD07147</string>
+				<string>74AA4F6DBAF21A3E3D784B90B476FAB1</string>
+				<string>8DB1AC14DC944C88F8EBD24D79C35EE6</string>
+				<string>C3FD53D7D9E2AD2FBF453C8A0D3089E8</string>
+				<string>3761C2B241FB86D5E362BABCCA331AB1</string>
+				<string>40BE174B2FF91A94347EFF0CF606C6AF</string>
+				<string>C7C60A388D464EFE7BBC01CA02AD33D4</string>
+				<string>B95BA61443F8CAB97B35B5DD1CBC0E6D</string>
+				<string>A1616A22C24F81BDC0F592368A110C3D</string>
+				<string>13E396175CB2054B16F4ECB2F05DE867</string>
+				<string>DD8FEAD52A26E8CCFB96A77E6B7DA212</string>
+				<string>BB8AC888C3AF64DA1B4A5236C7C41254</string>
+				<string>718AFD47D4CC36EF5986133EEFF8F5F6</string>
+				<string>8F45A4A45B2EB2108B1C129F1027B69F</string>
+				<string>608D2B697276F11180518AB655DF2932</string>
+				<string>E245691CE9B0D838F05D8BDB932E9F1F</string>
+				<string>9700C0919FA90905C3C4E685068B44BB</string>
+				<string>6789E9057A1970B79C8C770E681AEF35</string>
+				<string>587DFE611C7A4BFCFA75C2F8E887173B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>HyphenateSDK</string>
+			<key>path</key>
+			<string>HyphenateSDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F9FC748110E767FBA52B5E7C0D42058D</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>C58118EAD08695724D16CCAD516B182B</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>FA05439F397C113B21D0650798BB31E5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libssl.a</string>
+			<key>path</key>
+			<string>HyphenateSDK/lib/3rdparty/libssl.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FA2D5971B45A05681FB0F162CE4DE50F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FD7935D6C3644B1D05911EAC8B656A61</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EMCallRemoteView.h</string>
+			<key>path</key>
+			<string>HyphenateSDK/include/EMCallRemoteView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>D41D8CD98F00B204E9800998ECF8427E</string>
+</dict>
+</plist>

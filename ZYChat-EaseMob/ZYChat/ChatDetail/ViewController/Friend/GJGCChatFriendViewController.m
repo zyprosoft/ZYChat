@@ -30,6 +30,7 @@
 #import "GJGCChatFriendVideoCell.h"
 #import "GJGCChatFriendMusicShareCell.h"
 #import "GJGCRecentContactListViewController.h"
+#import "WechatShortVideoController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -43,7 +44,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             UINavigationControllerDelegate,
                                             GJCFAssetsPickerViewControllerDelegate,
                                             GJCUCaptureViewControllerDelegate,
-                                            GJGCVideoRecordViewControllerDelegate
+                                            GJGCVideoRecordViewControllerDelegate,
+                                            WechatShortVideoDelegate
                                           >
 
 @property (nonatomic,strong)GJCFAudioPlayer *audioPlayer;
@@ -698,13 +700,22 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             GJCFWeakSelf weakSelf = self;
             [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:imageContentModel.message progress:^(int progress) {
                 
-                [self setProgress:progress forMessage:imageContentModel.message forMessageBody:imageContentModel.message.body];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self setProgress:progress forMessage:imageContentModel.message forMessageBody:imageContentModel.message.body];
+                    
+                });
+              
                 
             } completion:^(EMMessage *message, EMError *error) {
                 
-                BOOL isSuccess = error? NO:YES;
-                
-                [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    BOOL isSuccess = error? NO:YES;
+                    
+                    [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+                    
+                });
                 
             }];
         }
@@ -724,13 +735,21 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             GJCFWeakSelf weakSelf = self;
             [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:imageContentModel.message progress:^(int progress) {
                 
-                [self setProgress:progress forMessage:imageContentModel.message forMessageBody:imageContentModel.message.body];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self setProgress:progress forMessage:imageContentModel.message forMessageBody:imageContentModel.message.body];
+                    
+                });
 
             } completion:^(EMMessage *message, EMError *error) {
                 
-                BOOL isSuccess = error? NO:YES;
-                
-                [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    BOOL isSuccess = error? NO:YES;
+                    
+                    [weakSelf downloadFileCompletionForMessage:message successState:isSuccess];
+                    
+                });
                 
             }];
         }
@@ -869,9 +888,9 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             break;
         case GJGCChatInputMenuPanelActionTypeLimitVideo:
         {
-            GJGCVideoRecordViewController *videoRecord = [[GJGCVideoRecordViewController alloc]initWithDelegate:self];
-            videoRecord.maxDuration = 3.f;
-            [self.navigationController presentViewController:videoRecord animated:YES completion:nil];
+            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+            wechatShortVideoController.delegate = self;
+            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
         }
             break;
         case GJGCChatInputMenuPanelActionTypeFlower:
@@ -893,6 +912,29 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         default:
             break;
     }
+}
+
+#pragma mark - Video Record
+
+- (void)finishWechatShortVideoCapture:(NSURL *)filePath
+{
+    /* 创建内容 */
+    GJGCChatFriendContentModel *chatContentModel = [[GJGCChatFriendContentModel alloc]init];
+    chatContentModel.baseMessageType = GJGCChatBaseMessageTypeChatMessage;
+    chatContentModel.contentType = GJGCChatFriendContentTypeLimitVideo;
+    chatContentModel.toId = self.taklInfo.toId;
+    chatContentModel.toUserName = self.taklInfo.toUserName;
+    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSending;
+    chatContentModel.isFromSelf = YES;
+    chatContentModel.videoUrl = filePath;
+    chatContentModel.talkType = self.taklInfo.talkType;
+    
+    /* 从talkInfo中绑定更多信息给待发送内容 */
+    [self setSendChatContentModelWithTalkInfo:chatContentModel];
+    
+    [self.dataSourceManager sendMesssage:chatContentModel];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)chatInputPanel:(GJGCChatInputPanel *)panel didFinishRecord:(GJCFAudioModel *)audioFile

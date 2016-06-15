@@ -16,11 +16,9 @@
 
 #define GJGCRecentConversationHeadListUDF @"GJGCRecentConversationHeadListUDF"
 
-@interface GJGCRecentChatDataManager ()<EMChatManagerDelegate>
+@interface GJGCRecentChatDataManager ()<EMChatManagerDelegate,EMClientDelegate>
 
 @property (nonatomic,strong)NSMutableArray *sourceArray;
-
-@property (nonatomic,strong)dispatch_queue_t recentChatDataManagerQueue;
 
 @property (nonatomic,strong)dispatch_source_t updateListSource;
 
@@ -31,10 +29,6 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        
-        if (!self.recentChatDataManagerQueue) {
-            self.recentChatDataManagerQueue = dispatch_queue_create("gjgc_recent_chat_queue", DISPATCH_QUEUE_SERIAL);
-        }
         
         //缓冲更新队列
         self.updateListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
@@ -47,7 +41,8 @@
         
         self.sourceArray = [[NSMutableArray alloc]init];
         
-        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:self.recentChatDataManagerQueue];
+        [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+        [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
         
         [GJCFNotificationCenter addObserver:self selector:@selector(observeLoginSuccess:) name:ZYUserCenterLoginEaseMobSuccessNoti object:nil];
 
@@ -193,33 +188,17 @@
     }
 }
 
+- (void)didReceiveMessages:(NSArray *)aMessages
+{
+    [self updateConversationList:[[EMClient sharedClient].chatManager getAllConversations]];
+}
+
 #pragma mark - 环信监听链接服务器状态
 
-- (void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
+- (void)didAutoLoginWithError:(EMError *)aError
 {
-    [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateConnecting];
-}
-
-- (void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
-{
-    GJGCRecentChatConnectState resultState = error? GJGCRecentChatConnectStateFaild:GJGCRecentChatConnectStateSuccess;
+    GJGCRecentChatConnectState resultState = aError? GJGCRecentChatConnectStateFaild:GJGCRecentChatConnectStateSuccess;
     [self.delegate dataManager:self requireUpdateTitleViewState:resultState];
-}
-
-- (void)willAutoReconnect
-{
-    [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateConnecting];
-}
-
-- (void)didAutoReconnectFinishedWithError:(NSError *)error
-{
-    GJGCRecentChatConnectState resultState = error? GJGCRecentChatConnectStateFaild:GJGCRecentChatConnectStateSuccess;
-    [self.delegate dataManager:self requireUpdateTitleViewState:resultState];
-}
-
-- (void)didLogoffWithError:(EMError *)error
-{
-    
 }
 
 - (void)didLoginFromOtherDevice
@@ -356,6 +335,21 @@
             
             [[ZYUserCenter shareCenter] autoLogin];
         }
+    }
+    
+    switch (connectionState) {
+        case EMConnectionConnected:
+        {
+            [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateSuccess];
+        }
+            break;
+        case EMConnectionDisconnected:
+        {
+            [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateFaild];
+        }
+            break;
+        default:
+            break;
     }
 }
 

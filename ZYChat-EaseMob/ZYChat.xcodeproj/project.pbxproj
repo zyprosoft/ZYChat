@@ -870,6 +870,53 @@
 		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
+		E4567A4A1D10CF4100940163 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E45679F01D10CF4100940163 /* LICENSE */; };
+		E4567A4B1D10CF4100940163 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679F21D10CF4100940163 /* MBProgressHUD.m */; };
+		E4567A4C1D10CF4100940163 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = E45679F31D10CF4100940163 /* README.mdown */; };
+		E4567A4D1D10CF4100940163 /* CIImageRendererUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679F71D10CF4100940163 /* CIImageRendererUtils.m */; };
+		E4567A4E1D10CF4100940163 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E45679F81D10CF4100940163 /* LICENSE */; };
+		E4567A4F1D10CF4100940163 /* NSURL+SCSaveToCameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679FA1D10CF4100940163 /* NSURL+SCSaveToCameraRoll.m */; };
+		E4567A501D10CF4100940163 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E45679FB1D10CF4100940163 /* README.md */; };
+		E4567A511D10CF4100940163 /* SCAssetExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679FD1D10CF4100940163 /* SCAssetExportSession.m */; };
+		E4567A521D10CF4100940163 /* SCAudioConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679FF1D10CF4100940163 /* SCAudioConfiguration.m */; };
+		E4567A531D10CF4100940163 /* SCAudioTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A011D10CF4100940163 /* SCAudioTools.m */; };
+		E4567A541D10CF4100940163 /* SCContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A041D10CF4100940163 /* SCContext.m */; };
+		E4567A551D10CF4100940163 /* SCFilter+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A061D10CF4100940163 /* SCFilter+UIImage.m */; };
+		E4567A561D10CF4100940163 /* SCFilter+VideoComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A081D10CF4100940163 /* SCFilter+VideoComposition.m */; };
+		E4567A571D10CF4100940163 /* SCFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A0A1D10CF4100940163 /* SCFilter.m */; };
+		E4567A581D10CF4100940163 /* SCFilterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A0C1D10CF4100940163 /* SCFilterAnimation.m */; };
+		E4567A591D10CF4100940163 /* SCFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A0E1D10CF4100940163 /* SCFilterImageView.m */; };
+		E4567A5A1D10CF4100940163 /* SCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A101D10CF4100940163 /* SCImageView.m */; };
+		E4567A5B1D10CF4100940163 /* SCIOPixelBuffers.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A121D10CF4100940163 /* SCIOPixelBuffers.m */; };
+		E4567A5C1D10CF4100940163 /* SCMediaTypeConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A141D10CF4100940163 /* SCMediaTypeConfiguration.m */; };
+		E4567A5D1D10CF4100940163 /* SCPhotoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A161D10CF4100940163 /* SCPhotoConfiguration.m */; };
+		E4567A5E1D10CF4100940163 /* SCPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A181D10CF4100940163 /* SCPlayer.m */; };
+		E4567A5F1D10CF4100940163 /* SCProcessingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A1A1D10CF4100940163 /* SCProcessingQueue.m */; };
+		E4567A601D10CF4100940163 /* SCRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A1C1D10CF4100940163 /* SCRecorder.m */; };
+		E4567A611D10CF4100940163 /* SCRecorderFocusTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A1F1D10CF4100940163 /* SCRecorderFocusTargetView.m */; };
+		E4567A621D10CF4100940163 /* SCRecorderTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A221D10CF4100940163 /* SCRecorderTools.m */; };
+		E4567A631D10CF4100940163 /* SCRecorderToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A241D10CF4100940163 /* SCRecorderToolsView.m */; };
+		E4567A641D10CF4100940163 /* SCRecordSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A261D10CF4100940163 /* SCRecordSession.m */; };
+		E4567A651D10CF4100940163 /* SCRecordSessionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A291D10CF4100940163 /* SCRecordSessionSegment.m */; };
+		E4567A661D10CF4100940163 /* SCSampleBufferHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A2B1D10CF4100940163 /* SCSampleBufferHolder.m */; };
+		E4567A671D10CF4100940163 /* SCSaveToCameraRollOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A2D1D10CF4100940163 /* SCSaveToCameraRollOperation.m */; };
+		E4567A681D10CF4100940163 /* SCSwipeableFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A2F1D10CF4100940163 /* SCSwipeableFilterView.m */; };
+		E4567A691D10CF4100940163 /* SCVideoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A311D10CF4100940163 /* SCVideoConfiguration.m */; };
+		E4567A6A1D10CF4100940163 /* SCVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A331D10CF4100940163 /* SCVideoPlayerView.m */; };
+		E4567A6B1D10CF4100940163 /* SCWeakSelectorTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A351D10CF4100940163 /* SCWeakSelectorTarget.m */; };
+		E4567A6C1D10CF4100940163 /* UIImage+SCSaveToCameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A371D10CF4100940163 /* UIImage+SCSaveToCameraRoll.m */; };
+		E4567A6D1D10CF4100940163 /* CALayer+AddUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A3A1D10CF4100940163 /* CALayer+AddUIColor.m */; };
+		E4567A6E1D10CF4100940163 /* WechatShortVideo_37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A3C1D10CF4100940163 /* WechatShortVideo_37x-Checkmark.png */; };
+		E4567A6F1D10CF4100940163 /* WechatShortVideo_37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A3D1D10CF4100940163 /* WechatShortVideo_37x-Checkmark@2x.png */; };
+		E4567A701D10CF4100940163 /* WechatShortVideo_close.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A3E1D10CF4100940163 /* WechatShortVideo_close.png */; };
+		E4567A711D10CF4100940163 /* WechatShortVideo_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A3F1D10CF4100940163 /* WechatShortVideo_close@2x.png */; };
+		E4567A721D10CF4100940163 /* WechatShortVideo_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A401D10CF4100940163 /* WechatShortVideo_close@3x.png */; };
+		E4567A731D10CF4100940163 /* WechatShortVideo_scan_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A411D10CF4100940163 /* WechatShortVideo_scan_focus.png */; };
+		E4567A741D10CF4100940163 /* WechatShortVideo_scan_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A421D10CF4100940163 /* WechatShortVideo_scan_focus@2x.png */; };
+		E4567A751D10CF4100940163 /* WechatShortVideo_scan_focus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4567A431D10CF4100940163 /* WechatShortVideo_scan_focus@3x.png */; };
+		E4567A761D10CF4100940163 /* SCRecordSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A451D10CF4100940163 /* SCRecordSessionManager.m */; };
+		E4567A771D10CF4100940163 /* WechatShortVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4567A481D10CF4100940163 /* WechatShortVideoController.m */; };
+		E4567A781D10CF4100940163 /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4567A491D10CF4100940163 /* WechatShortVideoController.xib */; };
 		E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */; };
 		E485DEEC1CE8A077004DB104 /* flower_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEEB1CE8A077004DB104 /* flower_item@2x.png */; };
 		E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEED1CE8A153004DB104 /* flower@2x.png */; };
@@ -1826,6 +1873,93 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		E45679F01D10CF4100940163 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E45679F11D10CF4100940163 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		E45679F21D10CF4100940163 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		E45679F31D10CF4100940163 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
+		E45679F51D10CF4100940163 /* CIImageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRenderer.h; sourceTree = "<group>"; };
+		E45679F61D10CF4100940163 /* CIImageRendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRendererUtils.h; sourceTree = "<group>"; };
+		E45679F71D10CF4100940163 /* CIImageRendererUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIImageRendererUtils.m; sourceTree = "<group>"; };
+		E45679F81D10CF4100940163 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E45679F91D10CF4100940163 /* NSURL+SCSaveToCameraRoll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+SCSaveToCameraRoll.h"; sourceTree = "<group>"; };
+		E45679FA1D10CF4100940163 /* NSURL+SCSaveToCameraRoll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+SCSaveToCameraRoll.m"; sourceTree = "<group>"; };
+		E45679FB1D10CF4100940163 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E45679FC1D10CF4100940163 /* SCAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssetExportSession.h; sourceTree = "<group>"; };
+		E45679FD1D10CF4100940163 /* SCAssetExportSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssetExportSession.m; sourceTree = "<group>"; };
+		E45679FE1D10CF4100940163 /* SCAudioConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAudioConfiguration.h; sourceTree = "<group>"; };
+		E45679FF1D10CF4100940163 /* SCAudioConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioConfiguration.m; sourceTree = "<group>"; };
+		E4567A001D10CF4100940163 /* SCAudioTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAudioTools.h; sourceTree = "<group>"; };
+		E4567A011D10CF4100940163 /* SCAudioTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioTools.m; sourceTree = "<group>"; };
+		E4567A021D10CF4100940163 /* SCAudioVideoRecorder-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAudioVideoRecorder-Prefix.pch"; sourceTree = "<group>"; };
+		E4567A031D10CF4100940163 /* SCContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCContext.h; sourceTree = "<group>"; };
+		E4567A041D10CF4100940163 /* SCContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCContext.m; sourceTree = "<group>"; };
+		E4567A051D10CF4100940163 /* SCFilter+UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCFilter+UIImage.h"; sourceTree = "<group>"; };
+		E4567A061D10CF4100940163 /* SCFilter+UIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCFilter+UIImage.m"; sourceTree = "<group>"; };
+		E4567A071D10CF4100940163 /* SCFilter+VideoComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCFilter+VideoComposition.h"; sourceTree = "<group>"; };
+		E4567A081D10CF4100940163 /* SCFilter+VideoComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCFilter+VideoComposition.m"; sourceTree = "<group>"; };
+		E4567A091D10CF4100940163 /* SCFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilter.h; sourceTree = "<group>"; };
+		E4567A0A1D10CF4100940163 /* SCFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilter.m; sourceTree = "<group>"; };
+		E4567A0B1D10CF4100940163 /* SCFilterAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterAnimation.h; sourceTree = "<group>"; };
+		E4567A0C1D10CF4100940163 /* SCFilterAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterAnimation.m; sourceTree = "<group>"; };
+		E4567A0D1D10CF4100940163 /* SCFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterImageView.h; sourceTree = "<group>"; };
+		E4567A0E1D10CF4100940163 /* SCFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterImageView.m; sourceTree = "<group>"; };
+		E4567A0F1D10CF4100940163 /* SCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImageView.h; sourceTree = "<group>"; };
+		E4567A101D10CF4100940163 /* SCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImageView.m; sourceTree = "<group>"; };
+		E4567A111D10CF4100940163 /* SCIOPixelBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCIOPixelBuffers.h; sourceTree = "<group>"; };
+		E4567A121D10CF4100940163 /* SCIOPixelBuffers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCIOPixelBuffers.m; sourceTree = "<group>"; };
+		E4567A131D10CF4100940163 /* SCMediaTypeConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMediaTypeConfiguration.h; sourceTree = "<group>"; };
+		E4567A141D10CF4100940163 /* SCMediaTypeConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMediaTypeConfiguration.m; sourceTree = "<group>"; };
+		E4567A151D10CF4100940163 /* SCPhotoConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPhotoConfiguration.h; sourceTree = "<group>"; };
+		E4567A161D10CF4100940163 /* SCPhotoConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPhotoConfiguration.m; sourceTree = "<group>"; };
+		E4567A171D10CF4100940163 /* SCPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayer.h; sourceTree = "<group>"; };
+		E4567A181D10CF4100940163 /* SCPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayer.m; sourceTree = "<group>"; };
+		E4567A191D10CF4100940163 /* SCProcessingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProcessingQueue.h; sourceTree = "<group>"; };
+		E4567A1A1D10CF4100940163 /* SCProcessingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProcessingQueue.m; sourceTree = "<group>"; };
+		E4567A1B1D10CF4100940163 /* SCRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorder.h; sourceTree = "<group>"; };
+		E4567A1C1D10CF4100940163 /* SCRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorder.m; sourceTree = "<group>"; };
+		E4567A1D1D10CF4100940163 /* SCRecorderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderDelegate.h; sourceTree = "<group>"; };
+		E4567A1E1D10CF4100940163 /* SCRecorderFocusTargetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderFocusTargetView.h; sourceTree = "<group>"; };
+		E4567A1F1D10CF4100940163 /* SCRecorderFocusTargetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderFocusTargetView.m; sourceTree = "<group>"; };
+		E4567A201D10CF4100940163 /* SCRecorderHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderHeader.h; sourceTree = "<group>"; };
+		E4567A211D10CF4100940163 /* SCRecorderTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderTools.h; sourceTree = "<group>"; };
+		E4567A221D10CF4100940163 /* SCRecorderTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderTools.m; sourceTree = "<group>"; };
+		E4567A231D10CF4100940163 /* SCRecorderToolsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderToolsView.h; sourceTree = "<group>"; };
+		E4567A241D10CF4100940163 /* SCRecorderToolsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderToolsView.m; sourceTree = "<group>"; };
+		E4567A251D10CF4100940163 /* SCRecordSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSession.h; sourceTree = "<group>"; };
+		E4567A261D10CF4100940163 /* SCRecordSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSession.m; sourceTree = "<group>"; };
+		E4567A271D10CF4100940163 /* SCRecordSession_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSession_Internal.h; sourceTree = "<group>"; };
+		E4567A281D10CF4100940163 /* SCRecordSessionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSessionSegment.h; sourceTree = "<group>"; };
+		E4567A291D10CF4100940163 /* SCRecordSessionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSessionSegment.m; sourceTree = "<group>"; };
+		E4567A2A1D10CF4100940163 /* SCSampleBufferHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSampleBufferHolder.h; sourceTree = "<group>"; };
+		E4567A2B1D10CF4100940163 /* SCSampleBufferHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSampleBufferHolder.m; sourceTree = "<group>"; };
+		E4567A2C1D10CF4100940163 /* SCSaveToCameraRollOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSaveToCameraRollOperation.h; sourceTree = "<group>"; };
+		E4567A2D1D10CF4100940163 /* SCSaveToCameraRollOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSaveToCameraRollOperation.m; sourceTree = "<group>"; };
+		E4567A2E1D10CF4100940163 /* SCSwipeableFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSwipeableFilterView.h; sourceTree = "<group>"; };
+		E4567A2F1D10CF4100940163 /* SCSwipeableFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSwipeableFilterView.m; sourceTree = "<group>"; };
+		E4567A301D10CF4100940163 /* SCVideoConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoConfiguration.h; sourceTree = "<group>"; };
+		E4567A311D10CF4100940163 /* SCVideoConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoConfiguration.m; sourceTree = "<group>"; };
+		E4567A321D10CF4100940163 /* SCVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoPlayerView.h; sourceTree = "<group>"; };
+		E4567A331D10CF4100940163 /* SCVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoPlayerView.m; sourceTree = "<group>"; };
+		E4567A341D10CF4100940163 /* SCWeakSelectorTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWeakSelectorTarget.h; sourceTree = "<group>"; };
+		E4567A351D10CF4100940163 /* SCWeakSelectorTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWeakSelectorTarget.m; sourceTree = "<group>"; };
+		E4567A361D10CF4100940163 /* UIImage+SCSaveToCameraRoll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SCSaveToCameraRoll.h"; sourceTree = "<group>"; };
+		E4567A371D10CF4100940163 /* UIImage+SCSaveToCameraRoll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SCSaveToCameraRoll.m"; sourceTree = "<group>"; };
+		E4567A391D10CF4100940163 /* CALayer+AddUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+AddUIColor.h"; sourceTree = "<group>"; };
+		E4567A3A1D10CF4100940163 /* CALayer+AddUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+AddUIColor.m"; sourceTree = "<group>"; };
+		E4567A3C1D10CF4100940163 /* WechatShortVideo_37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_37x-Checkmark.png"; sourceTree = "<group>"; };
+		E4567A3D1D10CF4100940163 /* WechatShortVideo_37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		E4567A3E1D10CF4100940163 /* WechatShortVideo_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatShortVideo_close.png; sourceTree = "<group>"; };
+		E4567A3F1D10CF4100940163 /* WechatShortVideo_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_close@2x.png"; sourceTree = "<group>"; };
+		E4567A401D10CF4100940163 /* WechatShortVideo_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_close@3x.png"; sourceTree = "<group>"; };
+		E4567A411D10CF4100940163 /* WechatShortVideo_scan_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatShortVideo_scan_focus.png; sourceTree = "<group>"; };
+		E4567A421D10CF4100940163 /* WechatShortVideo_scan_focus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_scan_focus@2x.png"; sourceTree = "<group>"; };
+		E4567A431D10CF4100940163 /* WechatShortVideo_scan_focus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_scan_focus@3x.png"; sourceTree = "<group>"; };
+		E4567A441D10CF4100940163 /* SCRecordSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSessionManager.h; sourceTree = "<group>"; };
+		E4567A451D10CF4100940163 /* SCRecordSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSessionManager.m; sourceTree = "<group>"; };
+		E4567A461D10CF4100940163 /* WechatShortVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatShortVideoConfig.h; sourceTree = "<group>"; };
+		E4567A471D10CF4100940163 /* WechatShortVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatShortVideoController.h; sourceTree = "<group>"; };
+		E4567A481D10CF4100940163 /* WechatShortVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatShortVideoController.m; sourceTree = "<group>"; };
+		E4567A491D10CF4100940163 /* WechatShortVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WechatShortVideoController.xib; sourceTree = "<group>"; };
 		E485DEE41CE89A82004DB104 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		E485DEEB1CE8A077004DB104 /* flower_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower_item@2x.png"; sourceTree = "<group>"; };
@@ -2099,6 +2233,9 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E45679EF1D10CF4100940163 /* MBProgressHUD */,
+				E45679F41D10CF4100940163 /* SCRecorder */,
+				E4567A381D10CF4100940163 /* WechatShortVideo */,
 				E485DEE01CE89782004DB104 /* AudioWave */,
 				E4F930321C7A001D0038278A /* ZFProgressView */,
 				E4F930221C79FCEF0038278A /* AVCaptureManager */,
@@ -3747,6 +3884,122 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E45679EF1D10CF4100940163 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				E45679F01D10CF4100940163 /* LICENSE */,
+				E45679F11D10CF4100940163 /* MBProgressHUD.h */,
+				E45679F21D10CF4100940163 /* MBProgressHUD.m */,
+				E45679F31D10CF4100940163 /* README.mdown */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		E45679F41D10CF4100940163 /* SCRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				E45679F51D10CF4100940163 /* CIImageRenderer.h */,
+				E45679F61D10CF4100940163 /* CIImageRendererUtils.h */,
+				E45679F71D10CF4100940163 /* CIImageRendererUtils.m */,
+				E45679F81D10CF4100940163 /* LICENSE */,
+				E45679F91D10CF4100940163 /* NSURL+SCSaveToCameraRoll.h */,
+				E45679FA1D10CF4100940163 /* NSURL+SCSaveToCameraRoll.m */,
+				E45679FB1D10CF4100940163 /* README.md */,
+				E45679FC1D10CF4100940163 /* SCAssetExportSession.h */,
+				E45679FD1D10CF4100940163 /* SCAssetExportSession.m */,
+				E45679FE1D10CF4100940163 /* SCAudioConfiguration.h */,
+				E45679FF1D10CF4100940163 /* SCAudioConfiguration.m */,
+				E4567A001D10CF4100940163 /* SCAudioTools.h */,
+				E4567A011D10CF4100940163 /* SCAudioTools.m */,
+				E4567A021D10CF4100940163 /* SCAudioVideoRecorder-Prefix.pch */,
+				E4567A031D10CF4100940163 /* SCContext.h */,
+				E4567A041D10CF4100940163 /* SCContext.m */,
+				E4567A051D10CF4100940163 /* SCFilter+UIImage.h */,
+				E4567A061D10CF4100940163 /* SCFilter+UIImage.m */,
+				E4567A071D10CF4100940163 /* SCFilter+VideoComposition.h */,
+				E4567A081D10CF4100940163 /* SCFilter+VideoComposition.m */,
+				E4567A091D10CF4100940163 /* SCFilter.h */,
+				E4567A0A1D10CF4100940163 /* SCFilter.m */,
+				E4567A0B1D10CF4100940163 /* SCFilterAnimation.h */,
+				E4567A0C1D10CF4100940163 /* SCFilterAnimation.m */,
+				E4567A0D1D10CF4100940163 /* SCFilterImageView.h */,
+				E4567A0E1D10CF4100940163 /* SCFilterImageView.m */,
+				E4567A0F1D10CF4100940163 /* SCImageView.h */,
+				E4567A101D10CF4100940163 /* SCImageView.m */,
+				E4567A111D10CF4100940163 /* SCIOPixelBuffers.h */,
+				E4567A121D10CF4100940163 /* SCIOPixelBuffers.m */,
+				E4567A131D10CF4100940163 /* SCMediaTypeConfiguration.h */,
+				E4567A141D10CF4100940163 /* SCMediaTypeConfiguration.m */,
+				E4567A151D10CF4100940163 /* SCPhotoConfiguration.h */,
+				E4567A161D10CF4100940163 /* SCPhotoConfiguration.m */,
+				E4567A171D10CF4100940163 /* SCPlayer.h */,
+				E4567A181D10CF4100940163 /* SCPlayer.m */,
+				E4567A191D10CF4100940163 /* SCProcessingQueue.h */,
+				E4567A1A1D10CF4100940163 /* SCProcessingQueue.m */,
+				E4567A1B1D10CF4100940163 /* SCRecorder.h */,
+				E4567A1C1D10CF4100940163 /* SCRecorder.m */,
+				E4567A1D1D10CF4100940163 /* SCRecorderDelegate.h */,
+				E4567A1E1D10CF4100940163 /* SCRecorderFocusTargetView.h */,
+				E4567A1F1D10CF4100940163 /* SCRecorderFocusTargetView.m */,
+				E4567A201D10CF4100940163 /* SCRecorderHeader.h */,
+				E4567A211D10CF4100940163 /* SCRecorderTools.h */,
+				E4567A221D10CF4100940163 /* SCRecorderTools.m */,
+				E4567A231D10CF4100940163 /* SCRecorderToolsView.h */,
+				E4567A241D10CF4100940163 /* SCRecorderToolsView.m */,
+				E4567A251D10CF4100940163 /* SCRecordSession.h */,
+				E4567A261D10CF4100940163 /* SCRecordSession.m */,
+				E4567A271D10CF4100940163 /* SCRecordSession_Internal.h */,
+				E4567A281D10CF4100940163 /* SCRecordSessionSegment.h */,
+				E4567A291D10CF4100940163 /* SCRecordSessionSegment.m */,
+				E4567A2A1D10CF4100940163 /* SCSampleBufferHolder.h */,
+				E4567A2B1D10CF4100940163 /* SCSampleBufferHolder.m */,
+				E4567A2C1D10CF4100940163 /* SCSaveToCameraRollOperation.h */,
+				E4567A2D1D10CF4100940163 /* SCSaveToCameraRollOperation.m */,
+				E4567A2E1D10CF4100940163 /* SCSwipeableFilterView.h */,
+				E4567A2F1D10CF4100940163 /* SCSwipeableFilterView.m */,
+				E4567A301D10CF4100940163 /* SCVideoConfiguration.h */,
+				E4567A311D10CF4100940163 /* SCVideoConfiguration.m */,
+				E4567A321D10CF4100940163 /* SCVideoPlayerView.h */,
+				E4567A331D10CF4100940163 /* SCVideoPlayerView.m */,
+				E4567A341D10CF4100940163 /* SCWeakSelectorTarget.h */,
+				E4567A351D10CF4100940163 /* SCWeakSelectorTarget.m */,
+				E4567A361D10CF4100940163 /* UIImage+SCSaveToCameraRoll.h */,
+				E4567A371D10CF4100940163 /* UIImage+SCSaveToCameraRoll.m */,
+			);
+			path = SCRecorder;
+			sourceTree = "<group>";
+		};
+		E4567A381D10CF4100940163 /* WechatShortVideo */ = {
+			isa = PBXGroup;
+			children = (
+				E4567A391D10CF4100940163 /* CALayer+AddUIColor.h */,
+				E4567A3A1D10CF4100940163 /* CALayer+AddUIColor.m */,
+				E4567A3B1D10CF4100940163 /* Resources */,
+				E4567A441D10CF4100940163 /* SCRecordSessionManager.h */,
+				E4567A451D10CF4100940163 /* SCRecordSessionManager.m */,
+				E4567A461D10CF4100940163 /* WechatShortVideoConfig.h */,
+				E4567A471D10CF4100940163 /* WechatShortVideoController.h */,
+				E4567A481D10CF4100940163 /* WechatShortVideoController.m */,
+				E4567A491D10CF4100940163 /* WechatShortVideoController.xib */,
+			);
+			path = WechatShortVideo;
+			sourceTree = "<group>";
+		};
+		E4567A3B1D10CF4100940163 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E4567A3C1D10CF4100940163 /* WechatShortVideo_37x-Checkmark.png */,
+				E4567A3D1D10CF4100940163 /* WechatShortVideo_37x-Checkmark@2x.png */,
+				E4567A3E1D10CF4100940163 /* WechatShortVideo_close.png */,
+				E4567A3F1D10CF4100940163 /* WechatShortVideo_close@2x.png */,
+				E4567A401D10CF4100940163 /* WechatShortVideo_close@3x.png */,
+				E4567A411D10CF4100940163 /* WechatShortVideo_scan_focus.png */,
+				E4567A421D10CF4100940163 /* WechatShortVideo_scan_focus@2x.png */,
+				E4567A431D10CF4100940163 /* WechatShortVideo_scan_focus@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E485DEE01CE89782004DB104 /* AudioWave */ = {
 			isa = PBXGroup;
 			children = (
@@ -4089,6 +4342,7 @@
 				365F06781B501A5D005161D6 /* 汗.gif in Resources */,
 				365F05C81B501A5D005161D6 /* 040[美味]@2x.png in Resources */,
 				365F06CE1B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@2x.png in Resources */,
+				E4567A6E1D10CF4100940163 /* WechatShortVideo_37x-Checkmark.png in Resources */,
 				365F08B81B50E292005161D6 /* 好友头像占位-bg-2行列表@3x.png in Resources */,
 				C8DC4A071BEC7AAB00F2D161 /* ssl.crt in Resources */,
 				365F05B01B501A5D005161D6 /* 028[吐]@2x.png in Resources */,
@@ -4101,6 +4355,7 @@
 				E4FEB48F1C02106800E4A153 /* my_selected@2x.png in Resources */,
 				365F05A21B501A5D005161D6 /* 021[委屈]@2x.png in Resources */,
 				365F06181B501A5D005161D6 /* 080[可爱]@2x.png in Resources */,
+				E4567A731D10CF4100940163 /* WechatShortVideo_scan_focus.png in Resources */,
 				365F02EA1B5019D0005161D6 /* LaunchScreen.xib in Resources */,
 				365F05F81B501A5D005161D6 /* 064[弱]@2x.png in Resources */,
 				365F06D21B501A5D005161D6 /* 聊天键盘-icon-选择照片@2x.png in Resources */,
@@ -4146,6 +4401,7 @@
 				365F05961B501A5D005161D6 /* 016[震惊]@2x.png in Resources */,
 				C8E50F631C055FE600AFA10F /* player_btn_play_normal@2x.png in Resources */,
 				365F062E1B501A5D005161D6 /* 095[爱你]@2x.png in Resources */,
+				E4567A751D10CF4100940163 /* WechatShortVideo_scan_focus@3x.png in Resources */,
 				365F06641B501A5D005161D6 /* 定.gif in Resources */,
 				365F06141B501A5D005161D6 /* 078[金钱]@2x.png in Resources */,
 				365F06741B501A5D005161D6 /* 抠鼻.gif in Resources */,
@@ -4154,8 +4410,10 @@
 				E4FEB46B1C01FED100E4A153 /* 按钮箭头@2x.png in Resources */,
 				365F062C1B501A5D005161D6 /* 094[差劲]@2x.png in Resources */,
 				365F057A1B501A5D005161D6 /* 002[偷笑]@2x.png in Resources */,
+				E4567A721D10CF4100940163 /* WechatShortVideo_close@3x.png in Resources */,
 				C8E50F5F1C055FE600AFA10F /* player_btn_next_normal@2x.png in Resources */,
 				365F06661B501A5D005161D6 /* 定@2x.png in Resources */,
+				E4567A4E1D10CF4100940163 /* LICENSE in Resources */,
 				365F06721B501A5D005161D6 /* 惊吓@2x.png in Resources */,
 				365F05F01B501A5D005161D6 /* 060[闪电]@2x.png in Resources */,
 				365F06161B501A5D005161D6 /* 079[抱抱]@2x.png in Resources */,
@@ -4173,6 +4431,7 @@
 				365F06D81B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@3x.png in Resources */,
 				365F060A1B501A5D005161D6 /* 073[米饭]@2x.png in Resources */,
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
+				E4567A701D10CF4100940163 /* WechatShortVideo_close.png in Resources */,
 				E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */,
 				365F057C1B501A5D005161D6 /* 003[大哭]@2x.png in Resources */,
 				E4FEB4841C020EED00E4A153 /* square_selected@2x.png in Resources */,
@@ -4224,6 +4483,7 @@
 				365F05C61B501A5D005161D6 /* 039[糗大了]@2x.png in Resources */,
 				365F06121B501A5D005161D6 /* 077[飞机]@2x.png in Resources */,
 				365F058E1B501A5D005161D6 /* 012[快哭了]@2x.png in Resources */,
+				E4567A4A1D10CF4100940163 /* LICENSE in Resources */,
 				365F05DE1B501A5D005161D6 /* 051[玫瑰]@2x.png in Resources */,
 				C8E50E6D1C02D8FF00AFA10F /* City.s3db in Resources */,
 				365F06DC1B501A5D005161D6 /* 聊天键盘切换-btn-圆@3x.png in Resources */,
@@ -4234,6 +4494,7 @@
 				365F06D01B501A5D005161D6 /* 聊天键盘-icon-选择照片-点击@3x.png in Resources */,
 				365F05801B501A5D005161D6 /* 005[微笑]@2x.png in Resources */,
 				365F05821B501A5D005161D6 /* 006[流泪]@2x.png in Resources */,
+				E4567A6F1D10CF4100940163 /* WechatShortVideo_37x-Checkmark@2x.png in Resources */,
 				E4F930281C79FF040038278A /* outer1@2x.png in Resources */,
 				E4FEB4991C060B3900E4A153 /* music@2x.png in Resources */,
 				365F08BA1B50E292005161D6 /* 好友头像占位-bg-列表@2x.png in Resources */,
@@ -4274,12 +4535,14 @@
 				C81DC6B71C06EDC100348326 /* 聊天键盘-icon-商店@2x.png in Resources */,
 				365F05D61B501A5D005161D6 /* 047[猪头]@2x.png in Resources */,
 				365F06441B501A5D005161D6 /* 106[左太极]@2x.png in Resources */,
+				E4567A781D10CF4100940163 /* WechatShortVideoController.xib in Resources */,
 				365F06221B501A5D005161D6 /* 085[骷髅头]@2x.png in Resources */,
 				365F06481B501A5D005161D6 /* 108[打太极]@2x.png in Resources */,
 				E4FEB4931C0606FB00E4A153 /* safari@2x.png in Resources */,
 				C8DC4A061BEC7AAB00F2D161 /* ssl.cer in Resources */,
 				365F06AE1B501A5D005161D6 /* 聊天-icon-选择表情@3x.png in Resources */,
 				365F06241B501A5D005161D6 /* 086[再见]@2x.png in Resources */,
+				E4567A711D10CF4100940163 /* WechatShortVideo_close@2x.png in Resources */,
 				365F06681B501A5D005161D6 /* 害羞.gif in Resources */,
 				365F060E1B501A5D005161D6 /* 075[啤酒]@2x.png in Resources */,
 				365F06A21B501A5D005161D6 /* 聊天-icon-语音2-绿@2x.png in Resources */,
@@ -4323,6 +4586,7 @@
 				365F06081B501A5D005161D6 /* 072[乒乓]@2x.png in Resources */,
 				E485DEEC1CE8A077004DB104 /* flower_item@2x.png in Resources */,
 				365F05D81B501A5D005161D6 /* 048[炸弹]@2x.png in Resources */,
+				E4567A741D10CF4100940163 /* WechatShortVideo_scan_focus@2x.png in Resources */,
 				365F02E71B5019D0005161D6 /* Images.xcassets in Resources */,
 				365F06D61B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@2x.png in Resources */,
 			);
@@ -4598,8 +4862,11 @@
 				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
 				365F043B1B501A43005161D6 /* GJCFCoreTextParagraphStyle.m in Sources */,
 				E4FEB4A41C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m in Sources */,
+				E4567A651D10CF4100940163 /* SCRecordSessionSegment.m in Sources */,
 				365F08441B50B138005161D6 /* GJGCChatGroupViewController.m in Sources */,
+				E4567A4B1D10CF4100940163 /* MBProgressHUD.m in Sources */,
 				365F07D01B50B138005161D6 /* GJGCChatBaseCell.m in Sources */,
+				E4567A591D10CF4100940163 /* SCFilterImageView.m in Sources */,
 				365F041B1B501A43005161D6 /* GJCFPhotosViewController.m in Sources */,
 				365F08751B50BAA6005161D6 /* GJCURoundCornerButton.m in Sources */,
 				365F07FA1B50B138005161D6 /* GJGCChatGroupOperationNotiCell.m in Sources */,
@@ -4607,12 +4874,14 @@
 				C81DC6BA1C06EFBB00348326 /* GJGCAppWallParamsModel.m in Sources */,
 				E4F930351C7A001D0038278A /* ZFProgressView.m in Sources */,
 				365F07EA1B50B138005161D6 /* GJGCChatFriendMemberWelcomeCell.m in Sources */,
+				E4567A631D10CF4100940163 /* SCRecorderToolsView.m in Sources */,
 				365F08421B50B138005161D6 /* GJGCChatGroupDataSourceManager.m in Sources */,
 				365F07D61B50B138005161D6 /* GJGCChatFriendAcceptGroupCallCell.m in Sources */,
 				C8DC4A611BEC816D00F2D161 /* UIImage+MultiFormat.m in Sources */,
 				365F08081B50B138005161D6 /* GJGCChatSystemNotiModel.m in Sources */,
 				365F08141B50B138005161D6 /* GJGCChatContentEmojiParser.m in Sources */,
 				C8DC4A631BEC816D00F2D161 /* UIImageView+WebCache.m in Sources */,
+				E4567A5F1D10CF4100940163 /* SCProcessingQueue.m in Sources */,
 				E4FEB3BE1BFF84FC00E4A153 /* GJGCInfoBaseListViewController.m in Sources */,
 				C8DC4A571BEC816D00F2D161 /* NSData+ImageContentType.m in Sources */,
 				C8D1B1AB1BFB310C00201421 /* ZYChatConversation.m in Sources */,
@@ -4649,6 +4918,7 @@
 				C8E50E361C02B68B00AFA10F /* GDataXMLNode.m in Sources */,
 				C81702CB1BFF3DC100FAE520 /* BTActionSheetSimpleTextCell.m in Sources */,
 				365F05621B501A5D005161D6 /* GJGCChatInputExpandMenuPanel.m in Sources */,
+				E4567A561D10CF4100940163 /* SCFilter+VideoComposition.m in Sources */,
 				C8DC4A791BEC989C00F2D161 /* amrFileCodec.mm in Sources */,
 				365F07DE1B50B138005161D6 /* GJGCChatFriendConstans.m in Sources */,
 				365F04251B501A43005161D6 /* GJCFAudioNetwork.m in Sources */,
@@ -4660,6 +4930,7 @@
 				C8DC4A381BEC7FEA00F2D161 /* ZYUserListContentModel.m in Sources */,
 				C8F3B9D61BF0B5050057AF5B /* FMDatabasePool.m in Sources */,
 				365F08541B50B138005161D6 /* GJGCChatSystemNotiViewController.m in Sources */,
+				E4567A5B1D10CF4100940163 /* SCIOPixelBuffers.m in Sources */,
 				365F04551B501A43005161D6 /* UIView+GJCFViewFrameUitil.m in Sources */,
 				365F08951B50D37A005161D6 /* GJGCRecentChatViewController.m in Sources */,
 				365F08201B50B138005161D6 /* GJGCRefreshHeaderView.m in Sources */,
@@ -4670,7 +4941,9 @@
 				E4FEB4221C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m in Sources */,
 				C81702C81BFF3DC100FAE520 /* BTActionSheetDataManager.m in Sources */,
 				365F05681B501A5D005161D6 /* GJGCChatInputExpandMenuPanelItem.m in Sources */,
+				E4567A4F1D10CF4100940163 /* NSURL+SCSaveToCameraRoll.m in Sources */,
 				C81702CD1BFF3DC100FAE520 /* BTActionSheetViewController.m in Sources */,
+				E4567A581D10CF4100940163 /* SCFilterAnimation.m in Sources */,
 				365F08321B50B138005161D6 /* GJGCChatDetailViewController.m in Sources */,
 				C81DC6B51C06EA6B00348326 /* GJGCAppWallDataManager.m in Sources */,
 				365F04371B501A43005161D6 /* GJCFCoreTextLine.m in Sources */,
@@ -4681,16 +4954,20 @@
 				C8DC4A641BEC816D00F2D161 /* UIView+WebCacheOperation.m in Sources */,
 				365F08831B50BD79005161D6 /* GJGCImageResizeHelper.m in Sources */,
 				C8F6F92B1BFEC87000978081 /* GJGCMessageExtendConst.m in Sources */,
+				E4567A531D10CF4100940163 /* SCAudioTools.m in Sources */,
 				C8E50F551C05549F00AFA10F /* GJGCMusicPlayViewController.m in Sources */,
 				E485DEE61CE89A82004DB104 /* SCSiriWaveformView.m in Sources */,
 				365F05661B501A5D005161D6 /* GJGCChatInputExpandMenuPanelDataSource.m in Sources */,
+				E4567A6D1D10CF4100940163 /* CALayer+AddUIColor.m in Sources */,
 				365F03ED1B501A43005161D6 /* GJCFFileDownloadTask.m in Sources */,
 				365F05721B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,
 				365F04391B501A43005161D6 /* GJCFCoreTextRun.m in Sources */,
+				E4567A691D10CF4100940163 /* SCVideoConfiguration.m in Sources */,
 				365F08021B50B138005161D6 /* GJGCChatSystemNotiBaseCell.m in Sources */,
 				E4FEB4111C017B1400E4A153 /* GJGCInformationCellContentModel.m in Sources */,
 				C81702C91BFF3DC100FAE520 /* BTActionSheetDatePicker.m in Sources */,
 				365F04451B501A43005161D6 /* GJCFCoreTextKeywordAttributedStringStyle.m in Sources */,
+				E4567A4D1D10CF4100940163 /* CIImageRendererUtils.m in Sources */,
 				365F02E51B5019D0005161D6 /* AppDelegate.m in Sources */,
 				365F03D31B501A43005161D6 /* AFHTTPSessionManager.m in Sources */,
 				C8DC49F81BEC786B00F2D161 /* ZYDataCenter.m in Sources */,
@@ -4706,12 +4983,16 @@
 				365F044D1B501A43005161D6 /* GJCFQuickCacheUitil.m in Sources */,
 				365F04411B501A43005161D6 /* GJCFCoreTextImageAttributedStringStyle.m in Sources */,
 				365F083A1B50B138005161D6 /* GJGCProgressView.m in Sources */,
+				E4567A771D10CF4100940163 /* WechatShortVideoController.m in Sources */,
 				C81702F71BFF4FBA00FAE520 /* GJGCCreateGroupLabelsSheetDataManager.m in Sources */,
 				C8DC4A591BEC816D00F2D161 /* SDWebImageCompat.m in Sources */,
 				C8DC4A5E1BEC816D00F2D161 /* SDWebImagePrefetcher.m in Sources */,
 				365F03D11B501A43005161D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				E4FEB42B1C017BF000E4A153 /* GJGCCommonAttributedStringStyle.m in Sources */,
+				E4567A4C1D10CF4100940163 /* README.mdown in Sources */,
 				365F08301B50B138005161D6 /* GJGCChatDetailDataSourceManager.m in Sources */,
+				E4567A641D10CF4100940163 /* SCRecordSession.m in Sources */,
+				E4567A5A1D10CF4100940163 /* SCImageView.m in Sources */,
 				365F083C1B50B138005161D6 /* GJGCChatFriendDataSourceManager.m in Sources */,
 				365F04491B501A43005161D6 /* GJCFDateUitil.m in Sources */,
 				E4FEB3AE1BFF7E0600E4A153 /* BTToast.m in Sources */,
@@ -4719,6 +5000,7 @@
 				365F088B1B50C228005161D6 /* GJGCCommonFontColorStyle.m in Sources */,
 				C81DC6B21C06EA4A00348326 /* GJGCAppWallViewController.m in Sources */,
 				365F045D1B501A43005161D6 /* GJCUImageBrowserConstans.m in Sources */,
+				E4567A541D10CF4100940163 /* SCContext.m in Sources */,
 				C8E50F6F1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.m in Sources */,
 				365F07F01B50B138005161D6 /* GJGCChatFriendTextMessageCell.m in Sources */,
 				E4FEB4551C01E7E200E4A153 /* HARegistInputTextCell.m in Sources */,
@@ -4737,6 +5019,7 @@
 				C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */,
 				365F040D1B501A43005161D6 /* GJCFAssetsPickerOverlayView.m in Sources */,
 				365F04011B501A43005161D6 /* UIButton+GJCFAssetsPickerStyle.m in Sources */,
+				E4567A681D10CF4100940163 /* SCSwipeableFilterView.m in Sources */,
 				E4FEB4741C0206F100E4A153 /* BTCustomTabBarItem.m in Sources */,
 				365F08001B50B138005161D6 /* GJGCChatSystemInviteFriendJoinGroupCell.m in Sources */,
 				C8DC4A2A1BEC7B3500F2D161 /* JSONAPI.m in Sources */,
@@ -4747,6 +5030,7 @@
 				365F07E21B50B138005161D6 /* GJGCChatFriendDriftBottleCell.m in Sources */,
 				365F04531B501A43005161D6 /* GJCFSystemUitil.m in Sources */,
 				C8F3B9C11BF0AA6B0057AF5B /* ZYDatabaseWhereCondition.m in Sources */,
+				E4567A571D10CF4100940163 /* SCFilter.m in Sources */,
 				E4FEB3B21BFF84BC00E4A153 /* GJGCInfoBaseListContentModel.m in Sources */,
 				C8DC49FB1BEC787A00F2D161 /* ZYDataCenterInterface.m in Sources */,
 				C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */,
@@ -4776,9 +5060,11 @@
 				365F08651B50B621005161D6 /* GJCUFlashModeView.m in Sources */,
 				E4FEB3D81C00574500E4A153 /* Base64.m in Sources */,
 				C81702F11BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m in Sources */,
+				E4567A661D10CF4100940163 /* SCSampleBufferHolder.m in Sources */,
 				365F07E41B50B138005161D6 /* GJGCChatFriendGifCell.m in Sources */,
 				E4FEB41D1C017B1400E4A153 /* GJGCInformationTextCell.m in Sources */,
 				C8DC4A251BEC7B3500F2D161 /* JSONModel.m in Sources */,
+				E4567A5C1D10CF4100940163 /* SCMediaTypeConfiguration.m in Sources */,
 				C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */,
 				C81702941BFF3CAE00FAE520 /* GJGCGroupInfoExtendModel.m in Sources */,
 				C8E50E601C02C25F00AFA10F /* UIScrollView+MJExtension.m in Sources */,
@@ -4786,8 +5072,10 @@
 				C81702C61BFF3DC100FAE520 /* BTActionSheetBaseContentModel.m in Sources */,
 				365F08181B50B138005161D6 /* GJGCLoadingStatusHUD.m in Sources */,
 				365F07FE1B50B138005161D6 /* GJGCChatSystemActiveGuideCell.m in Sources */,
+				E4567A671D10CF4100940163 /* SCSaveToCameraRollOperation.m in Sources */,
 				C8DC4A681BEC89A500F2D161 /* ZYUserCenter.m in Sources */,
 				C8DC4A2D1BEC7B3500F2D161 /* JSONKeyMapper.m in Sources */,
+				E4567A551D10CF4100940163 /* SCFilter+UIImage.m in Sources */,
 				365F081C1B50B138005161D6 /* GJGCPlaceHolderImageView.m in Sources */,
 				365F04291B501A43005161D6 /* GJCFFileUploadTask+GJCFAudioUpload.m in Sources */,
 				C8E50E441C02B84200AFA10F /* shopModel.m in Sources */,
@@ -4808,6 +5096,7 @@
 				365F04171B501A43005161D6 /* GJCFAssetsPickerViewController.m in Sources */,
 				E4FEB4151C017B1400E4A153 /* GJGCInformationGroupShowCell.m in Sources */,
 				C81702C51BFF3DC100FAE520 /* BTActionSheetBaseCell.m in Sources */,
+				E4567A521D10CF4100940163 /* SCAudioConfiguration.m in Sources */,
 				365F04051B501A43005161D6 /* GJCFAlbums.m in Sources */,
 				C8DC4A5F1BEC816D00F2D161 /* UIButton+WebCache.m in Sources */,
 				E4FEB4561C01E7E200E4A153 /* HARegistViewController.m in Sources */,
@@ -4816,7 +5105,9 @@
 				E4FEB4321C017D4E00E4A153 /* GJGCGroupInformationViewController.m in Sources */,
 				365F07FC1B50B138005161D6 /* GJGCChatOtherApplyMyAuthorizWithStateCell.m in Sources */,
 				365F044F1B501A43005161D6 /* GJCFQuickUIUitil.m in Sources */,
+				E4567A511D10CF4100940163 /* SCAssetExportSession.m in Sources */,
 				365F055A1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBar.m in Sources */,
+				E4567A5E1D10CF4100940163 /* SCPlayer.m in Sources */,
 				C8DC49F51BEC785D00F2D161 /* ZYDataCenterRequestCondition.m in Sources */,
 				C8E50E621C02C25F00AFA10F /* UIView+MJExtension.m in Sources */,
 				365F04271B501A43005161D6 /* GJCFFileDownloadTask+GJCFAudioDownload.m in Sources */,
@@ -4836,14 +5127,18 @@
 				E4FEB4131C017B1400E4A153 /* GJGCInformationFeedListCell.m in Sources */,
 				C8D1B2241BFD6FB800201421 /* GJGCRecentChatTitleView.m in Sources */,
 				365F081A1B50B138005161D6 /* GJGCParticleEffectLayer.m in Sources */,
+				E4567A621D10CF4100940163 /* SCRecorderTools.m in Sources */,
 				365F03F71B501A43005161D6 /* FLAnimatedImageView.m in Sources */,
 				365F04631B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
 				E4FEB4191C017B1400E4A153 /* GJGCInformationMemeberShowCell.m in Sources */,
+				E4567A6A1D10CF4100940163 /* SCVideoPlayerView.m in Sources */,
 				365F05741B501A5D005161D6 /* GJGCIconSeprateButton.m in Sources */,
 				365F05541B501A5D005161D6 /* GJGCChatInputExpandEmojiPanel.m in Sources */,
 				C8DC4A351BEC7FB300F2D161 /* ZYUserListDataManager.m in Sources */,
 				C8D1B1B01BFC474C00201421 /* GJGCRecentChatDataManager.m in Sources */,
+				E4567A611D10CF4100940163 /* SCRecorderFocusTargetView.m in Sources */,
 				E4FEB3BA1BFF84E300E4A153 /* GJGCInfoBaseListDataManager.m in Sources */,
+				E4567A761D10CF4100940163 /* SCRecordSessionManager.m in Sources */,
 				E4FEB4541C01E7E200E4A153 /* HARegistContentModel.m in Sources */,
 				365F04351B501A43005161D6 /* GJCFCoreTextFrame.m in Sources */,
 				365F08161B50B138005161D6 /* GJGCLevelView.m in Sources */,
@@ -4852,6 +5147,7 @@
 				365F043D1B501A43005161D6 /* GJCFCoreTextAttributedStringStyle.m in Sources */,
 				365F03EF1B501A43005161D6 /* GJCFFileUploadManager.m in Sources */,
 				C8F3B9BB1BF0A8170057AF5B /* ZYDatabaseCRUDCondition.m in Sources */,
+				E4567A6C1D10CF4100940163 /* UIImage+SCSaveToCameraRoll.m in Sources */,
 				E4FEB3D31C00529800E4A153 /* GJGCPulicGroupListDataManager.m in Sources */,
 				365F07D81B50B138005161D6 /* GJGCChatFriendAudioMessageCell.m in Sources */,
 				C8DC4A581BEC816D00F2D161 /* SDImageCache.m in Sources */,
@@ -4866,6 +5162,7 @@
 				C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */,
 				E4FEB4231C017B1400E4A153 /* GJGCInformationBaseViewController.m in Sources */,
 				C81702931BFF3CAE00FAE520 /* GJGCGroupInfoExtendConst.m in Sources */,
+				E4567A5D1D10CF4100940163 /* SCPhotoConfiguration.m in Sources */,
 				C81702FA1BFF501E00FAE520 /* GJGCCreateGroupLabelsSheetViewController.m in Sources */,
 				365F056E1B501A5D005161D6 /* GJGCChatInputPanelStyle.m in Sources */,
 				C8DC4A601BEC816D00F2D161 /* UIImage+GIF.m in Sources */,
@@ -4878,17 +5175,20 @@
 				365F04071B501A43005161D6 /* GJCFAsset.m in Sources */,
 				365F04211B501A43005161D6 /* GJCFAudioManager.m in Sources */,
 				E4FEB4171C017B1400E4A153 /* GJGCInformationLevelCell.m in Sources */,
+				E4567A501D10CF4100940163 /* README.md in Sources */,
 				C81702A81BFF3D1D00FAE520 /* GJGCCreateGroupConst.m in Sources */,
 				E4FEB4101C017B1400E4A153 /* GJGCInformationCellConstans.m in Sources */,
 				C8DC4A701BEC8F0D00F2D161 /* GJCFCachePathManager.m in Sources */,
 				C8E50F3E1C044B2700AFA10F /* GJGCWebHostListViewController.m in Sources */,
 				C8DC4A291BEC7B3500F2D161 /* NSArray+JSONModel.m in Sources */,
 				365F042B1B501A43005161D6 /* GJCFAudioPlayer.m in Sources */,
+				E4567A601D10CF4100940163 /* SCRecorder.m in Sources */,
 				365F087B1B50BB94005161D6 /* TKRoundedView.m in Sources */,
 				365F05641B501A5D005161D6 /* GJGCChatInputExpandMenuPanelConfigModel.m in Sources */,
 				C8E50E691C02D8AF00AFA10F /* GJGCCreateGroupAddressSheetViewController.m in Sources */,
 				C8F3B9D81BF0B5050057AF5B /* FMResultSet.m in Sources */,
 				C8DC4A031BEC79DA00F2D161 /* ZYNetWorkTask.m in Sources */,
+				E4567A6B1D10CF4100940163 /* SCWeakSelectorTarget.m in Sources */,
 				C81DC6BD1C06F44E00348326 /* GJGCAppWallAreaSheetViewController.m in Sources */,
 				365F045F1B501A43005161D6 /* GJCUImageBrowserModel.m in Sources */,
 				E4FEB41A1C017B1400E4A153 /* GJGCInformationPersonPhotoBoxCell.m in Sources */,

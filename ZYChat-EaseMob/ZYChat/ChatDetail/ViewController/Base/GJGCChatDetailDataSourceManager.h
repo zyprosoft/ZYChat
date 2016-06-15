@@ -72,6 +72,8 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 @property (nonatomic,assign)BOOL isFinishLoadAllHistoryMsg;
 
+@property (nonatomic,strong)dispatch_queue_t taskQueue;
+
 /**
  *  发送消息时间间隔频度控制
  */
