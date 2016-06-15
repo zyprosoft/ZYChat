@@ -32,6 +32,7 @@
 #import "SCRecorder.h"
 #import "SCRecordSessionManager.h"
 #import "MBProgressHUD.h"
+#import "GJCFCachePathManager.h"
 
 
 @interface WechatShortVideoController () <SCRecorderDelegate, SCAssetExportSessionDelegate, MBProgressHUDDelegate>
@@ -336,6 +337,10 @@
         if (error == nil) {
             [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
             UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+            NSString *fileName = url.lastPathComponent;
+            NSString *cachePath = GJCFAppCachePath(fileName);
+            NSURL *fileUrl = [NSURL fileURLWithPath:cachePath];
+            [GJCFFileManager copyItemAtURL:url toURL:fileUrl error:nil];
         } else {
             self.progressHUD.labelText = [NSString stringWithFormat:@"Failed to save\n%@", error.localizedDescription];
             self.progressHUD.mode = MBProgressHUDModeCustomView;

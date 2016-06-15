@@ -146,17 +146,10 @@
         }
             break;
         case EMMessageBodyTypeVoice:
-        {
-            EMVoiceMessageBody *voiceBody = (EMVoiceMessageBody *)messageBody;
-            
-            resultString = voiceBody.displayName;
-        }
-            break;
+        case EMMessageBodyTypeVideo:
         case EMMessageBodyTypeImage:
         {
-            EMImageMessageBody *voiceBody = (EMImageMessageBody *)messageBody;
-            
-            resultString = voiceBody.displayName;
+            resultString = [(EMFileMessageBody *)messageBody displayName];
         }
             break;
         default:
