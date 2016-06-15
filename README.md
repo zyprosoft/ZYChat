@@ -6,6 +6,8 @@
 
 ## (三) ZYChat-EaseMob 是基于环信的UI项目应用实战，将ZYChat类库和实际项目使用结合。
 
+## (四) 消息类型目前扩展至: 文本，语音，音乐，网页，鲜花特效，短视频
+
 ### 项目运行截图
 
 ![s_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/s_show.png "s_show")  
