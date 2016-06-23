@@ -174,10 +174,10 @@
 
 #pragma mark - 环信监听会话生成的回调
 
-- (void)didUpdateConversationList:(NSArray *)conversationList
+- (void)didUpdateConversationList:(NSArray *)aConversationList
 {
-    if (conversationList.count > 0) {
-        [self updateConversationList:conversationList];
+    if (aConversationList.count > 0) {
+        [self updateConversationList:aConversationList];
     }
 }
 
@@ -338,7 +338,7 @@
             break;
         case EMConnectionDisconnected:
         {
-            [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateFaild];
+            [self.delegate dataManager:self requireUpdateTitleViewState:GJGCRecentChatConnectStateConnecting];
         }
             break;
         default:

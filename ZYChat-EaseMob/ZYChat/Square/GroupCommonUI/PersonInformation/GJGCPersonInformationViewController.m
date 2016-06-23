@@ -20,7 +20,11 @@
 
 @property (nonatomic,strong)UIImageView *bottomBarSeprateLine;
 
+@property (nonatomic,strong)UIButton *exitButton;
+
 @property (nonatomic,strong)UIButton *joinChatButton;
+
+@property (nonatomic,strong)UIButton *beginChatButton;
 
 @end
 
@@ -103,6 +107,18 @@
 
 - (void)setupBottomBar
 {
+    NSArray *myContacts = [[EMClient sharedClient].contactManager getContacts];
+    [myContacts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+    }];
+}
+
+- (void)setupUserIsFriend
+{
+    if (self.joinChatButton) {
+        [self.joinChatButton removeFromSuperview];
+    }
+    
     if (!self.bottomBarSeprateLine) {
         self.bottomBarSeprateLine = [[UIImageView alloc]init];
         self.bottomBarSeprateLine.gjcf_height = 0.5f;
@@ -112,40 +128,110 @@
         self.bottomBarSeprateLine.gjcf_bottom = GJCFSystemScreenHeight - 64 - 46.f;
     }
     
-    self.joinChatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.joinChatButton.gjcf_width = GJCFSystemScreenWidth*1/3;
-    self.joinChatButton.gjcf_height = 32.f;
-    [self.joinChatButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.joinChatButton.gjcf_size) forState:UIControlStateNormal];
-    [self.joinChatButton setTitle:@"开始聊天" forState:UIControlStateNormal];
-    [self.joinChatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.joinChatButton.layer.cornerRadius = 4.f;
-    self.joinChatButton.layer.masksToBounds = YES;
-    [self.joinChatButton addTarget:self action:@selector(joinGroupAction) forControlEvents:UIControlEventTouchUpInside];
-    self.joinChatButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    self.exitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.exitButton.gjcf_width = GJCFSystemScreenWidth*1/3;
+    self.exitButton.gjcf_height = 32.f;
+    [self.exitButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.exitButton.gjcf_size) forState:UIControlStateNormal];
+    [self.exitButton setTitle:@"解除关系" forState:UIControlStateNormal];
+    [self.exitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.exitButton.layer.cornerRadius = 4.f;
+    self.exitButton.layer.masksToBounds = YES;
+    self.exitButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    [self.exitButton addTarget:self action:@selector(deleteContactAction) forControlEvents:UIControlEventTouchUpInside];
     
-    self.joinChatButton.gjcf_centerX = GJCFSystemScreenWidth/2;
-    self.joinChatButton.gjcf_centerY = GJCFSystemScreenHeight - 64 - 32/2 - 6;
+    [self.view addSubview:self.exitButton];
     
-    [self.view addSubview:self.joinChatButton];
+    self.beginChatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.beginChatButton.gjcf_width = GJCFSystemScreenWidth*1/3;
+    self.beginChatButton.gjcf_height = 32.f;
+    [self.beginChatButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.exitButton.gjcf_size) forState:UIControlStateNormal];
+    [self.beginChatButton setTitle:@"开始聊天" forState:UIControlStateNormal];
+    [self.beginChatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.beginChatButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    self.beginChatButton.layer.cornerRadius = 4.f;
+    self.beginChatButton.layer.masksToBounds = YES;
+    [self.beginChatButton addTarget:self action:@selector(beginChatAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.beginChatButton];
+    
+    CGFloat margin = (GJCFSystemScreenWidth - GJCFSystemScreenWidth *2/3)/3;
+    
+    self.exitButton.gjcf_left = margin;
+    self.beginChatButton.gjcf_left = self.exitButton.gjcf_right + margin;
+    self.exitButton.gjcf_centerY = GJCFSystemScreenHeight - 64 - 32/2 - 6;
+    self.beginChatButton.gjcf_centerY = self.exitButton.gjcf_centerY;
 }
 
-- (void)joinGroupAction
+- (void)setupUserNotFriend
+{
+    if (self.joinChatButton) {
+        [self.joinChatButton removeFromSuperview];
+    }
+    
+    if (!self.bottomBarSeprateLine) {
+        self.bottomBarSeprateLine = [[UIImageView alloc]init];
+        self.bottomBarSeprateLine.gjcf_height = 0.5f;
+        self.bottomBarSeprateLine.gjcf_width = GJCFSystemScreenWidth;
+        self.bottomBarSeprateLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
+        [self.view addSubview:self.bottomBarSeprateLine];
+        self.bottomBarSeprateLine.gjcf_bottom = GJCFSystemScreenHeight - 64 - 46.f;
+    }
+    
+    self.exitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.exitButton.gjcf_width = GJCFSystemScreenWidth*1/3;
+    self.exitButton.gjcf_height = 32.f;
+    [self.exitButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.exitButton.gjcf_size) forState:UIControlStateNormal];
+    [self.exitButton setTitle:@"打招呼" forState:UIControlStateNormal];
+    [self.exitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.exitButton.layer.cornerRadius = 4.f;
+    self.exitButton.layer.masksToBounds = YES;
+    self.exitButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    [self.exitButton addTarget:self action:@selector(addContactAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.exitButton];
+    
+    self.beginChatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.beginChatButton.gjcf_width = GJCFSystemScreenWidth*1/3;
+    self.beginChatButton.gjcf_height = 32.f;
+    [self.beginChatButton setBackgroundImage:GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], self.exitButton.gjcf_size) forState:UIControlStateNormal];
+    [self.beginChatButton setTitle:@"加为好友" forState:UIControlStateNormal];
+    [self.beginChatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.beginChatButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
+    self.beginChatButton.layer.cornerRadius = 4.f;
+    self.beginChatButton.layer.masksToBounds = YES;
+    [self.beginChatButton addTarget:self action:@selector(beginChatAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.beginChatButton];
+    
+    CGFloat margin = (GJCFSystemScreenWidth - GJCFSystemScreenWidth *2/3)/3;
+    
+    self.exitButton.gjcf_left = margin;
+    self.beginChatButton.gjcf_left = self.exitButton.gjcf_right + margin;
+    self.exitButton.gjcf_centerY = GJCFSystemScreenHeight - 64 - 32/2 - 6;
+    self.beginChatButton.gjcf_centerY = self.exitButton.gjcf_centerY;
+}
+
+- (void)deleteContactAction
+{
+    
+}
+
+- (void)beginChatAction
 {
     GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
     talk.talkType = GJGCChatFriendTalkTypePrivate;
     talk.toId = self.theUserId;
     talk.toUserName = self.theUser.nickName;
     
-    //如果有会话记录才插入这样一条会话，不然就什么都不做
-    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talk.toId]) {
-        
-        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:talk.conversation.conversationId type:EMConversationTypeChat createIfNotExist:NO];
-        talk.conversation = conversation;
+    EMMessage *lastUserMesseage = [talk.conversation latestMessageFromOthers];
+    if (lastUserMesseage) {
         
     }
+}
+
+- (void)addContactAction
+{
     
-    GJGCChatFriendViewController *privateChat = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talk];
-    [self.navigationController pushViewController:privateChat animated:YES];
 }
 
 @end

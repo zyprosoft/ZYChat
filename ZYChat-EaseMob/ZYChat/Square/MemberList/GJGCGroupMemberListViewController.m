@@ -10,6 +10,7 @@
 #import "GJGCGroupMemberListDataManager.h"
 #import "GJGCChatFriendViewController.h"
 #import "GJGCRecentChatDataManager.h"
+#import "GJGCPersonInformationViewController.h"
 
 @interface GJGCGroupMemberListViewController ()
 
@@ -50,16 +51,16 @@
     talkModel.toId = contentModel.title;
     talkModel.toUserName = contentModel.title;
     
-    //如果有会话记录才插入这样一条会话，不然就什么都不做
-    if ([GJGCRecentChatDataManager isConversationHasBeenExist:talkModel.conversation.conversationId]) {
-        
-        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:talkModel.conversation.conversationId type:EMConversationTypeChat createIfNotExist:NO];
-        talkModel.conversation = conversation;
-        
+    EMMessage *message = [talkModel.conversation latestMessageFromOthers];
+    if (message) {
+        //普通文本消息和依靠普通文本消息扩展出来的消息类型
+        GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:message.ext];
+        GJGCPersonInformationViewController *personVC = [[GJGCPersonInformationViewController alloc]initWithExtendUser:extendModel.userInfo withUserId:message.from];
+        [self.navigationController pushViewController:personVC animated:YES];
+        return;
     }
     
-    GJGCChatFriendViewController *chatVC = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talkModel];
-    [self.navigationController pushViewController:chatVC animated:YES];
+    
 }
 
 @end
