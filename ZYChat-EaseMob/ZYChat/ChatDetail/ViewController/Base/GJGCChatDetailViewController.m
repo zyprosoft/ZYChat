@@ -33,9 +33,10 @@
         _talkInfo = talkModel;
         
         self.highSpeedStatusReloadFlushSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+        GJCFWeakSelf weakSelf = self;
         dispatch_source_set_event_handler(self.highSpeedStatusReloadFlushSource, ^{
-            NSInteger index = dispatch_source_get_data(self.highSpeedStatusReloadFlushSource);
-            [self highSpeedUpdateStatusFlushWithIndex:index];
+            NSInteger index = dispatch_source_get_data(weakSelf.highSpeedStatusReloadFlushSource);
+            [weakSelf highSpeedUpdateStatusFlushWithIndex:index];
         });
         dispatch_resume(self.highSpeedStatusReloadFlushSource);
         
