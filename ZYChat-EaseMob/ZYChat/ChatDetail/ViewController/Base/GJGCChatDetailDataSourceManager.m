@@ -121,9 +121,10 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     //缓冲刷新
     if (!self.refreshListSource) {
         self.refreshListSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, dispatch_get_main_queue());
+        GJCFWeakSelf weakSelf = self;
         dispatch_source_set_event_handler(_refreshListSource, ^{
            
-            [self dispatchOptimzeRefresh];
+            [weakSelf dispatchOptimzeRefresh];
         });
     }
     dispatch_resume(self.refreshListSource);
