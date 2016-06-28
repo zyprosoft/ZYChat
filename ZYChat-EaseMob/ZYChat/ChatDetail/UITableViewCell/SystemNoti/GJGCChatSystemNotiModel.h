@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, GJGCChatSystemNotiAssistType) {
 /* 名片是否显示群组内容 */
 @property (nonatomic,assign)BOOL      isGroupContent;
 
-@property (nonatomic,assign)long long groupId;
+@property (nonatomic,strong)NSString *groupId;
 
 #pragma mark - 个人绑定
 
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, GJGCChatSystemNotiAssistType) {
 /* 名片是否显示用户内容 */
 @property (nonatomic,assign)BOOL isUserContent;
 
-@property (nonatomic,assign)long long userId;
+@property (nonatomic,strong)NSString *userId;
 
 #pragma mark - 群组操作信息内容
 
@@ -128,5 +128,7 @@ typedef NS_ENUM(NSUInteger, GJGCChatSystemNotiAssistType) {
 @property (nonatomic,strong)NSDictionary *postSystemAppendType;
 
 @property (nonatomic,assign)NSInteger postSystemJumpType;
+
+@property (nonatomic,strong)EMMessage *message;
 
 @end

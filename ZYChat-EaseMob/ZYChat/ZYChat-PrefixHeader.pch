@@ -16,6 +16,9 @@
 
 #import <HyphenateFullSDK/EMSDKFull.h>
 
+#import "NSDictionary+Json.h"
+#import "NSString+Json.h"
+
 #import "BTToast.h"
 
 #import <UIKit/UIKit.h>

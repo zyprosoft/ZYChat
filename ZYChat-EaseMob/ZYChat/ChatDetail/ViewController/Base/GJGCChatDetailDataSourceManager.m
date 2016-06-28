@@ -14,6 +14,7 @@
 #import "GJGCMessageExtendContentGIFModel.h"
 #import "GJGCMessageExtendMusicShareModel.h"
 #import "GJGCMessageExtendSendFlowerModel.h"
+#import "GJGCMessageExtendMiniMessageModel.h"
 
 NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNoti";
 
@@ -806,6 +807,13 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                             
                         }
                             break;
+                        case GJGCChatFriendContentTypeMini:
+                        {
+                            GJGCMessageExtendMiniMessageModel *miniContent = (GJGCMessageExtendMiniMessageModel *)extendModel.messageContent;
+                            chatContentModel.originTextMessage = miniContent.displayText;
+                            chatContentModel.simpleTextMessage = [GJGCChatFriendCellStyle formateMinMessage:miniContent.displayText];
+                        }
+                            break;
                         default:
                             break;
                     }
@@ -1290,6 +1298,25 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
              @(EMMessageStatusPending):@(GJGCChatFriendSendMessageStatusSending),
              @(EMMessageStatusFailed):@(GJGCChatFriendSendMessageStatusFaild),
              };
+}
+
+#pragma mark - 如果是陌生人第一次聊天，插入提示文案
+
++ (void)createRemindTipMessage:(NSString *)message conversationType:(EMConversationType)type withConversationId:(NSString *)conversationId
+{
+    EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:conversationId type:type createIfNotExist:YES];
+    
+    EMTextMessageBody *messageBody = [[EMTextMessageBody alloc]initWithText:@"mini消息"];
+    GJGCMessageExtendModel *contentExtend = [[GJGCMessageExtendModel alloc]init];
+    contentExtend.isExtendMessageContent = YES;
+    GJGCMessageExtendMiniMessageModel *miniMessage = [[GJGCMessageExtendMiniMessageModel alloc]init];
+    miniMessage.displayText = message;
+    miniMessage.notSupportDisplayText = @"[系统消息]请更新源代码以支持此消息展示";
+    contentExtend.messageContent = miniMessage;
+    contentExtend.chatFriendContentType = GJGCChatFriendContentTypeMini;
+    
+    EMMessage *aMessage = [[EMMessage alloc]initWithConversationID:conversationId from:[EMClient sharedClient].currentUsername to:conversationId body:messageBody ext:[contentExtend contentDictionary]];
+    [conversation insertMessage:aMessage];
 }
 
 @end

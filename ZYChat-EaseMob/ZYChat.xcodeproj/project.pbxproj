@@ -922,6 +922,7 @@
 		E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEED1CE8A153004DB104 /* flower@2x.png */; };
 		E485DEF41CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */; };
 		E485DEF71CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */; };
+		E4CB35311D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
 		E4F9302C1C79FF110038278A /* ShutterButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */; };
@@ -929,6 +930,13 @@
 		E4F930311C79FF4B0038278A /* GJGCVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930301C79FF4B0038278A /* GJGCVideoPlayerViewController.m */; };
 		E4F930371C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930361C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png */; };
 		E4F9303A1C7A0B850038278A /* GJGCChatFriendVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */; };
+		E4FE15FD1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FE15F91D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png */; };
+		E4FE15FE1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FE15FA1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png */; };
+		E4FE15FF1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FE15FB1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png */; };
+		E4FE16001D22D60A008D47E4 /* IM-系统推荐列表BG@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4FE15FC1D22D60A008D47E4 /* IM-系统推荐列表BG@3x.png */; };
+		E4FE16041D22DA5E008D47E4 /* NSDictionary+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16031D22DA5E008D47E4 /* NSDictionary+Json.m */; };
+		E4FE16071D22DA8F008D47E4 /* NSString+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16061D22DA8F008D47E4 /* NSString+Json.m */; };
+		E4FE160A1D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16091D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m */; };
 		E4FEB3A61BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3A71BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3AA1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */; };
@@ -1966,6 +1974,8 @@
 		E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendSendFlowerModel.m; sourceTree = "<group>"; };
 		E485DEF51CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendSendFlowerCell.h; sourceTree = "<group>"; };
 		E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendSendFlowerCell.m; sourceTree = "<group>"; };
+		E4CB352F1D21FF3600B15E30 /* GJGCChatSystemNotiReciever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatSystemNotiReciever.h; sourceTree = "<group>"; };
+		E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatSystemNotiReciever.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
 		E4F930291C79FF0A0038278A /* outer2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer2@2x.png"; sourceTree = "<group>"; };
 		E4F9302B1C79FF110038278A /* ShutterButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShutterButton1@2x.png"; sourceTree = "<group>"; };
@@ -1975,6 +1985,16 @@
 		E4F930361C7A05F20038278A /* 聊天键盘-icon-短视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天键盘-icon-短视频@2x.png"; sourceTree = "<group>"; };
 		E4F930381C7A0B850038278A /* GJGCChatFriendVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendVideoCell.h; sourceTree = "<group>"; };
 		E4F930391C7A0B850038278A /* GJGCChatFriendVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendVideoCell.m; sourceTree = "<group>"; };
+		E4FE15F91D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IM-系统推荐列表BG-点击@2x.png"; sourceTree = "<group>"; };
+		E4FE15FA1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IM-系统推荐列表BG-点击@3x.png"; sourceTree = "<group>"; };
+		E4FE15FB1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IM-系统推荐列表BG@2x.png"; sourceTree = "<group>"; };
+		E4FE15FC1D22D60A008D47E4 /* IM-系统推荐列表BG@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IM-系统推荐列表BG@3x.png"; sourceTree = "<group>"; };
+		E4FE16021D22DA5E008D47E4 /* NSDictionary+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Json.h"; sourceTree = "<group>"; };
+		E4FE16031D22DA5E008D47E4 /* NSDictionary+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Json.m"; sourceTree = "<group>"; };
+		E4FE16051D22DA8F008D47E4 /* NSString+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Json.h"; sourceTree = "<group>"; };
+		E4FE16061D22DA8F008D47E4 /* NSString+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Json.m"; sourceTree = "<group>"; };
+		E4FE16081D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendMiniMessageModel.h; sourceTree = "<group>"; };
+		E4FE16091D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendMiniMessageModel.m; sourceTree = "<group>"; };
 		E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetDataManager.h; sourceTree = "<group>"; };
 		E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupTypeSheetDataManager.m; sourceTree = "<group>"; };
 		E4FEB3A81BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetViewController.h; sourceTree = "<group>"; };
@@ -2227,6 +2247,7 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E4FE16011D22DA47008D47E4 /* NSDictionary+Json */,
 				E45679EF1D10CF4100940163 /* MBProgressHUD */,
 				E45679F41D10CF4100940163 /* SCRecorder */,
 				E4567A381D10CF4100940163 /* WechatShortVideo */,
@@ -3199,6 +3220,8 @@
 				365F07A51B50B138005161D6 /* GJGCChatSystemNotiDataManager.m */,
 				365F07A61B50B138005161D6 /* GJGCChatSystemNotiViewController.h */,
 				365F07A71B50B138005161D6 /* GJGCChatSystemNotiViewController.m */,
+				E4CB352F1D21FF3600B15E30 /* GJGCChatSystemNotiReciever.h */,
+				E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */,
 			);
 			path = SystemAssist;
 			sourceTree = "<group>";
@@ -3248,6 +3271,10 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4FE15F91D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png */,
+				E4FE15FA1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png */,
+				E4FE15FB1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png */,
+				E4FE15FC1D22D60A008D47E4 /* IM-系统推荐列表BG@3x.png */,
 				E485DEED1CE8A153004DB104 /* flower@2x.png */,
 				E485DEEB1CE8A077004DB104 /* flower_item@2x.png */,
 				E4F9302D1C79FF180038278A /* ShutterButtonStop@2x.png */,
@@ -3836,6 +3863,8 @@
 				E4FEB4A31C0613F200E4A153 /* GJGCMessageExtendMusicShareModel.m */,
 				E485DEF21CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.h */,
 				E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */,
+				E4FE16081D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.h */,
+				E4FE16091D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m */,
 			);
 			path = MessageExtend;
 			sourceTree = "<group>";
@@ -4008,6 +4037,17 @@
 				E4F930301C79FF4B0038278A /* GJGCVideoPlayerViewController.m */,
 			);
 			path = Video;
+			sourceTree = "<group>";
+		};
+		E4FE16011D22DA47008D47E4 /* NSDictionary+Json */ = {
+			isa = PBXGroup;
+			children = (
+				E4FE16021D22DA5E008D47E4 /* NSDictionary+Json.h */,
+				E4FE16031D22DA5E008D47E4 /* NSDictionary+Json.m */,
+				E4FE16051D22DA8F008D47E4 /* NSString+Json.h */,
+				E4FE16061D22DA8F008D47E4 /* NSString+Json.m */,
+			);
+			path = "NSDictionary+Json";
 			sourceTree = "<group>";
 		};
 		E4FEB3AF1BFF836500E4A153 /* InfoBaseList */ = {
@@ -4394,6 +4434,7 @@
 				365F08AA1B50E094005161D6 /* 聊天对话框-BG-绿色-点击@2x.png in Resources */,
 				365F05841B501A5D005161D6 /* 007[流汗]@2x.png in Resources */,
 				365F06A41B501A5D005161D6 /* 聊天-icon-语音及切换键盘-灰@2x.png in Resources */,
+				E4FE15FF1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png in Resources */,
 				365F08BF1B50E8FC005161D6 /* title-icon-向左返回@2x.png in Resources */,
 				365F06BC1B501A5D005161D6 /* 聊天键盘-icon-拍照@3x.png in Resources */,
 				365F059E1B501A5D005161D6 /* 019[鄙视]@2x.png in Resources */,
@@ -4491,6 +4532,7 @@
 				365F06A01B501A5D005161D6 /* 聊天-icon-语音1-绿@2x.png in Resources */,
 				E4FEB4801C020EED00E4A153 /* my@2x.png in Resources */,
 				E4FEB4621C01EA3200E4A153 /* owl-login-arm-right@2x.png in Resources */,
+				E4FE16001D22D60A008D47E4 /* IM-系统推荐列表BG@3x.png in Resources */,
 				365F05A01B501A5D005161D6 /* 020[惊恐]@2x.png in Resources */,
 				365F06381B501A5D005161D6 /* 100[呕火]@2x.png in Resources */,
 				365F063E1B501A5D005161D6 /* 103[挥手帕]@2x.png in Resources */,
@@ -4518,6 +4560,7 @@
 				365F06241B501A5D005161D6 /* 086[再见]@2x.png in Resources */,
 				E4567A711D10CF4100940163 /* WechatShortVideo_close@2x.png in Resources */,
 				365F06681B501A5D005161D6 /* 害羞.gif in Resources */,
+				E4FE15FE1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png in Resources */,
 				365F060E1B501A5D005161D6 /* 075[啤酒]@2x.png in Resources */,
 				365F06A21B501A5D005161D6 /* 聊天-icon-语音2-绿@2x.png in Resources */,
 				365F06521B501A5D005161D6 /* gifCode.plist in Resources */,
@@ -4543,6 +4586,7 @@
 				365F05CC1B501A5D005161D6 /* 042[咒骂]@2x.png in Resources */,
 				C8E50E8E1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png in Resources */,
 				365F063C1B501A5D005161D6 /* 102[回头]@2x.png in Resources */,
+				E4FE15FD1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png in Resources */,
 				365F06AA1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
 				C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */,
 				E4FEB47E1C020EED00E4A153 /* msg_selected@2x.png in Resources */,
@@ -4954,6 +4998,7 @@
 				365F04331B501A43005161D6 /* GJCFCoreTextContentView.m in Sources */,
 				C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */,
 				365F044D1B501A43005161D6 /* GJCFQuickCacheUitil.m in Sources */,
+				E4FE16071D22DA8F008D47E4 /* NSString+Json.m in Sources */,
 				365F04411B501A43005161D6 /* GJCFCoreTextImageAttributedStringStyle.m in Sources */,
 				365F083A1B50B138005161D6 /* GJGCProgressView.m in Sources */,
 				E4567A771D10CF4100940163 /* WechatShortVideoController.m in Sources */,
@@ -5055,6 +5100,7 @@
 				C8DC4A5D1BEC816D00F2D161 /* SDWebImageManager.m in Sources */,
 				E4F930311C79FF4B0038278A /* GJGCVideoPlayerViewController.m in Sources */,
 				365F055C1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSource.m in Sources */,
+				E4CB35311D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m in Sources */,
 				365F04571B501A43005161D6 /* GJCUAsyncImageView.m in Sources */,
 				E4FEB4361C01837600E4A153 /* GJGCGroupPersonInformationShowMap.m in Sources */,
 				C8DC4A2E1BEC7B3500F2D161 /* JSONValueTransformer.m in Sources */,
@@ -5080,9 +5126,11 @@
 				365F044F1B501A43005161D6 /* GJCFQuickUIUitil.m in Sources */,
 				E4567A511D10CF4100940163 /* SCAssetExportSession.m in Sources */,
 				365F055A1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBar.m in Sources */,
+				E4FE16041D22DA5E008D47E4 /* NSDictionary+Json.m in Sources */,
 				E4567A5E1D10CF4100940163 /* SCPlayer.m in Sources */,
 				C8DC49F51BEC785D00F2D161 /* ZYDataCenterRequestCondition.m in Sources */,
 				C8E50E621C02C25F00AFA10F /* UIView+MJExtension.m in Sources */,
+				E4FE160A1D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m in Sources */,
 				365F04271B501A43005161D6 /* GJCFFileDownloadTask+GJCFAudioDownload.m in Sources */,
 				365F04131B501A43005161D6 /* GJCFAlbumsViewController.m in Sources */,
 				C8DC4A5C1BEC816D00F2D161 /* SDWebImageDownloaderOperation.m in Sources */,

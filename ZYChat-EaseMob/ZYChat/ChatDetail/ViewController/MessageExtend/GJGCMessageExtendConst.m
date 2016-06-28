@@ -87,6 +87,7 @@ const NSString  *kGJGCMessageExtendMusicSongId = @"song_id";
              vGJGCMessageExtendContentWebPage:@"GJGCMessageExtendContentWebPageModel",
              vGJGCMessageExtendContentMusicShare:@"GJGCMessageExtendMusicShareModel",
              vGJGCMessageExtendContentSendFlower:@"GJGCMessageExtendSendFlowerModel",
+             vGJGCMessageExtendContentMini:@"GJGCMessageExtendMiniMessageModel",
              };
 }
 

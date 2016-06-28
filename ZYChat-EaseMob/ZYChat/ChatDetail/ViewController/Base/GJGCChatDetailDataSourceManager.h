@@ -241,4 +241,7 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
  */
 - (NSDictionary *)easeMessageStateRleations;
 
+//插入小灰条消息
++ (void)createRemindTipMessage:(NSString *)message conversationType:(EMConversationType)type withConversationId:(NSString *)conversationId;
+
 @end

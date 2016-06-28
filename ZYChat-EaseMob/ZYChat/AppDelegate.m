@@ -12,6 +12,7 @@
 #import "GJGCPublicGroupListViewController.h"
 #import "HALoginViewController.h"
 #import "BTTabBarRootController.h"
+#import "GJGCChatSystemNotiReciever.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -28,6 +29,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    NSLog(@"%@",GJCFAppCacheDirectory);
     
     //注册环信
     EMOptions *options = [EMOptions optionsWithAppkey:EaseMobAppKey];
@@ -92,6 +95,9 @@
     if (state == 1) {
         
         BTToast(@"登录成功");
+        
+        //启动系统消息收发
+        [[GJGCChatSystemNotiReciever shareReciever] systemAssistConversation];
         
         [self setupTab];
     }

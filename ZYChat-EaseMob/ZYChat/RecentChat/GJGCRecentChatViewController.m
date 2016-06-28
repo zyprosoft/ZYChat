@@ -12,6 +12,8 @@
 #import "GJGCChatGroupViewController.h"
 #import "GJGCRecentChatDataManager.h"
 #import "GJGCRecentChatTitleView.h"
+#import "GJGCChatSystemNotiReciever.h"
+#import "GJGCChatSystemNotiViewController.h"
 
 @interface GJGCRecentChatViewController ()<UITableViewDelegate,UITableViewDataSource,GJGCRecentChatDataManagerDelegate>
 
@@ -108,6 +110,20 @@
         
         [self.navigationController pushViewController:groupChat animated:YES];
         
+        return;
+    }
+    
+    //助手消息
+    if ([contenModel.toId isEqualToString:SystemAssistConversationId]) {
+        
+        GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+        talk.talkType = GJGCChatFriendTalkSystemAssist;
+        talk.toId = contenModel.toId;
+        talk.toUserName = contenModel.name.string;
+        talk.conversation = contenModel.conversation;
+        
+        GJGCChatSystemNotiViewController *systemVC = [[GJGCChatSystemNotiViewController alloc]initWithTalkInfo:talk];
+        [self.navigationController pushViewController:systemVC animated:YES];
         return;
     }
     

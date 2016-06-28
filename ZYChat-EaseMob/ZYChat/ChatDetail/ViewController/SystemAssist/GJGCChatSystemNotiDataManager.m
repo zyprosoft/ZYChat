@@ -7,6 +7,9 @@
 //
 
 #import "GJGCChatSystemNotiDataManager.h"
+#import "GJGCChatSystemNotiReciever.h"
+#import "NSString+Json.h"
+#import "NSDictionary+Json.h"
 
 @interface GJGCChatSystemNotiDataManager ()
 
@@ -22,14 +25,20 @@
 {
     if (self = [super initWithTalk:talk withDelegate:aDelegate]) {
         
-        self.title = @"系统助手";
+        self.title = @"聊天小助手";
         
         self.pageIndex = 0;
-        
-        [self readLastMessagesFromDB];
+                
+        //观察助手消息
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeSystemNotiMessage:) name:GJGCChatSystemNotiRecieverDidReiceveSystemNoti object:nil];
         
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [GJCFNotificationCenter removeObserver:self];
 }
 
 #pragma mark - 读取所有好友助手消息
@@ -37,35 +46,60 @@
 - (void)readLastMessagesFromDB
 {
     //读取最近20条消息
+    EMConversation *systemConversation = [[GJGCChatSystemNotiReciever shareReciever] systemAssistConversation];
+    
+    //如果会话不存在
+    if (!self.taklInfo.conversation) {
+        self.isFinishFirstHistoryLoad = YES;
+        self.isFinishLoadAllHistoryMsg = YES;
+        return;
+    }
+    
+    //读取最近的20条消息
+    long long beforeTime = [[NSDate date]timeIntervalSince1970]*1000;
+    NSArray *messages = [systemConversation loadMoreMessagesContain:nil before:beforeTime limit:10 from:nil direction:EMMessageSearchDirectionUp];
+    
+    for (EMMessage *theMessage in messages) {
+        
+        [self dispatchMessage:theMessage];
+    }
     
     /* 设置加载完后第一条消息和最后一条消息 */
     [self resetFirstAndLastMsgId];
+    
+    self.isFinishFirstHistoryLoad = YES;
+    self.isFinishLoadAllHistoryMsg = NO;
 }
 
 #pragma mark - 观察好友助手消息
+- (void)dispatchMessage:(EMMessage *)message
+{
+    EMTextMessageBody *body = (EMTextMessageBody *)message.body;
+    NSDictionary *messageInfo = [body.text toDictionary];
+    
+    EMConversationType conversationType = [messageInfo[@"chatType"] intValue];
+    switch (conversationType) {
+        case EMConversationTypeChat:
+            [self addFriendModelWithMessageInfo:messageInfo withMessage:message];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)observeSystemNotiMessage:(NSNotification *)noti
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        GJGCChatFriendTalkModel *talkModel = (GJGCChatFriendTalkModel *)noti.userInfo[@"data"];
-        
-        if (talkModel.talkType != GJGCChatFriendTalkSystemAssist) {
-            return;
-        }
-        
-        
-        [self requireListUpdate];
-
-    });
+    EMMessage *message = noti.userInfo[@"message"];
+    
+    [self dispatchMessage:message];
+    
+    [self requireListUpdate];
 }
 
 - (void)observeHistoryMessage:(NSNotification *)noti
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        [self recieveHistoryMessage:noti];
-        
-    });
+    [self recieveHistoryMessage:noti];
 }
 
 - (void)recieveHistoryMessage:(NSNotification *)noti
@@ -121,25 +155,27 @@
     [self addChatContentModel:notiModel];
 }
 
+#pragma mark - 消息动作绑定类型
+
+
 #pragma mark - 添加好友助手消息
 
-- (void)addFriendModel
+- (void)addFriendModelWithMessageInfo:(NSDictionary *)userInfo withMessage:(EMMessage *)message
 {
     GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
     notiModel.assistType = GJGCChatSystemNotiAssistTypeFriend;
     notiModel.isUserContent = YES;
     notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
     notiModel.talkType = GJGCChatFriendTalkSystemAssist;
-    notiModel.toId = @"88888";
+    notiModel.toId = userInfo[@"userId"];
     notiModel.contentHeight = 0.f;
     notiModel.sessionId = @"88888";
-
-    NSString *applyTip = [NSString stringWithFormat:@"%@申请添加您为好友",@"lily"];
     
-    GJGCChatSystemNotiAcceptState acceptState = GJGCChatSystemNotiAcceptStateApplying;
+    NSString *applyTip = [NSString stringWithFormat:@"%@申请添加您为好友",userInfo[@"nickName"]];
     
+    GJGCChatSystemNotiAcceptState acceptState = [userInfo[@"acceptState"] integerValue];
     
-    GJGCChatSystemFriendAssistNotiType notiType = GJGCChatSystemFriendAssistNotiTypeAccept;
+    GJGCChatSystemFriendAssistNotiType notiType = [userInfo[@"notiType"]integerValue];
     /* 格式成数据源 */
     switch (notiType) {
         case GJGCChatSystemFriendAssistNotiTypeApply:
@@ -148,7 +184,7 @@
                 
                 notiModel.notiType = GJGCChatSystemNotiTypeOtherPersonApplyMyAuthoriz;
                 notiModel.applyTip = [GJGCChatSystemNotiCellStyle formateApplyTip:applyTip];
-                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"你狠漂亮"];
+                notiModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:userInfo[@"reason"]];
                 
                 break;
             }
@@ -188,7 +224,7 @@
         case GJGCChatSystemFriendAssistNotiTypeReject:
         {
             notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
-            NSString *tip = [NSString stringWithFormat:@"用户%@拒绝了您的好友申请！",@"Tom"];
+            NSString *tip = [NSString stringWithFormat:@"用户%@拒绝了您的好友申请！",userInfo[@"nickName"]];
             notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:tip];
         }
             break;
@@ -196,11 +232,12 @@
             break;
     }
     
+    notiModel.message = message;
     notiModel.sendTime = [[NSDate date]timeIntervalSince1970];
     notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
     
-    notiModel.userSex = @"1";
-    notiModel.userId = 44444;
+    notiModel.userSex = userInfo[@"sex"];
+    notiModel.userId = userInfo[@"userId"];
     
     NSDate *birthDate = GJCFDateFromString(@"1990-08-18");
     
@@ -222,9 +259,9 @@
     
     notiModel.userStarName = [GJGCChatSystemNotiCellStyle formateStarName:GJCFDateToConstellation(birthDate)];
     
-    notiModel.headUrl = @"";
+    notiModel.headUrl = userInfo[@"avatar"];
     
-    notiModel.name = [GJGCChatSystemNotiCellStyle formateNameString:@"Jim"];
+    notiModel.name = [GJGCChatSystemNotiCellStyle formateNameString:userInfo[@"nickName"]];
     
     [self addChatContentModel:notiModel];
 }
@@ -279,13 +316,13 @@
     [self addChatContentModel:notiModel];
 }
 
-- (void)addGroupNotiModel
+- (void)addGroupNotiModelWithUserInfo:(NSDictionary *)userInfo withNotiType:(GJGCChatSystemGroupAssistNotiType)type
 {
     GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
     notiModel.assistType = GJGCChatSystemNotiAssistTypeGroup;
     notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
     notiModel.talkType = GJGCChatFriendTalkSystemAssist;
-    notiModel.toId = @"888888";
+    notiModel.toId = userInfo[@"groupId"];
     notiModel.contentHeight = 0.f;
     notiModel.sessionId = @"888888";
     
@@ -293,27 +330,28 @@
     notiModel.timeString = [GJGCChatSystemNotiCellStyle formateSystemNotiTime:notiModel.sendTime];
     
     /* 群组基础信息 */
-    notiModel.groupId = 999999;
+    notiModel.groupId = userInfo[@"groupId"];
     
     /* 用户基础信息 */
-    notiModel.userId = 8888888;
+    notiModel.userId = userInfo[@"userId"];
     
-    BOOL isMyNoti = notiModel.userId == 444444;
+    BOOL isMyNoti = [notiModel.userId isEqualToString:[EMClient sharedClient].currentUsername];
     
     NSString *formateTip = @"文案";
     
     GJGCChatSystemNotiAcceptState acceptState = GJGCChatSystemNotiAcceptStateApplying;
 
-    GJGCChatSystemGroupAssistNotiType notiType = GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup;
+    GJGCChatSystemGroupAssistNotiType notiType = type;
     notiModel.groupAssistNotiType = notiType;
     
-    NSDictionary *userInfo = @{
-                               @"groupAvatar":@"",
-                               @"name":@"",
-                               @"level":@"",
-                               @"maxCount":@"",
-                               @"currentCount":@"",
-                               };
+//    NSDictionary *userInfo = @{
+//                               @"groupAvatar":@"",
+//                               @"name":@"",
+//                               @"level":@"",
+//                               @"maxCount":@"",
+//                               @"currentCount":@"",
+//                               };
+    
     /* 格式成数据源 */
     switch (notiType) {
         case GJGCChatSystemGroupAssistNotiTypeCreateGroupAccept:
@@ -655,7 +693,7 @@
 - (void)updateMsgContentHeightWithContentModel:(GJGCChatContentBaseModel *)contentModel
 {
    //更新内容高度
+    
 }
-
 
 @end

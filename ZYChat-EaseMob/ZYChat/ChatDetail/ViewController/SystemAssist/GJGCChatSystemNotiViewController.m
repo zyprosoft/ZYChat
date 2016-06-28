@@ -27,7 +27,6 @@
     
     self.chatListTable.gjcf_height = GJCFSystemScreenHeight - GJCFSystemOriginYDelta - 44;
     
-    
     /* 滚动到最底部 */
     if (self.dataSourceManager.totalCount > 0) {
         [self.chatListTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSourceManager.totalCount-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -69,7 +68,50 @@
 
 - (void)systemNotiBaseCellDidTapOnAcceptApplyButton:(GJGCChatBaseCell *)tapedCell
 {
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+        GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
+    EMTextMessageBody *body = (EMTextMessageBody *)contentModel.message.body;
+    NSMutableDictionary *messageInfo = [[body.text toDictionary]mutableCopy];
+
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeFriend) {
+        
+        [self.statusHUD showWithStatusText:@"正在执行"];
+        GJCFWeakSelf weakSelf = self;
+        [[EMClient sharedClient].contactManager asyncAcceptInvitationForUsername:contentModel.userId success:^{
+            
+            GJCFStrongSelf strongSelf = weakSelf;
+            
+            //更新数据库
+            [messageInfo setObject:[@(GJGCChatSystemNotiAcceptStateFinish) stringValue] forKey:@"acceptState"];
+            EMTextMessageBody *nBody = [[EMTextMessageBody alloc]initWithText:[messageInfo toJson]];
+            contentModel.message.body = nBody;
+            [strongSelf.taklInfo.conversation updateMessage:contentModel.message];
+            
+            [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+            [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.statusHUD dismiss];
+                [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+            
+            
+        } failure:^(EMError *aError) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.statusHUD dismiss];
+                BTToast(@"执行失败");
+            });
+            
+        }];
+
+    }
+    
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeGroup) {
+        
+    }
 }
 
 - (void)acceptOrRejectOtherUserApplyWithFaildErrorCode:(NSInteger)errorCode forContentAtIndex:(NSIndexPath *)index errMsg:(NSString *)errMsg
@@ -83,7 +125,46 @@
 
 - (void)systemNotiBaseCellDidTapOnRejectApplyButton:(GJGCChatBaseCell *)tapedCell
 {
+    NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
+    GJGCChatSystemNotiModel *contentModel = (GJGCChatSystemNotiModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
     
+    EMTextMessageBody *body = (EMTextMessageBody *)contentModel.message.body;
+    NSMutableDictionary *messageInfo = [[body.text toDictionary]mutableCopy];
+
+    if (contentModel.assistType == GJGCChatSystemNotiAssistTypeFriend) {
+        
+        [self.statusHUD showWithStatusText:@"正在执行"];
+        GJCFWeakSelf weakSelf = self;
+        [[EMClient sharedClient].contactManager asyncDeclineInvitationForUsername:contentModel.userId success:^{
+            
+            GJCFStrongSelf strongSelf = weakSelf;
+            
+            //更新数据库
+            [messageInfo setObject:[@(GJGCChatSystemNotiAcceptStateReject) stringValue] forKey:@"acceptState"];
+            EMTextMessageBody *nBody = [[EMTextMessageBody alloc]initWithText:[messageInfo toJson]];
+            contentModel.message.body = nBody;
+            [strongSelf.taklInfo.conversation updateMessage:contentModel.message];
+            
+            [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已拒绝"];
+            [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.statusHUD dismiss];
+                [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+            
+            
+        } failure:^(EMError *aError) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.statusHUD dismiss];
+                BTToast(@"执行失败");
+            });
+            
+        }];
+        
+    }
 }
 
 - (void)systemNotiBaseCellDidTapOnRoleView:(GJGCChatBaseCell *)tapedCell

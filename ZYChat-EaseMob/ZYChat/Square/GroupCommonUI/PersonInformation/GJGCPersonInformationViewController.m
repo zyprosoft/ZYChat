@@ -108,7 +108,15 @@
 - (void)setupBottomBar
 {
     NSArray *myContacts = [[EMClient sharedClient].contactManager getContacts];
+    if (myContacts.count == 0) {
+        [self setupUserNotFriend];
+        return;
+    }
+    
+    BOOL isMyFriend = NO;
     [myContacts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        
         
     }];
 }
@@ -186,7 +194,7 @@
     self.exitButton.layer.cornerRadius = 4.f;
     self.exitButton.layer.masksToBounds = YES;
     self.exitButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
-    [self.exitButton addTarget:self action:@selector(addContactAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.exitButton addTarget:self action:@selector(beginChatAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.exitButton];
     
@@ -199,7 +207,7 @@
     self.beginChatButton.titleLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
     self.beginChatButton.layer.cornerRadius = 4.f;
     self.beginChatButton.layer.masksToBounds = YES;
-    [self.beginChatButton addTarget:self action:@selector(beginChatAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.beginChatButton addTarget:self action:@selector(addContactAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.beginChatButton];
     
@@ -223,15 +231,28 @@
     talk.toId = self.theUserId;
     talk.toUserName = self.theUser.nickName;
     
-    EMMessage *lastUserMesseage = [talk.conversation latestMessageFromOthers];
-    if (lastUserMesseage) {
-        
-    }
+    EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:self.theUserId type:EMConversationTypeChat createIfNotExist:YES];
+    talk.conversation = conversation;
+    
+    GJGCChatFriendViewController *chatVC = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talk];
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)addContactAction
 {
-    
+    [self.statusHUD showWithStatusText:@"正在申请..."];
+    [[EMClient sharedClient].contactManager asyncAddContact:self.theUserId message:@"申请加你为好友" success:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.statusHUD dismiss];
+        });
+        BTToast(@"申请成功");
+        
+    } failure:^(EMError *aError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.statusHUD dismiss];
+        });
+    }];
 }
 
 @end

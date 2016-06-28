@@ -10,6 +10,7 @@
 #import "GJGCGIFLoadManager.h"
 #import "GJGCMessageExtendMusicShareModel.h"
 #import "GJGCMessageExtendSendFlowerModel.h"
+#import "GJGCMessageExtendMiniMessageModel.h"
 
 @implementation GJGCMessageExtendModel
 
@@ -195,6 +196,18 @@
             }
         }
         break;
+        case GJGCChatFriendContentTypeMini:
+        {
+            GJGCMessageExtendMiniMessageModel *webContent = (GJGCMessageExtendMiniMessageModel *)self.messageContent;
+            
+            resultString = [[GJGCMessageExtendConst extendContentSupportTypes] containsObject:self.contentType]? webContent.displayText:webContent.notSupportDisplayText;
+            if (self.isSupportDisplay) {
+                resultString = [NSString stringWithFormat:@"[系统消息:%@]",resultString];
+            }else{
+                resultString = [NSString stringWithFormat:@"%@",resultString];
+            }
+        }
+            break;
         default:
             break;
     }
