@@ -80,7 +80,24 @@
     EMConversationType conversationType = [messageInfo[@"chatType"] intValue];
     switch (conversationType) {
         case EMConversationTypeChat:
-            [self addFriendModelWithMessageInfo:messageInfo withMessage:message];
+        {
+            GJGCChatSystemNotiAssistType assistType = [messageInfo[@"assistType"] integerValue];
+            switch (assistType) {
+                case GJGCChatSystemNotiAssistTypeNormal:
+                {
+                    [self addNormalSystemModelWithMessageInfo:messageInfo];
+                }
+                    break;
+                case GJGCChatSystemNotiAssistTypeFriend:
+                {
+                    [self addFriendModelWithMessageInfo:messageInfo withMessage:message];
+
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
             
         default:
@@ -135,13 +152,13 @@
 
 #pragma mark - 添加普通系统消息
 
-- (void)addNormalSystemModel
+- (void)addNormalSystemModelWithMessageInfo:(NSDictionary *)userInfo
 {
     GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
     notiModel.assistType = GJGCChatSystemNotiAssistTypeNormal;
     notiModel.baseMessageType = GJGCChatBaseMessageTypeSystemNoti;
     notiModel.talkType = GJGCChatFriendTalkSystemAssist;
-    notiModel.toId = @"88888";
+    notiModel.toId = userInfo[@"userId"];
     notiModel.contentHeight = 0.f;
     notiModel.sessionId = @"88888";
     
@@ -150,7 +167,7 @@
     
     notiModel.notiType = GJGCChatSystemNotiTypeSystemOperationState;
     
-    notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:@"普通系统消息"];
+    notiModel.systemOperationTip = [GJGCChatSystemNotiCellStyle formateBaseContent:userInfo[@"message"]];
     
     [self addChatContentModel:notiModel];
 }

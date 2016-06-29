@@ -77,6 +77,25 @@
     GJCFNotificationPostObjUserInfo(GJGCChatSystemNotiRecieverDidReiceveSystemNoti, nil, @{@"message":aMessage});
 }
 
+- (NSDictionary *)buildCommonUserInfoWithName:(NSString *)aUserName withMessage:(NSString *)message withAssistType:(GJGCChatSystemNotiAssistType)assitType withNotiType:(GJGCChatSystemFriendAssistNotiType)notiType withChatType:(EMConversationType)chatType acceptState:(GJGCChatSystemNotiAcceptState)acceptState
+{
+    NSDictionary *messageInfo = @{
+                                  @"userId":aUserName,
+                                  @"reason":message,
+                                  @"message":message,
+                                  @"username":aUserName,
+                                  @"nickName":aUserName,
+                                  @"birthday":@"1990-08-18",
+                                  @"gender":@"男",
+                                  @"avatar":@"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg",
+                                  @"notiType":[@(notiType) stringValue],
+                                  @"chatType":[@(chatType) stringValue],
+                                  @"acceptState":[@(acceptState) stringValue],
+                                  @"assistType":[@(assitType) stringValue]
+                                  };
+    return messageInfo;
+}
+
 #pragma mark - 联系人相关通知
 
 /*!
@@ -92,7 +111,13 @@
  */
 - (void)didReceiveAgreedFromUsername:(NSString *)aUsername
 {
+    NSDictionary *messageInfo = [self buildCommonUserInfoWithName:aUsername
+                                                      withMessage:[NSString stringWithFormat:@"用户#%@#已通过了你的好友申请",aUsername]
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeNormal
+                                                     withNotiType:GJGCChatSystemFriendAssistNotiTypeApply withChatType:EMConversationTypeChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStatePrepare];
     
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -108,7 +133,13 @@
  */
 - (void)didReceiveDeclinedFromUsername:(NSString *)aUsername
 {
+    NSDictionary *messageInfo = [self buildCommonUserInfoWithName:aUsername
+                                                      withMessage:[NSString stringWithFormat:@"用户#%@#拒绝了你的好友申请",aUsername]
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeNormal
+                                                     withNotiType:GJGCChatSystemFriendAssistNotiTypeApply withChatType:EMConversationTypeChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStatePrepare];
     
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -124,7 +155,15 @@
  */
 - (void)didReceiveDeletedFromUsername:(NSString *)aUsername
 {
+    NSDictionary *messageInfo = [self buildCommonUserInfoWithName:aUsername
+                                                      withMessage:[NSString stringWithFormat:@"用户#%@#已解除和你的好友关系",aUsername]
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeNormal
+                                                     withNotiType:GJGCChatSystemFriendAssistNotiTypeApply withChatType:EMConversationTypeChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStatePrepare];
     
+    [self insertSystemMessageInfo:messageInfo];
+    
+    [GJGCChatDetailDataSourceManager createRemindTipMessage:[NSString stringWithFormat:@"你和%@已解除好友关系",aUsername] conversationType:EMConversationTypeChat withConversationId:aUsername];
 }
 
 /*!
@@ -140,7 +179,7 @@
  */
 - (void)didReceiveAddedFromUsername:(NSString *)aUsername
 {
-    [GJGCChatDetailDataSourceManager createRemindTipMessage:[NSString stringWithFormat:@"你已和%@成为好友",aUsername] conversationType:EMConversationTypeChat withConversationId:aUsername];
+    [GJGCChatDetailDataSourceManager createRemindTipMessage:[NSString stringWithFormat:@"你和%@已成为好友",aUsername] conversationType:EMConversationTypeChat withConversationId:aUsername];
 }
 
 /*!
@@ -159,18 +198,12 @@
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage
 {
-    NSDictionary *messageInfo = @{
-                               @"userId":aUsername,
-                               @"reason":aMessage,
-                               @"username":aUsername,
-                               @"nickName":aUsername,
-                               @"birthday":@"1990-08-18",
-                               @"gender":@"男",
-                               @"avatar":@"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg",
-                               @"notiType":[@(GJGCChatSystemFriendAssistNotiTypeApply) stringValue],
-                               @"chatType":[@(EMConversationTypeChat) stringValue],
-                               @"acceptState":[@(GJGCChatSystemNotiAcceptStatePrepare) stringValue]
-                               };
+
+    NSDictionary *messageInfo = [self buildCommonUserInfoWithName:aUsername
+                                                      withMessage:aMessage
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeFriend
+                                                     withNotiType:GJGCChatSystemFriendAssistNotiTypeApply withChatType:EMConversationTypeChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStatePrepare];
     
     [self insertSystemMessageInfo:messageInfo];
 }

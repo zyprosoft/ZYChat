@@ -113,12 +113,21 @@
         return;
     }
     
-    BOOL isMyFriend = NO;
+     __block BOOL isMyFriend = NO;
     [myContacts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        
+        if([(NSString *)obj isEqualToString:self.theUserId]){
+            isMyFriend = YES;
+            *stop = YES;
+        }
         
     }];
+    
+    if (isMyFriend) {
+        [self setupUserIsFriend];
+    }else{
+        [self setupUserNotFriend];
+    }
 }
 
 - (void)setupUserIsFriend
@@ -221,7 +230,20 @@
 
 - (void)deleteContactAction
 {
-    
+    [self.statusHUD showWithStatusText:@"正在解除..."];
+    [[EMClient sharedClient].contactManager asyncDeleteContact:self.theUserId success:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.statusHUD dismiss];
+            [self setupUserNotFriend];
+        });
+        BTToast(@"解除成功");
+        
+    } failure:^(EMError *aError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.statusHUD dismiss];
+        });
+    }];
 }
 
 - (void)beginChatAction
