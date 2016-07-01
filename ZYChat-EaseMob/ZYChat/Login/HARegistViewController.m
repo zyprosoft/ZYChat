@@ -116,20 +116,29 @@
     
     GJCFWeakSelf weakSelf = self;
     [[EMClient sharedClient] asyncRegisterWithUsername:userNameItem.content password:passwordItem.content success:^{
-    
-        [weakSelf.statusHUD dismiss];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [weakSelf.statusHUD dismiss];
+
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+
+        });
         
         BTToast(@"注册成功");
-        
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-        
+
         
     } failure:^(EMError *aError) {
         
-        [weakSelf.statusHUD dismiss];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [weakSelf.statusHUD dismiss];
+            
+            [self showErrorMessage:aError.description];
 
-        [self showErrorMessage:aError.description];
-
+        });
+        
     }];
 }
 

@@ -55,7 +55,7 @@
     extendModel.isExtendMessageContent = NO;
     GJGCMessageExtendUserModel *userModel = [[GJGCMessageExtendUserModel alloc]init];
     userModel.nickName = @"聊天小助手";
-    userModel.headThumb = @"http://img3.imgtn.bdimg.com/it/u=2062301526,1541875563&fm=21&gp=0.jpg";
+    userModel.headThumb = @"http://img0.imgtn.bdimg.com/it/u=2382591939,624474057&fm=21&gp=0.jpg";
     userModel.sex = @"男";
     userModel.age = @"26";
     userModel.userName = SystemAssistConversationId;
