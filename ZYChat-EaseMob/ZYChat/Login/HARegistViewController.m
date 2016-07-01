@@ -135,7 +135,7 @@
             
             [weakSelf.statusHUD dismiss];
             
-            [self showErrorMessage:aError.description];
+            [weakSelf showErrorMessage:aError.errorDescription];
 
         });
         
