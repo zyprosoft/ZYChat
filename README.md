@@ -8,6 +8,8 @@
 
 ## (四) 消息类型目前扩展至: 文本，语音，音乐，网页，鲜花特效，短视频
 
+## (五) 想更深入的探讨学习请加QQ群:219357847
+
 ### 项目运行截图
 
 ![s_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/s_show.png "s_show")  
