@@ -38,7 +38,7 @@
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.gjcf_width = GJCFSystemScreenWidth;
-    self.tableView.gjcf_height = GJCFSystemScreenHeight - 64.f;
+    self.tableView.gjcf_height = GJCFSystemScreenHeight - 64.f - 49;
     [self.view addSubview:self.tableView];
     
     [self.dataManager requireContactsList];

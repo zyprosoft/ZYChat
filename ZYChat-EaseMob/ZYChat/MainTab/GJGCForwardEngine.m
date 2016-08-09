@@ -40,6 +40,20 @@
         GJGCChatGroupViewController *groupChat = [[GJGCChatGroupViewController alloc]initWithTalkInfo:talk];
         
         [[GJGCForwardEngine tabBarVC] pushChatVC:groupChat];
+        
+    }else{
+        
+        EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:contactModel.userId type:EMConversationTypeChat createIfNotExist:NO];
+        
+        GJGCChatFriendTalkModel *talk = [[GJGCChatFriendTalkModel alloc]init];
+        talk.talkType = GJGCChatFriendTalkTypePrivate;
+        talk.toId = contactModel.userId;
+        talk.toUserName = contactModel.userId;
+        talk.conversation = conversation;
+
+        GJGCChatFriendViewController *groupChat = [[GJGCChatFriendViewController alloc]initWithTalkInfo:talk];
+        
+        [[GJGCForwardEngine tabBarVC] pushChatVC:groupChat];
     }
 }
 

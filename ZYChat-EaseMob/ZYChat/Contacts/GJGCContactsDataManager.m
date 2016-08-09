@@ -13,7 +13,7 @@
 #import "GJGCContactsBaseCell.h"
 #import "GJGCMessageExtendGroupModel.h"
 
-@interface GJGCContactsDataManager ()
+@interface GJGCContactsDataManager ()<EMContactManagerDelegate>
 
 @property (nonatomic,strong)NSMutableArray *sourceArray;
 
@@ -26,6 +26,8 @@
     if (self = [super init]) {
         
         self.sourceArray = [[NSMutableArray alloc]init];
+        
+        
     }
     return self;
 }
@@ -82,8 +84,17 @@
 
 - (void)requireContactsList
 {
-    //获取联系人
     NSArray *friendList = [[EMClient sharedClient].contactManager getContactsFromDB];
+    NSArray *groupList = [[EMClient sharedClient].groupManager loadAllMyGroupsFromDB];
+
+    [self setupContactListWithFriendList:friendList groupList:groupList];
+    
+    [self requestFromServer];
+}
+
+- (void)setupContactListWithFriendList:(NSArray *)friendList groupList:(NSArray *)groupList
+{
+    //获取联系人
     NSMutableArray *mFriendList = [NSMutableArray array];
     GJGCContactsSectionModel *friendSection = [[GJGCContactsSectionModel  alloc]init];
     friendSection.sectionTitle = @"我的好友";
@@ -92,6 +103,8 @@
         model.contentHeight = 56.f;
         model.contentType = GJGCContactsContentTypeUser;
         model.nickname = contact;
+        model.userId = contact;
+        model.headThumb = @"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg";
         model.contentHeight = [self caculateHeightForContentModel:model];
         [mFriendList addObject:model];
     }
@@ -100,7 +113,6 @@
     [self.sourceArray addObject:friendSection];
     
     //获取群列表
-    NSArray *groupList = [[EMClient sharedClient].groupManager loadAllMyGroupsFromDB];
     GJGCContactsSectionModel *groupSection = [[GJGCContactsSectionModel  alloc]init];
     groupSection.sectionTitle = @"我的群组";
     NSMutableArray *mGroupList = [NSMutableArray array];
@@ -126,14 +138,35 @@
         }
         
         model.contentHeight = [self caculateHeightForContentModel:model];
-
+        
         [mGroupList addObject:model];
     }
     groupSection.rowData = mGroupList;
     groupSection.isExpand = YES;
     [self.sourceArray addObject:groupSection];
     
-    [self.delegate dataManagerrequireRefreshNow];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate dataManagerrequireRefreshNow];
+    });
+}
+
+- (void)requestFromServer
+{
+    //从服务器获取
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        EMError *err = nil;
+        NSArray *FriendList = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&err];
+        
+        NSArray *groupList = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&err];
+        
+        if (FriendList && groupList) {
+            [self.sourceArray removeAllObjects];
+        }
+        
+        [self setupContactListWithFriendList:FriendList groupList:groupList];
+        
+    });
 }
 
 - (CGFloat)caculateHeightForContentModel:(GJGCContactsContentModel *)model
