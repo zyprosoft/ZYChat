@@ -13,6 +13,7 @@
 #import "GJGCChatGroupViewController.h"
 #import "GJGCGroupMemberListViewController.h"
 #import "GJGCRecentChatDataManager.h"
+#import "GJGCChatSystemNotiReciever.h"
 
 @interface GJGCGroupInformationViewController ()
 
@@ -298,6 +299,8 @@
                 
                 [self setupGroupIsMember];
                 
+                [GJCFNotificationCenter postNotificationName:GJGCChatSystemNotiRecieverDidReiceveSystemNoti object:nil];
+
             });
             
             BTToast(@"加入成功");
@@ -352,6 +355,7 @@
             
             [self setupGroupNotMember];
             
+            [GJCFNotificationCenter postNotificationName:GJGCChatSystemNotiRecieverDidReiceveSystemNoti object:nil];
         });
         
         BTToast(@"退出成功");

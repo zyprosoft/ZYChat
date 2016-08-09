@@ -12,6 +12,7 @@
 #import "Base64.h"
 #import "GJGCContactsBaseCell.h"
 #import "GJGCMessageExtendGroupModel.h"
+#import "GJGCChatSystemNotiReciever.h"
 
 @interface GJGCContactsDataManager ()<EMContactManagerDelegate>
 
@@ -27,9 +28,20 @@
         
         self.sourceArray = [[NSMutableArray alloc]init];
         
-        
+        [GJCFNotificationCenter addObserver:self selector:@selector(observeContactsListChanged:) name:GJGCChatSystemNotiRecieverDidReiceveSystemNoti object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [GJCFNotificationCenter removeObserver:self];
+}
+
+- (void)observeContactsListChanged:(NSNotification *)noti
+{
+    //刷新联系人列表
+    [self requestFromServer];
 }
 
 - (NSInteger)totalSection
@@ -109,7 +121,6 @@
         [mFriendList addObject:model];
     }
     friendSection.rowData = mFriendList;
-    friendSection.isExpand = YES;
     [self.sourceArray addObject:friendSection];
     
     //获取群列表
@@ -142,7 +153,6 @@
         [mGroupList addObject:model];
     }
     groupSection.rowData = mGroupList;
-    groupSection.isExpand = YES;
     [self.sourceArray addObject:groupSection];
     
     dispatch_async(dispatch_get_main_queue(), ^{
