@@ -368,7 +368,7 @@
  */
 - (void)didReceiveAcceptedJoinGroup:(EMGroup *)aGroup
 {
-    
+      
 }
 
 /*!

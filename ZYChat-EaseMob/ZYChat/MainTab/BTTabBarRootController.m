@@ -11,6 +11,7 @@
 #import "GJGCRecentChatViewController.h"
 #import "GJGCPublicGroupListViewController.h"
 #import "GJGCMyHomePageViewController.h"
+#import "GJGCContactsViewController.h"
 
 @interface BTTabBarRootController ()<BTCustomTabBarDelegate>
 
@@ -43,7 +44,7 @@
     [groupListNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
 
     //我的
-    GJGCMyHomePageViewController *myCenter = [[GJGCMyHomePageViewController alloc]init];
+    GJGCContactsViewController *myCenter = [[GJGCContactsViewController alloc]init];
     myCenter.isMainMoudle = YES;
     UINavigationController *myCenterNav = [[UINavigationController alloc]initWithRootViewController:myCenter];
     [myCenterNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
@@ -80,6 +81,20 @@
     GJGCRecentChatViewController *recentVC = [recentChatNav.viewControllers firstObject];
     
     return [recentVC allConversationModels];
+}
+
+- (void)pushChatVC:(GJGCBaseViewController *)viewController
+{
+    [self selectAtIndex:0 thenPushVC:viewController];
+}
+
+- (void)selectAtIndex:(NSInteger)index thenPushVC:(GJGCBaseViewController *)viewController
+{
+    [self setSelectedViewController:[self.viewControllers firstObject]];
+    self.selectedIndex = index;
+    self.customTabBar.selectedIndex = index;
+    UINavigationController *nav = [self.viewControllers objectAtIndex:index];
+    [nav pushViewController:viewController animated:YES];
 }
 
 #pragma mark - 自定义TabBar 数据元

@@ -163,4 +163,16 @@
     }
 }
 
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    BTCustomTabBarItem *barItem = (BTCustomTabBarItem *)[self viewWithTag:BTCustomTabBarItemBaseTag + _selectedIndex];
+    barItem.selected = NO;
+
+    _selectedIndex = selectedIndex;
+    
+    
+    BTCustomTabBarItem *nextItem = (BTCustomTabBarItem *)[self viewWithTag:BTCustomTabBarItemBaseTag + _selectedIndex];
+    nextItem.selected = YES;
+}
+
 @end

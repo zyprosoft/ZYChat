@@ -870,6 +870,16 @@
 		C8F6F92E1BFECE4200978081 /* GJGCMessageExtendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F92D1BFECE4200978081 /* GJGCMessageExtendUserModel.m */; };
 		C8F6F9341BFED21500978081 /* GJGCMessageExtendContentGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */; };
 		C8F6F9371BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */; };
+		E42C0D131D5991B6007F8278 /* GJGCContactsConst.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D121D5991B6007F8278 /* GJGCContactsConst.m */; };
+		E42C0D161D599474007F8278 /* GJGCContactsUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D151D599474007F8278 /* GJGCContactsUserCell.m */; };
+		E42C0D191D599482007F8278 /* GJGCContactsNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D181D599482007F8278 /* GJGCContactsNameCell.m */; };
+		E42C0D1C1D599490007F8278 /* GJGCContactsHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D1B1D599490007F8278 /* GJGCContactsHeaderCell.m */; };
+		E42C0D1F1D599B0B007F8278 /* GJGCContactsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D1E1D599B0B007F8278 /* GJGCContactsHeaderView.m */; };
+		E42C0D221D599C0B007F8278 /* GJGCContactsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D211D599C0B007F8278 /* GJGCContactsSectionModel.m */; };
+		E42C0D241D59A13A007F8278 /* buddy_header_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E42C0D231D59A13A007F8278 /* buddy_header_arrow.png */; };
+		E42C0D261D59A141007F8278 /* buddy_header_bg_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E42C0D251D59A141007F8278 /* buddy_header_bg_highlighted.png */; };
+		E42C0D281D59A148007F8278 /* buddy_header_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E42C0D271D59A148007F8278 /* buddy_header_bg.png */; };
+		E42C0D2B1D59A5D1007F8278 /* GJGCForwardEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D2A1D59A5D1007F8278 /* GJGCForwardEngine.m */; };
 		E4567A4A1D10CF4100940163 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E45679F01D10CF4100940163 /* LICENSE */; };
 		E4567A4B1D10CF4100940163 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679F21D10CF4100940163 /* MBProgressHUD.m */; };
 		E4567A4C1D10CF4100940163 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = E45679F31D10CF4100940163 /* README.mdown */; };
@@ -937,6 +947,10 @@
 		E4FE16041D22DA5E008D47E4 /* NSDictionary+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16031D22DA5E008D47E4 /* NSDictionary+Json.m */; };
 		E4FE16071D22DA8F008D47E4 /* NSString+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16061D22DA8F008D47E4 /* NSString+Json.m */; };
 		E4FE160A1D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16091D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m */; };
+		E4FE16411D58D1E6008D47E4 /* GJGCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16401D58D1E6008D47E4 /* GJGCContactsViewController.m */; };
+		E4FE16441D58D659008D47E4 /* GJGCContactsBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16431D58D659008D47E4 /* GJGCContactsBaseCell.m */; };
+		E4FE16471D58D66A008D47E4 /* GJGCContactsContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16461D58D66A008D47E4 /* GJGCContactsContentModel.m */; };
+		E4FE164A1D58D67A008D47E4 /* GJGCContactsDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FE16491D58D67A008D47E4 /* GJGCContactsDataManager.m */; };
 		E4FEB3A61BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3A71BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */; };
 		E4FEB3AA1BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FEB3A91BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.m */; };
@@ -1879,6 +1893,23 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		E42C0D111D5991B6007F8278 /* GJGCContactsConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsConst.h; sourceTree = "<group>"; };
+		E42C0D121D5991B6007F8278 /* GJGCContactsConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsConst.m; sourceTree = "<group>"; };
+		E42C0D141D599474007F8278 /* GJGCContactsUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsUserCell.h; sourceTree = "<group>"; };
+		E42C0D151D599474007F8278 /* GJGCContactsUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsUserCell.m; sourceTree = "<group>"; };
+		E42C0D171D599482007F8278 /* GJGCContactsNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsNameCell.h; sourceTree = "<group>"; };
+		E42C0D181D599482007F8278 /* GJGCContactsNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsNameCell.m; sourceTree = "<group>"; };
+		E42C0D1A1D599490007F8278 /* GJGCContactsHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsHeaderCell.h; sourceTree = "<group>"; };
+		E42C0D1B1D599490007F8278 /* GJGCContactsHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsHeaderCell.m; sourceTree = "<group>"; };
+		E42C0D1D1D599B0B007F8278 /* GJGCContactsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsHeaderView.h; sourceTree = "<group>"; };
+		E42C0D1E1D599B0B007F8278 /* GJGCContactsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsHeaderView.m; sourceTree = "<group>"; };
+		E42C0D201D599C0B007F8278 /* GJGCContactsSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsSectionModel.h; sourceTree = "<group>"; };
+		E42C0D211D599C0B007F8278 /* GJGCContactsSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsSectionModel.m; sourceTree = "<group>"; };
+		E42C0D231D59A13A007F8278 /* buddy_header_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_header_arrow.png; sourceTree = "<group>"; };
+		E42C0D251D59A141007F8278 /* buddy_header_bg_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_header_bg_highlighted.png; sourceTree = "<group>"; };
+		E42C0D271D59A148007F8278 /* buddy_header_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_header_bg.png; sourceTree = "<group>"; };
+		E42C0D291D59A5D1007F8278 /* GJGCForwardEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCForwardEngine.h; sourceTree = "<group>"; };
+		E42C0D2A1D59A5D1007F8278 /* GJGCForwardEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCForwardEngine.m; sourceTree = "<group>"; };
 		E45679F01D10CF4100940163 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E45679F11D10CF4100940163 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E45679F21D10CF4100940163 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -1995,6 +2026,14 @@
 		E4FE16061D22DA8F008D47E4 /* NSString+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Json.m"; sourceTree = "<group>"; };
 		E4FE16081D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendMiniMessageModel.h; sourceTree = "<group>"; };
 		E4FE16091D22E62D008D47E4 /* GJGCMessageExtendMiniMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendMiniMessageModel.m; sourceTree = "<group>"; };
+		E4FE163F1D58D1E6008D47E4 /* GJGCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsViewController.h; sourceTree = "<group>"; };
+		E4FE16401D58D1E6008D47E4 /* GJGCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsViewController.m; sourceTree = "<group>"; };
+		E4FE16421D58D659008D47E4 /* GJGCContactsBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsBaseCell.h; sourceTree = "<group>"; };
+		E4FE16431D58D659008D47E4 /* GJGCContactsBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsBaseCell.m; sourceTree = "<group>"; };
+		E4FE16451D58D66A008D47E4 /* GJGCContactsContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsContentModel.h; sourceTree = "<group>"; };
+		E4FE16461D58D66A008D47E4 /* GJGCContactsContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsContentModel.m; sourceTree = "<group>"; };
+		E4FE16481D58D67A008D47E4 /* GJGCContactsDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsDataManager.h; sourceTree = "<group>"; };
+		E4FE16491D58D67A008D47E4 /* GJGCContactsDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsDataManager.m; sourceTree = "<group>"; };
 		E4FEB3A41BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetDataManager.h; sourceTree = "<group>"; };
 		E4FEB3A51BFF6D1000E4A153 /* GJGCCreateGroupTypeSheetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCreateGroupTypeSheetDataManager.m; sourceTree = "<group>"; };
 		E4FEB3A81BFF6D2700E4A153 /* GJGCCreateGroupTypeSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCreateGroupTypeSheetViewController.h; sourceTree = "<group>"; };
@@ -2196,6 +2235,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				E4FE163E1D58D170008D47E4 /* Contacts */,
 				C81DC6AF1C06EA1700348326 /* AppWall */,
 				C8E50F521C054C3200AFA10F /* MusicShare */,
 				C8E50F381C044AF600AFA10F /* WebView */,
@@ -3271,6 +3311,9 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E42C0D271D59A148007F8278 /* buddy_header_bg.png */,
+				E42C0D251D59A141007F8278 /* buddy_header_bg_highlighted.png */,
+				E42C0D231D59A13A007F8278 /* buddy_header_arrow.png */,
 				E4FE15F91D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png */,
 				E4FE15FA1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@3x.png */,
 				E4FE15FB1D22D60A008D47E4 /* IM-系统推荐列表BG@2x.png */,
@@ -4050,6 +4093,33 @@
 			path = "NSDictionary+Json";
 			sourceTree = "<group>";
 		};
+		E4FE163E1D58D170008D47E4 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				E4FE163F1D58D1E6008D47E4 /* GJGCContactsViewController.h */,
+				E4FE16401D58D1E6008D47E4 /* GJGCContactsViewController.m */,
+				E4FE16421D58D659008D47E4 /* GJGCContactsBaseCell.h */,
+				E4FE16431D58D659008D47E4 /* GJGCContactsBaseCell.m */,
+				E4FE16451D58D66A008D47E4 /* GJGCContactsContentModel.h */,
+				E4FE16461D58D66A008D47E4 /* GJGCContactsContentModel.m */,
+				E4FE16481D58D67A008D47E4 /* GJGCContactsDataManager.h */,
+				E4FE16491D58D67A008D47E4 /* GJGCContactsDataManager.m */,
+				E42C0D111D5991B6007F8278 /* GJGCContactsConst.h */,
+				E42C0D121D5991B6007F8278 /* GJGCContactsConst.m */,
+				E42C0D141D599474007F8278 /* GJGCContactsUserCell.h */,
+				E42C0D151D599474007F8278 /* GJGCContactsUserCell.m */,
+				E42C0D171D599482007F8278 /* GJGCContactsNameCell.h */,
+				E42C0D181D599482007F8278 /* GJGCContactsNameCell.m */,
+				E42C0D1A1D599490007F8278 /* GJGCContactsHeaderCell.h */,
+				E42C0D1B1D599490007F8278 /* GJGCContactsHeaderCell.m */,
+				E42C0D1D1D599B0B007F8278 /* GJGCContactsHeaderView.h */,
+				E42C0D1E1D599B0B007F8278 /* GJGCContactsHeaderView.m */,
+				E42C0D201D599C0B007F8278 /* GJGCContactsSectionModel.h */,
+				E42C0D211D599C0B007F8278 /* GJGCContactsSectionModel.m */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
 		E4FEB3AF1BFF836500E4A153 /* InfoBaseList */ = {
 			isa = PBXGroup;
 			children = (
@@ -4234,6 +4304,8 @@
 				E4FEB4701C0206F100E4A153 /* BTCustomTabBarItem.m */,
 				E4FEB4711C0206F100E4A153 /* BTTabBarRootController.h */,
 				E4FEB4721C0206F100E4A153 /* BTTabBarRootController.m */,
+				E42C0D291D59A5D1007F8278 /* GJGCForwardEngine.h */,
+				E42C0D2A1D59A5D1007F8278 /* GJGCForwardEngine.m */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -4443,6 +4515,7 @@
 				E4FEB4811C020EED00E4A153 /* my@3x.png in Resources */,
 				365F05F61B501A5D005161D6 /* 063[强]@2x.png in Resources */,
 				365F05D41B501A5D005161D6 /* 046[奋斗]@2x.png in Resources */,
+				E42C0D261D59A141007F8278 /* buddy_header_bg_highlighted.png in Resources */,
 				365F06D81B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@3x.png in Resources */,
 				365F060A1B501A5D005161D6 /* 073[米饭]@2x.png in Resources */,
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
@@ -4457,6 +4530,7 @@
 				365F066A1B501A5D005161D6 /* 害羞@2x.png in Resources */,
 				365F06281B501A5D005161D6 /* 092[菜刀]@2x.png in Resources */,
 				365F06841B501A5D005161D6 /* 睡觉.gif in Resources */,
+				E42C0D241D59A13A007F8278 /* buddy_header_arrow.png in Resources */,
 				365F06821B501A5D005161D6 /* 疑问@2x.png in Resources */,
 				365F05BE1B501A5D005161D6 /* 035[嘘]@2x.png in Resources */,
 				365F06AC1B501A5D005161D6 /* 聊天-icon-选择表情@2x.png in Resources */,
@@ -4587,6 +4661,7 @@
 				C8E50E8E1C043C0E00AFA10F /* 聊天键盘-icon-网页@3x.png in Resources */,
 				365F063C1B501A5D005161D6 /* 102[回头]@2x.png in Resources */,
 				E4FE15FD1D22D60A008D47E4 /* IM-系统推荐列表BG-点击@2x.png in Resources */,
+				E42C0D281D59A148007F8278 /* buddy_header_bg.png in Resources */,
 				365F06AA1B501A5D005161D6 /* 聊天-icon-选择照片帖子@2x.png in Resources */,
 				C81702E41BFF487200FAE520 /* keyboardButton-点击@2x.png in Resources */,
 				E4FEB47E1C020EED00E4A153 /* msg_selected@2x.png in Resources */,
@@ -4909,11 +4984,13 @@
 				365F088F1B50D0EF005161D6 /* GJGCWebViewController.m in Sources */,
 				C8F6F9251BFEC65F00978081 /* GJGCMessageExtendModel.m in Sources */,
 				365F08341B50B138005161D6 /* GJGCChatFriendTalkModel.m in Sources */,
+				E42C0D161D599474007F8278 /* GJGCContactsUserCell.m in Sources */,
 				C8E50F441C0459A500AFA10F /* GJGCRecentContactListViewController.m in Sources */,
 				365F03D71B501A43005161D6 /* AFSecurityPolicy.m in Sources */,
 				C8DC49F11BEC781B00F2D161 /* ZYFriendServiceManager.m in Sources */,
 				C8E50F4A1C045FA600AFA10F /* GJGCRecentChatForwardContentModel.m in Sources */,
 				E4FEB4731C0206F100E4A153 /* BTCustomTabBar.m in Sources */,
+				E4FE16471D58D66A008D47E4 /* GJGCContactsContentModel.m in Sources */,
 				365F04031B501A43005161D6 /* UILabel+GJCFAssetsPickerStyle.m in Sources */,
 				E4FEB4281C017B8000E4A153 /* GJGCTagView.m in Sources */,
 				C8DC4A261BEC7B3500F2D161 /* JSONModelArray.m in Sources */,
@@ -4943,6 +5020,7 @@
 				365F080E1B50B138005161D6 /* GJGCChatSystemPostNotiCell.m in Sources */,
 				365F07E61B50B138005161D6 /* GJGCChatFriendGroupCallCell.m in Sources */,
 				C8DC4A281BEC7B3500F2D161 /* JSONModelError.m in Sources */,
+				E42C0D1F1D599B0B007F8278 /* GJGCContactsHeaderView.m in Sources */,
 				365F03DD1B501A43005161D6 /* AFURLResponseSerialization.m in Sources */,
 				C8DC4A381BEC7FEA00F2D161 /* ZYUserListContentModel.m in Sources */,
 				C8F3B9D61BF0B5050057AF5B /* FMDatabasePool.m in Sources */,
@@ -5014,6 +5092,7 @@
 				365F083C1B50B138005161D6 /* GJGCChatFriendDataSourceManager.m in Sources */,
 				365F04491B501A43005161D6 /* GJCFDateUitil.m in Sources */,
 				E4FEB3AE1BFF7E0600E4A153 /* BTToast.m in Sources */,
+				E4FE16441D58D659008D47E4 /* GJGCContactsBaseCell.m in Sources */,
 				C8E50E451C02B84200AFA10F /* ZWCollectionViewFlowLayout.m in Sources */,
 				365F088B1B50C228005161D6 /* GJGCCommonFontColorStyle.m in Sources */,
 				C81DC6B21C06EA4A00348326 /* GJGCAppWallViewController.m in Sources */,
@@ -5036,6 +5115,7 @@
 				E4FEB45A1C01E97100E4A153 /* GJGCPersonInformationViewController.m in Sources */,
 				C81702EE1BFF4AB600FAE520 /* GJGCMutilTextInputViewController.m in Sources */,
 				365F040D1B501A43005161D6 /* GJCFAssetsPickerOverlayView.m in Sources */,
+				E4FE164A1D58D67A008D47E4 /* GJGCContactsDataManager.m in Sources */,
 				365F04011B501A43005161D6 /* UIButton+GJCFAssetsPickerStyle.m in Sources */,
 				E4567A681D10CF4100940163 /* SCSwipeableFilterView.m in Sources */,
 				E4FEB4741C0206F100E4A153 /* BTCustomTabBarItem.m in Sources */,
@@ -5065,18 +5145,23 @@
 				365F07F81B50B138005161D6 /* GJGCChatAuthorizAskCell.m in Sources */,
 				365F089D1B50D78F005161D6 /* GJGCRecentChatModel.m in Sources */,
 				E4FEB4141C017B1400E4A153 /* GJGCInformationGroupPhotoBoxCell.m in Sources */,
+				E42C0D2B1D59A5D1007F8278 /* GJGCForwardEngine.m in Sources */,
 				C8E50F4D1C0460A000AFA10F /* GJGCChatFriendWebPageCell.m in Sources */,
 				365F07F41B50B138005161D6 /* GJGCChatPostContentModel.m in Sources */,
 				C8DC4A0A1BEC7B1700F2D161 /* ZYUserModel.m in Sources */,
 				E4FEB3CF1C0048AE00E4A153 /* GJGCInfoGroupRoleContentCell.m in Sources */,
 				C81702F41BFF4ED100FAE520 /* GJGCCreateGroupMemberCountSheetDataManager.m in Sources */,
+				E42C0D131D5991B6007F8278 /* GJGCContactsConst.m in Sources */,
 				C8F3B9D71BF0B5050057AF5B /* FMDatabaseQueue.m in Sources */,
 				365F07EE1B50B138005161D6 /* GJGCChatFriendPostMessageCell.m in Sources */,
 				C8F3B9C41BF0AB4D0057AF5B /* ZYDatabaseSortCondition.m in Sources */,
 				365F04651B501A43005161D6 /* GJCUImageBrowserNavigationViewController.m in Sources */,
 				365F056C1B501A5D005161D6 /* GJGCChatInputPanel.m in Sources */,
 				365F08651B50B621005161D6 /* GJCUFlashModeView.m in Sources */,
+				E42C0D191D599482007F8278 /* GJGCContactsNameCell.m in Sources */,
 				E4FEB3D81C00574500E4A153 /* Base64.m in Sources */,
+				E42C0D221D599C0B007F8278 /* GJGCContactsSectionModel.m in Sources */,
+				E42C0D1C1D599490007F8278 /* GJGCContactsHeaderCell.m in Sources */,
 				C81702F11BFF4EA800FAE520 /* GJGCCreateGroupMemberCountSheetViewController.m in Sources */,
 				E4567A661D10CF4100940163 /* SCSampleBufferHolder.m in Sources */,
 				365F07E41B50B138005161D6 /* GJGCChatFriendGifCell.m in Sources */,
@@ -5150,6 +5235,7 @@
 				365F081A1B50B138005161D6 /* GJGCParticleEffectLayer.m in Sources */,
 				E4567A621D10CF4100940163 /* SCRecorderTools.m in Sources */,
 				365F03F71B501A43005161D6 /* FLAnimatedImageView.m in Sources */,
+				E4FE16411D58D1E6008D47E4 /* GJGCContactsViewController.m in Sources */,
 				365F04631B501A43005161D6 /* GJCUImageBrowserItemViewController.m in Sources */,
 				E4FEB4191C017B1400E4A153 /* GJGCInformationMemeberShowCell.m in Sources */,
 				E4567A6A1D10CF4100940163 /* SCVideoPlayerView.m in Sources */,
@@ -5537,7 +5623,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5579,7 +5665,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -16,4 +16,8 @@
 
 - (NSArray *)recentConversations;
 
+- (void)pushChatVC:(GJGCBaseViewController *)viewController;
+
+- (void)selectAtIndex:(NSInteger)index thenPushVC:(GJGCBaseViewController *)viewController;
+
 @end
