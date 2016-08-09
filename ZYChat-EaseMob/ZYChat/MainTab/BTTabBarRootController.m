@@ -12,6 +12,7 @@
 #import "GJGCPublicGroupListViewController.h"
 #import "GJGCMyHomePageViewController.h"
 #import "GJGCContactsViewController.h"
+#import "ZYNavigationController.h"
 
 @interface BTTabBarRootController ()<BTCustomTabBarDelegate>
 
@@ -34,19 +35,19 @@
     //首页
     GJGCRecentChatViewController *homeVC = [[GJGCRecentChatViewController alloc]init];
     homeVC.isMainMoudle = YES;
-    UINavigationController *homeNav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+    ZYNavigationController *homeNav = [[ZYNavigationController alloc]initWithRootViewController:homeVC];
     [homeNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
 
     //我的
     GJGCPublicGroupListViewController *groupListVC = [[GJGCPublicGroupListViewController alloc]init];
     groupListVC.isMainMoudle = YES;
-    UINavigationController *groupListNav = [[UINavigationController alloc]initWithRootViewController:groupListVC];
+    ZYNavigationController *groupListNav = [[ZYNavigationController alloc]initWithRootViewController:groupListVC];
     [groupListNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
 
     //我的
     GJGCContactsViewController *myCenter = [[GJGCContactsViewController alloc]init];
     myCenter.isMainMoudle = YES;
-    UINavigationController *myCenterNav = [[UINavigationController alloc]initWithRootViewController:myCenter];
+    ZYNavigationController *myCenterNav = [[ZYNavigationController alloc]initWithRootViewController:myCenter];
     [myCenterNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
 
     self.viewControllers = @[

@@ -882,6 +882,7 @@
 		E42C0D2B1D59A5D1007F8278 /* GJGCForwardEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D2A1D59A5D1007F8278 /* GJGCForwardEngine.m */; };
 		E42C0D2E1D5A2502007F8278 /* title-icon-个人资料@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42C0D2C1D5A2502007F8278 /* title-icon-个人资料@2x.png */; };
 		E42C0D2F1D5A2502007F8278 /* title-icon-个人资料@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42C0D2D1D5A2502007F8278 /* title-icon-个人资料@3x.png */; };
+		E42C0D331D5A29BB007F8278 /* ZYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42C0D321D5A29BB007F8278 /* ZYNavigationController.m */; };
 		E4567A4A1D10CF4100940163 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E45679F01D10CF4100940163 /* LICENSE */; };
 		E4567A4B1D10CF4100940163 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E45679F21D10CF4100940163 /* MBProgressHUD.m */; };
 		E4567A4C1D10CF4100940163 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = E45679F31D10CF4100940163 /* README.mdown */; };
@@ -1914,6 +1915,8 @@
 		E42C0D2A1D59A5D1007F8278 /* GJGCForwardEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCForwardEngine.m; sourceTree = "<group>"; };
 		E42C0D2C1D5A2502007F8278 /* title-icon-个人资料@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-个人资料@2x.png"; sourceTree = "<group>"; };
 		E42C0D2D1D5A2502007F8278 /* title-icon-个人资料@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-个人资料@3x.png"; sourceTree = "<group>"; };
+		E42C0D311D5A29BB007F8278 /* ZYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYNavigationController.h; sourceTree = "<group>"; };
+		E42C0D321D5A29BB007F8278 /* ZYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYNavigationController.m; sourceTree = "<group>"; };
 		E45679F01D10CF4100940163 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E45679F11D10CF4100940163 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E45679F21D10CF4100940163 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -2291,6 +2294,7 @@
 		365F03001B501A43005161D6 /* Dependcy */ = {
 			isa = PBXGroup;
 			children = (
+				E42C0D301D5A29BB007F8278 /* ZYNavigationController */,
 				E4FE16011D22DA47008D47E4 /* NSDictionary+Json */,
 				E45679EF1D10CF4100940163 /* MBProgressHUD */,
 				E45679F41D10CF4100940163 /* SCRecorder */,
@@ -3954,6 +3958,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E42C0D301D5A29BB007F8278 /* ZYNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				E42C0D311D5A29BB007F8278 /* ZYNavigationController.h */,
+				E42C0D321D5A29BB007F8278 /* ZYNavigationController.m */,
+			);
+			path = ZYNavigationController;
+			sourceTree = "<group>";
+		};
 		E45679EF1D10CF4100940163 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -5040,6 +5053,7 @@
 				365F05761B501A5D005161D6 /* GJGCIconSeprateImageView.m in Sources */,
 				C8DC4A5B1BEC816D00F2D161 /* SDWebImageDownloader.m in Sources */,
 				C8E50F471C0459C000AFA10F /* GJGCRecentContactListDataManager.m in Sources */,
+				E42C0D331D5A29BB007F8278 /* ZYNavigationController.m in Sources */,
 				365F05581B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelGifSubItem.m in Sources */,
 				E4FEB4221C017B1400E4A153 /* GJGCInformationBaseDataSourceManager.m in Sources */,
 				C81702C81BFF3DC100FAE520 /* BTActionSheetDataManager.m in Sources */,
