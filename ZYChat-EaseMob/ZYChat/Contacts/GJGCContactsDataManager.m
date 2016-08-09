@@ -83,7 +83,7 @@
 - (void)requireContactsList
 {
     //获取联系人
-    NSArray *friendList = [[EMClient sharedClient].contactManager getContacts];
+    NSArray *friendList = [[EMClient sharedClient].contactManager getContactsFromDB];
     NSMutableArray *mFriendList = [NSMutableArray array];
     GJGCContactsSectionModel *friendSection = [[GJGCContactsSectionModel  alloc]init];
     friendSection.sectionTitle = @"我的好友";
@@ -100,7 +100,7 @@
     [self.sourceArray addObject:friendSection];
     
     //获取群列表
-    NSArray *groupList = [[EMClient sharedClient].groupManager getAllGroups];
+    NSArray *groupList = [[EMClient sharedClient].groupManager loadAllMyGroupsFromDB];
     GJGCContactsSectionModel *groupSection = [[GJGCContactsSectionModel  alloc]init];
     groupSection.sectionTitle = @"我的群组";
     NSMutableArray *mGroupList = [NSMutableArray array];

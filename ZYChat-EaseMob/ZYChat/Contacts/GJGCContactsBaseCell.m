@@ -19,7 +19,6 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.bottomLine = [[UIImageView alloc]init];
         self.bottomLine.gjcf_height = 0.5f;
         self.bottomLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];
@@ -32,7 +31,7 @@
 
 - (void)setContentModel:(GJGCContactsContentModel *)contentModel
 {
-    
+    self.bottomLine.gjcf_left = 15.f;
 }
 
 - (CGFloat)cellHeight

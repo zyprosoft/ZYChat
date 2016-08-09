@@ -12,6 +12,7 @@
 #import "GJGCChatFriendViewController.h"
 #import "GJGCContactsHeaderView.h"
 #import "GJGCForwardEngine.h"
+#import "GJGCMyHomePageViewController.h"
 
 @interface GJGCContactsViewController ()<GJGCContactsDataManagerDelegate,UITableViewDelegate,UITableViewDataSource,GJGCContactsHeaderViewDelegate>
 
@@ -42,6 +43,13 @@
     
     [self.dataManager requireContactsList];
 
+    [self setRightButtonWithStateImage:@"title-icon-个人资料" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
+}
+
+- (void)rightButtonPressed:(UIButton *)sender
+{
+    GJGCMyHomePageViewController *homeVC = [[GJGCMyHomePageViewController alloc]init];
+    [self.navigationController pushViewController:homeVC animated:YES];
 }
 
 
@@ -102,6 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GJGCContactsContentModel *contentModel = [self.dataManager contentModelAtIndexPath:indexPath];
     
     [GJGCForwardEngine pushChatWithContactInfo:contentModel];

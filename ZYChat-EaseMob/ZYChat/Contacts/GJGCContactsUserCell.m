@@ -50,6 +50,7 @@
     self.headView.gjcf_height = 48.f;
     self.headView.gjcf_width = self.headView.gjcf_height;
     self.bottomLine.gjcf_top = self.headView.gjcf_bottom + 8.f;
+    self.bottomLine.gjcf_left = self.headView.gjcf_left;
     self.nameLabel.gjcf_width = GJCFSystemScreenWidth - self.headView.gjcf_right - 8.f - 15.f;
     self.nameLabel.text = contentModel.nickname;
     self.nameLabel.gjcf_left = self.headView.gjcf_right + 8.f;
