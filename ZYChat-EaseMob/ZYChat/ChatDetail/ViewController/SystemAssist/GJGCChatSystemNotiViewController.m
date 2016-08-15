@@ -111,6 +111,36 @@
     
     if (contentModel.assistType == GJGCChatSystemNotiAssistTypeGroup) {
         
+        [self.statusHUD showWithStatusText:@"正在执行"];
+        GJCFWeakSelf weakSelf = self;
+        [[EMClient sharedClient].groupManager asyncAcceptJoinApplication:contentModel.groupId applicant:contentModel.userId success:^{
+            
+            GJCFStrongSelf strongSelf = weakSelf;
+            
+            //更新数据库
+            [messageInfo setObject:[@(GJGCChatSystemNotiAcceptStateFinish) stringValue] forKey:@"acceptState"];
+            EMTextMessageBody *nBody = [[EMTextMessageBody alloc]initWithText:[messageInfo toJson]];
+            contentModel.message.body = nBody;
+            [strongSelf.taklInfo.conversation updateMessage:contentModel.message];
+            
+            [contentModel setNotiType:GJGCChatSystemNotiTypeOtherApplyMyAuthorizWithMyOperationState];
+            contentModel.applyReason = [GJGCChatSystemNotiCellStyle formateApplyReason:@"已通过"];
+            [strongSelf.dataSourceManager updateContentModel:contentModel atIndex:tapIndexPath.row];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.statusHUD dismiss];
+                [strongSelf.chatListTable reloadRowsAtIndexPaths:@[tapIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+            
+        } failure:^(EMError *aError) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.statusHUD dismiss];
+                NSLog(@"error :%@",aError.errorDescription);
+                BTToast(@"执行失败");
+            });
+            
+        }];
     }
 }
 

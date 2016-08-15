@@ -24,6 +24,23 @@
 
 @implementation AppDelegate
 
+- (void)logOutAction
+{
+    if (!self.loginNav) {
+        
+        HALoginViewController *loginVC = [[HALoginViewController alloc]init];
+        loginVC.title = @"iOS码农之家";
+        
+        self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+        
+        UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+        [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    }
+    if (self.window.rootViewController) {
+        self.window.rootViewController = nil;
+    }
+    self.window.rootViewController = self.loginNav;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

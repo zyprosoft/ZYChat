@@ -52,6 +52,8 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 
 - (void)dataSourceManagerDidRecievedChatContent:(GJGCChatFriendContentModel *)chatContent;
 
+- (void)dataSourceManagerDidUpdateUnreadMessageCount:(GJGCChatDetailDataSourceManager *)dataManager;
+
 @end
 
 @interface GJGCChatDetailDataSourceManager : NSObject
@@ -73,6 +75,8 @@ extern NSString * GJGCChatForwardMessageDidSendNoti;
 @property (nonatomic,assign)BOOL isFinishLoadAllHistoryMsg;
 
 @property (nonatomic,strong)dispatch_queue_t taskQueue;
+
+@property (nonatomic,readonly)NSInteger unreadMsgCount;
 
 /**
  *  发送消息时间间隔频度控制

@@ -32,6 +32,9 @@ typedef void (^ZYUserCenterRequestFaildBlock)(NSError *error);
                  withSuccess:(ZYUserCenterRequestSuccessBlock)success
                    withFaild:(ZYUserCenterRequestFaildBlock)faild;
 
+- (void)LogoutWithSuccess:(ZYUserCenterRequestSuccessBlock)success
+               withFaild:(ZYUserCenterRequestFaildBlock)faild;
+
 - (GJGCMessageExtendUserModel *)extendUserInfo;
 
 - (BOOL)isLogin;

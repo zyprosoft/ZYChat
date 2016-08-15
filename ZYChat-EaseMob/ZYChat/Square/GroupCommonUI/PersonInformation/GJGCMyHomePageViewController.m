@@ -13,6 +13,7 @@
 #import "GJGCChatGroupViewController.h"
 #import "GJGCMutilTextInputViewController.h"
 #import "WallPaperViewController.h"
+#import "AppDelegate.h"
 
 @interface GJGCMyHomePageViewController ()<GJGCMutilTextInputViewControllerDelegate>
 
@@ -27,6 +28,22 @@
     [self setStrNavTitle:@"我的"];
     
     [self setupMyInformation];
+    
+    [self setRightButtonWithTitle:@"注销登录"];
+}
+
+- (void)rightButtonPressed:(UIButton *)sender
+{
+    [[ZYUserCenter shareCenter]LogoutWithSuccess:^(NSString *message) {
+       
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate logOutAction];
+        
+    } withFaild:^(NSError *error) {
+        
+        BTToastError(error);
+        
+    }];
 }
 
 - (void)setupMyInformation

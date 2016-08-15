@@ -94,12 +94,31 @@
 
                 }
                     break;
+                case GJGCChatSystemNotiAssistTypeGroup:
+                {
+                    [self addGroupNotiModelWithUserInfo:messageInfo withMessage:message];
+                }
+                    break;
                 default:
                     break;
             }
         }
             break;
-            
+        case EMConversationTypeGroupChat:
+        {
+            GJGCChatSystemNotiAssistType assistType = [messageInfo[@"assistType"] integerValue];
+            switch (assistType) {
+                case GJGCChatSystemNotiAssistTypeGroup:
+                {
+                    [self addGroupNotiModelWithUserInfo:messageInfo withMessage:message];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
         default:
             break;
     }
@@ -333,7 +352,7 @@
     [self addChatContentModel:notiModel];
 }
 
-- (void)addGroupNotiModelWithUserInfo:(NSDictionary *)userInfo withNotiType:(GJGCChatSystemGroupAssistNotiType)type
+- (void)addGroupNotiModelWithUserInfo:(NSDictionary *)userInfo withMessage:(EMMessage *)aMessage
 {
     GJGCChatSystemNotiModel *notiModel = [[GJGCChatSystemNotiModel alloc]init];
     notiModel.assistType = GJGCChatSystemNotiAssistTypeGroup;
@@ -356,9 +375,9 @@
     
     NSString *formateTip = @"文案";
     
-    GJGCChatSystemNotiAcceptState acceptState = GJGCChatSystemNotiAcceptStateApplying;
-
-    GJGCChatSystemGroupAssistNotiType notiType = type;
+    GJGCChatSystemNotiAcceptState acceptState = [userInfo[@"acceptState"] integerValue];
+    
+    GJGCChatSystemGroupAssistNotiType notiType = [userInfo[@"notiType"]integerValue];
     notiModel.groupAssistNotiType = notiType;
     
 //    NSDictionary *userInfo = @{

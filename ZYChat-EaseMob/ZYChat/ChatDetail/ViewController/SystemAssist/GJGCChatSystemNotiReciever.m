@@ -11,7 +11,9 @@
 #import "GJGCMessageExtendModel.h"
 #import "GJGCChatSystemNotiDataManager.h"
 #import "GJGCChatDetailDataSourceManager.h"
-
+#import "GJGCMessageExtendGroupModel.h"
+#import "GJGCGroupInfoExtendModel.h"
+#import "Base64.h"
 
 @interface GJGCChatSystemNotiReciever ()<EMContactManagerDelegate,EMGroupManagerDelegate>
 
@@ -92,6 +94,31 @@
                                   @"chatType":[@(chatType) stringValue],
                                   @"acceptState":[@(acceptState) stringValue],
                                   @"assistType":[@(assitType) stringValue]
+                                  };
+    return messageInfo;
+}
+
+- (NSDictionary *)buildCommonGroupInfoWithName:(NSString *)aUserName withGroupName:(NSString *)groupName withMessage:(NSString *)message withAssistType:(GJGCChatSystemNotiAssistType)assitType withNotiType:(GJGCChatSystemGroupAssistNotiType)notiType withChatType:(EMConversationType)chatType acceptState:(GJGCChatSystemNotiAcceptState)acceptState withGroupExtendInf:(GJGCGroupInfoExtendModel *)groupInfo withGroupId:(NSString *)groupId
+{
+    NSDictionary *messageInfo = @{
+                                  @"userId":aUserName,
+                                  @"reason":message,
+                                  @"message":message,
+                                  @"username":aUserName,
+                                  @"nickName":aUserName,
+                                  @"birthday":@"1990-08-18",
+                                  @"gender":@"男",
+                                  @"avatar":@"http://imgsrc.baidu.com/forum/pic/item/9d82d158ccbf6c81f34d2e53bc3eb13533fa4016.jpg",
+                                  @"notiType":[@(notiType) stringValue],
+                                  @"chatType":[@(chatType) stringValue],
+                                  @"acceptState":[@(acceptState) stringValue],
+                                  @"assistType":[@(assitType) stringValue],
+                                  @"groupAvatar":@"",
+                                  @"name":groupName,
+                                  @"level":@"3",
+                                  @"maxCount":@"200",
+                                  @"currentCount":@"30",
+                                  @"groupId":groupId
                                   };
     return messageInfo;
 }
@@ -229,7 +256,18 @@
                           inviter:(NSString *)aInviter
                           message:(NSString *)aMessage
 {
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:aGroupId
+                                                      withMessage:aMessage
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                     withNotiType:GJGCChatSystemGroupAssistNotiTypeInviteJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStatePrepare
+                                                      withGroupExtendInf:nil
+                                                       withGroupId:aGroupId
+                                 ];
     
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -248,7 +286,23 @@
 - (void)didReceiveAcceptedGroupInvitation:(EMGroup *)aGroup
                                   invitee:(NSString *)aInvitee
 {
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:groupInfoExtend.name
+                                                      withMessage:aInvitee
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                     withNotiType:GJGCChatSystemGroupAssistNotiTypeAcceptInviteJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStateFinish
+                                                      withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -270,7 +324,23 @@
                                   invitee:(NSString *)aInvitee
                                    reason:(NSString *)aReason
 {
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:groupInfoExtend.name
+                                                      withMessage:aInvitee
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                     withNotiType:GJGCChatSystemGroupAssistNotiTypeRejectJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStateReject
+                                                      withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -292,7 +362,23 @@
                inviter:(NSString *)aInviter
                message:(NSString *)aMessage
 {
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:groupInfoExtend.name
+                                                      withMessage:aMessage
+                                                   withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                     withNotiType:GJGCChatSystemGroupAssistNotiTypeAcceptInviteJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                      acceptState:GJGCChatSystemNotiAcceptStateFinish
+                                                      withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -311,7 +397,34 @@
 - (void)didReceiveLeavedGroup:(EMGroup *)aGroup
                        reason:(EMGroupLeaveReason)aReason
 {
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *reasonMap = @{
+                                @(EMGroupLeaveReasonBeRemoved):@"被管理员移除出群",
+                                @(EMGroupLeaveReasonUserLeave):@"已退出群组",
+                                @(EMGroupLeaveReasonDestroyed):@"群组已解散",
+                                };
+    NSDictionary *notiTypeMap = @{
+                                  @(EMGroupLeaveReasonBeRemoved):@(GJGCChatSystemGroupAssistNotiTypeDeleteMemeberByGroupAdmin),
+                                  @(EMGroupLeaveReasonUserLeave):@(GJGCChatSystemGroupAssistNotiTypeMemeberExitGroup),
+                                  @(EMGroupLeaveReasonDestroyed):@(GJGCChatSystemGroupAssistNotiTypeDeleteGroup),
+                                  };
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:groupInfoExtend.name
+                                                       withMessage:reasonMap[@(aReason)]
+                                                    withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                      withNotiType:[notiTypeMap[@(aReason)] integerValue]
+                                                      withChatType:EMConversationTypeGroupChat
+                                                       acceptState:GJGCChatSystemNotiAcceptStateReject
+                                                      withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -333,7 +446,23 @@
                              applicant:(NSString *)aApplicant
                                 reason:(NSString *)aReason
 {
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
     
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:aApplicant
+                                                     withGroupName:groupInfoExtend.name
+                                                       withMessage:aReason
+                                                    withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                      withNotiType:GJGCChatSystemGroupAssistNotiTypeApplyJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                       acceptState:GJGCChatSystemNotiAcceptStatePrepare
+                                                withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -352,7 +481,18 @@
 - (void)didReceiveDeclinedJoinGroup:(NSString *)aGroupId
                              reason:(NSString *)aReason
 {
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:aGroupId
+                                                       withMessage:aReason
+                                                    withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                      withNotiType:GJGCChatSystemGroupAssistNotiTypeRejectJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                       acceptState:GJGCChatSystemNotiAcceptStateReject
+                                                      withGroupExtendInf:nil
+                                                       withGroupId:aGroupId
+                                ];
     
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!
@@ -368,7 +508,23 @@
  */
 - (void)didReceiveAcceptedJoinGroup:(EMGroup *)aGroup
 {
-      
+    NSData *extendData = [aGroup.subject base64DecodedData];
+    NSDictionary *extendDict = [NSKeyedUnarchiver unarchiveObjectWithData:extendData];
+    
+    GJGCGroupInfoExtendModel *groupInfoExtend = [[GJGCGroupInfoExtendModel alloc]initWithDictionary:extendDict error:nil];
+    
+    NSDictionary *messageInfo = [self buildCommonGroupInfoWithName:@""
+                                                     withGroupName:groupInfoExtend.name
+                                                       withMessage:@"已通过申请"
+                                                    withAssistType:GJGCChatSystemNotiAssistTypeGroup
+                                                      withNotiType:GJGCChatSystemGroupAssistNotiTypeAcceptInviteJoinGroup
+                                                      withChatType:EMConversationTypeGroupChat
+                                                       acceptState:GJGCChatSystemNotiAcceptStateReject
+                                                    withGroupExtendInf:groupInfoExtend
+                                                       withGroupId:aGroup.groupId
+                                 ];
+    
+    [self insertSystemMessageInfo:messageInfo];
 }
 
 /*!

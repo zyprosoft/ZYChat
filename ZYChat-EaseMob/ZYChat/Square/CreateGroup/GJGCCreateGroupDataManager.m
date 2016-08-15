@@ -376,8 +376,12 @@
     
     [[EMClient sharedClient].groupManager asyncCreateGroupWithSubject:extendString description:groupExtendInfo.simpleDescription invitees:nil message:nil setting:groupSetting success:^(EMGroup *aGroup) {
         
-        [self.delegate dataManagerDidCreateGroupSuccess:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.delegate dataManagerDidCreateGroupSuccess:self];
 
+        });
+        
     } failure:^(EMError *aError) {
         
         BTToast(aError.description);

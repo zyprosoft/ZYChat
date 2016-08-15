@@ -51,6 +51,39 @@
     [self loginEaseMobWithMobile:mobile password:password withSuccess:success withFaild:faild];
 }
 
+- (void)LogoutWithSuccess:(ZYUserCenterRequestSuccessBlock)success
+               withFaild:(ZYUserCenterRequestFaildBlock)faild
+{
+    [[EMClient sharedClient] asyncLogout:NO success:^{
+        
+        self.innerLoginUser = nil;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            BTToast(@"退出环信成功");
+            
+            if (success) {
+                success(@"退出环信成功");
+            }
+        });
+        
+    } failure:^(EMError *aError) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSLog(@"退出环信失败");
+            
+            if (faild) {
+                faild([NSError errorWithDomain:@"com.zychat.error" code:-1999 userInfo:@{@"errMsg":@"退出环信失败"}]);
+            }
+            
+        });
+        
+        
+        
+    }];
+}
+
 
 - (ZYUserModel *)currentLoginUser
 {

@@ -288,7 +288,7 @@
 {
     [self.statusHUD showWithStatusText:@"正在申请..."];
     
-    if (self.currentGroup.isPublic) {
+    if (self.currentGroup.setting.style == EMGroupStylePublicOpenJoin) {
         
         [[EMClient sharedClient].groupManager asyncJoinPublicGroup:self.currentGroupId success:^(EMGroup *aGroup) {
             
