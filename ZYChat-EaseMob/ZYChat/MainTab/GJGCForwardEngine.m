@@ -8,7 +8,6 @@
 
 #import "GJGCForwardEngine.h"
 #import "AppDelegate.h"
-#import "BTTabBarRootController.h"
 #import "GJGCChatFriendTalkModel.h"
 #import "GJGCChatGroupViewController.h"
 

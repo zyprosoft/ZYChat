@@ -13,6 +13,7 @@
 #import "HALoginViewController.h"
 #import "BTTabBarRootController.h"
 #import "GJGCChatSystemNotiReciever.h"
+#import "GJGCCallDataManager.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -115,6 +116,8 @@
         
         //启动系统消息收发
         [[GJGCChatSystemNotiReciever shareReciever] systemAssistConversation];
+        
+        [GJGCCallDataManager sharedManager];
         
         [self setupTab];
     }

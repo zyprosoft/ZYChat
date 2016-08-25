@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "GJGCContactsContentModel.h"
+#import "BTTabBarRootController.h"
 
 @interface GJGCForwardEngine : NSObject
+
++ (BTTabBarRootController *)tabBarVC;
 
 + (void)pushChatWithContactInfo:(GJGCContactsContentModel *)contactModel;
 

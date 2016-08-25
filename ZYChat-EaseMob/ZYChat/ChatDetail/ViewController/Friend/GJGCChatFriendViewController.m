@@ -33,6 +33,8 @@
 #import "WechatShortVideoController.h"
 #import "GJGCVideoPlayerViewController.h"
 #import "AppDelegate.h"
+#import "GJGCVoiceCallViewController.h"
+#import "GJGCVideoCallViewController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -47,7 +49,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             GJCFAssetsPickerViewControllerDelegate,
                                             GJCUCaptureViewControllerDelegate,
                                             GJGCVideoPlayerViewControllerDelegate,
-                                            WechatShortVideoDelegate
+                                            WechatShortVideoDelegate,EMCallManagerDelegate
                                           >
 
 @property (nonatomic,strong)GJCFAudioPlayer *audioPlayer;
@@ -97,6 +99,13 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSString *formateNoti = [GJGCChatInputConst panelNoti:GJGCChatInputPanelBeginRecordNoti formateWithIdentifier:self.inputPanel.panelIndentifier];
     [GJCFNotificationCenter addObserver:self selector:@selector(observeChatInputPanelBeginRecord:) name:formateNoti object:nil];
     [GJCFNotificationCenter addObserver:self selector:@selector(observeApplicationResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    
+    [[EMClient sharedClient].callManager removeDelegate:self];
+    [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
+}
+
+-(void)dealloc{
+    [[EMClient sharedClient].callManager removeDelegate:self];
 }
 
 #pragma mark - 应用程序事件
@@ -921,6 +930,17 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             [self.navigationController presentViewController:recentNav animated:YES completion:nil];
         }
             break;
+        case GJGCChatInputMenuPanelActionTypeVoice:
+        {
+            [self openTheVoice];
+        }
+            break;
+            
+        case GJGCChatInputMenuPanelActionTypeVideo:
+        {
+            [self openTheVideo];
+        }
+            break;
         default:
             break;
     }
@@ -1665,6 +1685,50 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         self.sendLimitTipLabel.gjcf_left = GJCFSystemScreenWidth;
         
     }];
+}
+
+- (void)openTheVoice
+{
+    EMError *error = nil;
+    EMCallSession *callSession = [[EMClient sharedClient].callManager makeVoiceCall:self.taklInfo.toId error:&error ];
+    
+    if (callSession && !error) {
+        [[EMClient sharedClient].callManager removeDelegate:self];
+        GJGCVoiceCallViewController *callController = [[GJGCVoiceCallViewController alloc] initWithSession:callSession isIncoming:NO];
+        callController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [self presentViewController:callController animated:NO completion:nil];
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
+}
+
+- (void)openTheVideo
+{
+    BOOL isopen = GJCFAppCanAccessCamera;
+    
+    if (!isopen) {
+        NSLog(@"不能打开视频");
+        return ;
+    }
+    
+    EMError *error = nil;
+    EMCallSession *callSession = [[EMClient sharedClient].callManager makeVideoCall:self.taklInfo.toId error:&error ];
+    
+    if (callSession && !error) {
+        
+        [[EMClient sharedClient].callManager removeDelegate:self];
+        GJGCVideoCallViewController *callController = [[GJGCVideoCallViewController alloc] initWithSession:callSession isIncoming:NO];
+        callController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [self presentViewController:callController animated:NO completion:nil];
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
 }
 
 @end
