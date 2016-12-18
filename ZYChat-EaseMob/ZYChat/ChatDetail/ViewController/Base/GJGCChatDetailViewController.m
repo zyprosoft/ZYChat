@@ -11,6 +11,8 @@
 #import "GJGCChatBaseCellDelegate.h"
 #import "GJGCChatFriendBaseCell.h"
 #import "GJGCParticleEffectLayer.h"
+#import "GJGCMusicSharePlayer.h"
+#import "ZYThemeUitil.h"
 
 @interface GJGCChatDetailViewController ()<
                                             GJGCRefreshHeaderViewDelegate
@@ -111,7 +113,14 @@
 #pragma mark - 初始化设置
 - (void)initSubViews
 {
-    self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+    //背景图
+    UIImageView *backImageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    backImageView.image = ZYThemeImage(kThemeChatLisgBg);
+    UIImageView *maskView = [[UIImageView alloc]initWithFrame:backImageView.bounds];
+    backImageView.gjcf_height = backImageView.image.size.height;
+    maskView.backgroundColor = [UIColor colorWithRed:97/255.f green:60/255.f blue:140/255.f alpha:0.6];
+    [backImageView addSubview:maskView];
+    [self.view insertSubview:backImageView atIndex:0];
     
     CGFloat originY = GJCFSystemNavigationBarHeight + GJCFSystemOriginYDelta;
         
@@ -123,6 +132,7 @@
     self.chatListTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.chatListTable.frame = (CGRect){0,0,GJCFSystemScreenWidth,GJCFSystemScreenHeight - originY - 50};
     [self.view addSubview:self.chatListTable];
+    self.chatListTable.backgroundColor = [UIColor clearColor];
     
     /* 滚动到最底部 */
     if (self.dataSourceManager.totalCount > 0) {
@@ -460,6 +470,26 @@
     
 }
 
+- (void)setupMusicBar
+{
+    if ([[GJGCMusicSharePlayer sharePlayer].audioPlayer isPlaying]) {
+        if (!self.musicBar) {
+            self.musicBar = [GJGCMusicPlayerBar currentMusicBar];
+            self.musicBar.delegate = self;
+            self.musicBar.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.65];
+            [self.view addSubview:self.musicBar];
+        }else{
+            self.musicBar.alpha = 1;
+            [self.view bringSubviewToFront:self.musicBar];
+            [self.musicBar startMove];
+        }
+    }else{
+        if (self.musicBar) {
+            self.musicBar.alpha = 0;
+        }
+    }
+}
+
 #pragma mark - 暂停Gif动画
 
 - (void)makeVisiableGifCellPause
@@ -547,6 +577,7 @@
             [self.refreshHeadView scrollViewDidScroll:scrollView];
         }
     }
+    [self dispatchScrollViewDidEndDecelerating];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -559,6 +590,11 @@
 
         }
     }
+}
+
+- (void)dispatchScrollViewDidEndDecelerating
+{
+    
 }
 
 #pragma mark - GJCFFileDownloadManager config
@@ -816,6 +852,8 @@
 {
     if (index >= 0 && index < self.dataSourceManager.totalCount) {
         
+        NSLog(@"high speed load index!:%ld",index);
+
         NSIndexPath *reloadPath = [NSIndexPath indexPathForRow:index inSection:0];
         
         /* 鉴定是否可见 */
@@ -831,6 +869,8 @@
             [chatCell setSendStatus:contentModel.sendStatus];
             
         }
+    }else{
+        NSLog(@"high speed load out index!:%ld",index);
     }
 }
 

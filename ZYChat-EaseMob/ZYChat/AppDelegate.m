@@ -13,6 +13,8 @@
 #import "HALoginViewController.h"
 #import "BTTabBarRootController.h"
 #import "GJGCChatSystemNotiReciever.h"
+#import "GJGCCallDataManager.h"
+#import "ZYThemeUitil.h"
 
 #define EaseMobAppKey     @"zyprosoft#zychat"
 
@@ -29,11 +31,11 @@
     if (!self.loginNav) {
         
         HALoginViewController *loginVC = [[HALoginViewController alloc]init];
-        loginVC.title = @"iOS码农之家";
+        loginVC.title = @"王者荣耀－约战";
         
         self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
         
-        UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+        UIImage *navigationBarBack = ZYThemeImage(kThemeHomeNavBar);
         [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     }
     if (self.window.rootViewController) {
@@ -49,6 +51,8 @@
     
     NSLog(@"%@",GJCFAppCacheDirectory);
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
     //注册环信
     EMOptions *options = [EMOptions optionsWithAppkey:EaseMobAppKey];
     options.apnsCertName = @"zychat_apns";
@@ -59,8 +63,7 @@
     loginVC.title = @"iOS码农之家";
     
     self.loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
-    
-    UIImage *navigationBarBack = GJCFQuickImageByColorWithSize([GJGCCommonFontColorStyle mainThemeColor], CGSizeMake(GJCFSystemScreenWidth * GJCFScreenScale, 64.f * GJCFScreenScale));
+    UIImage *navigationBarBack = ZYThemeImage(kThemeHomeNavBar);
     [self.loginNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
     
     self.window.rootViewController = self.loginNav;
@@ -115,6 +118,8 @@
         
         //启动系统消息收发
         [[GJGCChatSystemNotiReciever shareReciever] systemAssistConversation];
+        
+        [GJGCCallDataManager sharedManager];
         
         [self setupTab];
     }

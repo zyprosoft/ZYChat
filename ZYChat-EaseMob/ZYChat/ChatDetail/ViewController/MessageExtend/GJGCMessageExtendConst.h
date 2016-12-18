@@ -60,6 +60,7 @@ extern const NSString  *kGJGCMessageExtendExchangeGifPackageVersion;
 extern const NSString  *kGJGCMessageExtendMusicUrl;
 extern const NSString  *kGJGCMessageExtendMusicSongAuthor;
 extern const NSString  *kGJGCMessageExtendMusicSongId;
+extern const NSString  *kGJGCMessageExtendMusicSongImageUrl;
 
 
 

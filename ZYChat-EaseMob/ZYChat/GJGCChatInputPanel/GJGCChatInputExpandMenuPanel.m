@@ -81,7 +81,7 @@
     
     self.totalItemCount = 0;
     self.rowCount = 2;
-    self.columnCount = 3;
+    self.columnCount = 4;
 //    self.itemMargin = 40;
     self.itemToPanelMargin = 22;
     self.itemWidth = 50 + 5*2;

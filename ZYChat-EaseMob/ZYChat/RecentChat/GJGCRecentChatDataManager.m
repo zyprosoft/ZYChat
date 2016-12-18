@@ -266,7 +266,7 @@
                 NSString *displayContent = [self displayContentFromMessageBody:conversation.latestMessage];
                 chatModel.content = [NSString stringWithFormat:@"%@:%@",userInfo.nickName,displayContent];
                 chatModel.time = [GJGCRecentChatStyle formateTime:conversation.latestMessage.timestamp/1000];
-                [GJGCChatFriendCellStyle formateSimpleTextMessage:chatModel.content];
+                [GJGCRecentChatStyle formateContent:chatModel.content];
                 
                 chatModel.isGroupChat = YES;
                 chatModel.unReadCount = conversation.unreadMessagesCount;

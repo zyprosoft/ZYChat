@@ -66,7 +66,7 @@
         return nil;
     }
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColorWhite];
     stringStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
 
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:senderName attributes:[stringStyle attributedDictionary]];
@@ -182,7 +182,7 @@
 {
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
     stringStyle.font = [GJGCCommonFontColorStyle detailBigTitleFont];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle detailBigTitleColor];
+    stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColorWhite];
     
     
     return stringStyle;

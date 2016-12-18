@@ -36,19 +36,19 @@
     GJGCRecentChatViewController *homeVC = [[GJGCRecentChatViewController alloc]init];
     homeVC.isMainMoudle = YES;
     ZYNavigationController *homeNav = [[ZYNavigationController alloc]initWithRootViewController:homeVC];
-    [homeNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    homeNav.type = ZYResourceTypeRecent;
 
     //我的
     GJGCPublicGroupListViewController *groupListVC = [[GJGCPublicGroupListViewController alloc]init];
     groupListVC.isMainMoudle = YES;
     ZYNavigationController *groupListNav = [[ZYNavigationController alloc]initWithRootViewController:groupListVC];
-    [groupListNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    groupListNav.type = ZYResourceTypeSquare;
 
     //我的
     GJGCContactsViewController *myCenter = [[GJGCContactsViewController alloc]init];
     myCenter.isMainMoudle = YES;
     ZYNavigationController *myCenterNav = [[ZYNavigationController alloc]initWithRootViewController:myCenter];
-    [myCenterNav.navigationBar setBackgroundImage:navigationBarBack forBarMetrics:UIBarMetricsDefault];
+    myCenterNav.type = ZYResourceTypeHome;
 
     self.viewControllers = @[
                              homeNav,
@@ -105,16 +105,16 @@
     return @[
              
              @{
-                 @"normal":@"msg",
-                 @"selected":@"msg_selected",
+                 @"normal":@"icon_msg_normal",
+                 @"selected":@"icon_msg_selected",
               },
              @{
-                 @"normal":@"square",
-                 @"selected":@"square_selected",
+                 @"normal":@"icon_square",
+                 @"selected":@"icon_square",
                  },
              @{
-                 @"normal":@"my",
-                 @"selected":@"my_selected",
+                 @"normal":@"icon_home",
+                 @"selected":@"icon_home",
                  },
              ];
 }

@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"我的联系人";
+    [self setStrNavTitle:@"联系人"];
     
     self.dataManager = [[GJGCContactsDataManager alloc]init];
     self.dataManager.delegate = self;
@@ -40,6 +40,7 @@
     self.tableView.gjcf_width = GJCFSystemScreenWidth;
     self.tableView.gjcf_height = GJCFSystemScreenHeight - 64.f - 49;
     [self.view addSubview:self.tableView];
+    [self.tableView setResourceType:ZYResourceTypeHome];
     
     [self.dataManager requireContactsList];
 

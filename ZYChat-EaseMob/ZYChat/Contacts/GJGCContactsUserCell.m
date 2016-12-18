@@ -30,14 +30,14 @@
         
         self.nameLabel = [[UILabel alloc]init];
         self.nameLabel.frame = CGRectMake(50, 7, 100, 25);
-        self.nameLabel.textColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
+        self.nameLabel.textColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColorWhite];
         self.nameLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
         [self.contentView addSubview:self.nameLabel];
         
         self.descpLabel = [[UILabel alloc]init];
         self.descpLabel.frame = CGRectMake(50, 7, 100, 25);
         self.descpLabel.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
-        self.descpLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.descpLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColorWhite];
         [self.contentView addSubview:self.descpLabel];
         
     }
@@ -57,6 +57,7 @@
     self.descpLabel.frame = self.nameLabel.frame;
     self.descpLabel.gjcf_top = self.nameLabel.gjcf_bottom + 4.f;
     self.descpLabel.text = contentModel.summary;
+    self.bottomLine.gjcf_left = self.descpLabel.gjcf_left;
 }
 
 - (void)downloadImageWithConententModel:(GJGCContactsContentModel *)contentModel

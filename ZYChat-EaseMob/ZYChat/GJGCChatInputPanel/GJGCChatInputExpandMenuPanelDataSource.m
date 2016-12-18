@@ -62,6 +62,10 @@
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource flowerMenuPanelItem]];
 
     [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource videoRecordMenuPanelItem]];
+    
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource voiceMenuPanelItem]];
+    
+    [dataSource addObject:[GJGCChatInputExpandMenuPanelDataSource videoMenuPanelItem]];
 
     return dataSource;
 }
@@ -185,6 +189,35 @@
              };
 }
 
++ (NSDictionary *)voiceMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"语音通话",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeVoice)
+             
+             };
+}
 
+
++ (NSDictionary *)videoMenuPanelItem
+{
+    return @{
+             
+             GJGCChatInputExpandMenuPanelDataSourceTitleKey:@"视频通话",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconNormalKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceIconHighlightKey:@"flower_item",
+             
+             GJGCChatInputExpandMenuPanelDataSourceActionTypeKey:@(GJGCChatInputMenuPanelActionTypeVideo)
+             
+             };
+}
 
 @end
