@@ -947,6 +947,7 @@
 		E4BDFC2F1E05D8950061E029 /* GJGCMusicSharePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC2E1E05D8950061E029 /* GJGCMusicSharePlayer.m */; };
 		E4BDFC3B1E05E9540061E029 /* GJGCMusicPlayerBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC3A1E05E9540061E029 /* GJGCMusicPlayerBar.m */; };
 		E4BDFC411E05FFB80061E029 /* GJGCMusicPlayingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC401E05FFB80061E029 /* GJGCMusicPlayingViewController.m */; };
+		E4BDFC431E06481A0061E029 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4BDFC421E06481A0061E029 /* default.jpg */; };
 		E4CB35311D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
@@ -2044,6 +2045,7 @@
 		E4BDFC3A1E05E9540061E029 /* GJGCMusicPlayerBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicPlayerBar.m; sourceTree = "<group>"; };
 		E4BDFC3F1E05FFB80061E029 /* GJGCMusicPlayingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMusicPlayingViewController.h; sourceTree = "<group>"; };
 		E4BDFC401E05FFB80061E029 /* GJGCMusicPlayingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicPlayingViewController.m; sourceTree = "<group>"; };
+		E4BDFC421E06481A0061E029 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		E4CB352F1D21FF3600B15E30 /* GJGCChatSystemNotiReciever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatSystemNotiReciever.h; sourceTree = "<group>"; };
 		E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatSystemNotiReciever.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
@@ -3353,6 +3355,7 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4BDFC421E06481A0061E029 /* default.jpg */,
 				E4BDFC031E05A5E60061E029 /* default */,
 				E42C0D2C1D5A2502007F8278 /* title-icon-个人资料@2x.png */,
 				E42C0D2D1D5A2502007F8278 /* title-icon-个人资料@3x.png */,
@@ -4595,6 +4598,7 @@
 				E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
 				E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */,
+				E4BDFC431E06481A0061E029 /* default.jpg in Resources */,
 				E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */,
 				E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */,
 				C81DC6AC1C06AFF700348326 /* pause@2x.png in Resources */,

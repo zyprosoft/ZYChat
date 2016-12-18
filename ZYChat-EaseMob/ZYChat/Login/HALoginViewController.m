@@ -41,7 +41,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
+    UIImageView *backView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    backView.image = [UIImage imageWithContentsOfFile:GJCFMainBundlePath(@"default.jpg")];
+    [self.view addSubview:backView];
+    UIImageView *maskView = [[UIImageView alloc]initWithFrame:backView.bounds];
+    maskView.backgroundColor = [UIColor colorWithRed:97/255.f green:60/255.f blue:140/255.f alpha:0.6];
+    [backView addSubview:maskView];
     
     UIImageView* imgLogin = [[UIImageView alloc] initWithFrame:CGRectMake(mainSize.width / 2 - 211*0.6 / 2, 34, 211*0.6, 109*0.6)];
     imgLogin.image = [UIImage imageNamed:@"owl-login"];
@@ -150,7 +155,7 @@
     if (GJCFSystemiPhone4) {
         [self.navigationController.navigationBar setHidden:YES];
     }else{
-        [self setStrNavTitle:@"iOS码农聊天室"];
+        [self setStrNavTitle:@"王者荣耀－约战"];
     }
 }
 
