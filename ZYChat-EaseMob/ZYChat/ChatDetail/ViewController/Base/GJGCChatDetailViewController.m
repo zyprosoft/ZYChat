@@ -477,7 +477,6 @@
             self.musicBar = [GJGCMusicPlayerBar currentMusicBar];
             self.musicBar.delegate = self;
             self.musicBar.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.65];
-            self.musicBar.alpha = 0;
             [self.view addSubview:self.musicBar];
         }else{
             self.musicBar.alpha = 1;

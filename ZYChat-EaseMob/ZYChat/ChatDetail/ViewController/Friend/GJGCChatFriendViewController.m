@@ -79,6 +79,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     [self setRightButtonWithStateImage:@"title-icon-个人资料" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
     
     [self setupMusicBar];
+    
     if ([GJGCMusicSharePlayer sharePlayer].musicMsgId.length > 0 && [[GJGCMusicSharePlayer sharePlayer].musicChatId isEqualToString:self.taklInfo.conversation.conversationId]) {
         self.playingAudioMsgId = [GJGCMusicSharePlayer sharePlayer].musicMsgId;
     }
@@ -631,7 +632,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
         [GJGCMusicSharePlayer sharePlayer].musicSongImgUrl = contentModel.musicSongImgUrl;
         if (contentModel.contentType == GJGCChatFriendContentTypeMusicShare) {
             [GJGCMusicSharePlayer sharePlayer].musicMsgId = contentModel.localMsgId;
-            [GJGCMusicSharePlayer sharePlayer].musicChatId = contentModel.sessionId;
+            [GJGCMusicSharePlayer sharePlayer].musicChatId = self.taklInfo.conversation.conversationId;
         }else{
             [GJGCMusicSharePlayer sharePlayer].musicMsgId = nil;
             [GJGCMusicSharePlayer sharePlayer].musicChatId = nil;
