@@ -44,6 +44,7 @@
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.listTable.dataSource = self;
     self.listTable.delegate = self;
+    self.listTable.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.listTable];
     
     //refresh Header

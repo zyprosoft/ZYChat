@@ -34,6 +34,29 @@
     return parseContentDict;
 }
 
++ (NSDictionary *)parseRecentContent:(NSString *)string
+{
+    if (GJCFStringIsNull(string)) {
+        return nil;
+    }
+    
+    /* 表情 */
+    NSMutableArray *emojiArray = [NSMutableArray array];
+    [GJGCChatContentEmojiParser parseEmoji:[NSMutableString stringWithString:string] withEmojiTempString:nil withResultArray:emojiArray];
+    
+    /* 电话 */
+    NSArray *phoneNumberArray = [self searchPhoneNumberFromString:string];
+    
+    /* 超链接 */
+    NSArray *linkArray = [self searchUrlLinkFromString:string];
+    
+    NSDictionary *parseContentDict = [GJGCChatContentEmojiParser setupWithString:string withPhoneNumbers:phoneNumberArray withLinkArray:linkArray andEmojis:emojiArray foregroundColor:[UIColor whiteColor]];
+    
+    GJCFNSCacheSet(string, parseContentDict);
+    
+    return parseContentDict;
+}
+
 
 + (NSString *)replaceNumberString:(NSInteger)numberStringLength
 {
@@ -161,6 +184,11 @@
 
 + (NSDictionary *)setupWithString:(NSString *)string withPhoneNumbers:(NSArray *)phoneNumberArray withLinkArray:(NSArray *)linkArray andEmojis:(NSArray *)emojiArray
 {
+   return [GJGCChatContentEmojiParser setupWithString:string withPhoneNumbers:phoneNumberArray withLinkArray:linkArray andEmojis:emojiArray foregroundColor:[UIColor blackColor]];
+}
+
++ (NSDictionary *)setupWithString:(NSString *)string withPhoneNumbers:(NSArray *)phoneNumberArray withLinkArray:(NSArray *)linkArray andEmojis:(NSArray *)emojiArray foregroundColor:(UIColor *)color
+{
     NSArray *emojiNameArray = [NSArray  arrayWithContentsOfFile:GJCFMainBundlePath(@"emoji.plist")];
     NSMutableDictionary *emojiDict = [NSMutableDictionary dictionary];
     for (NSDictionary *item in emojiNameArray) {
@@ -177,7 +205,7 @@
     }
     
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle detailBigTitleColor];
+    stringStyle.foregroundColor = color;
     stringStyle.font = [UIFont systemFontOfSize:16];
     
     GJCFCoreTextParagraphStyle *paragrpahStyle = [[GJCFCoreTextParagraphStyle alloc]init];

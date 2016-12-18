@@ -12,6 +12,7 @@
 #import "UIImage+BlurredFrame.h"
 #import "UIImage+ImageEffects.h"
 #import "GJGCRecentContactListViewController.h"
+#import "GJGCMusicSharePlayer.h"
 
 @interface GJGCMusicPlayViewController ()<UISearchBarDelegate>
 
@@ -41,6 +42,8 @@
 
 @property (nonatomic,strong)NSString *currentSongAuthor;
 
+@property (nonatomic,strong)NSString *currentSongImgUrl;
+
 @property (nonatomic,strong)UIActivityIndicatorView *downloadIndicator;
 
 @property (nonatomic,strong)UIButton *forwardButton;
@@ -62,7 +65,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+        
     self.view.backgroundColor = [GJGCCommonFontColorStyle mainBackgroundColor];
     
     if (!self.songList) {
@@ -172,10 +175,6 @@
 
 - (void)forwardAction
 {
-    if (self.songList.count == 0) {
-        return;
-    }
-    
     GJGCRecentChatForwardContentModel *forwardContentModel = [[GJGCRecentChatForwardContentModel alloc]init];
     forwardContentModel.title = self.nameLabel.text;
     if (GJCFStringIsNull(self.currentSongAuthor)) {
@@ -184,6 +183,7 @@
     forwardContentModel.sumary = self.currentSongAuthor;
     forwardContentModel.webUrl = self.currentSongMp3Url;
     forwardContentModel.songId = self.songList[self.currentIndex];
+    forwardContentModel.imageUrl = self.currentSongImgUrl;
     forwardContentModel.contentType = GJGCChatFriendContentTypeMusicShare;
     
     GJGCRecentContactListViewController *recentList = [[GJGCRecentContactListViewController alloc]initWithForwardContent:forwardContentModel];
@@ -272,6 +272,7 @@
     self.searchBar.gjcf_height = 36.f;
     self.searchBar.placeholder = @"搜索歌曲";
     self.searchBar.delegate = self;
+    self.searchBar.tintColor = [UIColor whiteColor];
     
     self.searchBar.searchBarStyle = UISearchBarIconResultsList;
     self.navigationItem.titleView = self.searchBar;
@@ -404,6 +405,7 @@
     NSDictionary *songDict = [songInfo[@"songs"] firstObject][@"album"];
     self.currentSongMp3Url = [songInfo[@"songs"] firstObject][@"mp3Url"];
     self.currentSongAuthor = [songDict[@"artists"]firstObject][@"name"];
+    self.currentSongImgUrl = songDict[@"blurPicUrl"];
     if (GJCFStringIsNull(self.currentSongMp3Url)) {
         BTToast(@"没有音乐播放地址");
         [self.downloadIndicator stopAnimating];
@@ -418,6 +420,9 @@
     self.nameLabel.gjcf_centerX = self.albumImageView.gjcf_centerX;
     self.nameLabel.gjcf_bottom = self.albumImageView.gjcf_top - 6.f;
     
+    if ([GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying) {
+        [[GJGCMusicSharePlayer sharePlayer].audioPlayer stop];
+    }
     //播放音乐
     [[GJCFAudioManager shareManager] playRemoteMusicByUrl:self.currentSongMp3Url withCacheFileName:songId];
     

@@ -23,16 +23,18 @@
 {
     if (self = [super initWithFrame:frame]) {
         
+        self.backgroundColor = [UIColor colorWithRed:97/255.f green:60/255.f blue:140/255.f alpha:0.8];
+
         //头视图  按钮
         UIButton *headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.headerBtn = headerBtn;
-        [self.headerBtn setTitleColor:[UIColor blackColor] forState:0];
+        [self.headerBtn setTitleColor:[UIColor whiteColor] forState:0];
         [self.headerBtn setImage:[UIImage imageNamed:@"buddy_header_arrow"] forState:0];
         self.headerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         self.headerBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         self.headerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-        [self.headerBtn setBackgroundImage:[UIImage imageNamed:@"buddy_header_bg"] forState:0];
-        [self.headerBtn setBackgroundImage:[UIImage imageNamed:@"buddy_header_bg_highlighted"] forState:1];
+//        [self.headerBtn setBackgroundImage:[UIImage imageNamed:@"buddy_header_bg"] forState:0];
+//        [self.headerBtn setBackgroundImage:[UIImage imageNamed:@"buddy_header_bg_highlighted"] forState:1];
         self.headerBtn.imageView.contentMode = UIViewContentModeCenter;
         self.headerBtn.imageView.clipsToBounds = NO;
         [self.headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -42,7 +44,7 @@
         self.countOnline = countOnline;
         self.countOnline.textAlignment = NSTextAlignmentRight;
         self.countOnline.font = [UIFont  systemFontOfSize:14.0];
-        self.countOnline.textColor = [UIColor grayColor];
+        self.countOnline.textColor = [UIColor whiteColor];
         [self addSubview:countOnline];
 
     }

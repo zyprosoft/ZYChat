@@ -26,6 +26,8 @@
                                                       
                                                       kGJGCMessageExtendMusicSongId : @"songId",
                                                       
+                                                     kGJGCMessageExtendMusicSongImageUrl :@"songImgUrl",
+                                                      
                                                       }];
 }
 

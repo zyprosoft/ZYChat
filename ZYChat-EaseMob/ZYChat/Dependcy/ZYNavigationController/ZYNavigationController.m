@@ -46,6 +46,27 @@ static CGFloat min_distance = 100;// 最小回弹距离
     
 }
 
+#pragma mark - theme
+
+- (void)setType:(ZYResourceType)type
+{
+    NSString *imgName = nil;
+    switch (type) {
+        case ZYResourceTypeRecent:
+            imgName = kThemeRecentNavBar;
+            break;
+        case ZYResourceTypeSquare:
+            imgName = kThemeSquareNavBar;
+            break;
+        case ZYResourceTypeHome:
+            imgName = kThemeHomeNavBar;
+            break;
+        default:
+            break;
+    }
+    [self.navigationBar setBackgroundImage:ZYThemeImage(imgName) forBarMetrics:UIBarMetricsDefault];
+}
+
 - (NSMutableArray *)screenShotList {
     
     if (!_screenShotList) {

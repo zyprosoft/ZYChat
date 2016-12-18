@@ -84,7 +84,7 @@
     self.arrowImgView.frame = CGRectMake(floorf((REFRESH_HEAD_HEIGHT - 27)/2), floorf((REFRESH_HEAD_HEIGHT - 44)/2), 27, 44);
     
     //设置活动指示
-    self.activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     //self.activeView.frame = CGRectMake(floorf((REFRESH_HEAD_HEIGHT -20)/2+60), floorf((REFRESH_HEAD_HEIGHT-20)/2-7), 20, 20);
     self.activeView.frame = CGRectMake(floorf((REFRESH_HEAD_HEIGHT -20)/2+60+40), floorf((REFRESH_HEAD_HEIGHT-20)/2-7)+10, 20, 20);
     self.activeView.hidesWhenStopped = YES;

@@ -15,6 +15,7 @@
 #import "GJGCMessageExtendMusicShareModel.h"
 #import "GJGCMessageExtendSendFlowerModel.h"
 #import "GJGCMessageExtendMiniMessageModel.h"
+#import "GJGCMusicSharePlayer.h"
 
 NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNoti";
 
@@ -788,6 +789,15 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                             chatContentModel.musicSongName = musicContent.title;
                             chatContentModel.musicSongUrl = musicContent.songUrl;
                             chatContentModel.musicSongAuthor = musicContent.author;
+                            chatContentModel.musicSongImgUrl = musicContent.songImgUrl;
+                            
+                            //是不是正在播放的音乐
+                            if([GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying){
+                                if ([chatContentModel.localMsgId isEqualToString:[GJGCMusicSharePlayer sharePlayer].musicMsgId]) {
+                                    chatContentModel.isPlayingAudio = YES;
+                                }
+                            }
+                            
                         }
                             break;
                         case GJGCChatFriendContentTypeWebPage:

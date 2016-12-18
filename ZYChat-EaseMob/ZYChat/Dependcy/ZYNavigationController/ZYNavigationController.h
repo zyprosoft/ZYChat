@@ -12,5 +12,6 @@
 
 // 是否支持右滑返回
 @property (nonatomic, assign) BOOL canDragBack;
+@property (nonatomic, assign) ZYResourceType type;
 
 @end

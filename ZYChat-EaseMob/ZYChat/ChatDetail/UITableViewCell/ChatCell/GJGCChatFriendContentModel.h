@@ -149,6 +149,8 @@
 
 @property (nonatomic,strong)NSString *musicSongId;
 
+@property (nonatomic,strong)NSString *musicSongImgUrl;
+
 @property (nonatomic,assign)BOOL     isMusicPlaying;
 
 #pragma mark - 短视频消息

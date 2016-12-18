@@ -8,13 +8,14 @@
 
 #import "GJGCRecentChatStyle.h"
 #import "GJGCChatSystemNotiCellStyle.h"
+#import "GJGCChatContentEmojiParser.h"
 
 @implementation GJGCRecentChatStyle
 
 + (NSAttributedString *)formateName:(NSString *)name
 {
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
+    stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColorWhite];
     stringStyle.font = [UIFont boldSystemFontOfSize:16];
     
     return [[NSAttributedString alloc]initWithString:name attributes:[stringStyle attributedDictionary]];
@@ -75,13 +76,12 @@
     return [GJGCChatSystemNotiCellStyle formateTime:string];
 }
 
-+ (NSAttributedString *)formateContent:(NSString *)content
++ (void)formateContent:(NSString *)messageText
 {
-    GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
-    stringStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
+    if (GJCFStringIsNull(messageText)) {
+    }
     
-    return [[NSAttributedString alloc]initWithString:content attributes:[stringStyle attributedDictionary]];
+    [GJGCChatContentEmojiParser parseRecentContent:messageText];
 }
 
 

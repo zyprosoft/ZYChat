@@ -285,7 +285,7 @@
 + (GJCFCoreTextAttributedStringStyle *)timeLabelStyle
 {
     GJCFCoreTextAttributedStringStyle *stringStyle = [[GJCFCoreTextAttributedStringStyle alloc]init];
-    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+    stringStyle.foregroundColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColorWhite];
     stringStyle.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
     
     return stringStyle;

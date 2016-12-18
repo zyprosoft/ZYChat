@@ -12,6 +12,8 @@
 
 + (NSDictionary *)parseContent:(NSString *)string;
 
++ (NSDictionary *)parseRecentContent:(NSString *)string;
+
 + (void)parseEmoji:(NSMutableString *)originString withEmojiTempString:(NSMutableString *)tempString withResultArray:(NSMutableArray *)resultArray;
 
 @end

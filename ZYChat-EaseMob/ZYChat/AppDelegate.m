@@ -50,6 +50,8 @@
     
     NSLog(@"%@",GJCFAppCacheDirectory);
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
     //注册环信
     EMOptions *options = [EMOptions optionsWithAppkey:EaseMobAppKey];
     options.apnsCertName = @"zychat_apns";

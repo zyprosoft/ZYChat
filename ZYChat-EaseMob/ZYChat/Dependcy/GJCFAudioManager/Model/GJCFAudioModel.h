@@ -89,6 +89,9 @@
 /* 指定不从链接中生成缓存文件名，按照这个指定的文件名来缓存 */
 @property (nonatomic,strong)NSString *specialCacheFileName;
 
+//音频相关的图片路径
+@property (nonatomic,strong)NSString *imgUrl;
+
 /* 删除临时编码文件 */
 - (void)deleteTempEncodeFile;
 
