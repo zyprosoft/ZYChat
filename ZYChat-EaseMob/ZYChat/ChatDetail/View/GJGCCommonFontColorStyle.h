@@ -30,11 +30,15 @@
 
 + (UIColor *)listTitleAndDetailTextColor;
 
++ (UIColor *)listTitleAndDetailTextColorWhite;
+
 #pragma mark - 基本字号 标题下的辅助文字
 
 + (UIFont *)baseAndTitleAssociateTextFont;
 
 + (UIColor *)baseAndTitleAssociateTextColor;
+
++ (UIColor *)baseAndTitleAssociateTextColorWhite;
 
 #pragma mark - 主题色彩  辅助色彩  页面底色
 

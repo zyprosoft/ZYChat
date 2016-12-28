@@ -164,6 +164,7 @@
             musicModel.songUrl = self.theContent.webUrl;
             musicModel.songId = self.theContent.songId;
             musicModel.author = self.theContent.sumary;
+            musicModel.songImgUrl = self.theContent.imageUrl;
             musicModel.displayText = self.theContent.title;
             
             extendInfo.chatFriendContentType = self.theContent.contentType;

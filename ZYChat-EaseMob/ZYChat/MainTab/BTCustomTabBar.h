@@ -40,6 +40,10 @@
 
 @property (nonatomic,weak)id<BTCustomTabBarDelegate> delegate;
 
+@property (nonatomic,strong)UIImageView *backgroundView;
+
+@property (nonatomic,assign)ZYResourceType type;
+
 - (instancetype)initWithFrame:(CGRect)frame withDataSource:(id<BTCustomTabBarDelegate>)aDelegate;
 
 @end

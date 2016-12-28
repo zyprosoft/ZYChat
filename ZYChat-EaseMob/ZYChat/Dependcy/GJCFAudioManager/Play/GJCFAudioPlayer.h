@@ -17,9 +17,13 @@
 
 @property (nonatomic,weak)id<GJCFAudioPlayerDelegate> delegate;
 
+@property (nonatomic,assign)CGFloat progress;
+
 - (GJCFAudioModel *)getCurrentPlayingAudioFile;
 
 - (void)playAudioFile:(GJCFAudioModel *)audioFile;
+
+- (void)playAudioFile:(GJCFAudioModel *)audioFile startTime:(NSTimeInterval)sTime;
 
 - (void)playAtDuration:(NSTimeInterval)duration;
 
@@ -28,6 +32,8 @@
 - (void)stop;
 
 - (void)pause;
+
+- (NSTimeInterval)playProgressTime;
 
 - (NSTimeInterval)getLocalWavFileDuration:(NSString *)audioPath;
 

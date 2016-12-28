@@ -24,4 +24,6 @@
 
 @property (nonatomic,strong)NSString *songUrl;
 
+@property (nonatomic,strong)NSString *songImgUrl;
+
 @end

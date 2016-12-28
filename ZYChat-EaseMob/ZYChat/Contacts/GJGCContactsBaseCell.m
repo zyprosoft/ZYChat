@@ -19,6 +19,8 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor clearColor];
+
         self.bottomLine = [[UIImageView alloc]init];
         self.bottomLine.gjcf_height = 0.5f;
         self.bottomLine.backgroundColor = [GJGCCommonFontColorStyle mainSeprateLineColor];

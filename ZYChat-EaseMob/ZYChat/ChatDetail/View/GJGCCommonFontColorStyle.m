@@ -51,6 +51,11 @@
     return [GJGCCommonFontColorStyle detailBigTitleColor];
 }
 
++ (UIColor *)listTitleAndDetailTextColorWhite
+{
+    return [UIColor whiteColor];
+}
+
 #pragma mark - 基本字号 标题下的辅助文字
 
 + (UIFont *)baseAndTitleAssociateTextFont
@@ -61,6 +66,11 @@
 + (UIColor *)baseAndTitleAssociateTextColor
 {
     return GJCFQuickRGBColor(153, 153, 153);
+}
+
++ (UIColor *)baseAndTitleAssociateTextColorWhite
+{
+    return [self listTitleAndDetailTextColorWhite];
 }
 
 #pragma mark - 主题色彩  辅助色彩  页面底色

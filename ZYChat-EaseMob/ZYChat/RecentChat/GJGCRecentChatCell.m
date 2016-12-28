@@ -32,6 +32,8 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor clearColor];
+
         self.headView = [[GJGCCommonHeadView alloc]init];
         self.headView.gjcf_size = CGSizeMake(55, 55);
         self.headView.gjcf_left = 13.f;
@@ -76,6 +78,19 @@
     return self;
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    UIColor *contentStateColor = nil;
+    if (highlighted) {
+        contentStateColor = [UIColor colorWithRed:97/255.f green:60/255.f blue:140/255.f alpha:0.6];
+    }else{
+        contentStateColor = [UIColor clearColor];
+    }
+    self.contentView.backgroundColor = contentStateColor;
+}
+
 - (void)setContentModel:(GJGCRecentChatModel *)contentModel
 {
     if (!contentModel) {
@@ -109,13 +124,13 @@
 
     NSDictionary *parseDict = GJCFNSCacheGetValue(contentModel.content);
     if (!parseDict) {
-        parseDict = [GJGCChatContentEmojiParser parseContent:contentModel.content];
+        parseDict = [GJGCChatContentEmojiParser parseRecentContent:contentModel.content];
     }
     NSAttributedString *attributedString = [parseDict objectForKey:@"contentString"];
     self.contentLabel.contentAttributedString = attributedString;
     
     self.bottomLine.gjcf_bottom = self.contentLabel.gjcf_bottom + self.headView.gjcf_top;
-
+    self.bottomLine.gjcf_left = self.headView.gjcf_right + self.headView.gjcf_left;
     NSLog(@"self.bottomLine.bottom:%lf",self.bottomLine.gjcf_bottom);
 }
 

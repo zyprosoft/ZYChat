@@ -35,6 +35,8 @@
 #import "AppDelegate.h"
 #import "GJGCVoiceCallViewController.h"
 #import "GJGCVideoCallViewController.h"
+#import "GJGCMusicSharePlayer.h"
+#import "GJGCMusicPlayingViewController.h"
 
 #define GJGCActionSheetCallPhoneNumberTag 132134
 
@@ -52,8 +54,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                                             WechatShortVideoDelegate,EMCallManagerDelegate
                                           >
 
-@property (nonatomic,strong)GJCFAudioPlayer *audioPlayer;
-
 @property (nonatomic,strong)NSString *playingAudioMsgId;
 
 @property (nonatomic,assign)NSInteger lastPlayedAudioMsgIndex;
@@ -61,6 +61,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 @property (nonatomic,assign)BOOL isLastPlayedMyAudio;
 
 @property (nonatomic,strong)UILabel *sendLimitTipLabel;
+
 
 /*
  *  拨打电话webview
@@ -77,9 +78,11 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     
     [self setRightButtonWithStateImage:@"title-icon-个人资料" stateHighlightedImage:nil stateDisabledImage:nil titleName:nil];
     
-    /* 语音播放工具 */
-    self.audioPlayer = [[GJCFAudioPlayer alloc]init];
-    self.audioPlayer.delegate = self;
+    [self setupMusicBar];
+    
+    if ([GJGCMusicSharePlayer sharePlayer].musicMsgId.length > 0 && [[GJGCMusicSharePlayer sharePlayer].musicChatId isEqualToString:self.taklInfo.conversation.conversationId]) {
+        self.playingAudioMsgId = [GJGCMusicSharePlayer sharePlayer].musicMsgId;
+    }
     
     [self setStrNavTitle:self.dataSourceManager.title];
     
@@ -94,7 +97,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
             
         }
     }
-    
+
     /* 观察录音工具开始录音 */
     NSString *formateNoti = [GJGCChatInputConst panelNoti:GJGCChatInputPanelBeginRecordNoti formateWithIdentifier:self.inputPanel.panelIndentifier];
     [GJCFNotificationCenter addObserver:self selector:@selector(observeChatInputPanelBeginRecord:) name:formateNoti object:nil];
@@ -109,28 +112,38 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 }
 
 #pragma mark - 应用程序事件
+
 - (void)observeApplicationResignActive:(NSNotification *)noti
 {
     [self stopPlayCurrentAudio];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     
-    if (!self.presentingViewController && !self.presentedViewController) {
-        if (self.audioPlayer.isPlaying) {
-            [self stopPlayCurrentAudio];
-        }
-    }
-    
+    [[GJGCMusicSharePlayer sharePlayer] shouldStopPlay];
+    [[GJGCMusicSharePlayer sharePlayer] removePlayObserver:self];
+    [[GJGCMusicSharePlayer sharePlayer] removePlayObserver:self.musicBar];
     [self.inputPanel removeKeyboardObserve];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[GJGCMusicSharePlayer sharePlayer] addPlayObserver:self.musicBar];
+    [[GJGCMusicSharePlayer sharePlayer] addPlayObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.inputPanel startKeyboardObserve];
+    
+    if ([GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying) {
+        [self.musicBar startMove];
+    }
 }
 
 - (void)rightButtonPressed:(id)sender
@@ -188,6 +201,10 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     dispatch_async(dispatch_get_main_queue(), ^{
        
         [self stopPlayCurrentAudio];
+        
+        if (self.musicBar) {
+            [self.musicBar removeFromSuperview];
+        }
         
         [self checkNextAudioMsgToPlay];
         
@@ -266,7 +283,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didUpdateSoundMouter:(CGFloat)soundMouter
 {
     /* 操作过快屏蔽 */
-    if (!self.playingAudioMsgId) {
+    if (self.playingAudioMsgId.length == 0) {
         return;
     }
     
@@ -338,7 +355,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     // 如果点击的是自己，那么停止了就不往下走了。如果
     GJGCChatContentBaseModel *contentModel = [self.dataSourceManager contentModelAtIndex:indexPath.row];
     
-    if ( self.playingAudioMsgId && [self.playingAudioMsgId isEqualToString:contentModel.localMsgId] && self.audioPlayer.isPlaying) {
+    if ( self.playingAudioMsgId && [self.playingAudioMsgId isEqualToString:contentModel.localMsgId] && [GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying) {
         
         [self stopPlayCurrentAudio];
         
@@ -431,6 +448,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSIndexPath *tapIndexPath = [self.chatListTable indexPathForCell:tapedCell];
     GJGCChatFriendContentModel *contentModel = (GJGCChatFriendContentModel *)[self.dataSourceManager contentModelAtIndex:tapIndexPath.row];
 
+    [self stopPlayCurrentAudio];
+    
     GJGCMusicPlayViewController *musicVC = [[GJGCMusicPlayViewController alloc]initWithSongId:contentModel.musicSongId];
     [self.navigationController pushViewController:musicVC animated:YES];
 }
@@ -605,12 +624,28 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     NSIndexPath *playingIndexPath = [NSIndexPath indexPathForRow:playingIndex inSection:0];
     if (GJCFFileIsExist(localStorePath)) {
         
-        [self.audioPlayer playAudioFile:contentModel.audioModel];
+        //播放歌曲
+        [GJGCMusicSharePlayer sharePlayer].musicSongName = contentModel.musicSongName;
+        [GJGCMusicSharePlayer sharePlayer].musicSongUrl = contentModel.musicSongUrl;
+        [GJGCMusicSharePlayer sharePlayer].musicSongAuthor = contentModel.musicSongAuthor;
+        [GJGCMusicSharePlayer sharePlayer].musicSongId = contentModel.musicSongId;
+        [GJGCMusicSharePlayer sharePlayer].musicSongImgUrl = contentModel.musicSongImgUrl;
+        if (contentModel.contentType == GJGCChatFriendContentTypeMusicShare) {
+            [GJGCMusicSharePlayer sharePlayer].musicMsgId = contentModel.localMsgId;
+            [GJGCMusicSharePlayer sharePlayer].musicChatId = self.taklInfo.conversation.conversationId;
+        }else{
+            [GJGCMusicSharePlayer sharePlayer].musicMsgId = nil;
+            [GJGCMusicSharePlayer sharePlayer].musicChatId = nil;
+        }
+        
+        [[GJGCMusicSharePlayer sharePlayer].audioPlayer playAudioFile:contentModel.audioModel];
         contentModel.isPlayingAudio = YES;
         contentModel.isRead = YES;
         self.isLastPlayedMyAudio = contentModel.isFromSelf;
         [self.dataSourceManager updateContentModelValuesNotEffectRowHeight:contentModel atIndex:playingIndex];
         
+        [self setupMusicBar];//音乐播放条
+
         //音乐和语音区分
         switch (contentModel.contentType) {
             case GJGCChatFriendContentTypeAudio:
@@ -663,8 +698,8 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
 
 - (void)stopPlayCurrentAudio
 {
-    if (self.audioPlayer.isPlaying) {
-        [self.audioPlayer stop];
+    if ([GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying) {
+        [[GJGCMusicSharePlayer sharePlayer].audioPlayer stop];
     }
     
     if (self.playingAudioMsgId) {
@@ -1577,7 +1612,7 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
                     
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:0];
                     
-                    [self.audioPlayer playAudioFile:contentModel.audioModel];
+                    [[GJGCMusicSharePlayer sharePlayer].audioPlayer playAudioFile:contentModel.audioModel];
                     contentModel.isPlayingAudio = YES;
                     contentModel.isRead = YES;
                     self.isLastPlayedMyAudio = contentModel.isFromSelf;
@@ -1728,6 +1763,42 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     if (error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
+    }
+}
+
+#pragma mark - MusicBarDelegate
+
+- (void)didTappedMusicPlayerBar
+{
+    GJGCMusicPlayingViewController *musicPlay = [[GJGCMusicPlayingViewController alloc]init];
+    [self.navigationController pushViewController:musicPlay animated:YES];
+}
+
+#pragma mark - Scroll event
+
+- (void)dispatchScrollViewDidEndDecelerating
+{
+    if ([GJGCMusicSharePlayer sharePlayer].musicMsgId.length > 0) {
+        
+        NSInteger playingIndex = [self.dataSourceManager getContentModelIndexByLocalMsgId:self.playingAudioMsgId];
+        
+        NSIndexPath *playingIndexPath = [NSIndexPath indexPathForRow:playingIndex inSection:0];
+        
+        NSArray *visiableCellIndexs = [self.chatListTable indexPathsForVisibleRows];
+        
+        if ([visiableCellIndexs containsObject:playingIndexPath]) {
+            [UIView animateWithDuration:0.26 animations:^{
+                self.musicBar.alpha = 0;
+            }];
+        }else{
+            [UIView animateWithDuration:0.26 animations:^{
+                self.musicBar.alpha = 1;
+            }];
+        }
+    }else{
+        [UIView animateWithDuration:0.26 animations:^{
+            self.musicBar.alpha = 0;
+        }];
     }
 }
 

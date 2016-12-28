@@ -14,8 +14,12 @@
 #import "GJGCRecentChatTitleView.h"
 #import "GJGCChatSystemNotiReciever.h"
 #import "GJGCChatSystemNotiViewController.h"
+#import "GJGCMusicPlayerBar.h"
+#import "GJGCMusicPlayingViewController.h"
 
-@interface GJGCRecentChatViewController ()<UITableViewDelegate,UITableViewDataSource,GJGCRecentChatDataManagerDelegate>
+#define kMusicPlayingBarTag 99994499
+
+@interface GJGCRecentChatViewController ()<UITableViewDelegate,UITableViewDataSource,GJGCRecentChatDataManagerDelegate,GJGCMusicPlayerBarDelegate>
 
 @property (nonatomic,strong)GJGCRecentChatDataManager *dataManager;
 
@@ -31,8 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-    
     self.dataManager = [[GJGCRecentChatDataManager alloc]init];
     self.dataManager.delegate = self;
     
@@ -46,6 +48,7 @@
     self.listTable.dataSource = self;
     self.listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.listTable];
+    [self.listTable setResourceType:ZYResourceTypeRecent];
     
     [self.dataManager performSelector:@selector(loadRecentConversations) withObject:nil afterDelay:2.0];
 }
@@ -61,6 +64,42 @@
     
     //重新刷新一下会话
     [self.dataManager loadRecentConversations];
+    
+    //是不是在播放音乐
+    [self setupMusicPlayBar];
+}
+
+#pragma mark - setupMusicPlayBar
+
+- (void)setupMusicPlayBar
+{
+    if ([GJGCMusicSharePlayer sharePlayer].audioPlayer.isPlaying) {
+        NSLog(@"obsers:%@",[GJGCMusicSharePlayer sharePlayer].observers.debugDescription);
+        if ([self.listTable viewWithTag:kMusicPlayingBarTag] == nil) {
+            GJGCMusicPlayerBar *bar = [GJGCMusicPlayerBar currentMusicBar];
+            bar.tag = kMusicPlayingBarTag;
+            bar.delegate = self;
+            bar.gjcf_top = - 54.f;
+            [self.listTable addSubview:bar];
+            [self.listTable setContentInset:UIEdgeInsetsMake(54, 0, 0, 0)];
+        }else{
+            GJGCMusicPlayerBar *bar = (GJGCMusicPlayerBar *)[self.listTable viewWithTag:kMusicPlayingBarTag];
+            [bar startMove];
+        }
+        [self.listTable setContentOffset:CGPointMake(0,-54)];
+    }else{
+        [[self.listTable viewWithTag:kMusicPlayingBarTag] removeFromSuperview];
+        [self.listTable setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [self.listTable setContentOffset:CGPointMake(0,0)];
+    }
+    
+}
+
+
+- (void)didTappedMusicPlayerBar
+{
+    GJGCMusicPlayingViewController *musicPlay = [[GJGCMusicPlayingViewController alloc]init];
+    [self.navigationController pushViewController:musicPlay animated:YES];
 }
 
 #pragma mark - tableViewDelegate

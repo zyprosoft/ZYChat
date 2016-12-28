@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-        
+    
     /* 初始化加载特效 */
     [self createStatusHUDWithView:self.view];
     self.statusHUD.gjcf_height = self.statusHUD.gjcf_height - self.contentOriginY;

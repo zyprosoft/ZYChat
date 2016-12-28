@@ -16,7 +16,6 @@
 
 @property (nonatomic,strong)UILabel *redTipLabel;
 
-
 @end
 
 @implementation BTCustomTabBar
@@ -38,6 +37,11 @@
         self.redTipLabel.textAlignment = NSTextAlignmentCenter;
         self.redTipLabel.layer.masksToBounds = YES;
         [self addSubview:self.redTipLabel];
+        
+        //background
+        self.backgroundView = [[UIImageView alloc]init];
+        self.backgroundView.frame = self.bounds;
+        [self addSubview:self.backgroundView];
         
         [self setupSubViews];
         
@@ -81,11 +85,10 @@
         CGRect itemRect = CGRectMake(originX, originY, itemWidth, itemHeight);
         
         NSDictionary *itemDict = [configData objectAtIndex:index];
-        UIImage *normalIcon = GJCFQuickImage(itemDict[@"normal"]);
-        UIImage *selectedIcon = GJCFQuickImage(itemDict[@"selected"]);
+        UIImage *normalIcon = ZYThemeImage(itemDict[@"normal"]);
+        UIImage *selectedIcon = ZYThemeImage(itemDict[@"selected"]);
         
         BTCustomTabBarItem *barItem = [[BTCustomTabBarItem alloc]initWithFrame:itemRect];
-        barItem.backgroundColor = [UIColor whiteColor];
         barItem.normalIcon = normalIcon;
         barItem.selectedIcon = selectedIcon;
         barItem.tag = BTCustomTabBarItemBaseTag + index;
@@ -173,6 +176,28 @@
     
     BTCustomTabBarItem *nextItem = (BTCustomTabBarItem *)[self viewWithTag:BTCustomTabBarItemBaseTag + _selectedIndex];
     nextItem.selected = YES;
+    self.type = selectedIndex;
+}
+
+#pragma mark - theme
+
+- (void)setType:(ZYResourceType)type
+{
+    NSString *imgName = nil;
+    switch (type) {
+        case ZYResourceTypeRecent:
+            imgName = kThemeRecentTabBar;
+            break;
+        case ZYResourceTypeSquare:
+            imgName = kThemeSquareTabBar;
+            break;
+        case ZYResourceTypeHome:
+            imgName = kThemeHomeTabBar;
+            break;
+        default:
+            break;
+    }
+    self.backgroundView.image = ZYThemeImage(imgName);
 }
 
 @end

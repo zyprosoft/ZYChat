@@ -28,17 +28,17 @@
         
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
-        self.titleLabel.textColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColor];
+        self.titleLabel.textColor = [GJGCCommonFontColorStyle listTitleAndDetailTextColorWhite];
         [self.contentView addSubview:self.titleLabel];
         
         self.timeLabel = [[UILabel alloc]init];
-        self.timeLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.timeLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColorWhite];
         self.timeLabel.font = [GJGCCommonFontColorStyle baseAndTitleAssociateTextFont];
         [self.contentView addSubview:self.timeLabel];
         
         self.descLabel = [[UILabel alloc]init];
         self.descLabel.font = [GJGCCommonFontColorStyle listTitleAndDetailTextFont];
-        self.descLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColor];
+        self.descLabel.textColor = [GJGCCommonFontColorStyle baseAndTitleAssociateTextColorWhite];
         [self.contentView addSubview:self.descLabel];
         
     }

@@ -14,6 +14,7 @@
 #import "GJGCMutilTextInputViewController.h"
 #import "WallPaperViewController.h"
 #import "AppDelegate.h"
+#import "GJGCMusicSharePlayer.h"
 
 @interface GJGCMyHomePageViewController ()<GJGCMutilTextInputViewControllerDelegate>
 
@@ -38,6 +39,8 @@
        
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate logOutAction];
+        
+        [[GJGCMusicSharePlayer sharePlayer] signOut];
         
     } withFaild:^(NSError *error) {
         

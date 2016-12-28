@@ -59,6 +59,8 @@ const NSString  *kGJGCMessageExtendExchangeGifPackageVersion = @"package_version
 const NSString  *kGJGCMessageExtendMusicUrl = @"music_url";
 const NSString  *kGJGCMessageExtendMusicSongAuthor = @"song_author";
 const NSString  *kGJGCMessageExtendMusicSongId = @"song_id";
+const NSString  *kGJGCMessageExtendMusicSongImageUrl = @"song_img_url";
+
 
 @implementation GJGCMessageExtendConst
 

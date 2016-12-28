@@ -16,8 +16,9 @@
 #import "GJGCRefreshHeaderView.h"
 #import "GJGCRefreshFooterView.h"
 #import "GJGCBaseViewController.h"
+#import "GJGCMusicPlayerBar.h"
 
-@interface GJGCChatDetailViewController : GJGCBaseViewController<UITableViewDataSource,UITableViewDelegate,GJGCChatBaseCellDelegate,GJGCChatDetailDataSourceManagerDelegate,GJGCChatInputPanelDelegate>
+@interface GJGCChatDetailViewController : GJGCBaseViewController<UITableViewDataSource,UITableViewDelegate,GJGCChatBaseCellDelegate,GJGCChatDetailDataSourceManagerDelegate,GJGCChatInputPanelDelegate,GJGCMusicPlayerBarDelegate>
 
 @property (nonatomic,strong)GJGCRefreshHeaderView *refreshHeadView;
 
@@ -32,6 +33,8 @@
 @property (nonatomic,strong)UITableView *chatListTable;
 
 @property (nonatomic,readonly)GJGCChatFriendTalkModel *taklInfo;
+
+@property (nonatomic,strong)GJGCMusicPlayerBar *musicBar;
 
 - (instancetype)initWithTalkInfo:(GJGCChatFriendTalkModel *)talkModel;
 
@@ -71,6 +74,12 @@
 - (void)triggleLoadingMore;
 
 - (void)stopPlayCurrentAudio;
+
+- (void)setupMusicBar;
+
+#pragma mark - scroll event
+
+- (void)dispatchScrollViewDidEndDecelerating;
 
 #pragma mark - 收起输入键盘
 

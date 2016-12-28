@@ -22,7 +22,7 @@
         
         UITapGestureRecognizer *tapR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnSelf)];
         [self addGestureRecognizer:tapR];
-        
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }

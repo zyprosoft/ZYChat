@@ -941,6 +941,13 @@
 		E485DEEE1CE8A153004DB104 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E485DEED1CE8A153004DB104 /* flower@2x.png */; };
 		E485DEF41CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */; };
 		E485DEF71CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */; };
+		E4BDFBEC1E059D7C0061E029 /* ZYThemeUitil.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFBEB1E059D7C0061E029 /* ZYThemeUitil.m */; };
+		E4BDFBEF1E05A0D00061E029 /* UITableView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFBEE1E05A0D00061E029 /* UITableView+Theme.m */; };
+		E4BDFC041E05A5E60061E029 /* default in Resources */ = {isa = PBXBuildFile; fileRef = E4BDFC031E05A5E60061E029 /* default */; };
+		E4BDFC2F1E05D8950061E029 /* GJGCMusicSharePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC2E1E05D8950061E029 /* GJGCMusicSharePlayer.m */; };
+		E4BDFC3B1E05E9540061E029 /* GJGCMusicPlayerBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC3A1E05E9540061E029 /* GJGCMusicPlayerBar.m */; };
+		E4BDFC411E05FFB80061E029 /* GJGCMusicPlayingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BDFC401E05FFB80061E029 /* GJGCMusicPlayingViewController.m */; };
+		E4BDFC431E06481A0061E029 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4BDFC421E06481A0061E029 /* default.jpg */; };
 		E4CB35311D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */; };
 		E4F930281C79FF040038278A /* outer1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930271C79FF040038278A /* outer1@2x.png */; };
 		E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F930291C79FF0A0038278A /* outer2@2x.png */; };
@@ -2027,6 +2034,18 @@
 		E485DEF31CE8AC9D004DB104 /* GJGCMessageExtendSendFlowerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendSendFlowerModel.m; sourceTree = "<group>"; };
 		E485DEF51CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatFriendSendFlowerCell.h; sourceTree = "<group>"; };
 		E485DEF61CE8B43C004DB104 /* GJGCChatFriendSendFlowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatFriendSendFlowerCell.m; sourceTree = "<group>"; };
+		E4BDFBEA1E059D7C0061E029 /* ZYThemeUitil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYThemeUitil.h; sourceTree = "<group>"; };
+		E4BDFBEB1E059D7C0061E029 /* ZYThemeUitil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYThemeUitil.m; sourceTree = "<group>"; };
+		E4BDFBED1E05A0D00061E029 /* UITableView+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Theme.h"; sourceTree = "<group>"; };
+		E4BDFBEE1E05A0D00061E029 /* UITableView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Theme.m"; sourceTree = "<group>"; };
+		E4BDFC031E05A5E60061E029 /* default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = default; sourceTree = "<group>"; };
+		E4BDFC2D1E05D8950061E029 /* GJGCMusicSharePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMusicSharePlayer.h; sourceTree = "<group>"; };
+		E4BDFC2E1E05D8950061E029 /* GJGCMusicSharePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicSharePlayer.m; sourceTree = "<group>"; };
+		E4BDFC391E05E9540061E029 /* GJGCMusicPlayerBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMusicPlayerBar.h; sourceTree = "<group>"; };
+		E4BDFC3A1E05E9540061E029 /* GJGCMusicPlayerBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicPlayerBar.m; sourceTree = "<group>"; };
+		E4BDFC3F1E05FFB80061E029 /* GJGCMusicPlayingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMusicPlayingViewController.h; sourceTree = "<group>"; };
+		E4BDFC401E05FFB80061E029 /* GJGCMusicPlayingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMusicPlayingViewController.m; sourceTree = "<group>"; };
+		E4BDFC421E06481A0061E029 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		E4CB352F1D21FF3600B15E30 /* GJGCChatSystemNotiReciever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCChatSystemNotiReciever.h; sourceTree = "<group>"; };
 		E4CB35301D21FF3600B15E30 /* GJGCChatSystemNotiReciever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCChatSystemNotiReciever.m; sourceTree = "<group>"; };
 		E4F930271C79FF040038278A /* outer1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outer1@2x.png"; sourceTree = "<group>"; };
@@ -2257,6 +2276,7 @@
 		365F02DE1B5019D0005161D6 /* ZYChat */ = {
 			isa = PBXGroup;
 			children = (
+				E4BDFBE91E059D640061E029 /* Theme */,
 				C41173BB1D6D7B0D0037CD8F /* Call */,
 				E4FE163E1D58D170008D47E4 /* Contacts */,
 				C81DC6AF1C06EA1700348326 /* AppWall */,
@@ -3335,6 +3355,8 @@
 		365F089F1B50E082005161D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E4BDFC421E06481A0061E029 /* default.jpg */,
+				E4BDFC031E05A5E60061E029 /* default */,
 				E42C0D2C1D5A2502007F8278 /* title-icon-个人资料@2x.png */,
 				E42C0D2D1D5A2502007F8278 /* title-icon-个人资料@3x.png */,
 				E42C0D271D59A148007F8278 /* buddy_header_bg.png */,
@@ -3931,6 +3953,12 @@
 				C8E50F6B1C05647400AFA10F /* GJGCMusicSearchResultListViewController.m */,
 				C8E50F6D1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.h */,
 				C8E50F6E1C05648800AFA10F /* GJGCMusicSearchResultListDataManager.m */,
+				E4BDFC2D1E05D8950061E029 /* GJGCMusicSharePlayer.h */,
+				E4BDFC2E1E05D8950061E029 /* GJGCMusicSharePlayer.m */,
+				E4BDFC391E05E9540061E029 /* GJGCMusicPlayerBar.h */,
+				E4BDFC3A1E05E9540061E029 /* GJGCMusicPlayerBar.m */,
+				E4BDFC3F1E05FFB80061E029 /* GJGCMusicPlayingViewController.h */,
+				E4BDFC401E05FFB80061E029 /* GJGCMusicPlayingViewController.m */,
 			);
 			path = MusicShare;
 			sourceTree = "<group>";
@@ -4146,6 +4174,17 @@
 				E485DEE51CE89A82004DB104 /* SCSiriWaveformView.m */,
 			);
 			path = AudioWave;
+			sourceTree = "<group>";
+		};
+		E4BDFBE91E059D640061E029 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				E4BDFBEA1E059D7C0061E029 /* ZYThemeUitil.h */,
+				E4BDFBEB1E059D7C0061E029 /* ZYThemeUitil.m */,
+				E4BDFBED1E05A0D00061E029 /* UITableView+Theme.h */,
+				E4BDFBEE1E05A0D00061E029 /* UITableView+Theme.m */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		E4F930261C79FEC20038278A /* Video */ = {
@@ -4437,6 +4476,7 @@
 				TargetAttributes = {
 					365F02DB1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = QA7LB7LLDU;
 					};
 					365F02EE1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -4558,6 +4598,7 @@
 				E4FEB43E1C01963600E4A153 /* 标签-bg-等级@2x.png in Resources */,
 				365F05AA1B501A5D005161D6 /* 025[疑问]@2x.png in Resources */,
 				E4FEB4A11C060E5800E4A153 /* music@2x.png in Resources */,
+				E4BDFC431E06481A0061E029 /* default.jpg in Resources */,
 				E4FEB4821C020EED00E4A153 /* square@3x.png in Resources */,
 				E4FEB4881C020F0600E4A153 /* msg@2x.png in Resources */,
 				C81DC6AC1C06AFF700348326 /* pause@2x.png in Resources */,
@@ -4597,6 +4638,7 @@
 				365F06D81B501A5D005161D6 /* 聊天键盘切换-btn-圆-点击@3x.png in Resources */,
 				365F060A1B501A5D005161D6 /* 073[米饭]@2x.png in Resources */,
 				365F06881B501A5D005161D6 /* 笑死了.gif in Resources */,
+				E4BDFC041E05A5E60061E029 /* default in Resources */,
 				E4567A701D10CF4100940163 /* WechatShortVideo_close.png in Resources */,
 				E4F9302A1C79FF0A0038278A /* outer2@2x.png in Resources */,
 				365F057C1B501A5D005161D6 /* 003[大哭]@2x.png in Resources */,
@@ -5031,6 +5073,7 @@
 				C81702DF1BFF470E00FAE520 /* GJGCPublicGroupListViewController.m in Sources */,
 				C81702CC1BFF3DC100FAE520 /* BTActionSheetTimePicker.m in Sources */,
 				C8F3B9C71BF0ABF30057AF5B /* ZYDatabaseColunmCondition.m in Sources */,
+				E4BDFBEC1E059D7C0061E029 /* ZYThemeUitil.m in Sources */,
 				C8E50E461C02B84200AFA10F /* ZWCollectionViewCell.m in Sources */,
 				365F04511B501A43005161D6 /* GJCFStringUitil.m in Sources */,
 				C81702CA1BFF3DC100FAE520 /* BTActionSheetNameAndDetailCell.m in Sources */,
@@ -5139,6 +5182,7 @@
 				E4567A6D1D10CF4100940163 /* CALayer+AddUIColor.m in Sources */,
 				365F03ED1B501A43005161D6 /* GJCFFileDownloadTask.m in Sources */,
 				365F05721B501A5D005161D6 /* GJGCChatInputTextView.m in Sources */,
+				E4BDFC3B1E05E9540061E029 /* GJGCMusicPlayerBar.m in Sources */,
 				365F04391B501A43005161D6 /* GJCFCoreTextRun.m in Sources */,
 				E4567A691D10CF4100940163 /* SCVideoConfiguration.m in Sources */,
 				365F08021B50B138005161D6 /* GJGCChatSystemNotiBaseCell.m in Sources */,
@@ -5277,6 +5321,7 @@
 				E4FEB4681C01F78100E4A153 /* GJGCMyHomePageViewController.m in Sources */,
 				365F08061B50B138005161D6 /* GJGCChatSystemNotiConstans.m in Sources */,
 				365F08401B50B138005161D6 /* GJGCGIFLoadManager.m in Sources */,
+				E4BDFC2F1E05D8950061E029 /* GJGCMusicSharePlayer.m in Sources */,
 				E4FEB41B1C017B1400E4A153 /* GJGCInformationPhotoBox.m in Sources */,
 				C8E50E661C02C44E00AFA10F /* WJItemsControlView.m in Sources */,
 				365F03FF1B501A43005161D6 /* GJCFAssetsPickerStyle.m in Sources */,
@@ -5348,6 +5393,7 @@
 				365F07EC1B50B138005161D6 /* GJGCChatFriendMiniMessageCell.m in Sources */,
 				365F083E1B50B138005161D6 /* GJGCChatFriendViewController.m in Sources */,
 				365F055E1B501A5D005161D6 /* GJGCChatInputExpandEmojiPanelMenuBarDataSourceItem.m in Sources */,
+				E4BDFBEF1E05A0D00061E029 /* UITableView+Theme.m in Sources */,
 				365F03E71B501A43005161D6 /* VoiceConverter.mm in Sources */,
 				C81702AC1BFF3D1D00FAE520 /* GJGCCreateGroupInputTextCell.m in Sources */,
 				E4FEB4231C017B1400E4A153 /* GJGCInformationBaseViewController.m in Sources */,
@@ -5396,6 +5442,7 @@
 				365F04091B501A43005161D6 /* GJCFAssetsPickerAlbumsCell.m in Sources */,
 				C8DC4A021BEC79DA00F2D161 /* ZYNetWorkManager.m in Sources */,
 				C8D1B1B31BFC552300201421 /* GJGCRecentChatStyle.m in Sources */,
+				E4BDFC411E05FFB80061E029 /* GJGCMusicPlayingViewController.m in Sources */,
 				C8F3B9D41BF0B5050057AF5B /* FMDatabase.m in Sources */,
 				365F07D21B50B138005161D6 /* GJGCChatBaseConstans.m in Sources */,
 			);
@@ -5692,6 +5739,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QA7LB7LLDU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5734,6 +5782,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QA7LB7LLDU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -14,6 +14,6 @@
 
 + (NSAttributedString *)formateTime:(long long)time;
 
-+ (NSAttributedString *)formateContent:(NSString *)content;
++ (void)formateContent:(NSString *)content;
 
 @end

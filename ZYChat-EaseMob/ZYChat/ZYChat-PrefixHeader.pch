@@ -16,6 +16,9 @@
 
 #import <HyphenateFullSDK/EMSDKFull.h>
 
+#import "ZYThemeUitil.h"
+#import "UITableView+Theme.h"
+
 #import "NSDictionary+Json.h"
 #import "NSString+Json.h"
 

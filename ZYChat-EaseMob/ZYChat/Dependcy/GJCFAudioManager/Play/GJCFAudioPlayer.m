@@ -33,6 +33,11 @@
 
 - (void)createPlayer
 {
+    [self createPlayerAtStartTime:0];
+}
+
+- (void)createPlayerAtStartTime:(NSTimeInterval)time
+{
     /* 阻止重复快速重复播放 */
     if (self.audioPlayer.isPlaying) {
         NSError *faildError = [NSError errorWithDomain:@"gjcf.AudioManager.com" code:-235 userInfo:@{@"msg": @"GJCFAuidoPlayer正在播放失败"}];
@@ -89,6 +94,7 @@
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     
+    
     BOOL isPrepare = [self.audioPlayer prepareToPlay];
     if (!isPrepare) {
         
@@ -99,7 +105,11 @@
         return;
     }
     
-    _isPlaying = [self.audioPlayer play];
+    if (time > 0) {
+        _isPlaying = [self.audioPlayer playAtTime:time];
+    }else{
+        _isPlaying = [self.audioPlayer play];
+    }
     /* 获取当前播放文件得时间总长度 */
     self.currentPlayAudioDuration = [self getLocalWavFileDuration:self.currentPlayAudioFile.localStorePath];
     
@@ -137,6 +147,26 @@
     self.currentPlayAudioFile = audioFile;
     
     [self createPlayer];
+}
+
+- (void)playAudioFile:(GJCFAudioModel *)audioFile startTime:(NSTimeInterval)sTime
+{
+    /* 阻止重复快速重复播放 */
+    if (self.audioPlayer.isPlaying) {
+        NSError *faildError = [NSError errorWithDomain:@"gjcf.AudioManager.com" code:-235 userInfo:@{@"msg": @"GJCFAuidoPlayer正在播放失败"}];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayer:didOccusError:)]) {
+            [self.delegate audioPlayer:self didOccusError:faildError];
+        }
+        return;
+    }
+    
+    if (self.currentPlayAudioFile) {
+        self.currentPlayAudioFile = nil;
+    }
+    
+    self.currentPlayAudioFile = audioFile;
+    
+    [self createPlayerAtStartTime:sTime];
 }
 
 - (void)playAtDuration:(NSTimeInterval)duration
@@ -232,15 +262,20 @@
     _isPlaying = NO;
 }
 
+- (NSTimeInterval)playProgressTime
+{
+    return self.audioPlayer.currentTime;
+}
+
 #pragma mark - 更新播放进度
 - (void)updatePlayingProgress:(NSTimer *)timer
 {
-    CGFloat progress = self.audioPlayer.currentTime/self.audioPlayer.duration;
+    self.progress = self.audioPlayer.currentTime/self.audioPlayer.duration;
     
     /* 播放进度百分比 */
     if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayer:playingProgress:)]) {
         
-        [self.delegate audioPlayer:self playingProgress:progress];
+        [self.delegate audioPlayer:self playingProgress:self.progress];
     }
     
     /* 播放进度 */
@@ -252,7 +287,7 @@
     [self updateSoundMouter:timer];
 
     /* 0.9进度就应该停止了，因为1.0在完成方法更新 */
-    if (progress >= 0.9f || !self.audioPlayer.isPlaying) {
+    if (self.progress >= 0.9f || !self.audioPlayer.isPlaying) {
         
         [timer invalidate];
     }
