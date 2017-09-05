@@ -84,8 +84,8 @@
 - (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath
 {
     GJGCRecentChatModel *chatModel = [self contentModelAtIndexPath:indexPath];
-    
-    [[EMClient sharedClient].chatManager deleteConversation:chatModel.conversation.conversationId deleteMessages:NO];
+    [[EMClient sharedClient].chatManager deleteConversation:chatModel.conversation.conversationId isDeleteMessages:NO completion:^(NSString *aConversationId, EMError *aError) {
+    }];
     
     [self.sourceArray removeObject:chatModel];
 
@@ -96,8 +96,8 @@
 {
     if ([[ZYUserCenter shareCenter] isLogin]) {
         
-       NSArray *allConversation = [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
-       [self didUpdateConversationList:allConversation];
+       NSArray *allConversation = [[EMClient sharedClient].chatManager getAllConversations];
+       [self conversationListDidUpdate:allConversation];
         
     }
 }
@@ -175,27 +175,27 @@
 
 #pragma mark - 环信监听会话生成的回调
 
-- (void)didUpdateConversationList:(NSArray *)aConversationList
+- (void)conversationListDidUpdate:(NSArray *)aConversationList
 {
     if (aConversationList.count > 0) {
         [self updateConversationList:aConversationList];
     }
 }
 
-- (void)didReceiveMessages:(NSArray *)aMessages
+- (void)messagesDidReceive:(NSArray *)aMessages
 {
     [self updateConversationList:[[EMClient sharedClient].chatManager getAllConversations]];
 }
 
 #pragma mark - 环信监听链接服务器状态
 
-- (void)didAutoLoginWithError:(EMError *)aError
+- (void)autoLoginDidCompleteWithError:(EMError *)aError
 {
     GJGCRecentChatConnectState resultState = aError? GJGCRecentChatConnectStateFaild:GJGCRecentChatConnectStateSuccess;
     [self.delegate dataManager:self requireUpdateTitleViewState:resultState];
 }
 
-- (void)didLoginFromOtherDevice
+- (void)userAccountDidLoginFromOtherDevice
 {
     
 }
@@ -275,7 +275,7 @@
             if (conversation.type == EMConversationTypeChat) {
                 
                 //对方的最近一条消息
-                EMMessage *lastMessage = conversation.latestMessageFromOthers;
+                EMMessage *lastMessage = conversation.lastReceivedMessage;
                 
                 chatModel.toId = conversation.conversationId;
                 if (lastMessage) {

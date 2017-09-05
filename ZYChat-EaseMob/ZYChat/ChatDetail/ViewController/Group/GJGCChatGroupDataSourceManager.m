@@ -52,7 +52,7 @@
         [self addChatContentModel:chatContentModel];
         
         //置为已读
-        [self.taklInfo.conversation markMessageAsReadWithId:aMessage.messageId];
+        [self.taklInfo.conversation markMessageAsReadWithId:aMessage.messageId error:nil];
     }
 
     return chatContentModel;
@@ -71,9 +71,9 @@
     
     //读取最近20条消息
     long long beforeTime = [[NSDate date]timeIntervalSince1970]*1000;
-    NSArray *messages = [self.taklInfo.conversation loadMoreMessagesContain:nil before:beforeTime limit:10 from:nil direction:EMMessageSearchDirectionUp];
-    
-    for (EMMessage *theMessage in messages) {
+
+    NSArray *aMessages = [self.taklInfo.conversation loadMoreMessagesContain:nil before:beforeTime limit:10 from:nil direction:EMMessageSearchDirectionUp];
+    for (EMMessage *theMessage in aMessages) {
         
         [self addEaseMessage:theMessage];
     }
@@ -86,7 +86,7 @@
     
     self.isFinishFirstHistoryLoad = YES;
     self.isFinishLoadAllHistoryMsg = NO;
-
+    
 }
 
 - (void)pushAddMoreMsg:(NSArray *)array

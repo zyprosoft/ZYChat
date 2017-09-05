@@ -195,9 +195,7 @@
     [self.statusHUD showWithStatusText:@"正在发送..."];
     
     GJCFWeakSelf weakSelf = self;
-    [[EMClient sharedClient].chatManager asyncSendMessage:sendMessage progress:^(int progress) {
-        
-    } completion:^(EMMessage *message, EMError *error) {
+    [[EMClient sharedClient].chatManager sendMessage:sendMessage progress:nil completion:^(EMMessage *message, EMError *error) {
         
         [weakSelf.statusHUD dismiss];
         
@@ -214,7 +212,7 @@
             
             BTToast(@"发送失败");
         }
-        
+
     }];
     
 }

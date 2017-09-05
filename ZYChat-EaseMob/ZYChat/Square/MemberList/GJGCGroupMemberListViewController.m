@@ -51,7 +51,7 @@
     talkModel.toId = contentModel.title;
     talkModel.toUserName = contentModel.title;
     
-    EMMessage *message = [talkModel.conversation latestMessageFromOthers];
+    EMMessage *message = [talkModel.conversation lastReceivedMessage];
     if (message) {
         //普通文本消息和依靠普通文本消息扩展出来的消息类型
         GJGCMessageExtendModel *extendModel = [[GJGCMessageExtendModel alloc]initWithDictionary:message.ext];

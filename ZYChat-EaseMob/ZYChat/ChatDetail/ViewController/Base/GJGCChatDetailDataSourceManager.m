@@ -44,7 +44,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
         [GJCFNotificationCenter addObserver:self selector:@selector(observeForwardSendMessage:) name:GJGCChatForwardMessageDidSendNoti object:nil];
         
         //清除会话的未读数
-        [self.taklInfo.conversation markAllMessagesAsRead];
+        [self.taklInfo.conversation markAllMessagesAsRead:nil];
         
         //最短消息间隔500毫秒
         self.lastSendMsgTime = 0;
@@ -879,7 +879,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 nLocalPath = [voiceMessageBody.localPath stringByAppendingPathExtension:@"mp4"];
                 [GJCFFileManager moveItemAtURL:[NSURL fileURLWithPath:voiceMessageBody.localPath] toURL:[NSURL fileURLWithPath:nLocalPath] error:nil];
                 voiceMessageBody.localPath = nLocalPath;
-                [self.taklInfo.conversation updateMessage:msgModel];
+                [self.taklInfo.conversation updateMessageChange:msgModel error:nil];
             }
             chatContentModel.videoUrl = [NSURL fileURLWithPath:voiceMessageBody.localPath];
             
@@ -952,9 +952,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 - (void)reSendMesssage:(GJGCChatFriendContentModel *)messageContent
 {
     GJCFWeakSelf weakSelf = self;
-    [[EMClient sharedClient].chatManager asyncResendMessage:messageContent.message progress:^(int progress) {
-        
-    } completion:^(EMMessage *message, EMError *error) {
+    [[EMClient sharedClient].chatManager resendMessage:messageContent.message progress:nil completion:^(EMMessage *message, EMError *error) {
         
         GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
         switch (message.status) {
@@ -963,19 +961,19 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             {
                 status = GJGCChatFriendSendMessageStatusSending;
             }
-            break;
+                break;
             case EMMessageStatusSucceed:
             {
                 status = GJGCChatFriendSendMessageStatusSuccess;
             }
-            break;
+                break;
             case EMMessageStatusFailed:
             {
                 status = GJGCChatFriendSendMessageStatusFaild;
             }
-            break;
+                break;
             default:
-            break;
+                break;
         }
         
         [weakSelf updateMessageState:message state:status];
@@ -1004,6 +1002,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 conversationType = EMConversationTypeGroupChat;
                 break;
             default:
+                conversationType = EMConversationTypeChat;
                 break;
         }
         self.taklInfo.conversation = [[EMClient sharedClient].chatManager getConversation:messageContent.message.conversationId type:conversationType createIfNotExist:YES];
@@ -1107,12 +1106,12 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     
     GJCFWeakSelf weakSelf = self;
     sendMessage.status = EMMessageStatusDelivering;
-    [[EMClient sharedClient].chatManager asyncSendMessage:sendMessage progress:^(int progress) {
+    [[EMClient sharedClient].chatManager sendMessage:sendMessage progress:^(int progress) {
         
         NSLog(@"progress:%d",progress);
         
     } completion:^(EMMessage *message, EMError *error) {
-      
+        
         GJGCChatFriendSendMessageStatus status = GJGCChatFriendSendMessageStatusSending;
         switch (message.status) {
             case EMMessageStatusPending:
@@ -1120,28 +1119,29 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
             {
                 status = GJGCChatFriendSendMessageStatusSending;
             }
-            break;
+                break;
             case EMMessageStatusSucceed:
             {
                 status = GJGCChatFriendSendMessageStatusSuccess;
             }
-            break;
+                break;
             case EMMessageStatusFailed:
             {
                 status = GJGCChatFriendSendMessageStatusFaild;
             }
-            break;
+                break;
             default:
-            break;
+                break;
         }
         
         if (message.body.type == EMMessageBodyTypeImage) {
             message.body = sendMessage.body;
-            [self.taklInfo.conversation updateMessage:message];
+            [self.taklInfo.conversation updateMessageChange:message error:nil];
         }
         [weakSelf updateMessageState:message state:status];
         
     }];
+
     
     return sendMessage;
 }
@@ -1243,12 +1243,12 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 {
     EMMessage *message = noti.object;
     
-    [self didReceiveMessages:@[message]];
+    [self messagesDidReceive:@[message]];
 }
 
 #pragma mark - 接收消息回调
 
-- (void)didReceiveMessages:(NSArray *)aMessages
+- (void)messagesDidReceive:(NSArray *)aMessages
 {
     for (EMMessage *message in aMessages) {
         
@@ -1289,7 +1289,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 contentModel.sendStatus = GJGCChatFriendSendMessageStatusFaild;
                 
                 contentModel.message.status = EMMessageStatusFailed;
-                [self.taklInfo.conversation updateMessage:contentModel.message];
+                [self.taklInfo.conversation updateMessageChange:contentModel.message error:nil];
                 
                 [self.chatListArray replaceObjectAtIndex:index withObject:contentModel];
             }
@@ -1326,7 +1326,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
     contentExtend.chatFriendContentType = GJGCChatFriendContentTypeMini;
     
     EMMessage *aMessage = [[EMMessage alloc]initWithConversationID:conversationId from:[EMClient sharedClient].currentUsername to:conversationId body:messageBody ext:[contentExtend contentDictionary]];
-    [conversation insertMessage:aMessage];
+    [conversation insertMessage:aMessage error:nil];
 }
 
 @end

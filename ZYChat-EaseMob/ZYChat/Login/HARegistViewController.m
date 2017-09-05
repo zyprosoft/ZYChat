@@ -115,30 +115,31 @@
     [self.statusHUD showWithStatusText:@"正在注册..."];
     
     GJCFWeakSelf weakSelf = self;
-    [[EMClient sharedClient] asyncRegisterWithUsername:userNameItem.content password:passwordItem.content success:^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    [[EMClient sharedClient] registerWithUsername:userNameItem.content password:passwordItem.content completion:^(NSString *aUsername, EMError *aError) {
+        if (aError) {
             
-            [weakSelf.statusHUD dismiss];
-
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-
-        });
-        
-        BTToast(@"注册成功");
-
-        
-    } failure:^(EMError *aError) {
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf.statusHUD dismiss];
+                
+                [weakSelf showErrorMessage:aError.errorDescription];
+                
+            });
             
-            [weakSelf.statusHUD dismiss];
+        }
+        else {
             
-            [weakSelf showErrorMessage:aError.errorDescription];
-
-        });
-        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf.statusHUD dismiss];
+                
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                
+            });
+            
+            BTToast(@"注册成功");
+            
+        }
     }];
 }
 

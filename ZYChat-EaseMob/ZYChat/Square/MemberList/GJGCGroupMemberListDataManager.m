@@ -24,14 +24,14 @@
 - (void)requestListData
 {
     GJCFWeakSelf weakSelf = self;
-    [[EMClient sharedClient].groupManager asyncFetchGroupInfo:self.groupId includeMembersList:YES success:^(EMGroup *aGroup) {
-        
-        [weakSelf addMemberList:aGroup.occupants];
-
-    } failure:^(EMError *aError) {
-        
-        BTToast(@"群成员列表获取失败");
-
+    
+    [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:self.groupId completion:^(EMGroup *aGroup, EMError *aError) {
+        if (aError) {
+            BTToast(@"群成员列表获取失败");
+        }
+        else {
+            [weakSelf addMemberList:aGroup.occupants];
+        }
     }];
 }
 

@@ -12,7 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
+
 -(void)setShop:(shopModel *)shop
 {
     _shop = shop;

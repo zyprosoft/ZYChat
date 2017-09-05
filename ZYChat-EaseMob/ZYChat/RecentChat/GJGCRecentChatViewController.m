@@ -230,5 +230,9 @@
     self.titleView.connectState = connectState;
 }
 
+- (BOOL)dataManagerRequireKnownViewIsShowing:(GJGCRecentChatDataManager *)dataManager
+{
+    return YES;
+}
 
 @end

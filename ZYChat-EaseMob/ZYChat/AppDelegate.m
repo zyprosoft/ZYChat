@@ -57,7 +57,7 @@
     EMOptions *options = [EMOptions optionsWithAppkey:EaseMobAppKey];
     options.apnsCertName = @"zychat_apns";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
-    [[EMClient sharedClient] dataMigrationTo3];
+    [[EMClient sharedClient] migrateDatabaseToLatestSDK];
     
     HALoginViewController *loginVC = [[HALoginViewController alloc]init];
     loginVC.title = @"iOS码农之家";

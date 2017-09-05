@@ -26,7 +26,7 @@
     self.dataManager = [[ZYUserListDataManager alloc]init];
     self.dataManager.delegate = self;
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(rightBarItemAction)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"登录" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemAction)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.tableView = [[UITableView alloc]init];
