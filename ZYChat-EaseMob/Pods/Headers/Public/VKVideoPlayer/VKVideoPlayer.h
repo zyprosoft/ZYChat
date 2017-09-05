@@ -1,1 +1,0 @@
-../../../VKVideoPlayer/Classes/ios/VKVideoPlayer.h

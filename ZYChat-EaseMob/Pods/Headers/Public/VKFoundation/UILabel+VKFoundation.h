@@ -1,1 +1,0 @@
-../../../VKFoundation/Classes/ios/UILabel+VKFoundation.h

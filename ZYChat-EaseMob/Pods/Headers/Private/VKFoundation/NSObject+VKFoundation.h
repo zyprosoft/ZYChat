@@ -1,1 +1,0 @@
-../../../VKFoundation/Classes/ios/NSObject+VKFoundation.h
