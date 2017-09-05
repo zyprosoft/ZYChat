@@ -12,7 +12,7 @@ target 'ZYChat' do
 # pod 'HyphenateFullSDK'
 
 # update EaseMob to v3.3.4.1
-pod 'Hyphenate'
+pod 'Hyphenate', '3.3.4.1'
 
 pod 'VKVideoPlayer', '~> 0.1.1'
 

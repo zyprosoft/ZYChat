@@ -1,8 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/DTCoreText" "${PODS_ROOT}/Headers/Public/DTFoundation" "${PODS_ROOT}/Headers/Public/FXImageView" "${PODS_ROOT}/Headers/Public/Hyphenate" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/VKFoundation" "${PODS_ROOT}/Headers/Public/VKVideoPlayer"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CocoaLumberjack" -isystem "${PODS_ROOT}/Headers/Public/DTCoreText" -isystem "${PODS_ROOT}/Headers/Public/DTFoundation" -isystem "${PODS_ROOT}/Headers/Public/FXImageView" -isystem "${PODS_ROOT}/Headers/Public/Hyphenate" -isystem "${PODS_ROOT}/Headers/Public/Reachability" -isystem "${PODS_ROOT}/Headers/Public/VKFoundation" -isystem "${PODS_ROOT}/Headers/Public/VKVideoPlayer"
-OTHER_LDFLAGS = $(inherited) -ObjC
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
-PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
-PODS_ROOT = ${SRCROOT}/Pods
