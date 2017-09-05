@@ -7,10 +7,10 @@
 //
 
 #import "GJGCPulicGroupListDataManager.h"
-#import "EMCursorResult.h"
+#import <Hyphenate/EMCursorResult.h>
 #import "GJGCGroupInfoExtendModel.h"
 #import "Base64.h"
-#import "EMGroup.h"
+#import <Hyphenate/EMGroup.h>
 
 @interface GJGCPulicGroupListDataManager ()
 

@@ -14,7 +14,7 @@
 
 #ifdef __OBJC__
 
-#import <HyphenateFullSDK/EMSDKFull.h>
+#import <Hyphenate/EMSDKFull.h>
 
 #import "ZYThemeUitil.h"
 #import "UITableView+Theme.h"

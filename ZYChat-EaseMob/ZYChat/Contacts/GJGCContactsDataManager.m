@@ -7,7 +7,7 @@
 //
 
 #import "GJGCContactsDataManager.h"
-#import "EMCursorResult.h"
+#import <Hyphenate/EMCursorResult.h>
 #import "GJGCGroupInfoExtendModel.h"
 #import "Base64.h"
 #import "GJGCContactsBaseCell.h"

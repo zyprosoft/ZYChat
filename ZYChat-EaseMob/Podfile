@@ -1,13 +1,18 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '7.0'
+platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
 target 'ZYChat' do
 
+# EaseMob version v2.3.2
 #pod 'EaseMobSDKFull', :git => 'https://github.com/easemob/sdk-ios-cocoapods-integration.git'
 
-pod 'HyphenateFullSDK'
+# EaseMob version v3.1.3
+# pod 'HyphenateFullSDK'
+
+# update EaseMob to v3.3.4.1
+pod 'Hyphenate'
 
 pod 'VKVideoPlayer', '~> 0.1.1'
 

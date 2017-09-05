@@ -9,7 +9,7 @@
 #import "GJGCChatDetailDataSourceManager.h"
 #import "GJGCMessageExtendModel.h"
 #import "GJGCGIFLoadManager.h"
-#import "EMMessage.h"
+#import <Hyphenate/EMMessage.h>
 #import "Base64.h"
 #import "GJGCMessageExtendContentGIFModel.h"
 #import "GJGCMessageExtendMusicShareModel.h"
@@ -964,7 +964,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 status = GJGCChatFriendSendMessageStatusSending;
             }
             break;
-            case EMMessageStatusSuccessed:
+            case EMMessageStatusSucceed:
             {
                 status = GJGCChatFriendSendMessageStatusSuccess;
             }
@@ -1121,7 +1121,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
                 status = GJGCChatFriendSendMessageStatusSending;
             }
             break;
-            case EMMessageStatusSuccessed:
+            case EMMessageStatusSucceed:
             {
                 status = GJGCChatFriendSendMessageStatusSuccess;
             }
@@ -1303,7 +1303,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
 - (NSDictionary *)easeMessageStateRleations
 {
     return @{
-             @(EMMessageStatusSuccessed):@(GJGCChatFriendSendMessageStatusSuccess),
+             @(EMMessageStatusSucceed):@(GJGCChatFriendSendMessageStatusSuccess),
              @(EMMessageStatusDelivering):@(GJGCChatFriendSendMessageStatusSending),
              @(EMMessageStatusPending):@(GJGCChatFriendSendMessageStatusSending),
              @(EMMessageStatusFailed):@(GJGCChatFriendSendMessageStatusFaild),

@@ -1,7 +1,7 @@
 //
 //  FXImageView.h
 //
-//  Version 1.3.5
+//  Version 1.3.6
 //
 //  Created by Nick Lockwood on 31/10/2011.
 //  Copyright (c) 2011 Charcoal Design

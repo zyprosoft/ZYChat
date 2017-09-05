@@ -1,7 +1,5 @@
 FXImageView
 
-Version 1.3.5, September 17th, 2014
-
 Copyright (C) 2011 Charcoal Design
 
 This software is provided 'as-is', without any express or implied
