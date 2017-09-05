@@ -1,7 +1,7 @@
 //
 //  UIImage+FX.m
 //
-//  Version 1.3.5
+//  Version 1.3.6
 //
 //  Created by Nick Lockwood on 31/10/2011.
 //  Copyright (c) 2011 Charcoal Design
@@ -33,7 +33,8 @@
 #import "UIImage+FX.h"
 
 
-#pragma GCC diagnostic ignored "-Wconversion"
+#pragma clang diagnostic ignored "-Wconversion"
+#pragma clang diagnostic ignored "-Wdouble-promotion"
 
 
 @implementation UIImage (FX)
@@ -41,7 +42,7 @@
 - (UIImage *)imageCroppedToRect:(CGRect)rect
 {
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
     
     //draw
     [self drawAtPoint:CGPointMake(-rect.origin.x, -rect.origin.y)];
@@ -63,10 +64,10 @@
     }
     
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     
     //draw
-    [self drawInRect:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    [self drawInRect:CGRectMake(0.0, 0.0, size.width, size.height)];
     
     //capture resultant image
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -121,11 +122,11 @@
             CGFloat aspect = self.size.width / self.size.height;
             if (size.width / aspect <= size.height)
             {
-                rect = CGRectMake(0.0f, (size.height - size.width / aspect) / 2.0f, size.width, size.width / aspect);
+                rect = CGRectMake(0.0, (size.height - size.width / aspect) / 2.0, size.width, size.width / aspect);
             }
             else
             {
-                rect = CGRectMake((size.width - size.height * aspect) / 2.0f, 0.0f, size.height * aspect, size.height);
+                rect = CGRectMake((size.width - size.height * aspect) / 2.0, 0.0, size.height * aspect, size.height);
             }
             break;
         }
@@ -134,52 +135,52 @@
             CGFloat aspect = self.size.width / self.size.height;
             if (size.width / aspect >= size.height)
             {
-                rect = CGRectMake(0.0f, (size.height - size.width / aspect) / 2.0f, size.width, size.width / aspect);
+                rect = CGRectMake(0.0, (size.height - size.width / aspect) / 2.0, size.width, size.width / aspect);
             }
             else
             {
-                rect = CGRectMake((size.width - size.height * aspect) / 2.0f, 0.0f, size.height * aspect, size.height);
+                rect = CGRectMake((size.width - size.height * aspect) / 2.0, 0.0, size.height * aspect, size.height);
             }
             break;
         }
         case UIViewContentModeCenter:
         {
-            rect = CGRectMake((size.width - self.size.width) / 2.0f, (size.height - self.size.height) / 2.0f, self.size.width, self.size.height);
+            rect = CGRectMake((size.width - self.size.width) / 2.0, (size.height - self.size.height) / 2.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeTop:
         {
-            rect = CGRectMake((size.width - self.size.width) / 2.0f, 0.0f, self.size.width, self.size.height);
+            rect = CGRectMake((size.width - self.size.width) / 2.0, 0.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeBottom:
         {
-            rect = CGRectMake((size.width - self.size.width) / 2.0f, size.height - self.size.height, self.size.width, self.size.height);
+            rect = CGRectMake((size.width - self.size.width) / 2.0, size.height - self.size.height, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeLeft:
         {
-            rect = CGRectMake(0.0f, (size.height - self.size.height) / 2.0f, self.size.width, self.size.height);
+            rect = CGRectMake(0.0, (size.height - self.size.height) / 2.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeRight:
         {
-            rect = CGRectMake(size.width - self.size.width, (size.height - self.size.height) / 2.0f, self.size.width, self.size.height);
+            rect = CGRectMake(size.width - self.size.width, (size.height - self.size.height) / 2.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeTopLeft:
         {
-            rect = CGRectMake(0.0f, 0.0f, self.size.width, self.size.height);
+            rect = CGRectMake(0.0, 0.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeTopRight:
         {
-            rect = CGRectMake(size.width - self.size.width, 0.0f, self.size.width, self.size.height);
+            rect = CGRectMake(size.width - self.size.width, 0.0, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeBottomLeft:
         {
-            rect = CGRectMake(0.0f, size.height - self.size.height, self.size.width, self.size.height);
+            rect = CGRectMake(0.0, size.height - self.size.height, self.size.width, self.size.height);
             break;
         }
         case UIViewContentModeBottomRight:
@@ -190,7 +191,7 @@
         case UIViewContentModeRedraw:
         case UIViewContentModeScaleToFill:
         {
-            rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+            rect = CGRectMake(0.0, 0.0, size.width, size.height);
             break;
         }
     }
@@ -201,12 +202,12 @@
         if (rect.size.width < size.width)
         {
             size.width = rect.size.width;
-            rect.origin.x = 0.0f;
+            rect.origin.x = 0.0;
         }
         if (rect.size.height < size.height)
         {
             size.height = rect.size.height;
-            rect.origin.y = 0.0f;
+            rect.origin.y = 0.0;
         }
     }
     
@@ -217,7 +218,7 @@
     }
     
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     
     //draw
     [self drawInRect:rect];
@@ -258,19 +259,19 @@
 	//get reflection dimensions
 	CGFloat height = ceil(self.size.height * scale);
 	CGSize size = CGSizeMake(self.size.width, height);
-	CGRect bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
+	CGRect bounds = CGRectMake(0.0, 0.0, size.width, size.height);
 	
 	//create drawing context
-	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	//clip to gradient
 	CGContextClipToMask(context, bounds, [[self class] gradientMask]);
 	
 	//draw reflected image
-	CGContextScaleCTM(context, 1.0f, -1.0f);
-	CGContextTranslateCTM(context, 0.0f, -self.size.height);
-	[self drawInRect:CGRectMake(0.0f, 0.0f, self.size.width, self.size.height)];
+	CGContextScaleCTM(context, 1.0, -1.0);
+	CGContextTranslateCTM(context, 0.0, -self.size.height);
+	[self drawInRect:CGRectMake(0.0, 0.0, self.size.width, self.size.height)];
 	
 	//capture resultant image
 	UIImage *reflection = UIGraphicsGetImageFromCurrentImageContext();
@@ -287,13 +288,13 @@
     CGFloat reflectionOffset = reflection.size.height + gap;
     
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.size.width, self.size.height + reflectionOffset * 2.0f), NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.size.width, self.size.height + reflectionOffset * 2.0), NO, 0.0);
     
     //draw reflection
-    [reflection drawAtPoint:CGPointMake(0.0f, reflectionOffset + self.size.height + gap) blendMode:kCGBlendModeNormal alpha:alpha];
+    [reflection drawAtPoint:CGPointMake(0.0, reflectionOffset + self.size.height + gap) blendMode:kCGBlendModeNormal alpha:alpha];
     
     //draw image
-    [self drawAtPoint:CGPointMake(0.0f, reflectionOffset)];
+    [self drawAtPoint:CGPointMake(0.0, reflectionOffset)];
     
     //capture resultant image
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -306,11 +307,11 @@
 - (UIImage *)imageWithShadowColor:(UIColor *)color offset:(CGSize)offset blur:(CGFloat)blur
 {
     //get size
-    CGSize border = CGSizeMake(fabsf(offset.width) + blur, fabsf(offset.height) + blur);
-    CGSize size = CGSizeMake(self.size.width + border.width * 2.0f, self.size.height + border.height * 2.0f);
+    CGSize border = CGSizeMake(fabs(offset.width) + blur, fabs(offset.height) + blur);
+    CGSize size = CGSizeMake(self.size.width + border.width * 2.0, self.size.height + border.height * 2.0);
     
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //set up shadow
@@ -330,7 +331,7 @@
 - (UIImage *)imageWithCornerRadius:(CGFloat)radius
 {
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     
     //clip image
     [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.size.width, self.size.height) cornerRadius:radius] addClip];
@@ -349,7 +350,7 @@
 - (UIImage *)imageWithAlpha:(CGFloat)alpha
 {
     //create drawing context
-	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     
     //draw with alpha
     [self drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:alpha];
@@ -365,11 +366,11 @@
 - (UIImage *)imageWithMask:(UIImage *)maskImage
 {
     //create drawing context
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //apply mask
-    CGContextClipToMask(context, CGRectMake(0.0f, 0.0f, self.size.width, self.size.height), maskImage.CGImage);
+    CGContextClipToMask(context, CGRectMake(0.0, 0.0, self.size.width, self.size.height), maskImage.CGImage);
     
     //draw image
     [self drawAtPoint:CGPointZero];
@@ -392,7 +393,7 @@
     NSInteger bytesPerRow = ((width + 3) / 4) * 4;
     uint8_t *data = (uint8_t *)malloc(bytesPerRow * height);
     CGContextRef context = CGBitmapContextCreate(data, width, height, 8, bytesPerRow, NULL, (CGBitmapInfo)kCGImageAlphaOnly);
-    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, width, height), self.CGImage);
+    CGContextDrawImage(context, CGRectMake(0.0, 0.0, width, height), self.CGImage);
     
     //invert alpha pixels
     for (NSInteger y = 0; y < height; y++)

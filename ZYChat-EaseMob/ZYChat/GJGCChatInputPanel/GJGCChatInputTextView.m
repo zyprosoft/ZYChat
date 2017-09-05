@@ -336,11 +336,15 @@
     
     _inputTextStateHeight = self.gjcf_height;
     
-    [UIView commitAnimations];
-    
     /* 文本视图 */
     self.textView.frame = CGRectMake(2, 2, self.gjcf_width - 4, self.gjcf_height - 4);
     
+    if (self.gjcf_height == self.maxAutoExpandHeight) {
+        [self layoutInputTextView];
+    }
+
+    [UIView commitAnimations];
+  
 }
 
 - (void)layoutInputTextView
@@ -360,9 +364,12 @@
     
     if (contentSize.height - 8.f > self.textView.bounds.size.height && self.frame.size.height <= self.maxAutoExpandHeight) {
         
-        CGFloat changeDelta = contentSize.height - 8.f - self.frame.size.height;
+        //黏贴场文本的时候会出现错误情况，控制一下
+        CGFloat minExpand = MIN((contentSize.height - 8.f), self.maxAutoExpandHeight);
         
-        [self expandTextViewToHeight:contentSize.height - 8.f];
+        CGFloat changeDelta = minExpand - self.frame.size.height;
+     
+        [self expandTextViewToHeight:minExpand];
         
         if (self.frameChangeBlock) {
             self.frameChangeBlock(self,changeDelta);

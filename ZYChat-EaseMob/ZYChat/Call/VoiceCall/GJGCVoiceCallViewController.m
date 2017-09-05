@@ -41,7 +41,7 @@ static CTCallCenter *g_callCenter;
         _voicesession = session;
         _isIncoming = isIncoming;
         _timeLabel.text = nil;
-        _chatter = session.remoteUsername;
+        _chatter = session.remoteName;
         
         [[EMClient sharedClient].callManager removeDelegate:self];
         [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
@@ -106,30 +106,30 @@ static CTCallCenter *g_callCenter;
 
 - (IBAction)silenceButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"静音"]) {
-        [[EMClient sharedClient].callManager markCallSession:_voicesession.sessionId isSilence:YES];
+        [[EMClient sharedClient].callManager markCallSession:_voicesession.callId isSilence:YES];
     }
     
     if ([sender.currentTitle isEqualToString:@"挂断"]) {
-        [[EMClient sharedClient].callManager endCall:_voicesession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_voicesession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
     
 }
 - (IBAction)hungUpButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"取消"]) {
-        [[EMClient sharedClient].callManager endCall:_voicesession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_voicesession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
     
     if ([sender.currentTitle isEqualToString:@"挂断"]) {
-        [[EMClient sharedClient].callManager endCall:_voicesession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_voicesession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
 }
 
 - (IBAction)handFreeButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"接听"]) {
-        [[EMClient sharedClient].callManager answerCall:_voicesession.sessionId];
+        [[EMClient sharedClient].callManager answerIncomingCall:_voicesession.callId];
     }
     if ([sender.currentTitle isEqualToString:@"免提"]) {
         
@@ -147,10 +147,10 @@ static CTCallCenter *g_callCenter;
         _timeLabel.text = [NSString stringWithFormat:@"%li:%li:%ld", (long)hour, (long)m, (long)s];
     }
     else if(m > 0){
-        _timeLabel.text = [NSString stringWithFormat:@"%i:%i", m, s];
+        _timeLabel.text = [NSString stringWithFormat:@"%li:%li", (long)m, (long)s];
     }
     else{
-        _timeLabel.text = [NSString stringWithFormat:@"00:%i", s];
+        _timeLabel.text = [NSString stringWithFormat:@"00:%li", (long)s];
     }
 }
 

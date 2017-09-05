@@ -101,16 +101,17 @@
 #pragma mark - GJCFAudioPlayer Delegate
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didFinishPlayAudio:(GJCFAudioModel *)audioFile
 {
+    self.playButton.selected = !self.playButton.isSelected;
     [self.titleLabel.layer removeAnimationForKey:@"moveX"];
 }
 
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didOccusError:(NSError *)error
 {
+    self.playButton.selected = !self.playButton.isSelected;
     [self.titleLabel.layer removeAnimationForKey:@"moveX"];
 }
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didUpdateSoundMouter:(CGFloat)soundMouter
 {
-    
     
 }
 

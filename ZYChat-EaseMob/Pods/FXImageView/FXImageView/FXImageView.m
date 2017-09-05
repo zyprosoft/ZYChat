@@ -1,7 +1,7 @@
 //
 //  FXImageView.m
 //
-//  Version 1.3.5
+//  Version 1.3.6
 //
 //  Created by Nick Lockwood on 31/10/2011.
 //  Copyright (c) 2011 Charcoal Design
@@ -35,10 +35,11 @@
 #import <objc/message.h>
 
 
-#pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
-#pragma GCC diagnostic ignored "-Wdirect-ivar-access"
-#pragma GCC diagnostic ignored "-Wconversion"
-#pragma GCC diagnostic ignored "-Wgnu"
+#pragma clang diagnostic ignored "-Wobjc-missing-property-synthesis"
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdouble-promotion"
+#pragma clang diagnostic ignored "-Wconversion"
+#pragma clang diagnostic ignored "-Wgnu"
 
 
 #import <Availability.h>
@@ -282,21 +283,34 @@
         //load image
         if (imageURL)
         {
+            NSData *data = nil;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000
+            data = [NSData dataWithContentsOfURL:imageURL];
+            if (!data)
+            {
+                NSLog(@"Error loading image for URL: %@", imageURL);
+                image = nil;
+            }
+            else
+#else
             NSURLRequest *request = [NSURLRequest requestWithURL:imageURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
             NSError *error = nil;
             NSURLResponse *response = nil;
-            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            if (error)
+            data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            if (!data)
             {
                 NSLog(@"Error loading image for URL: %@, %@", imageURL, error);
                 image = nil;
             }
             else
+#endif
             {
                 image = [UIImage imageWithData:data];
-                if ([[[imageURL path] stringByDeletingPathExtension] hasSuffix:@"@2x"])
+                if (image && [[[imageURL path] stringByDeletingPathExtension] hasSuffix:@"@2x"])
                 {
-                    image = [UIImage imageWithCGImage:image.CGImage scale:2.0f orientation:image.imageOrientation];
+                    image = [UIImage imageWithCGImage:(CGImageRef __nonnull)image.CGImage
+                                                scale:2.0
+                                          orientation:image.imageOrientation];
                 }
             }
         }
@@ -324,7 +338,7 @@
             if (shadowColor && ![shadowColor isEqual:[UIColor clearColor]] &&
                 (shadowBlur || !CGSizeEqualToSize(shadowOffset, CGSizeZero)))
             {
-                reflectionGap -= 2.0f * (fabsf(shadowOffset.height) + shadowBlur);
+                reflectionGap -= 2.0 * (fabs(shadowOffset.height) + shadowBlur);
                 processedImage = [processedImage imageWithShadowColor:shadowColor
                                                                offset:shadowOffset
                                                                  blur:shadowBlur];
@@ -425,9 +439,10 @@
     {
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
         [operation setQualityOfService:NSQualityOfServiceUtility];
-        
+#pragma clang diagnostic pop
 #endif
         
     }
@@ -629,7 +644,7 @@
     {
         file = [[NSBundle mainBundle] pathForResource:file ofType:nil];
     }
-    if ([UIScreen mainScreen].scale == 2.0f)
+    if ([UIScreen mainScreen].scale == 2.0)
     {
         NSString *temp = [[[file stringByDeletingPathExtension] stringByAppendingString:@"@2x"] stringByAppendingPathExtension:[file pathExtension]];
         if ([[NSFileManager defaultManager] fileExistsAtPath:temp])

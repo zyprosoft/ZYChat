@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0BF711EE8E261BE97562014E /* libPods-ZYChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE8265654025179D2DD2EDF /* libPods-ZYChat.a */; };
+		1B56CBFCB3301BFEFE58C13C /* libPods-ZYChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB9718C9658EF4DD9BE176B /* libPods-ZYChat.a */; };
 		365F02E21B5019D0005161D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 365F02E11B5019D0005161D6 /* main.m */; };
 		365F02E51B5019D0005161D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 365F02E41B5019D0005161D6 /* AppDelegate.m */; };
 		365F02E71B5019D0005161D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365F02E61B5019D0005161D6 /* Images.xcassets */; };
@@ -691,6 +691,7 @@
 		365F08BD1B50E292005161D6 /* 好友头像占位-bg-列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08B51B50E292005161D6 /* 好友头像占位-bg-列表@3x.png */; };
 		365F08BF1B50E8FC005161D6 /* title-icon-向左返回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */; };
 		365F08C01B50E8FC005161D6 /* title-icon-向左返回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */; };
+		9A271AB912C6858DC4EFAB32 /* libPods-ZYChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4150077F8499395BCE46B004 /* libPods-ZYChatTests.a */; };
 		C404D5491D6DCE2B00EBCC88 /* GJGCCallDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C404D5481D6DCE2B00EBCC88 /* GJGCCallDataManager.m */; };
 		C44EBEAB1D6E886900C80A28 /* GJGCVoiceCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44EBEA91D6E886900C80A28 /* GJGCVoiceCallViewController.m */; };
 		C44EBEAC1D6E886900C80A28 /* GJGCVoiceCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44EBEAA1D6E886900C80A28 /* GJGCVoiceCallViewController.xib */; };
@@ -1072,7 +1073,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B36949FC3EA0EA713EF7413 /* Pods-ZYChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat.debug.xcconfig"; sourceTree = "<group>"; };
 		365F02DC1B5019D0005161D6 /* ZYChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		365F02E01B5019D0005161D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		365F02E11B5019D0005161D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1592,13 +1592,16 @@
 		365F08B41B50E292005161D6 /* 好友头像占位-bg-列表@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "好友头像占位-bg-列表@2x.png"; sourceTree = "<group>"; };
 		365F08B51B50E292005161D6 /* 好友头像占位-bg-列表@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "好友头像占位-bg-列表@3x.png"; sourceTree = "<group>"; };
 		365F08BE1B50E8FC005161D6 /* title-icon-向左返回@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title-icon-向左返回@2x.png"; sourceTree = "<group>"; };
-		627A3D6C463894799F65CC64 /* Pods-ZYChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat.release.xcconfig"; sourceTree = "<group>"; };
-		6DE8265654025179D2DD2EDF /* libPods-ZYChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZYChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4150077F8499395BCE46B004 /* libPods-ZYChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZYChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58D626903A0D1FB0C22B0056 /* Pods-ZYChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat.release.xcconfig"; sourceTree = "<group>"; };
+		73FF64D88CCDA8C30BDBF686 /* Pods-ZYChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChatTests/Pods-ZYChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9522155F0AC91D4245CDBA1D /* Pods-ZYChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChatTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChatTests/Pods-ZYChatTests.release.xcconfig"; sourceTree = "<group>"; };
 		C404D5471D6DCE2B00EBCC88 /* GJGCCallDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCCallDataManager.h; sourceTree = "<group>"; };
 		C404D5481D6DCE2B00EBCC88 /* GJGCCallDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCCallDataManager.m; sourceTree = "<group>"; };
 		C44EBEA81D6E886900C80A28 /* GJGCVoiceCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCVoiceCallViewController.h; sourceTree = "<group>"; };
 		C44EBEA91D6E886900C80A28 /* GJGCVoiceCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCVoiceCallViewController.m; sourceTree = "<group>"; };
 		C44EBEAA1D6E886900C80A28 /* GJGCVoiceCallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GJGCVoiceCallViewController.xib; sourceTree = "<group>"; };
+		C48A39001F5E488B00A8F358 /* Hyphenate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hyphenate.framework; path = Pods/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework; sourceTree = "<group>"; };
 		C4FF881D1D6ECEB600F43318 /* callRing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = callRing.mp3; sourceTree = "<group>"; };
 		C4FF881F1D6ED39400F43318 /* GJGCVideoCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCVideoCallViewController.h; sourceTree = "<group>"; };
 		C4FF88201D6ED39400F43318 /* GJGCVideoCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCVideoCallViewController.m; sourceTree = "<group>"; };
@@ -1918,6 +1921,8 @@
 		C8F6F9331BFED21500978081 /* GJGCMessageExtendContentGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentGIFModel.m; sourceTree = "<group>"; };
 		C8F6F9351BFED60600978081 /* GJGCMessageExtendContentWebPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCMessageExtendContentWebPageModel.h; sourceTree = "<group>"; };
 		C8F6F9361BFED60600978081 /* GJGCMessageExtendContentWebPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCMessageExtendContentWebPageModel.m; sourceTree = "<group>"; };
+		C97B268A1880286A90B4E89A /* Pods-ZYChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat.debug.xcconfig"; sourceTree = "<group>"; };
+		DCB9718C9658EF4DD9BE176B /* libPods-ZYChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZYChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42C0D111D5991B6007F8278 /* GJGCContactsConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsConst.h; sourceTree = "<group>"; };
 		E42C0D121D5991B6007F8278 /* GJGCContactsConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJGCContactsConst.m; sourceTree = "<group>"; };
 		E42C0D141D599474007F8278 /* GJGCContactsUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJGCContactsUserCell.h; sourceTree = "<group>"; };
@@ -2230,7 +2235,7 @@
 				C8A449631BF0428900D29249 /* libopencore-amrnb.a in Frameworks */,
 				C84B41F51BEC9CBE00BB5798 /* AudioToolbox.framework in Frameworks */,
 				C84B41F31BEC9CB900BB5798 /* AssetsLibrary.framework in Frameworks */,
-				0BF711EE8E261BE97562014E /* libPods-ZYChat.a in Frameworks */,
+				1B56CBFCB3301BFEFE58C13C /* libPods-ZYChat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2238,21 +2243,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A271AB912C6858DC4EFAB32 /* libPods-ZYChatTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13FA74E60E8C7801BA7A5954 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1B36949FC3EA0EA713EF7413 /* Pods-ZYChat.debug.xcconfig */,
-				627A3D6C463894799F65CC64 /* Pods-ZYChat.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		365F02D31B5019D0005161D6 = {
 			isa = PBXGroup;
 			children = (
@@ -2260,7 +2257,7 @@
 				365F02F21B5019D0005161D6 /* ZYChatTests */,
 				365F02DD1B5019D0005161D6 /* Products */,
 				D8331DA5D44C53B2FF553732 /* Frameworks */,
-				13FA74E60E8C7801BA7A5954 /* Pods */,
+				9033EF12C2F8878B48D9DF3D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3420,6 +3417,17 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		9033EF12C2F8878B48D9DF3D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C97B268A1880286A90B4E89A /* Pods-ZYChat.debug.xcconfig */,
+				58D626903A0D1FB0C22B0056 /* Pods-ZYChat.release.xcconfig */,
+				73FF64D88CCDA8C30BDBF686 /* Pods-ZYChatTests.debug.xcconfig */,
+				9522155F0AC91D4245CDBA1D /* Pods-ZYChatTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C41173BB1D6D7B0D0037CD8F /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -4009,6 +4017,7 @@
 		D8331DA5D44C53B2FF553732 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C48A39001F5E488B00A8F358 /* Hyphenate.framework */,
 				C8E50E481C02BA7500AFA10F /* libxml2.2.dylib */,
 				C8D1B1B41BFC71C800201421 /* CoreData.framework */,
 				C84B422D1BECA5C600BB5798 /* libopencore-amrnb.a */,
@@ -4037,7 +4046,8 @@
 				C84B41F61BEC9CC200BB5798 /* AVFoundation.framework */,
 				C84B41F41BEC9CBE00BB5798 /* AudioToolbox.framework */,
 				C84B41F21BEC9CB900BB5798 /* AssetsLibrary.framework */,
-				6DE8265654025179D2DD2EDF /* libPods-ZYChat.a */,
+				DCB9718C9658EF4DD9BE176B /* libPods-ZYChat.a */,
+				4150077F8499395BCE46B004 /* libPods-ZYChatTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4431,12 +4441,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 365F02F91B5019D0005161D6 /* Build configuration list for PBXNativeTarget "ZYChat" */;
 			buildPhases = (
-				A105C28D8F11808209F2D616 /* Check Pods Manifest.lock */,
+				1A41CD1A553A4B7A7BB08743 /* [CP] Check Pods Manifest.lock */,
 				365F02D81B5019D0005161D6 /* Sources */,
 				365F02D91B5019D0005161D6 /* Frameworks */,
 				365F02DA1B5019D0005161D6 /* Resources */,
-				A4320277FCB8A1234C0183E2 /* Embed Pods Frameworks */,
-				86332332BD895D7CFE07D645 /* Copy Pods Resources */,
+				96A90FE753E4F310B2937298 /* [CP] Embed Pods Frameworks */,
+				80B82258F6F3DC212109ED9B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4451,9 +4461,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 365F02FC1B5019D0005161D6 /* Build configuration list for PBXNativeTarget "ZYChatTests" */;
 			buildPhases = (
+				1B7F877831400076C359470B /* [CP] Check Pods Manifest.lock */,
 				365F02EB1B5019D0005161D6 /* Sources */,
 				365F02EC1B5019D0005161D6 /* Frameworks */,
 				365F02ED1B5019D0005161D6 /* Resources */,
+				97D0EF4807BE6DEB400FB11A /* [CP] Embed Pods Frameworks */,
+				001072C59A1D2701881DF17A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4476,7 +4489,8 @@
 				TargetAttributes = {
 					365F02DB1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = QA7LB7LLDU;
+						DevelopmentTeam = VMKA89W379;
+						ProvisioningStyle = Manual;
 					};
 					365F02EE1B5019D0005161D6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -5003,14 +5017,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		86332332BD895D7CFE07D645 /* Copy Pods Resources */ = {
+		001072C59A1D2701881DF17A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZYChatTests/Pods-ZYChatTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A41CD1A553A4B7A7BB08743 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		1B7F877831400076C359470B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		80B82258F6F3DC212109ED9B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5018,34 +5077,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A105C28D8F11808209F2D616 /* Check Pods Manifest.lock */ = {
+		96A90FE753E4F310B2937298 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A4320277FCB8A1234C0183E2 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZYChat/Pods-ZYChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97D0EF4807BE6DEB400FB11A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZYChatTests/Pods-ZYChatTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5670,7 +5729,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/Dependcy/RongYunLib/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5715,7 +5773,6 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/Dependcy/RongYunLib/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZYChat/ZYChat-PrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -5733,24 +5790,21 @@
 		};
 		365F02FA1B5019D0005161D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B36949FC3EA0EA713EF7413 /* Pods-ZYChat.debug.xcconfig */;
+			baseConfigurationReference = C97B268A1880286A90B4E89A /* Pods-ZYChat.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QA7LB7LLDU;
+				DEVELOPMENT_TEAM = VMKA89W379;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK\"",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",
-					"$(PROJECT_DIR)/ZYChat/Dependcy/RongYunLib",
 					"$(PROJECT_DIR)",
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
@@ -5758,42 +5812,40 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/CocoaLumberjack\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DTCoreText\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DTFoundation\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/FXImageView\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Reachability\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/VKFoundation\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/VKVideoPlayer\"",
 					"$(PROJECT_DIR)/ZYChat/Dependcy/AudioCoder",
-					"$(PROJECT_DIR)/ZYChat/Dependcy/EaseMobSDK/EaseMobSDK/lib",
-				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					"$(inherited)/**",
-					"$(PROJECT_DIR)/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zyprosft.ZYChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ce3901ff-8654-4ec2-aa76-6dce61764947";
+				PROVISIONING_PROFILE_SPECIFIER = "Development all 20170428";
 				TARGETED_DEVICE_FAMILY = 1;
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};
 			name = Debug;
 		};
 		365F02FB1B5019D0005161D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 627A3D6C463894799F65CC64 /* Pods-ZYChat.release.xcconfig */;
+			baseConfigurationReference = 58D626903A0D1FB0C22B0056 /* Pods-ZYChat.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QA7LB7LLDU;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK\"",
 					"$(PROJECT_DIR)/ZYChat/Dependcy",
-					"$(PROJECT_DIR)/ZYChat/Dependcy/RongYunLib",
 					"$(PROJECT_DIR)",
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ZYChat/Info.plist;
@@ -5801,21 +5853,26 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/CocoaLumberjack\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DTCoreText\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DTFoundation\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/FXImageView\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Reachability\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/VKFoundation\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/VKVideoPlayer\"",
 					"$(PROJECT_DIR)/ZYChat/Dependcy/AudioCoder",
-					"$(PROJECT_DIR)/ZYChat/Dependcy/EaseMobSDK/EaseMobSDK/lib",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/**";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zyprosft.ZYChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};
 			name = Release;
 		};
 		365F02FD1B5019D0005161D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73FF64D88CCDA8C30BDBF686 /* Pods-ZYChatTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5839,6 +5896,7 @@
 		};
 		365F02FE1B5019D0005161D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9522155F0AC91D4245CDBA1D /* Pods-ZYChatTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

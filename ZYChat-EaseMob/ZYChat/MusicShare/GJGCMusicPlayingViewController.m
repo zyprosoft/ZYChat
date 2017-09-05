@@ -42,6 +42,8 @@
 
 @property (nonatomic,strong)NSString *currentSongImgUrl;
 
+@property (nonatomic,strong)NSString *currentSongId;
+
 @property (nonatomic,strong)UIActivityIndicatorView *downloadIndicator;
 
 @property (nonatomic,strong)UIButton *forwardButton;
@@ -57,6 +59,7 @@
         self.currentSongAuthor = contentModel.musicSongAuthor;
         self.currentSongMp3Url = contentModel.musicSongUrl;
         self.currentSongImgUrl = contentModel.musicSongImgUrl;
+        self.currentSongId = contentModel.musicSongId;
         
         [self.albumImageView sd_setImageWithURL:[NSURL URLWithString:self.currentSongImgUrl]];
         GJCFWeakSelf weakSelf = self;
@@ -186,10 +189,6 @@
 
 - (void)forwardAction
 {
-    if (self.songList.count == 0) {
-        return;
-    }
-    
     GJGCRecentChatForwardContentModel *forwardContentModel = [[GJGCRecentChatForwardContentModel alloc]init];
     forwardContentModel.title = self.nameLabel.text;
     if (GJCFStringIsNull(self.currentSongAuthor)) {
@@ -197,8 +196,9 @@
     }
     forwardContentModel.sumary = self.currentSongAuthor;
     forwardContentModel.webUrl = self.currentSongMp3Url;
-    forwardContentModel.songId = self.songList[self.currentIndex];
+    forwardContentModel.songId = self.currentSongId;
     forwardContentModel.contentType = GJGCChatFriendContentTypeMusicShare;
+    forwardContentModel.imageUrl = self.currentSongImgUrl;
     
     GJGCRecentContactListViewController *recentList = [[GJGCRecentContactListViewController alloc]initWithForwardContent:forwardContentModel];
     

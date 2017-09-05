@@ -62,6 +62,9 @@
 #pragma mark - GJCFAudioPlayer Delegate
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didFinishPlayAudio:(GJCFAudioModel *)audioFile
 {
+    self.musicChatId = nil;
+    self.musicMsgId = nil;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
         for (id<GJCFAudioPlayerDelegate> observer in self.observers) {
@@ -76,6 +79,8 @@
 - (void)audioPlayer:(GJCFAudioPlayer *)audioPlay didOccusError:(NSError *)error
 {
     NSLog(@"play error:%@",error);
+    self.musicChatId = nil;
+    self.musicMsgId = nil;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         

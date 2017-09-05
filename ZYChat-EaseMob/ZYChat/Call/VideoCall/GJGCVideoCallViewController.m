@@ -42,11 +42,11 @@ static CTCallCenter *g_callCenter;
     self = [super init];
     if (self) {
         _videosession = session;
-        _videosession.localView = self.locationView;
-        _videosession.remoteView = self.remoteView;
+        _videosession.localVideoView = self.locationView;
+        _videosession.remoteVideoView = self.remoteView;
         _isIncoming = isIncoming;
 //        _timeLabel.text = nil;
-        _chatter = session.remoteUsername;
+        _chatter = session.remoteName;
         
         [[EMClient sharedClient].callManager removeDelegate:self];
         [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
@@ -117,30 +117,30 @@ static CTCallCenter *g_callCenter;
 
 - (IBAction)silenceButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"静音"]) {
-        [[EMClient sharedClient].callManager markCallSession:_videosession.sessionId isSilence:YES];
+        [[EMClient sharedClient].callManager pauseVideoWithSession:_videosession error:nil];
     }
     
     if ([sender.currentTitle isEqualToString:@"挂断"]) {
-        [[EMClient sharedClient].callManager endCall:_videosession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_videosession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
     
 }
 - (IBAction)hungUpButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"取消"]) {
-        [[EMClient sharedClient].callManager endCall:_videosession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_videosession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
     
     if ([sender.currentTitle isEqualToString:@"挂断"]) {
-        [[EMClient sharedClient].callManager endCall:_videosession.sessionId reason:EMCallEndReasonHangup];
+        [[EMClient sharedClient].callManager endCall:_videosession.callId reason:EMCallEndReasonHangup];
         [self closeVoiceCall];
     }
 }
 
 - (IBAction)handFreeButtonAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"接听"]) {
-        [[EMClient sharedClient].callManager answerCall:_videosession.sessionId];
+        [[EMClient sharedClient].callManager answerIncomingCall:_videosession.callId];
     }
     if ([sender.currentTitle isEqualToString:@"免提"]) {
         

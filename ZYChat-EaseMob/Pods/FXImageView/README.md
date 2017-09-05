@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/badge/license-zlib-lightgrey.svg?maxAge=2592000)](https://opensource.org/licenses/Zlib)
+[![CocoaPods](https://img.shields.io/cocoapods/p/FXImageView.svg?maxAge=2592000)](https://cocoapods.org/pods/FXImageView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Twitter](https://img.shields.io/badge/twitter-@nicklockwood-blue.svg?maxAge=2592000)](http://twitter.com/nicklockwood)
+
 Purpose
 --------------
 
@@ -9,9 +14,9 @@ As a bonus, FXImageView includes a standalone UIImage category for cropping, sca
 Supported iOS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 8.0 (Xcode 6.0, Apple LLVM compiler 6.0)
-* Earliest supported deployment target - iOS 5.0
-* Earliest compatible deployment target - iOS 4.3
+* Supported build target - iOS 10.3 (Xcode 8.3, Apple LLVM compiler 8.1)
+* Earliest supported deployment target - iOS 8.0
+* Earliest compatible deployment target - iOS 6.0
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this iOS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
 
@@ -35,7 +40,19 @@ The UIImage(FX) category methods are all thread-safe and may safely be called co
 Installation
 ---------------
 
+### Manual
+
 To use FXImageView, just drag the class files into your project. You can create FXImageViews programatically, or create them in Interface Builder by dragging an ordinary UIImageView into your view and setting its class to FXImageView.
+
+### Cocoapods
+
+To install FXImageView using Cocoapods, just add `pod FXImageView` to your Podfile and run `pod install`
+
+### Carthage
+
+FXImageView is fully Carthage compatible. To include it, build your project with Carthage, then drag `./Carthage/Build/iOS/FXImageView.framework` into your project and add this import:
+
+	#import <FXImage/Image.h>
 
 
 UIImage extension methods
@@ -178,6 +195,10 @@ FXImageView caches processed images based on the image object or URL that you sp
 
 Release notes
 ----------------
+
+Version 1.3.6
+
+- Updated for Xcode 8.3
 
 Version 1.3.5
 
