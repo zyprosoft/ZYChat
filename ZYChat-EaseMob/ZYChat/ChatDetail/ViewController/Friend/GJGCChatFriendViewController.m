@@ -1074,7 +1074,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.toId = self.taklInfo.toId;
     chatContentModel.toUserName = self.taklInfo.toUserName;
     chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString([NSDate date])];
-    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
     chatContentModel.isFromSelf = YES;
     chatContentModel.talkType = self.taklInfo.talkType;
     chatContentModel.headUrl = @"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=38ecb37c54fbb2fb347e50167a7a0c92/d01373f082025aafc50dc5eafaedab64034f1ad7.jpg";
@@ -1104,7 +1103,6 @@ static NSString * const GJGCActionSheetAssociateKey = @"GJIMSimpleCellActionShee
     chatContentModel.toId = self.taklInfo.toId;
     chatContentModel.toUserName = self.taklInfo.toUserName;
     chatContentModel.timeString = [GJGCChatSystemNotiCellStyle formateTime:GJCFDateToString([NSDate date])];
-    chatContentModel.sendStatus = GJGCChatFriendSendMessageStatusSuccess;
     chatContentModel.isFromSelf = YES;
     chatContentModel.talkType = self.taklInfo.talkType;
     

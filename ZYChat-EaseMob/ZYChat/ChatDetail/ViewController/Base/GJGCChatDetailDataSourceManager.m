@@ -1211,7 +1211,7 @@ NSString * GJGCChatForwardMessageDidSendNoti = @"GJGCChatForwardMessageDidSendNo
         
         GJGCChatFriendContentModel *content = [self.chatListArray objectAtIndex:index];
         
-        if (content.easeMessageTime == theMessage.timestamp) {
+        if (content.easeMessageTime == theMessage.localTime) {
             
             findContent = content;
             findIndex = index;
