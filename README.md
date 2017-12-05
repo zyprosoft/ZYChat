@@ -10,6 +10,8 @@
 
 ## (五) 想更深入的探讨学习请加QQ群:219357847
 
+## (六) 怎么运行? 需要先pod所需要的库，下载完成后，切到workspace所在目录，执行pod update命令完成pods安装即可打开workspace进行编译运行。
+
 ### 项目运行截图
 
 ![s_show](https://raw.githubusercontent.com/zyprosoft/ZYChat/master/ScreenShot/s_show.png "s_show")  
